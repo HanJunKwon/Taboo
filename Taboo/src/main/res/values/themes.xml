@@ -1,2 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <style name="Taboo"/>
+
+    <style name="Taboo.TextAppearance"/>
+
+    <style name="Taboo.TextAppearance.Button">
+        <item name="android:fontFamily">@font/font_pretendard_semi_bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Taboo.Style"/>
+
+    <style name="Taboo.Style.Button">
+        <item name="android:padding">15dp</item>
+        <item name="android:backgroundTint">@color/taboo_blue_01</item>
+    </style>
+
+    <style name="Taboo.Style.Button.Rect">
+        <item name="android:background">@drawable/shape_rect_r0_a100_1731e9</item>
+    </style>
+
+    <style name="Taboo.Style.Button.Round">
+        <item name="android:background">@drawable/shape_rect_r15_a100_1731e9</item>
+    </style>
+
+</resources>

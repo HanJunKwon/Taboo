@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <declare-styleable name="TabooButton">
+        <attr name="android:text" format="string"/>
+        <attr name="buttonShape" format="enum">
+            <enum name="rect" value="0"/>
+            <enum name="round" value="1"/>
+        </attr>
+    </declare-styleable>
 </resources>
