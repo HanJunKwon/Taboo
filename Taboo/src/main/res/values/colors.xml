@@ -1,2 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="taboo_blue_01">#FF1731E9</color>
+    <color name="taboo_blue_02">#FF2553E5</color>
+    <color name="taboo_blue_03">#FF294AF6</color>
+    <color name="taboo_blue_04">#FF7EA5F2</color>
+    <color name="taboo_blue_05">#FFA6C4F4</color>
+    <color name="taboo_blue_06">#FFE8F0F9</color>
+
+    <color name="taboo_red_01">#FFF04452</color>
+    <color name="taboo_red_02">#FFFFEEEE</color>
+
+    <color name="taboo_black_01">#FF191F28</color>
+    <color name="taboo_black_02">#FF333D4B</color>
+    <color name="taboo_black_03">#FF4E5968</color>
+    <color name="taboo_black_04">#FF6B7684</color>
+
+    <color name="taboo_gray_01">#FF8B95A1</color>
+    <color name="taboo_gray_02">#FFB0B8C1</color>
+    <color name="taboo_gray_03">#FFE5E8EB</color>
+    <color name="taboo_gray_04">#FFF2F4F6</color>
+    <color name="taboo_gray_05">#FFF9FAFB</color>
+</resources>
