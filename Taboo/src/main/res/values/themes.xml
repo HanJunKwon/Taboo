@@ -14,7 +14,6 @@
 
     <style name="Taboo.Style.Button">
         <item name="android:padding">15dp</item>
-        <item name="android:backgroundTint">@color/taboo_blue_01</item>
     </style>
 
     <style name="Taboo.Style.Button.Rect">

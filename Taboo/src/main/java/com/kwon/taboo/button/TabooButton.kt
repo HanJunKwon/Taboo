@@ -1,6 +1,7 @@
 package com.kwon.taboo.button
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -18,16 +19,19 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
 
     private var text = ""
     private var buttonShape = 0
+    private var buttonBackgroundTint = R.color.taboo_blue_01
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooButton)
         val text = typed.getString(R.styleable.TabooButton_android_text) ?: ""
         val buttonShape = typed.getInt(R.styleable.TabooButton_buttonShape, BUTTON_SHAPE_RECT)
+        val buttonBackgroundTint = typed.getColor(R.styleable.TabooButton_android_backgroundTint, -1)
 
         typed.recycle()
 
         setText(text)
         setButtonShape(buttonShape)
+        setButtonBackgroundTint(buttonBackgroundTint)
     }
 
     fun setText(text: String) {
@@ -52,5 +56,16 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         }
 
         binding.clButtonWrapper.background = ContextCompat.getDrawable(context, backgroundDrawable)
+    }
+
+    fun setButtonBackgroundTint(buttonBackgroundTint: Int) {
+        if (buttonBackgroundTint == -1) return
+
+        this.buttonBackgroundTint = buttonBackgroundTint
+        updateButtonBackgroundTint()
+    }
+
+    private fun updateButtonBackgroundTint() {
+        binding.clButtonWrapper.backgroundTintList = ColorStateList.valueOf(buttonBackgroundTint)
     }
 }
