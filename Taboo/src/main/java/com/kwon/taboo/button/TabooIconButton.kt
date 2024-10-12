@@ -3,7 +3,11 @@ package com.kwon.taboo.button
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import androidx.annotation.DrawableRes
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
 import com.kwon.taboo.databinding.TabooIconButtonBinding
 
@@ -17,12 +21,15 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
 
     private var text = ""
 
+    @DrawableRes
+    private var iconDrawable = 0
     private var iconPosition = ICON_POSITION_LEFT
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooIconButton)
         val enabled = typed.getBoolean(R.styleable.TabooIconButton_android_enabled, true)
         val text = typed.getString(R.styleable.TabooIconButton_android_text) ?: ""
+        val iconDrawable = typed.getResourceId(R.styleable.TabooIconButton_icon, 0)
         val iconPosition = typed.getInt(R.styleable.TabooIconButton_iconPosition, ICON_POSITION_LEFT)
 
         typed.recycle()
@@ -30,6 +37,9 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
         setEnabled(enabled)
         setText(text)
         setIconPosition(iconPosition)
+        setIconDrawable(iconDrawable)
+
+        invalidate()
     }
 
     override fun setEnabled(enabled: Boolean) {
@@ -52,8 +62,39 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
         binding.tvButtonText.text = text
     }
 
+    fun setIconDrawable(@DrawableRes icon: Int) {
+        this.iconDrawable = icon.takeIf { it != 0 } ?: getAlternativeIconDrawable()
+
+        updateIconDrawable()
+    }
+
+    private fun updateIconDrawable() {
+        val icon = ContextCompat.getDrawable(context, iconDrawable)
+
+        if (iconPosition == ICON_POSITION_LEFT) {
+            binding.ivLeftIcon.setImageDrawable(icon)
+        } else {
+            binding.ivRightIcon.setImageDrawable(icon)
+        }
+    }
+
+    /**
+     * [setIconDrawable]의 매개변수가 0이라면 화면에 [iconDrawable]
+     */
+    @DrawableRes
+    private fun getAlternativeIconDrawable() : Int {
+        val isDarkTheme = AppCompatDelegate.getDefaultNightMode() == MODE_NIGHT_YES
+
+        return if (iconPosition == ICON_POSITION_LEFT) {
+            if (isDarkTheme) R.drawable.ic_round_arrow_back_e6e0e9_24dp else R.drawable.ic_round_arrow_back_191f28_24dp
+        } else {
+            if (isDarkTheme) R.drawable.ic_round_arrow_forward_e6e0e9_24dp else R.drawable.ic_round_arrow_forward_191f28_24dp
+        }
+    }
+
     fun setIconPosition(iconPosition: Int) {
         this.iconPosition = iconPosition
+
         updateIconPosition()
     }
 
@@ -65,5 +106,14 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
             binding.ivLeftIcon.visibility = GONE
             binding.ivRightIcon.visibility = VISIBLE
         }
+    }
+
+    override fun invalidate() {
+        super.invalidate()
+
+        updateEnabled()
+        updateText()
+        updateIconDrawable()
+        updateIconPosition()
     }
 }
