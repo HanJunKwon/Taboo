@@ -10,8 +10,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<TabooIconButton>(R.id.btn_taboo_text_button).setOnClickListener {
-            Log.d(">>>", "Taboo text button")
+        findViewById<TabooIconButton>(R.id.btn_taboo_text_button).apply {
+            setOnClickListener {
+                Log.d(">>>", "Taboo text button")
+                this.isEnabled = !isEnabled
+            }
         }
     }
 }

@@ -10,6 +10,7 @@
     </declare-styleable>
 
     <declare-styleable name="TabooIconButton">
+        <attr name="android:enabled" format="boolean"/>
         <attr name="android:text" format="string"/>
     </declare-styleable>
 </resources>
