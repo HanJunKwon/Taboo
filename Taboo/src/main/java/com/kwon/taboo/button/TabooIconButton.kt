@@ -7,6 +7,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.kwon.taboo.R
 import com.kwon.taboo.databinding.TabooIconButtonBinding
 
+private const val ICON_POSITION_LEFT = 0
+private const val ICON_POSITION_RIGHT = 1
+
 class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(context, attrs) {
     private val binding = TabooIconButtonBinding.inflate(LayoutInflater.from(context), this, true)
 
@@ -14,15 +17,19 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
 
     private var text = ""
 
+    private var iconPosition = ICON_POSITION_LEFT
+
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooIconButton)
         val enabled = typed.getBoolean(R.styleable.TabooIconButton_android_enabled, true)
         val text = typed.getString(R.styleable.TabooIconButton_android_text) ?: ""
+        val iconPosition = typed.getInt(R.styleable.TabooIconButton_iconPosition, ICON_POSITION_LEFT)
 
         typed.recycle()
 
         setEnabled(enabled)
         setText(text)
+        setIconPosition(iconPosition)
     }
 
     override fun setEnabled(enabled: Boolean) {
@@ -43,5 +50,20 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
 
     private fun updateText() {
         binding.tvButtonText.text = text
+    }
+
+    fun setIconPosition(iconPosition: Int) {
+        this.iconPosition = iconPosition
+        updateIconPosition()
+    }
+
+    private fun updateIconPosition() {
+        if (iconPosition == ICON_POSITION_LEFT) {
+            binding.ivLeftIcon.visibility = VISIBLE
+            binding.ivRightIcon.visibility = GONE
+        } else {
+            binding.ivLeftIcon.visibility = GONE
+            binding.ivRightIcon.visibility = VISIBLE
+        }
     }
 }

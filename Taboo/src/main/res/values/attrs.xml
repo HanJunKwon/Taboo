@@ -12,5 +12,9 @@
     <declare-styleable name="TabooIconButton">
         <attr name="android:enabled" format="boolean"/>
         <attr name="android:text" format="string"/>
+        <attr name="iconPosition" format="enum">
+            <enum name="left" value="0"/>
+            <enum name="right" value="1"/>
+        </attr>
     </declare-styleable>
 </resources>
