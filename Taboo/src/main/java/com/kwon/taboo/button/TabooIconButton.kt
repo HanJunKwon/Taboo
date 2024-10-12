@@ -1,8 +1,13 @@
 package com.kwon.taboo.button
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.util.AttributeSet
+import android.util.Log
+import android.util.TypedValue.COMPLEX_UNIT_PX
+import android.util.TypedValue.COMPLEX_UNIT_SP
 import android.view.LayoutInflater
+import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
@@ -20,6 +25,7 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
     private var enabled = true
 
     private var text = ""
+    private var textColorStateList: ColorStateList? = null
 
     @DrawableRes
     private var iconDrawable = 0
@@ -29,6 +35,7 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooIconButton)
         val enabled = typed.getBoolean(R.styleable.TabooIconButton_android_enabled, true)
         val text = typed.getString(R.styleable.TabooIconButton_android_text) ?: ""
+        val textColor = typed.getColorStateList(R.styleable.TabooIconButton_android_textColor)
         val iconDrawable = typed.getResourceId(R.styleable.TabooIconButton_icon, 0)
         val iconPosition = typed.getInt(R.styleable.TabooIconButton_iconPosition, ICON_POSITION_LEFT)
 
@@ -36,6 +43,7 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
 
         setEnabled(enabled)
         setText(text)
+        setTextColor(textColor)
         setIconPosition(iconPosition)
         setIconDrawable(iconDrawable)
 
@@ -60,6 +68,24 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
 
     private fun updateText() {
         binding.tvButtonText.text = text
+    }
+
+    fun setTextColor(color: ColorStateList?) {
+        if (color == null) return
+
+        textColorStateList = color
+
+        updateTextColor()
+    }
+
+    fun setTextColor(@ColorRes color: Int) {
+        textColorStateList = ContextCompat.getColorStateList(context, color)
+
+        updateTextColor()
+    }
+
+    private fun updateTextColor() {
+        binding.tvButtonText.setTextColor(textColorStateList)
     }
 
     fun setIconDrawable(@DrawableRes icon: Int) {
