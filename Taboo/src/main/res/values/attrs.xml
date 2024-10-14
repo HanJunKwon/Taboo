@@ -13,6 +13,7 @@
         <attr name="android:enabled" format="boolean"/>
         <attr name="android:text" format="string"/>
         <attr name="android:textColor" format="reference|color"/>
+        <attr name="android:textSize" format="dimension"/>
         <attr name="icon" format="reference"/>
         <attr name="iconPosition" format="enum">
             <enum name="left" value="0"/>

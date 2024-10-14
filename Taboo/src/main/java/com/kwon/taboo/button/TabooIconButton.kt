@@ -26,6 +26,8 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
 
     private var text = ""
     private var textColorStateList: ColorStateList? = null
+    private var textSize = 16f
+    private var textSizeUnit = COMPLEX_UNIT_SP
 
     @DrawableRes
     private var iconDrawable = 0
@@ -36,6 +38,7 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
         val enabled = typed.getBoolean(R.styleable.TabooIconButton_android_enabled, true)
         val text = typed.getString(R.styleable.TabooIconButton_android_text) ?: ""
         val textColor = typed.getColorStateList(R.styleable.TabooIconButton_android_textColor)
+        val textSize = typed.getDimensionPixelSize(R.styleable.TabooIconButton_android_textSize, 0)
         val iconDrawable = typed.getResourceId(R.styleable.TabooIconButton_icon, 0)
         val iconPosition = typed.getInt(R.styleable.TabooIconButton_iconPosition, ICON_POSITION_LEFT)
 
@@ -44,6 +47,7 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
         setEnabled(enabled)
         setText(text)
         setTextColor(textColor)
+        internalTextSize(textSize)
         setIconPosition(iconPosition)
         setIconDrawable(iconDrawable)
 
@@ -76,6 +80,24 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
         textColorStateList = color
 
         updateTextColor()
+    }
+
+    private fun internalTextSize(textSize: Int) {
+        if (textSize == 0) return
+
+        this.textSize = textSize.toFloat()
+        this.textSizeUnit = COMPLEX_UNIT_PX
+        updateTextSize()
+    }
+
+    fun setTextSize(textSize: Float) {
+        this.textSize = textSize
+        this.textSizeUnit = COMPLEX_UNIT_SP
+        updateTextSize()
+    }
+
+    private fun updateTextSize() {
+        binding.tvButtonText.setTextSize(textSizeUnit, textSize)
     }
 
     fun setTextColor(@ColorRes color: Int) {
