@@ -3,7 +3,6 @@ package com.kwon.taboo.button
 import android.content.Context
 import android.content.res.ColorStateList
 import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue.COMPLEX_UNIT_PX
 import android.util.TypedValue.COMPLEX_UNIT_SP
 import android.view.LayoutInflater
@@ -13,6 +12,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.kwon.taboo.R
 import com.kwon.taboo.databinding.TabooIconButtonBinding
 
@@ -28,6 +28,7 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
     private var textColorStateList: ColorStateList? = null
     private var textSize = 16f
     private var textSizeUnit = COMPLEX_UNIT_SP
+    private var typeface = ResourcesCompat.getFont(context, R.font.font_pretendard_regular)
 
     @DrawableRes
     private var iconDrawable = 0
@@ -39,6 +40,7 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
         val text = typed.getString(R.styleable.TabooIconButton_android_text) ?: ""
         val textColor = typed.getColorStateList(R.styleable.TabooIconButton_android_textColor)
         val textSize = typed.getDimensionPixelSize(R.styleable.TabooIconButton_android_textSize, 0)
+        val fontFamily = typed.getResourceId(R.styleable.TabooIconButton_android_fontFamily, 0)
         val iconDrawable = typed.getResourceId(R.styleable.TabooIconButton_icon, 0)
         val iconPosition = typed.getInt(R.styleable.TabooIconButton_iconPosition, ICON_POSITION_LEFT)
 
@@ -47,6 +49,7 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
         setEnabled(enabled)
         setText(text)
         setTextColor(textColor)
+        setTypeFace(fontFamily)
         internalTextSize(textSize)
         setIconPosition(iconPosition)
         setIconDrawable(iconDrawable)
@@ -108,6 +111,16 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
 
     private fun updateTextColor() {
         binding.tvButtonText.setTextColor(textColorStateList)
+    }
+
+    fun setTypeFace(fontFamily: Int) {
+        if (fontFamily == 0) return
+        this.typeface = ResourcesCompat.getFont(context, fontFamily)
+        updateTypeFace()
+    }
+
+    private fun updateTypeFace() {
+        binding.tvButtonText.typeface = typeface
     }
 
     fun setIconDrawable(@DrawableRes icon: Int) {
