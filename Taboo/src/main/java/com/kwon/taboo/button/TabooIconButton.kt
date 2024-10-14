@@ -22,6 +22,8 @@ private const val ICON_POSITION_RIGHT = 1
 class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(context, attrs) {
     private val binding = TabooIconButtonBinding.inflate(LayoutInflater.from(context), this, true)
 
+    private var background = R.drawable.selector_taboo_icon_button
+
     private var enabled = true
 
     private var text = ""
@@ -36,6 +38,7 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooIconButton)
+        val background = typed.getResourceId(R.styleable.TabooIconButton_android_background, 0)
         val enabled = typed.getBoolean(R.styleable.TabooIconButton_android_enabled, true)
         val text = typed.getString(R.styleable.TabooIconButton_android_text) ?: ""
         val textColor = typed.getColorStateList(R.styleable.TabooIconButton_android_textColor)
@@ -46,6 +49,7 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
 
         typed.recycle()
 
+        setBackground(background)
         setEnabled(enabled)
         setText(text)
         setTextColor(textColor)
@@ -56,6 +60,18 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
 
         invalidate()
     }
+
+    fun setBackground(background: Int) {
+        if (background == 0) return
+
+        this.background = background
+        updateBackground()
+    }
+
+    private fun updateBackground() {
+        binding.root.background = ContextCompat.getDrawable(context, background)
+    }
+
 
     override fun setEnabled(enabled: Boolean) {
         super.setEnabled(enabled)
@@ -172,6 +188,7 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
     override fun invalidate() {
         super.invalidate()
 
+        updateBackground()
         updateEnabled()
         updateText()
         updateIconDrawable()
