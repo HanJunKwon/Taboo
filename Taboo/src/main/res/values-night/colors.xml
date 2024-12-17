@@ -23,7 +23,6 @@
     <color name="taboo_gray_04">#FFF2F4F6</color>
     <color name="taboo_gray_05">#FFF9FAFB</color>
 
-
     <!-- Material M3 색상 스타일 -->
     <color name="surface_dim">#FF141218</color>
     <color name="surface">#FF141218</color>
@@ -35,5 +34,7 @@
     <color name="surface_container_highest">#FF36343B</color>
     <color name="on_surface">#FFE6E0E9</color>
     <color name="on_surface_variant">#FFCAC4D0</color>
+
+    <color name="taboo_preview_text_color">#FF1DA1F2</color>
 
 </resources>
