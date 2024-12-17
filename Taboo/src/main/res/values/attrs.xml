@@ -8,4 +8,28 @@
             <enum name="round" value="1"/>
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="TabooIconButton">
+        <attr name="android:background" format="reference|color"/>
+        <attr name="android:enabled" format="boolean"/>
+        <attr name="android:text" format="string"/>
+        <attr name="android:textColor" format="reference|color"/>
+        <attr name="android:textSize" format="dimension"/>
+        <attr name="android:fontFamily" format="reference"/>
+        <attr name="icon" format="reference"/>
+        <attr name="iconPosition" format="enum">
+            <enum name="left" value="0"/>
+            <enum name="right" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="TabooPreviewButton">
+        <attr name="android:enabled" format="boolean"/>
+        <attr name="android:text" format="string"/>
+        <attr name="android:textAppearance" format="reference"/>
+        <attr name="description" format="string"/>
+        <attr name="descriptionTextAppearance" format="reference"/>
+        <attr name="preview" format="string"/>
+        <attr name="previewTextAppearance" format="reference"/>
+    </declare-styleable>
 </resources>
