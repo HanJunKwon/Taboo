@@ -1,6 +1,7 @@
 package com.kwon.taboo.button
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -15,6 +16,7 @@ class TabooPreviewButton(context: Context, attrs: AttributeSet) : ConstraintLayo
     private var text = "Preview Button"
     private var description = "Preview Button Description"
     private var preview = "Preview"
+    private var iconResource: Drawable? = null
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooPreviewButton)
@@ -22,6 +24,7 @@ class TabooPreviewButton(context: Context, attrs: AttributeSet) : ConstraintLayo
         val text = typed.getString(R.styleable.TabooPreviewButton_android_text) ?: "Preview Button"
         val description = typed.getString(R.styleable.TabooPreviewButton_description) ?: "Preview Button Description"
         val preview = typed.getString(R.styleable.TabooPreviewButton_preview) ?: "Preview"
+        val iconResourceId = typed.getResourceId(R.styleable.TabooPreviewButton_icon, R.drawable.ic_default_icon)
 
         typed.recycle()
 
@@ -29,6 +32,7 @@ class TabooPreviewButton(context: Context, attrs: AttributeSet) : ConstraintLayo
         setText(text)
         setDescription(description)
         setPreview(preview)
+        setIconResourceId(iconResourceId)
 
         binding.root.background = ContextCompat.getDrawable(context, R.drawable.taboo_button_ripple_effect)
     }
@@ -67,6 +71,20 @@ class TabooPreviewButton(context: Context, attrs: AttributeSet) : ConstraintLayo
 
     private fun updatePreview() {
         binding.tvButtonPreview.text = preview
+    }
+
+    fun setIconResourceId(resourceId: Int) {
+        this.iconResource = ContextCompat.getDrawable(context, resourceId)
+        updateIconResource()
+    }
+
+    fun setIconResource(resource: Drawable?) {
+        this.iconResource = resource
+        updateIconResource()
+    }
+
+    private fun updateIconResource() {
+        binding.ivButtonIcon.setImageDrawable(iconResource)
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
