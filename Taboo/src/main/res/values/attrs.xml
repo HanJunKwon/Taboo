@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <attr name="icon" format="reference"/>
+
     <declare-styleable name="TabooButton">
         <attr name="android:text" format="string"/>
         <attr name="android:backgroundTint" format="color|reference"/>
@@ -16,7 +19,7 @@
         <attr name="android:textColor" format="reference|color"/>
         <attr name="android:textSize" format="dimension"/>
         <attr name="android:fontFamily" format="reference"/>
-        <attr name="icon" format="reference"/>
+        <attr name="icon"/>
         <attr name="iconPosition" format="enum">
             <enum name="left" value="0"/>
             <enum name="right" value="1"/>
@@ -31,5 +34,6 @@
         <attr name="descriptionTextAppearance" format="reference"/>
         <attr name="preview" format="string"/>
         <attr name="previewTextAppearance" format="reference"/>
+        <attr name="icon"/>
     </declare-styleable>
 </resources>
