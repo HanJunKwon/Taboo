@@ -36,4 +36,18 @@
         <attr name="previewTextAppearance" format="reference"/>
         <attr name="icon"/>
     </declare-styleable>
+
+    <declare-styleable name="TabooEditText">
+        <attr name="android:inputType" format="enum"/>
+        <attr name="android:text" format="string"/>
+        <attr name="android:hint" format="string"/>
+
+        <attr name="prefixText" format="string"/>
+        <attr name="prefixTextAppearance" format="reference"/>
+        <attr name="prefixTextColor" format="reference|color"/>
+
+        <attr name="suffixText" format="string"/>
+        <attr name="suffixTextAppearance" format="reference"/>
+        <attr name="suffixTextColor" format="reference|color"/>
+    </declare-styleable>
 </resources>
