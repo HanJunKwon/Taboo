@@ -12,6 +12,7 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
     private val binding = TabooEditTextBinding.inflate(LayoutInflater.from(context), this, true)
 
     private var title: String = ""
+    private var requiredIconVisible: Boolean = false
 
     private var prefixText: String = ""
     private var prefixTextAppearance = R.style.Taboo_TextAppearance_TabooEditText_Affix
@@ -29,6 +30,7 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooEditText)
 
         val title = typed.getString(R.styleable.TabooEditText_title) ?: ""
+        val requiredIconVisible = typed.getBoolean(R.styleable.TabooEditText_requiredIconVisible, false)
 
         val prefixText = typed.getString(R.styleable.TabooEditText_prefixText) ?: ""
         val prefixTextAppearance = typed.getResourceId(R.styleable.TabooEditText_prefixTextAppearance, R.style.Taboo_TextAppearance_TabooEditText_Affix)
@@ -45,6 +47,7 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
         typed.recycle()
 
         setTitle(title)
+        setRequiredIconVisible(requiredIconVisible)
 
         setPrefixText(prefixText)
         setPrefixTextAppearance(prefixTextAppearance)
@@ -69,6 +72,15 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
 
     private fun updateTitle() {
         binding.tvEditTextTitle.text = this.title
+    }
+
+    fun setRequiredIconVisible(isVisible: Boolean = false) {
+        this.requiredIconVisible = isVisible
+        updateRequiredIconVisible()
+    }
+
+    private fun updateRequiredIconVisible() {
+        binding.viewRequiredDot.visibility = if (requiredIconVisible) VISIBLE else GONE
     }
 
     fun setPrefixText(prefixText: String) {
