@@ -11,6 +11,8 @@ import com.kwon.taboo.databinding.TabooEditTextBinding
 class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
     private val binding = TabooEditTextBinding.inflate(LayoutInflater.from(context), this, true)
 
+    private var title: String = ""
+
     private var prefixText: String = ""
     private var prefixTextAppearance = R.style.Taboo_TextAppearance_TabooEditText_Affix
     private var prefixTextColor: ColorStateList? = null
@@ -25,6 +27,9 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooEditText)
+
+        val title = typed.getString(R.styleable.TabooEditText_title) ?: ""
+
         val prefixText = typed.getString(R.styleable.TabooEditText_prefixText) ?: ""
         val prefixTextAppearance = typed.getResourceId(R.styleable.TabooEditText_prefixTextAppearance, R.style.Taboo_TextAppearance_TabooEditText_Affix)
         val prefixTextColor = typed.getColorStateList(R.styleable.TabooEditText_prefixTextColor)
@@ -39,6 +44,8 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
 
         typed.recycle()
 
+        setTitle(title)
+
         setPrefixText(prefixText)
         setPrefixTextAppearance(prefixTextAppearance)
         setPrefixTextColor(prefixTextColor)
@@ -50,6 +57,18 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
         setHint(hint)
         setInputType(inputType)
         setText(text)
+    }
+
+    fun setTitle(title: String) {
+        if (this.title == title)
+            return
+
+        this.title = title
+        updateTitle()
+    }
+
+    private fun updateTitle() {
+        binding.tvEditTextTitle.text = this.title
     }
 
     fun setPrefixText(prefixText: String) {
