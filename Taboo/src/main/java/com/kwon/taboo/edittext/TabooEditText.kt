@@ -167,6 +167,8 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
         binding.edtText.inputType = this.inputType
     }
 
+    fun getText() = text
+
     fun setText(text: String) {
         if (this.text == text)
             return
