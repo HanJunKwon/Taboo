@@ -63,5 +63,7 @@
         <attr name="android:textAppearance"/>
         <attr name="android:textColor"/>
         <attr name="android:textSize"/>
+        <attr name="srcWidth" format="dimension"/>
+        <attr name="srcHeight" format="dimension"/>
     </declare-styleable>
 </resources>
