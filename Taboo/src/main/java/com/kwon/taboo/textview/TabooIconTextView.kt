@@ -21,7 +21,7 @@ class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayou
         val text = typed.getString(R.styleable.TabooIconTextView_android_text)
         val textAppearance = typed.getResourceId(R.styleable.TabooIconTextView_android_textAppearance, 0)
         val textColor = typed.getColorStateList(R.styleable.TabooIconTextView_android_textColor)
-        val textSize = typed.getDimension(R.styleable.TabooIconTextView_android_textSize, 14f)
+        val textSize = typed.getDimension(R.styleable.TabooIconTextView_android_textSize, -1f)
 
         typed.recycle()
 
@@ -59,6 +59,9 @@ class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayou
     }
 
     fun setTextSize(size: Float) {
+        if (size == -1f)
+            return
+
         binding.tvText.textSize = size
     }
 }
