@@ -1,7 +1,7 @@
 package com.kwon.taboo.textview
 
 import android.content.Context
-import android.graphics.Color
+import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -30,7 +30,7 @@ class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayou
 
         setText(text ?: "")
         setTextAppearance(textAppearance)
-        setTextColor(textColor?.defaultColor ?: Color.BLACK)
+        setTextColor(textColor)
         setTextSize(textSize)
     }
 
@@ -54,7 +54,10 @@ class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayou
         binding.tvText.setTextAppearance(textAppearance)
     }
 
-    fun setTextColor(color: Int) {
+    fun setTextColor(color: ColorStateList?) {
+        if (color == null)
+            return
+
         binding.tvText.setTextColor(color)
     }
 
