@@ -56,4 +56,12 @@
 
     <declare-styleable name="TabooHorizontalCalender">
     </declare-styleable>
+
+    <declare-styleable name="TabooIconTextView">
+        <attr name="android:src"/>
+        <attr name="android:text"/>
+        <attr name="android:textAppearance"/>
+        <attr name="android:textColor"/>
+        <attr name="android:textSize"/>
+    </declare-styleable>
 </resources>
