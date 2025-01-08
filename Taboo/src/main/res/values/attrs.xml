@@ -53,4 +53,7 @@
         <attr name="suffixTextAppearance" format="reference"/>
         <attr name="suffixTextColor" format="reference|color"/>
     </declare-styleable>
+
+    <declare-styleable name="TabooHorizontalCalender">
+    </declare-styleable>
 </resources>
