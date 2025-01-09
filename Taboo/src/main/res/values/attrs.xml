@@ -66,4 +66,6 @@
         <attr name="srcWidth" format="dimension"/>
         <attr name="srcHeight" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="TabooNumberingBall"/>
 </resources>
