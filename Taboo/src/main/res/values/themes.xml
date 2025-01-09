@@ -79,6 +79,12 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="Taboo.TextAppearance.NumberingBall">
+        <item name="android:fontFamily">@font/font_pretendard_medium</item>
+        <item name="android:textColor">@color/selector_taboo_numbering_ball_text</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="Taboo.Style"/>
 
     <style name="Taboo.Style.Button">
