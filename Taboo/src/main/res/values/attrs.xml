@@ -69,6 +69,10 @@
 
     <declare-styleable name="TabooNumberingBall"/>
 
+    <declare-styleable name="TabooRadioButtonGroup">
+        <attr name="android:checkedButton" format="reference"/>
+    </declare-styleable>
+
     <declare-styleable name="TabooRadioButton">
         <attr name="label" format="string"/>
         <attr name="isEnabled" format="boolean"/>
