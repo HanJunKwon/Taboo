@@ -68,4 +68,10 @@
     </declare-styleable>
 
     <declare-styleable name="TabooNumberingBall"/>
+
+    <declare-styleable name="TabooRadioButton">
+        <attr name="label" format="string"/>
+        <attr name="isEnabled" format="boolean"/>
+        <attr name="isChecked" format="boolean"/>
+    </declare-styleable>
 </resources>
