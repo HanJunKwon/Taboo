@@ -62,4 +62,13 @@ class TabooRadioButton(context: Context, attrs: AttributeSet) : ConstraintLayout
     }
 
     fun getEnabled() = binding.root.isEnabled
+
+    internal fun setOnRadioButtonGroupListener(listener: (Boolean, Int) -> Unit) {
+        binding.root.rootView.setOnClickListener {
+            if (!this.isEnabled) return@setOnClickListener
+
+            setChecked(!this.isChecked)
+            listener.invoke(this.isChecked, id)
+        }
+    }
 }
