@@ -11,7 +11,7 @@ import com.kwon.taboo.databinding.TabooEditTextBinding
 class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
     private val binding = TabooEditTextBinding.inflate(LayoutInflater.from(context), this, true)
 
-    private var title: String = ""
+    private var title: String = "Title"
     private var requiredIconVisible: Boolean = false
 
     private var prefixText: String = ""
@@ -29,7 +29,7 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooEditText)
 
-        val title = typed.getString(R.styleable.TabooEditText_title) ?: ""
+        val title = typed.getString(R.styleable.TabooEditText_title) ?: "Title"
         val requiredIconVisible = typed.getBoolean(R.styleable.TabooEditText_requiredIconVisible, false)
 
         val prefixText = typed.getString(R.styleable.TabooEditText_prefixText) ?: ""
@@ -71,6 +71,7 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
     }
 
     private fun updateTitle() {
+        binding.tvEditTextTitle.visibility = if (this.title.isEmpty()) GONE else VISIBLE
         binding.tvEditTextTitle.text = this.title
     }
 
