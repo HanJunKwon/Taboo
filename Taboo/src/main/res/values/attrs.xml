@@ -5,6 +5,7 @@
 
     <declare-styleable name="TabooButton">
         <attr name="android:text" format="string"/>
+        <attr name="android:textColor" format="reference|color"/>
         <attr name="android:backgroundTint" format="color|reference"/>
         <attr name="buttonShape" format="enum">
             <enum name="rect" value="0"/>

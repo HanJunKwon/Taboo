@@ -18,18 +18,21 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     }
 
     private var text = ""
+    private var textColor: ColorStateList? = null
     private var buttonShape = 0
     private var buttonBackgroundTint = R.color.taboo_blue_01
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooButton)
         val text = typed.getString(R.styleable.TabooButton_android_text) ?: ""
+        val textColor = typed.getColorStateList(R.styleable.TabooButton_android_textColor)
         val buttonShape = typed.getInt(R.styleable.TabooButton_buttonShape, BUTTON_SHAPE_RECT)
         val buttonBackgroundTint = typed.getColor(R.styleable.TabooButton_android_backgroundTint, -1)
 
         typed.recycle()
 
         setText(text)
+        setTextColor(textColor)
         setButtonShape(buttonShape)
         setButtonBackgroundTint(buttonBackgroundTint)
     }
@@ -41,6 +44,15 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
 
     private fun updateText() {
         binding.tvButtonText.text = text
+    }
+
+    fun setTextColor(textColor: ColorStateList?) {
+        this.textColor = textColor ?: ContextCompat.getColorStateList(context, R.color.white)
+        updateTextColor()
+    }
+
+    private fun updateTextColor() {
+        binding.tvButtonText.setTextColor(textColor)
     }
 
     fun setButtonShape(shape: Int) {
