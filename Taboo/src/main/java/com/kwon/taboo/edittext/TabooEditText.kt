@@ -181,4 +181,15 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
     private fun updateText() {
         binding.edtText.setText(this.text)
     }
+
+    override fun hasFocus(): Boolean {
+        return binding.edtText.hasFocus()
+    }
+
+    override fun setOnFocusChangeListener(l: OnFocusChangeListener?) {
+        binding.edtText.setOnFocusChangeListener { v, hasFocus ->
+            l?.onFocusChange(v, hasFocus)
+            super.setOnFocusChangeListener(l)
+        }
+    }
 }
