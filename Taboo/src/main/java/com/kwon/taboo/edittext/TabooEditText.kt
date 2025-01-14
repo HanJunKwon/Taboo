@@ -13,6 +13,8 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
 
     private var title: String = "Title"
     private var requiredIconVisible: Boolean = false
+    private var errorMessage: String? = null
+    private var error = false
 
     private var prefixText: String = ""
     private var prefixTextAppearance = R.style.Taboo_TextAppearance_TabooEditText_Affix
@@ -31,6 +33,8 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
 
         val title = typed.getString(R.styleable.TabooEditText_title) ?: "Title"
         val requiredIconVisible = typed.getBoolean(R.styleable.TabooEditText_requiredIconVisible, false)
+        val errorMessage = typed.getString(R.styleable.TabooEditText_errorMessage)
+        val error = typed.getBoolean(R.styleable.TabooEditText_error, false)
 
         val prefixText = typed.getString(R.styleable.TabooEditText_prefixText) ?: ""
         val prefixTextAppearance = typed.getResourceId(R.styleable.TabooEditText_prefixTextAppearance, R.style.Taboo_TextAppearance_TabooEditText_Affix)
@@ -49,6 +53,8 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
 
         setTitle(title)
         setRequiredIconVisible(requiredIconVisible)
+        setErrorMassage(errorMessage)
+        setError(error)
 
         setPrefixText(prefixText)
         setPrefixTextAppearance(prefixTextAppearance)
@@ -84,6 +90,25 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
 
     private fun updateRequiredIconVisible() {
         binding.viewRequiredDot.visibility = if (requiredIconVisible) VISIBLE else GONE
+    }
+
+    fun setErrorMassage(errorMessage: String?) {
+        this.errorMessage = errorMessage
+        updateErrorMessage()
+    }
+
+    private fun updateErrorMessage() {
+        binding.tvErrorMessage.text = errorMessage
+    }
+
+    fun setError(error: Boolean = false) {
+        this.error = error
+        updateError()
+    }
+
+    private fun updateError() {
+        binding.tvErrorMessage.visibility = if (error) VISIBLE else INVISIBLE
+        binding.clEditTextWrapper.setBackgroundResource(if (error) R.drawable.shape_taboo_edit_text_error else R.drawable.selector_taboo_edit_text)
     }
 
     fun setPrefixText(prefixText: String) {

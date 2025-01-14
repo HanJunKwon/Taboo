@@ -62,6 +62,12 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="Taboo.TextAppearance.TabooEditText.Error" parent="Taboo.TextAppearance">
+        <item name="android:fontFamily">@font/font_pretendard_medium</item>
+        <item name="android:textColor">@color/taboo_red_01</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="Taboo.TextAppearance.Calender"/>
 
     <style name="Taboo.TextAppearance.Calender.Day">
