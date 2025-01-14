@@ -17,6 +17,9 @@ class TabooConfirm(context: Context): AlertDialog(context) {
     var message: String? = null
         private set
 
+    private var positiveButtonText: String = ""
+    private var negativeButtonText: String = ""
+
     init {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.taboo_confirm, null)
         this.setView(dialogView)
@@ -30,19 +33,25 @@ class TabooConfirm(context: Context): AlertDialog(context) {
         findViewById<TextView>(R.id.tv_confirm_title).text = title
         findViewById<TextView>(R.id.tv_confirm_message).text = message
 
-        findViewById<TabooButton>(R.id.btn_negative).setOnClickListener {
-            listener?.onNegative()
-            dismiss()
+        findViewById<TabooButton>(R.id.btn_negative).apply {
+            setText(negativeButtonText)
+            setOnClickListener {
+                listener?.onNegative()
+                dismiss()
+            }
         }
 
-        findViewById<TabooButton>(R.id.btn_positive).setOnClickListener {
-            listener?.onPositive()
-            dismiss()
+        findViewById<TabooButton>(R.id.btn_positive).apply {
+            setText(positiveButtonText)
+            setOnClickListener {
+                listener?.onPositive()
+                dismiss()
+            }
         }
     }
 
     override fun setTitle(title: CharSequence?) {
-        this.title = title.toString()
+        this.title = (title ?: "").toString()
     }
 
     override fun setTitle(titleId: Int) {
@@ -50,11 +59,27 @@ class TabooConfirm(context: Context): AlertDialog(context) {
     }
 
     override fun setMessage(message: CharSequence?) {
-        this.message = message.toString()
+        this.message = (message ?: "").toString()
     }
 
     fun setMessage(messageId: Int) {
         this.message = context.getString(messageId)
+    }
+
+    fun setPositiveText(text: CharSequence?) {
+        positiveButtonText = (text ?: "").toString()
+    }
+
+    fun setPositiveText(textId: Int) {
+        positiveButtonText = context.getString(textId)
+    }
+
+    fun setNegativeText(text: CharSequence?) {
+        negativeButtonText = (text ?: "").toString()
+    }
+
+    fun setNegativeText(textId: Int) {
+        negativeButtonText = context.getString(textId)
     }
 
     fun setListener(listener: TabooConfirmListener?) : TabooConfirm {
