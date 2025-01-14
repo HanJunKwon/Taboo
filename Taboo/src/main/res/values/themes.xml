@@ -42,7 +42,7 @@
 
     <style name="Taboo.TextAppearance.TabooEditText.Title" parent="Taboo.TextAppearance">
         <item name="android:fontFamily">@font/font_pretendard_bold</item>
-        <item name="android:textColor">@color/taboo_black_01</item>
+        <item name="android:textColor">@color/selector_taboo_edit_text_title</item>
         <item name="android:textSize">14sp</item>
     </style>
 
@@ -171,7 +171,7 @@
     <style name="Taboo.Style.TabooEditText.Content">
         <item name="android:background">@null</item>
         <item name="android:textAppearance">@style/Taboo.TextAppearance.TabooEditText.Content</item>
-        <item name="android:textColorHint">@color/taboo_gray_02</item>
+        <item name="android:textColorHint">@color/selector_taboo_edit_text_hint</item>
         <item name="android:minWidth">150dp</item>
     </style>
 

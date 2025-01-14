@@ -42,6 +42,7 @@
         <attr name="android:inputType" format="enum"/>
         <attr name="android:text" format="string"/>
         <attr name="android:hint" format="string"/>
+        <attr name="android:enabled" format="boolean"/>
 
         <attr name="title" format="string"/>
         <attr name="requiredIconVisible" format="boolean"/>

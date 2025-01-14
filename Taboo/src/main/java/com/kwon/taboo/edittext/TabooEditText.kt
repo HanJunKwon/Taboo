@@ -43,6 +43,7 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
         val hint = typed.getString(R.styleable.TabooEditText_android_hint) ?: ""
         val inputType = typed.getInt(R.styleable.TabooEditText_android_inputType, 1)
         val text = typed.getString(R.styleable.TabooEditText_android_text) ?: ""
+        val enabled = typed.getBoolean(R.styleable.TabooEditText_android_enabled, true)
 
         typed.recycle()
 
@@ -60,6 +61,7 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
         setHint(hint)
         setInputType(inputType)
         setText(text)
+        setEnabled(enabled)
     }
 
     fun setTitle(title: String) {
@@ -180,6 +182,14 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
 
     private fun updateText() {
         binding.edtText.setText(this.text)
+    }
+
+    override fun setEnabled(enabled: Boolean) {
+        super.setEnabled(enabled)
+        binding.tvEditTextTitle.isEnabled = enabled
+        binding.viewRequiredDot.isEnabled = enabled
+        binding.clEditTextWrapper.isEnabled = enabled
+        binding.edtText.isEnabled = enabled
     }
 
     override fun hasFocus(): Boolean {
