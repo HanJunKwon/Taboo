@@ -10,12 +10,19 @@
     <color name="taboo_blue_06">#FFE8F0F9</color>
 
     <color name="taboo_red_01">#FFF04452</color>
-    <color name="taboo_red_02">#FFFFEEEE</color>
+    <color name="taboo_red_02">#FFFCB9B9</color>
+    <color name="taboo_red_03">#FFFFEEEE</color>
+
+    <color name="taboo_crimson_01">#FF5F2328</color>
 
     <color name="taboo_black_01">#FF191F28</color>
     <color name="taboo_black_02">#FF333D4B</color>
     <color name="taboo_black_03">#FF4E5968</color>
     <color name="taboo_black_04">#FF6B7684</color>
+
+    <color name="taboo_dark_gray_01">#FF585858</color>
+
+    <color name="taboo_cool_gray_01">#FF686D72</color>
 
     <color name="taboo_gray_01">#FF8B95A1</color>
     <color name="taboo_gray_02">#FFB0B8C1</color>
@@ -34,6 +41,7 @@
     <color name="surface_container_highest">#FF36343B</color>
     <color name="on_surface">#FFE6E0E9</color>
     <color name="on_surface_variant">#FFCAC4D0</color>
+    <color name="inverse_on_surface">#FF322F35</color>
 
     <color name="taboo_preview_text_color">#FF1DA1F2</color>
 

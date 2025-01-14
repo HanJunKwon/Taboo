@@ -34,6 +34,33 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="Taboo.TextAppearance.TabooEditText.Title" parent="Taboo.TextAppearance">
+        <item name="android:fontFamily">@font/font_pretendard_bold</item>
+        <item name="android:textColor">@color/selector_taboo_edit_text_title</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Taboo.TextAppearance.TabooEditText.Content" parent="Taboo.TextAppearance">
+        <item name="android:fontFamily">@font/font_pretendard_medium</item>
+        <item name="android:textColor">@color/taboo_black_01</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Taboo.TextAppearance.TabooEditText.Hint" parent="Taboo.TextAppearance">
+        <item name="android:textColor">@color/taboo_gray_02</item>
+    </style>
+
+    <style name="Taboo.TextAppearance.TabooEditText.Affix" parent="Taboo.TextAppearance">
+        <item name="android:fontFamily">@font/font_pretendard_medium</item>
+        <item name="android:textColor">@color/taboo_edit_text_prefix_color</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Taboo.TextAppearance.TabooEditText.Error" parent="Taboo.TextAppearance">
+        <item name="android:fontFamily">@font/font_pretendard_medium</item>
+        <item name="android:textColor">@color/taboo_red_01</item>
+        <item name="android:textSize">14sp</item>
+    </style>
     <style name="Taboo.TextAppearance.Calender"/>
 
     <style name="Taboo.TextAppearance.Calender.Day">
