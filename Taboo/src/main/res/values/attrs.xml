@@ -70,6 +70,11 @@
         <attr name="srcWidth" format="dimension"/>
         <attr name="srcHeight" format="dimension"/>
     </declare-styleable>
+    
+    <declare-styleable name="TabooTagView">
+        <attr name="android:textColor" format="reference|color"/>
+        <attr name="tagBackgroundColor" format="reference|color"/>
+    </declare-styleable>
 
     <declare-styleable name="TabooNumberingBall"/>
 
