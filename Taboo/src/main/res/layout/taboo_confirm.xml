@@ -49,6 +49,7 @@
             android:layout_height="60dp"
             android:text="확인"
             app:buttonShape="round"
+            app:buttonColor="@color/taboo_vibrant_blue_01"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_negative"
             app:layout_constraintEnd_toEndOf="parent"/>
