@@ -33,6 +33,28 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
         (holder as TabooHorizontalCalenderViewHolder).bind(list[position])
     }
 
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+
+        // 스크롤이 끝에 도달하면 뒤에 날짜 추가
+        recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if (!recyclerView.canScrollHorizontally(1)) {
+                    appendCalendarBlock()
+                } else if (!recyclerView.canScrollHorizontally(-1)) {
+                    prependCalendarBlock()
+                }
+            }
+        })
+    }
+
+    override fun onViewRecycled(holder: ViewHolder) {
+        super.onViewRecycled(holder)
+        (holder as TabooHorizontalCalenderViewHolder)
+    }
+
     fun initCalendarBlock() {
         val currentTimestamp = System.currentTimeMillis()
 
@@ -54,13 +76,14 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
 
     fun appendCalendarBlock() {
         val currentTimestamp = list.last().timestamp
+        val beforeSize = list.size
 
         // 뒤에 날짜 추가
         for (i in 1 until 10) {
             list += CalendarBlock(currentTimestamp + i * DAY_MILLIS)
         }
 
-        notifyDataSetChanged()
+        notifyItemRangeInserted(beforeSize, 10)
     }
 
     fun prependCalendarBlock() {
@@ -71,7 +94,7 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
             list = listOf(CalendarBlock(currentTimestamp - i * DAY_MILLIS)) + list
         }
 
-        notifyDataSetChanged()
+        notifyItemRangeInserted(0, 10)
     }
 
     inner class TabooHorizontalCalenderViewHolder(private val binding: TabooHorizontalCalenderItemBinding): ViewHolder(binding.root) {
