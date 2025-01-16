@@ -37,8 +37,8 @@
             android:layout_marginEnd="20dp"
             android:text="취소"
             android:textColor="@color/taboo_black_04"
-            android:backgroundTint="@color/taboo_gray_03"
             app:buttonShape="round"
+            app:buttonColor="@color/taboo_gray_03"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btn_positive"/>
