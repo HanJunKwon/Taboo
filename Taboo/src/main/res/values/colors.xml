@@ -30,6 +30,17 @@
     <color name="taboo_gray_04">#FFF2F4F6</color>
     <color name="taboo_gray_05">#FFF9FAFB</color>
 
+    <color name="taboo_green_01">#FF1B5E20</color>
+    <color name="taboo_green_02">#FF2E7D32</color>
+    <color name="taboo_green_03">#FF388E3C</color>
+    <color name="taboo_green_04">#FF43A047</color>
+    <color name="taboo_green_05">#FF4CAF50</color>
+    <color name="taboo_green_06">#FF66BB6A</color>
+    <color name="taboo_green_07">#FF81C784</color>
+    <color name="taboo_green_08">#FFA5D6A7</color>
+    <color name="taboo_green_09">#FFC8E6C9</color>
+    <color name="taboo_green_10">#FFE8F5E9</color>
+
     <!-- Material M3 색상 스타일 -->
     <color name="surface_dim">#FFDED8E1</color>
     <color name="surface">#FFFEF7FF</color>
