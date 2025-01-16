@@ -2,6 +2,7 @@ package com.kwon.taboo.button
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -20,14 +21,13 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     private var text = ""
     private var textColor: ColorStateList? = null
     private var buttonShape = 0
-    private var buttonBackgroundTint = R.color.taboo_blue_01
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooButton)
         val text = typed.getString(R.styleable.TabooButton_android_text) ?: ""
         val textColor = typed.getColorStateList(R.styleable.TabooButton_android_textColor)
         val buttonShape = typed.getInt(R.styleable.TabooButton_buttonShape, BUTTON_SHAPE_RECT)
-        val buttonBackgroundTint = typed.getColor(R.styleable.TabooButton_android_backgroundTint, -1)
+        val buttonBackgroundTint = typed.getColorStateList(R.styleable.TabooButton_buttonColor)
 
         typed.recycle()
 
@@ -70,14 +70,20 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         binding.clButtonWrapper.background = ContextCompat.getDrawable(context, backgroundDrawable)
     }
 
-    fun setButtonBackgroundTint(buttonBackgroundTint: Int) {
-        if (buttonBackgroundTint == -1) return
-
-        this.buttonBackgroundTint = buttonBackgroundTint
-        updateButtonBackgroundTint()
+    fun setButtonBackgroundTint(color: Any?) {
+        val background = binding.clButtonWrapper.background as? GradientDrawable
+        if (background != null) {
+            when (color) {
+                is Int -> background.setColor(color)            // 단일 색상 처리
+                is ColorStateList -> background.color = color   // ColorStateList 처리
+                else -> background.setColor(ContextCompat.getColor(context, R.color.taboo_blue_01))              // 기본값
+            }
+        }
     }
 
-    private fun updateButtonBackgroundTint() {
-        binding.clButtonWrapper.backgroundTintList = ColorStateList.valueOf(buttonBackgroundTint)
+    override fun setEnabled(enabled: Boolean) {
+        super.setEnabled(enabled)
+        binding.clButtonWrapper.isEnabled = enabled
     }
+
 }
