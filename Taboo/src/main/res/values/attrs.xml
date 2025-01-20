@@ -79,6 +79,13 @@
 
     <declare-styleable name="TabooNumberingBall"/>
 
+    <declare-styleable name="TabooPillTag">
+        <attr name="android:textColor" format="reference|color"/>
+        <attr name="android:fontFamily" format="reference"/>
+        <attr name="android:textSize" format="dimension"/>
+        <attr name="pillColor" format="reference|color"/>
+    </declare-styleable>
+
     <declare-styleable name="TabooRadioButtonGroup">
         <attr name="android:checkedButton" format="reference"/>
     </declare-styleable>
