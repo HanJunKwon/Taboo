@@ -48,7 +48,7 @@ class TabooPillTag(
 
         val fontFamily = typed.getResourceId(R.styleable.TabooPillTag_android_fontFamily, 0)
         typeface = if (fontFamily == 0) {
-            ResourcesCompat.getFont(context, R.font.font_pretendard_medium)
+            ResourcesCompat.getFont(context, R.font.font_pretendard_semi_bold)
         } else {
             ResourcesCompat.getFont(context, fontFamily)
         }
