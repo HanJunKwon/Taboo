@@ -24,6 +24,14 @@ class TabooPillTag(
     private val defaultTextColor = R.color.taboo_black_02
     private val defaultTextSize = 10f
 
+    private val horizontalPadding = 10
+    private val verticalPadding = 5
+
+    private val minimumHeightDp = 25
+    private val minimumWidthDp = 80
+
+
+
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooPillTag)
 
@@ -65,6 +73,12 @@ class TabooPillTag(
         }
 
         alignTextCenter()
+
+        setPadding(horizontalPadding, verticalPadding, horizontalPadding, verticalPadding)
+
+        val density = context.resources.displayMetrics.density
+        minimumHeight = Math.round(minimumHeightDp * density)
+        minimumWidth = Math.round(minimumWidthDp * density)
     }
 
     fun setPillColor(pillColor: Any?) {
