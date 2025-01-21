@@ -22,6 +22,7 @@ private const val APPEND_SIZE = 10
 
 class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
     private var list = listOf<CalendarBlock>()
+    private var clickListener: ((CalendarBlock) -> Unit)? = null
     private var selectedPosition = NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -102,6 +103,10 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
         notifyItemRangeInserted(0, APPEND_SIZE)
     }
 
+    fun setOnItemClickListener(listener: (CalendarBlock) -> Unit) {
+        clickListener = listener
+    }
+
     inner class TabooHorizontalCalenderViewHolder(private val binding: TabooHorizontalCalenderItemBinding): ViewHolder(binding.root) {
         fun bind(calendarBlock: CalendarBlock) {
             binding.tvDay.text = calendarBlock.getDay(CalendarUtils.KOREAN)
@@ -126,6 +131,8 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
                     notifyItemChanged(previousPosition) // 이전 아이템 상태 업데이트
                 }
                 notifyItemChanged(selectedPosition) // 현재 아이템 상태 업데이트
+
+                clickListener?.invoke(calendarBlock)
             }
         }
 

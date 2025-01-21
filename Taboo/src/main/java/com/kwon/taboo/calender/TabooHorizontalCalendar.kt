@@ -30,4 +30,8 @@ class TabooHorizontalCalendar(context: Context, attrs: AttributeSet) : Constrain
         binding.rvHorizontalCalender.addItemDecoration(CalendarHorizontalSpaceDecoration(20))
         (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).initCalendarBlock()
     }
+
+    fun setOnItemClickListener(listener: (CalendarBlock) -> Unit) {
+        (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setOnItemClickListener(listener)
+    }
 }
