@@ -127,6 +127,14 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
         notifyItemChanged(selectedPosition) // 현재 아이템 상태 업데이트
     }
 
+    /**
+     * 특정 날짜를 활성화할 때 사용
+     */
+    fun setSelectedCalendarBlock(calendarBlock: CalendarBlock) {
+        val position = list.indexOfFirst { it.getDate() == calendarBlock.getDate() }
+        setSelectedPosition(position)
+    }
+
     fun setOnItemClickListener(listener: (CalendarBlock) -> Unit) {
         clickListener = listener
     }

@@ -38,4 +38,8 @@ class TabooHorizontalCalendar(context: Context, attrs: AttributeSet) : Constrain
     fun setSelectedPosition(position: Int) {
         (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setSelectedPosition(position)
     }
+
+    fun setSelectedCalendarBlock(calendarBlock: CalendarBlock) {
+        (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setSelectedCalendarBlock(calendarBlock)
+    }
 }
