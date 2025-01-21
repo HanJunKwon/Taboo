@@ -1,7 +1,7 @@
 package com.kwon.taboo.calender.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
@@ -23,6 +23,7 @@ private const val APPEND_SIZE = 10
 class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
     private var list = listOf<CalendarBlock>()
     private var clickListener: ((CalendarBlock) -> Unit)? = null
+    private var changeListener: ((CalendarBlock) -> Unit)? = null
     private var selectedPosition = NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -103,6 +104,29 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
         notifyItemRangeInserted(0, APPEND_SIZE)
     }
 
+    /**
+     * 특정 날짜의 인덱스를 활성화할 때 사용
+     */
+    fun setSelectedPosition(position: Int) {
+        if (position == selectedPosition) {
+            return
+        }
+
+        if (position > list.size - 1) {
+            Log.e("TabooHorizontalCalenderAdapter", "position is out of range")
+            return
+        }
+
+        val previousPosition = selectedPosition
+        selectedPosition = position
+
+        // 업데이트
+        if (previousPosition != NO_POSITION) {
+            notifyItemChanged(previousPosition) // 이전 아이템 상태 업데이트
+        }
+        notifyItemChanged(selectedPosition) // 현재 아이템 상태 업데이트
+    }
+
     fun setOnItemClickListener(listener: (CalendarBlock) -> Unit) {
         clickListener = listener
     }
@@ -122,15 +146,7 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
 
             // 클릭 리스너 설정
             binding.root.setOnClickListener {
-                // 이전 선택 해제
-                val previousPosition = selectedPosition
-                selectedPosition = adapterPosition
-
-                // 업데이트
-                if (previousPosition != NO_POSITION) {
-                    notifyItemChanged(previousPosition) // 이전 아이템 상태 업데이트
-                }
-                notifyItemChanged(selectedPosition) // 현재 아이템 상태 업데이트
+                setSelectedPosition(adapterPosition)
 
                 clickListener?.invoke(calendarBlock)
             }

@@ -34,4 +34,8 @@ class TabooHorizontalCalendar(context: Context, attrs: AttributeSet) : Constrain
     fun setOnItemClickListener(listener: (CalendarBlock) -> Unit) {
         (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setOnItemClickListener(listener)
     }
+
+    fun setSelectedPosition(position: Int) {
+        (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setSelectedPosition(position)
+    }
 }
