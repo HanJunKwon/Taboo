@@ -125,6 +125,8 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
             notifyItemChanged(previousPosition) // 이전 아이템 상태 업데이트
         }
         notifyItemChanged(selectedPosition) // 현재 아이템 상태 업데이트
+
+        changeListener?.invoke(list[selectedPosition])
     }
 
     /**
