@@ -2,6 +2,7 @@ package com.kwon.taboo.calender.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
@@ -160,10 +161,18 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
 
                 clickListener?.invoke(calendarBlock)
             }
+
+            setVisibilityTodayDot()
         }
 
         private fun isToday(): Boolean {
             return binding.tvDate.text == CalendarBlock(System.currentTimeMillis()).getDate()
+        }
+
+        private fun setVisibilityTodayDot() {
+            val todayDotVisibility = if (isToday() && !binding.root.isSelected) View.VISIBLE else View.GONE
+
+            binding.viewTodayDot.visibility = todayDotVisibility
         }
     }
 }
