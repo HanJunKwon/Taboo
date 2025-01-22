@@ -105,4 +105,23 @@ object CalendarUtils {
         return cal.get(Calendar.DATE).toString()
     }
 
+    /**
+     * 파라미터 [timestamp]의 달의 전체 날짜를 timestamp로 반환.
+     * @param timestamp 전체 날짜를 구할 달 중 날짜
+     */
+    fun getMonthDates(timestamp: Long): List<Long> {
+        val list = mutableListOf<Long>()
+
+        val cal: Calendar = Calendar.getInstance()
+        cal.timeInMillis = timestamp
+        cal.set(Calendar.DATE, 1)
+
+        for (i in 1..cal.getActualMaximum(Calendar.DAY_OF_MONTH)) {
+            cal.set(Calendar.DATE, i)
+            list += cal.timeInMillis
+        }
+
+        return list
+    }
+
 }
