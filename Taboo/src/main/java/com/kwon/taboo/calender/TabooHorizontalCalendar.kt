@@ -31,6 +31,10 @@ class TabooHorizontalCalendar(context: Context, attrs: AttributeSet) : Constrain
         (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).initCalendarBlock()
     }
 
+    fun setTimestamp(timestamp: Long) {
+        (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setTimestamp(timestamp)
+    }
+
     fun setOnItemClickListener(listener: (CalendarBlock) -> Unit) {
         (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setOnItemClickListener(listener)
     }
