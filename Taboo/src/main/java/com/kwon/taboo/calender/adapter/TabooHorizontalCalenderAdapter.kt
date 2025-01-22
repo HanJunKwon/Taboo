@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -15,7 +16,10 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
     private var list = listOf<CalendarBlock>()
     private var clickListener: ((CalendarBlock) -> Unit)? = null
     private var changeListener: ((CalendarBlock) -> Unit)? = null
+    private var calendarUpdatedListener : (() -> Unit)? = null
     private var selectedPosition = NO_POSITION
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -37,6 +41,10 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
     fun initCalendarBlock() {
         val currentTimestamp = System.currentTimeMillis()
         setTimestamp(currentTimestamp)
+    }
+
+    fun setTimestamp(timestamp: Long, listener: ((CalendarBlock) -> Unit)? = null) {
+        setTimestamp(timestamp)
     }
 
     fun setTimestamp(timestamp: Long) {
