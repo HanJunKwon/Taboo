@@ -36,11 +36,16 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
 
     fun initCalendarBlock() {
         val currentTimestamp = System.currentTimeMillis()
-        val monthDates = CalendarUtils.getMonthDates(currentTimestamp)
+        setTimestamp(currentTimestamp)
+    }
+
+    fun setTimestamp(timestamp: Long) {
+        list = listOf()
+        val monthDates = CalendarUtils.getMonthDates(timestamp)
 
         // 이번달 날짜 추가
-        for (timestamp in monthDates) {
-            list += CalendarBlock(timestamp)
+        for (dateTimestamp in monthDates) {
+            list += CalendarBlock(dateTimestamp)
         }
 
         notifyDataSetChanged()
@@ -89,7 +94,7 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
             binding.tvDate.text = calendarBlock.getDate()
 
             binding.root.isSelected = when {
-                selectedPosition == NO_POSITION && isToday() -> {
+                selectedPosition == NO_POSITION && isToday(calendarBlock) -> {
                     selectedPosition = adapterPosition
                     true
                 }
@@ -103,15 +108,15 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
                 clickListener?.invoke(calendarBlock)
             }
 
-            setVisibilityTodayDot()
+            setVisibilityTodayDot(calendarBlock)
         }
 
-        private fun isToday(): Boolean {
-            return binding.tvDate.text == CalendarBlock(System.currentTimeMillis()).getDate()
+        private fun isToday(calendarBlock: CalendarBlock): Boolean {
+            return calendarBlock.getFullDate() == CalendarBlock(System.currentTimeMillis()).getFullDate()
         }
 
-        private fun setVisibilityTodayDot() {
-            val todayDotVisibility = if (isToday() && !binding.root.isSelected) View.VISIBLE else View.GONE
+        private fun setVisibilityTodayDot(calendarBlock: CalendarBlock) {
+            val todayDotVisibility = if (isToday(calendarBlock) && !binding.root.isSelected) View.VISIBLE else View.GONE
 
             binding.viewTodayDot.visibility = todayDotVisibility
         }

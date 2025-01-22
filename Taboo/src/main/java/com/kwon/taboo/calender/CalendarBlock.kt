@@ -1,7 +1,9 @@
 package com.kwon.taboo.calender
 
 import com.kwon.utils.calendar.CalendarUtils
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 data class CalendarBlock(
     val timestamp: Long = 0,
@@ -20,11 +22,9 @@ data class CalendarBlock(
      */
     fun getFullDate(): String {
         val cal: Calendar = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
         cal.timeInMillis = timestamp
-        val year = cal.get(Calendar.YEAR)
-        val month = cal.get(Calendar.MONTH) + 1
-        val day = cal.get(Calendar.DAY_OF_MONTH)
 
-        return "$year$month$day"
+        return dateFormat.format(cal.time)
     }
 }
