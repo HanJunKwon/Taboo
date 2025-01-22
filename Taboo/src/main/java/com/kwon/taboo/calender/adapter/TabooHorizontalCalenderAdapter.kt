@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -15,7 +16,10 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
     private var list = listOf<CalendarBlock>()
     private var clickListener: ((CalendarBlock) -> Unit)? = null
     private var changeListener: ((CalendarBlock) -> Unit)? = null
+    private var calendarUpdatedListener : (() -> Unit)? = null
     private var selectedPosition = NO_POSITION
+    private var selectedCalendarBlock: CalendarBlock? = null
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -39,6 +43,10 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
         setTimestamp(currentTimestamp)
     }
 
+    fun setTimestamp(timestamp: Long, listener: ((CalendarBlock) -> Unit)? = null) {
+        setTimestamp(timestamp)
+    }
+
     fun setTimestamp(timestamp: Long) {
         list = listOf()
         val monthDates = CalendarUtils.getMonthDates(timestamp)
@@ -57,10 +65,14 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
     }
 
     fun nextMonth() {
+        selectedPosition = NO_POSITION
+        selectedCalendarBlock = null
         setTimestamp(list.last().timestamp + 1000L * 60 * 60 * 24)
     }
 
     fun prevMonth() {
+        selectedPosition = NO_POSITION
+        selectedCalendarBlock = null
         setTimestamp(list.first().timestamp - 1000L * 60 * 60 * 24)
     }
 
@@ -79,6 +91,7 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
 
         val previousPosition = selectedPosition
         selectedPosition = position
+        selectedCalendarBlock = list[position]
 
         // 업데이트
         if (previousPosition != NO_POSITION) {
@@ -107,11 +120,12 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
             binding.tvDate.text = calendarBlock.getDate()
 
             binding.root.isSelected = when {
-                selectedPosition == NO_POSITION && isToday(calendarBlock) -> {
+                selectedPosition == NO_POSITION && selectedCalendarBlock == null && isToday(calendarBlock) -> {
                     selectedPosition = adapterPosition
+                    selectedCalendarBlock = calendarBlock
                     true
                 }
-                else -> adapterPosition == selectedPosition
+                else -> adapterPosition == selectedPosition && calendarBlock.getFullDate() == selectedCalendarBlock?.getFullDate()
             }
 
             // 클릭 리스너 설정

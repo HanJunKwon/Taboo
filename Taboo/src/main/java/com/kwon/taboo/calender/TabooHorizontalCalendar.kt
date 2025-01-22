@@ -2,8 +2,11 @@ package com.kwon.taboo.calender
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.ViewTreeObserver
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.doOnPreDraw
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kwon.taboo.R
@@ -39,8 +42,22 @@ class TabooHorizontalCalendar(context: Context, attrs: AttributeSet) : Constrain
 
     fun goToday() {
         val position = (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).getPosition(System.currentTimeMillis())
-        if (position != -1) {
+        if (position == -1) {
+            setTimestamp(System.currentTimeMillis())
+
+            binding.rvHorizontalCalender.viewTreeObserver.addOnPreDrawListener(
+                object : ViewTreeObserver.OnPreDrawListener {
+                    override fun onPreDraw(): Boolean {
+                        binding.rvHorizontalCalender.viewTreeObserver.removeOnPreDrawListener(this)
+                        goToday()
+                        return true
+                    }
+                }
+            )
+        } else {
             binding.rvHorizontalCalender.scrollToPositionWithCenter(binding.root.context, position)
+
+            setSelectedPosition(position)
         }
     }
 
