@@ -4,7 +4,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -15,8 +14,8 @@ import com.kwon.utils.calendar.CalendarUtils
 class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
     private var list = listOf<CalendarBlock>()
     private var clickListener: ((CalendarBlock) -> Unit)? = null
-    private var changeListener: ((CalendarBlock) -> Unit)? = null
-    private var calendarUpdatedListener : (() -> Unit)? = null
+    private var itemChangedListener: ((CalendarBlock) -> Unit)? = null
+    private var monthChangedListener: ((timestamp: Long) -> Unit)? = null
     private var selectedPosition = NO_POSITION
     private var selectedCalendarBlock: CalendarBlock? = null
 
@@ -43,10 +42,6 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
         setTimestamp(currentTimestamp)
     }
 
-    fun setTimestamp(timestamp: Long, listener: ((CalendarBlock) -> Unit)? = null) {
-        setTimestamp(timestamp)
-    }
-
     fun setTimestamp(timestamp: Long) {
         list = listOf()
         val monthDates = CalendarUtils.getMonthDates(timestamp)
@@ -57,6 +52,8 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
         }
 
         notifyDataSetChanged()
+
+        monthChangedListener?.invoke(timestamp)
     }
 
     fun getPosition(timestamp: Long) : Int {
@@ -99,7 +96,7 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
         }
         notifyItemChanged(selectedPosition) // 현재 아이템 상태 업데이트
 
-        changeListener?.invoke(list[selectedPosition])
+        itemChangedListener?.invoke(list[selectedPosition])
     }
 
     /**
@@ -112,6 +109,14 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
 
     fun setOnItemClickListener(listener: (CalendarBlock) -> Unit) {
         clickListener = listener
+    }
+
+    fun setOnItemChangeListener(listener: (CalendarBlock) -> Unit) {
+        itemChangedListener = listener
+    }
+
+    fun setOnMonthChangedListener(listener: (timestamp: Long) -> Unit) {
+        monthChangedListener = listener
     }
 
     inner class TabooHorizontalCalenderViewHolder(private val binding: TabooHorizontalCalenderItemBinding): ViewHolder(binding.root) {
