@@ -77,6 +77,10 @@ class TabooHorizontalCalendar(context: Context, attrs: AttributeSet) : Constrain
         (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setOnItemChangeListener(listener)
     }
 
+    fun setOnMonthChangedListener(listener: (Long) -> Unit) {
+        (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setOnMonthChangedListener(listener)
+    }
+
     fun setSelectedPosition(position: Int) {
         (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setSelectedPosition(position)
     }
