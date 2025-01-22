@@ -35,6 +35,14 @@ class TabooHorizontalCalendar(context: Context, attrs: AttributeSet) : Constrain
         (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setTimestamp(timestamp)
     }
 
+    fun nextMonth() {
+        (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).nextMonth()
+    }
+
+    fun prevMonth() {
+        (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).prevMonth()
+    }
+
     fun setOnItemClickListener(listener: (CalendarBlock) -> Unit) {
         (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setOnItemClickListener(listener)
     }

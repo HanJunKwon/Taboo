@@ -51,6 +51,14 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun nextMonth() {
+        setTimestamp(list.last().timestamp + 1000L * 60 * 60 * 24)
+    }
+
+    fun prevMonth() {
+        setTimestamp(list.first().timestamp - 1000L * 60 * 60 * 24)
+    }
+
     /**
      * 특정 날짜의 인덱스를 활성화할 때 사용
      */
