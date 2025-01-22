@@ -51,6 +51,11 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun getPosition(timestamp: Long) : Int {
+        val position = list.indexOfFirst { it.getFullDate() == CalendarBlock(timestamp).getFullDate() }
+        return if (position == -1) NO_POSITION else position
+    }
+
     fun nextMonth() {
         setTimestamp(list.last().timestamp + 1000L * 60 * 60 * 24)
     }

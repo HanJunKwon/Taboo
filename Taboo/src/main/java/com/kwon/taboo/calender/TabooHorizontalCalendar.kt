@@ -5,9 +5,11 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.kwon.taboo.R
 import com.kwon.taboo.calender.adapter.TabooHorizontalCalenderAdapter
 import com.kwon.taboo.calender.decoration.CalendarHorizontalSpaceDecoration
+import com.kwon.taboo.calender.scroller.CenterSmoothScroller
 import com.kwon.taboo.databinding.TabooHorizontalCalenderBinding
 
 class TabooHorizontalCalendar(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
@@ -35,6 +37,13 @@ class TabooHorizontalCalendar(context: Context, attrs: AttributeSet) : Constrain
         (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setTimestamp(timestamp)
     }
 
+    fun goToday() {
+        val position = (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).getPosition(System.currentTimeMillis())
+        if (position != -1) {
+            binding.rvHorizontalCalender.scrollToPositionWithCenter(binding.root.context, position)
+        }
+    }
+
     fun nextMonth() {
         (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).nextMonth()
     }
@@ -53,5 +62,14 @@ class TabooHorizontalCalendar(context: Context, attrs: AttributeSet) : Constrain
 
     fun setSelectedCalendarBlock(calendarBlock: CalendarBlock) {
         (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setSelectedCalendarBlock(calendarBlock)
+    }
+
+    private fun RecyclerView.scrollToPositionWithCenter(context: Context, position: Int) {
+        val layoutManager = this.layoutManager as? LinearLayoutManager
+        if (layoutManager != null) {
+            val smoothScroller = CenterSmoothScroller(context)
+            smoothScroller.targetPosition = position
+            layoutManager.startSmoothScroll(smoothScroller)
+        }
     }
 }
