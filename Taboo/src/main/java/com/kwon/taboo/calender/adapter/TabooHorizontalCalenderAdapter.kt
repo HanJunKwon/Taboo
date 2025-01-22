@@ -4,7 +4,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -15,7 +14,7 @@ import com.kwon.utils.calendar.CalendarUtils
 class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
     private var list = listOf<CalendarBlock>()
     private var clickListener: ((CalendarBlock) -> Unit)? = null
-    private var changeListener: ((CalendarBlock) -> Unit)? = null
+    private var itemChangedListener: ((CalendarBlock) -> Unit)? = null
     private var calendarUpdatedListener : (() -> Unit)? = null
     private var selectedPosition = NO_POSITION
     private var selectedCalendarBlock: CalendarBlock? = null
@@ -99,7 +98,7 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
         }
         notifyItemChanged(selectedPosition) // 현재 아이템 상태 업데이트
 
-        changeListener?.invoke(list[selectedPosition])
+        itemChangedListener?.invoke(list[selectedPosition])
     }
 
     /**
@@ -112,6 +111,10 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
 
     fun setOnItemClickListener(listener: (CalendarBlock) -> Unit) {
         clickListener = listener
+    }
+
+    fun setOnItemChangeListener(listener: (CalendarBlock) -> Unit) {
+        itemChangedListener = listener
     }
 
     inner class TabooHorizontalCalenderViewHolder(private val binding: TabooHorizontalCalenderItemBinding): ViewHolder(binding.root) {
