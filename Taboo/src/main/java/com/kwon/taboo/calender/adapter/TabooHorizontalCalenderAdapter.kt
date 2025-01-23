@@ -16,7 +16,6 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
     private var clickListener: ((CalendarBlock) -> Unit)? = null
     private var itemChangedListener: ((CalendarBlock) -> Unit)? = null
     private var monthChangedListener: ((timestamp: Long) -> Unit)? = null
-    private var selectedPosition = NO_POSITION
     private var selectedCalendarBlock: CalendarBlock? = null
 
 
@@ -62,14 +61,10 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
     }
 
     fun nextMonth() {
-        selectedPosition = NO_POSITION
-        selectedCalendarBlock = null
         setTimestamp(list.last().timestamp + 1000L * 60 * 60 * 24)
     }
 
     fun prevMonth() {
-        selectedPosition = NO_POSITION
-        selectedCalendarBlock = null
         setTimestamp(list.first().timestamp - 1000L * 60 * 60 * 24)
     }
 
@@ -77,26 +72,26 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
      * 특정 날짜의 인덱스를 활성화할 때 사용
      */
     fun setSelectedPosition(position: Int) {
-        if (position == selectedPosition) {
-            return
-        }
-
+        // 범위 체크
         if (position > list.size - 1) {
             Log.e("TabooHorizontalCalenderAdapter", "position is out of range")
             return
         }
 
-        val previousPosition = selectedPosition
-        selectedPosition = position
-        selectedCalendarBlock = list[position]
-
-        // 업데이트
-        if (previousPosition != NO_POSITION) {
-            notifyItemChanged(previousPosition) // 이전 아이템 상태 업데이트
+        // 이전 선택된 아이템 상태 업데이트
+        selectedCalendarBlock?.let { prevCalendarBlock ->
+            val previousPosition = list.indexOfFirst { it.getFullDate() == prevCalendarBlock.getFullDate() }
+            if (previousPosition != NO_POSITION) {
+                notifyItemChanged(previousPosition)
+            }
         }
-        notifyItemChanged(selectedPosition) // 현재 아이템 상태 업데이트
 
-        itemChangedListener?.invoke(list[selectedPosition])
+        // 선택된 아이템 업데이트
+        selectedCalendarBlock = list[position]
+        notifyItemChanged(position)
+
+        // 날짜 변경 리스너 호출
+        itemChangedListener?.invoke(list[position])
     }
 
     /**
@@ -125,12 +120,11 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
             binding.tvDate.text = calendarBlock.getDate()
 
             binding.root.isSelected = when {
-                selectedPosition == NO_POSITION && selectedCalendarBlock == null && isToday(calendarBlock) -> {
-                    selectedPosition = adapterPosition
+                selectedCalendarBlock == null && isToday(calendarBlock) -> {
                     selectedCalendarBlock = calendarBlock
                     true
                 }
-                else -> adapterPosition == selectedPosition && calendarBlock.getFullDate() == selectedCalendarBlock?.getFullDate()
+                else -> calendarBlock.getFullDate() == selectedCalendarBlock?.getFullDate()
             }
 
             // 클릭 리스너 설정
