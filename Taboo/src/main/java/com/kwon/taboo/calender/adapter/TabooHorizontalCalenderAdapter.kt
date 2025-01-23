@@ -60,6 +60,14 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
         return if (position == -1) NO_POSITION else position
     }
 
+    fun getSelectedPosition(): Int {
+        return list.indexOfFirst { it.getFullDate() == selectedCalendarBlock?.getFullDate() }
+    }
+
+    fun goSelectedDate() {
+        selectedCalendarBlock?.timestamp?.let { setTimestamp(it) }
+    }
+
     fun nextMonth() {
         setTimestamp(list.last().timestamp + 1000L * 60 * 60 * 24)
     }

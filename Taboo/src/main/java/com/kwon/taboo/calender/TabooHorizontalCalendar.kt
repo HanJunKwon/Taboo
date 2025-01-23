@@ -40,6 +40,30 @@ class TabooHorizontalCalendar(context: Context, attrs: AttributeSet) : Constrain
         (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setTimestamp(timestamp)
     }
 
+    fun goSelectedDate() {
+        val horizontalCalendar = binding.rvHorizontalCalender
+        val adapter = horizontalCalendar.adapter as TabooHorizontalCalenderAdapter
+        val position = adapter.getSelectedPosition()
+
+        if (position == -1) {
+            adapter.goSelectedDate()
+
+            horizontalCalendar.viewTreeObserver.addOnPreDrawListener(
+                object : ViewTreeObserver.OnPreDrawListener {
+                    override fun onPreDraw(): Boolean {
+                        binding.rvHorizontalCalender.viewTreeObserver.removeOnPreDrawListener(this)
+
+                        // Position 을 다시 계산하기 위해 재귀 호출
+                        goSelectedDate()
+                        return true
+                    }
+                }
+            )
+        } else {
+            horizontalCalendar.scrollToPositionWithCenter(binding.root.context, position)
+        }
+    }
+
     fun goToday() {
         val position = (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).getPosition(System.currentTimeMillis())
         if (position == -1) {
