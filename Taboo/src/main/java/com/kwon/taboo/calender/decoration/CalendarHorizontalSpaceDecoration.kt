@@ -11,6 +11,11 @@ class CalendarHorizontalSpaceDecoration(private var space: Int) : RecyclerView.I
         if (position == state.itemCount)
             return
 
+        // 매달 1일은 앞에 공백 추가
+        if (position == 0) {
+            outRect.left = space
+        }
+
         outRect.right = space
     }
 }
