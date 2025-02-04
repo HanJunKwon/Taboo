@@ -62,8 +62,8 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
 
     private fun updateButtonShape() {
         val backgroundDrawable = when (this.buttonShape) {
-            BUTTON_SHAPE_RECT -> R.drawable.shape_rect_r0_a100_1731e9
-            BUTTON_SHAPE_ROUNDED -> R.drawable.shape_rect_r15_a100_1731e9
+            BUTTON_SHAPE_RECT -> R.drawable.shape_rect_r0_a100_0047ff
+            BUTTON_SHAPE_ROUNDED -> R.drawable.shape_rect_r15_a100_0047ff
             else -> 0
         }
 
@@ -76,7 +76,7 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
             when (color) {
                 is Int -> background.setColor(color)            // 단일 색상 처리
                 is ColorStateList -> background.color = color   // ColorStateList 처리
-                else -> background.setColor(ContextCompat.getColor(context, R.color.taboo_blue_01))              // 기본값
+                else -> background.setColor(ContextCompat.getColor(context, R.color.taboo_vibrant_blue_01))              // 기본값
             }
         }
     }

@@ -91,11 +91,11 @@
     </style>
 
     <style name="Taboo.Style.Button.Rect">
-        <item name="android:background">@drawable/shape_rect_r0_a100_1731e9</item>
+        <item name="android:background">@drawable/shape_rect_r0_a100_0047ff</item>
     </style>
 
     <style name="Taboo.Style.Button.Round">
-        <item name="android:background">@drawable/shape_rect_r15_a100_1731e9</item>
+        <item name="android:background">@drawable/shape_rect_r15_a100_0047ff</item>
     </style>
 
     <style name="Taboo.Style.IconButton">
