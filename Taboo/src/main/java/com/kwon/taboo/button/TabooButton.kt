@@ -2,9 +2,11 @@ package com.kwon.taboo.button
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
@@ -16,6 +18,9 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     companion object {
         private const val BUTTON_SHAPE_RECT = 0
         private const val BUTTON_SHAPE_ROUNDED = 1
+
+        private const val ICON_POSITION_LEFT = 0
+        private const val ICON_POSITION_RIGHT = 1
     }
 
     private var text = ""
@@ -28,6 +33,8 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         val textColor = typed.getColorStateList(R.styleable.TabooButton_android_textColor)
         val buttonShape = typed.getInt(R.styleable.TabooButton_buttonShape, BUTTON_SHAPE_RECT)
         val buttonBackgroundTint = typed.getColorStateList(R.styleable.TabooButton_buttonColor)
+        val icon = typed.getResourceId(R.styleable.TabooButton_icon, 0)
+        val iconPosition = typed.getInt(R.styleable.TabooButton_iconPosition, ICON_POSITION_LEFT)
 
         typed.recycle()
 
@@ -35,6 +42,7 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         setTextColor(textColor)
         setButtonShape(buttonShape)
         setButtonBackgroundTint(buttonBackgroundTint)
+        setIcon(icon, iconPosition)
     }
 
     fun setText(text: String) {
@@ -80,6 +88,38 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
             }
         }
     }
+
+    // <editor-fold desc="Icon">
+    private fun setIcon(@DrawableRes icon: Int, position: Int = ICON_POSITION_LEFT) {
+        val iconDrawableRes = if (icon == 0) null else ContextCompat.getDrawable(context, icon)
+
+        when {
+            icon == 0 -> {
+                setLeftIcon(iconDrawableRes, GONE)
+                setRightIcon(iconDrawableRes, GONE)
+            }
+            position == ICON_POSITION_RIGHT -> {
+                setLeftIcon(null, GONE)
+                setRightIcon(iconDrawableRes)
+            }
+            else -> {
+                setRightIcon(null, GONE)
+                setLeftIcon(iconDrawableRes)
+            }
+        }
+    }
+
+    private fun setLeftIcon(iconDrawable: Drawable?, visibility: Int= VISIBLE) {
+        binding.ivButtonLeftIcon.setImageDrawable(iconDrawable)
+        binding.ivButtonLeftIcon.visibility = visibility
+    }
+
+    private fun setRightIcon(iconDrawable: Drawable?, visibility: Int= VISIBLE) {
+        binding.ivButtonRightIcon.setImageDrawable(iconDrawable)
+        binding.ivButtonRightIcon.visibility = visibility
+    }
+
+    // </editor-fold>
 
     override fun setEnabled(enabled: Boolean) {
         super.setEnabled(enabled)
