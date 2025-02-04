@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -21,11 +22,18 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
 
         private const val ICON_POSITION_LEFT = 0
         private const val ICON_POSITION_RIGHT = 1
+
+        private const val SIZE_LARGE = 0
+        private const val SIZE_SMALL = 1
     }
+
+    private var isAttrApplying = false
 
     private var text = ""
     private var textColor: ColorStateList? = null
     private var buttonShape = 0
+
+    private var size = SIZE_LARGE
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooButton)
@@ -35,6 +43,7 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         val buttonBackgroundTint = typed.getColorStateList(R.styleable.TabooButton_buttonColor)
         val icon = typed.getResourceId(R.styleable.TabooButton_icon, 0)
         val iconPosition = typed.getInt(R.styleable.TabooButton_iconPosition, ICON_POSITION_LEFT)
+        val size = typed.getInt(R.styleable.TabooButton_size, SIZE_LARGE)
 
         typed.recycle()
 
@@ -43,6 +52,19 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         setButtonShape(buttonShape)
         setButtonBackgroundTint(buttonBackgroundTint)
         setIcon(icon, iconPosition)
+        setSizeInternal(size)
+
+        applyAttr()
+    }
+
+    private fun applyAttr() {
+        if (!isAttrApplying) {
+            isAttrApplying = true
+            post {
+                updateSize()
+                isAttrApplying = false
+            }
+        }
     }
 
     fun setText(text: String) {
@@ -91,20 +113,18 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
 
     // <editor-fold desc="Icon">
     private fun setIcon(@DrawableRes icon: Int, position: Int = ICON_POSITION_LEFT) {
-        val iconDrawableRes = if (icon == 0) null else ContextCompat.getDrawable(context, icon)
-
         when {
             icon == 0 -> {
-                setLeftIcon(iconDrawableRes, GONE)
-                setRightIcon(iconDrawableRes, GONE)
+                setLeftIcon(null, GONE)
+                setRightIcon(null, GONE)
             }
             position == ICON_POSITION_RIGHT -> {
                 setLeftIcon(null, GONE)
-                setRightIcon(iconDrawableRes)
+                setRightIcon(ContextCompat.getDrawable(context, icon))
             }
             else -> {
                 setRightIcon(null, GONE)
-                setLeftIcon(iconDrawableRes)
+                setLeftIcon(ContextCompat.getDrawable(context, icon))
             }
         }
     }
@@ -120,6 +140,14 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     }
 
     // </editor-fold>
+
+    private fun setSizeInternal(size: Int) {
+        this.size = size
+    }
+
+    private fun updateSize() {
+        binding.tvButtonText.visibility = if (size == SIZE_LARGE) VISIBLE else GONE
+    }
 
     override fun setEnabled(enabled: Boolean) {
         super.setEnabled(enabled)

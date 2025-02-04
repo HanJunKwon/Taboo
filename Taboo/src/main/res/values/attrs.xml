@@ -18,6 +18,10 @@
         <attr name="buttonColor" format="reference|color"/>
         <attr name="icon"/>
         <attr name="iconPosition"/>
+        <attr name="size" format="enum">
+            <enum name="large" value="0"/>
+            <enum name="small" value="1"/>
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="TabooIconButton">
