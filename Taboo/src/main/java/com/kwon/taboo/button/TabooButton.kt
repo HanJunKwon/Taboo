@@ -141,6 +141,11 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
 
     // </editor-fold>
 
+    fun setSize(size: Int) {
+        setSizeInternal(size)
+        updateSize()
+    }
+
     private fun setSizeInternal(size: Int) {
         this.size = size
     }
