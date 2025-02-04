@@ -33,6 +33,9 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     private var textColor: ColorStateList? = null
     private var buttonShape = 0
 
+    private var iconDrawable: Drawable? = null
+    private var iconPosition = ICON_POSITION_LEFT
+
     private var size = SIZE_LARGE
 
     init {
@@ -51,20 +54,15 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         setTextColor(textColor)
         setButtonShape(buttonShape)
         setButtonBackgroundTint(buttonBackgroundTint)
-        setIcon(icon, iconPosition)
+        setIconInternal(icon, iconPosition)
         setSizeInternal(size)
 
         applyAttr()
     }
 
     private fun applyAttr() {
-        if (!isAttrApplying) {
-            isAttrApplying = true
-            post {
-                updateSize()
-                isAttrApplying = false
-            }
-        }
+        updateIcon()
+        updateSize()
     }
 
     fun setText(text: String) {
@@ -112,29 +110,40 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     }
 
     // <editor-fold desc="Icon">
-    private fun setIcon(@DrawableRes icon: Int, position: Int = ICON_POSITION_LEFT) {
+    fun setIcon(@DrawableRes icon: Int, position: Int = ICON_POSITION_LEFT) {
+        setIconInternal(icon,position)
+        updateIcon()
+    }
+
+    private fun setIconInternal(@DrawableRes icon: Int, position: Int = ICON_POSITION_LEFT) {
+        this.iconDrawable = if (icon == 0) null else ContextCompat.getDrawable(context, icon)
+        this.iconPosition = position
+    }
+
+    private fun updateIcon() {
+        Log.d(">>>", "$iconDrawable")
         when {
-            icon == 0 -> {
-                setLeftIcon(null, GONE)
-                setRightIcon(null, GONE)
+            iconDrawable == null -> {
+                updateLeftIcon(null, GONE)
+                updateRightIcon(null, GONE)
             }
-            position == ICON_POSITION_RIGHT -> {
-                setLeftIcon(null, GONE)
-                setRightIcon(ContextCompat.getDrawable(context, icon))
+            iconPosition == ICON_POSITION_RIGHT -> {
+                updateLeftIcon(null, GONE)
+                updateRightIcon(iconDrawable)
             }
             else -> {
-                setRightIcon(null, GONE)
-                setLeftIcon(ContextCompat.getDrawable(context, icon))
+                updateRightIcon(null, GONE)
+                updateLeftIcon(iconDrawable)
             }
         }
     }
 
-    private fun setLeftIcon(iconDrawable: Drawable?, visibility: Int= VISIBLE) {
+    private fun  updateLeftIcon(iconDrawable: Drawable?, visibility: Int= VISIBLE) {
         binding.ivButtonLeftIcon.setImageDrawable(iconDrawable)
         binding.ivButtonLeftIcon.visibility = visibility
     }
 
-    private fun setRightIcon(iconDrawable: Drawable?, visibility: Int= VISIBLE) {
+    private fun updateRightIcon(iconDrawable: Drawable?, visibility: Int= VISIBLE) {
         binding.ivButtonRightIcon.setImageDrawable(iconDrawable)
         binding.ivButtonRightIcon.visibility = visibility
     }

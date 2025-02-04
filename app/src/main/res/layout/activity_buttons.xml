@@ -8,9 +8,8 @@
     tools:context=".ButtonsActivity">
 
     <com.kwon.taboo.button.TabooButton
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="dddd"
         app:icon="@drawable/ic_round_search_24_ffffff"
         app:iconPosition="right"/>
 
