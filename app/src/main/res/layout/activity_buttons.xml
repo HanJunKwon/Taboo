@@ -8,9 +8,84 @@
     tools:context=".ButtonsActivity">
 
     <com.kwon.taboo.button.TabooButton
+        android:id="@+id/btn_solid"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Solid Button"
+        android:enabled="false"
+        app:buttonShape="round"
+        app:buttonType="solid"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.kwon.taboo.button.TabooButton
+        android:id="@+id/btn_fill"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:text="Fill Button"
+        app:buttonShape="rect"
+        app:buttonType="fill"
+        app:layout_constraintTop_toBottomOf="@id/btn_solid"/>
+
+    <com.kwon.taboo.button.TabooButton
+        android:id="@+id/btn_outline"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:text="Outline Button"
+        app:buttonShape="round"
+        app:buttonType="outline"
+        app:layout_constraintTop_toBottomOf="@id/btn_fill"/>
+
+    <com.kwon.taboo.button.TabooButton
+        android:id="@+id/btn_dash"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:text="Dash Button"
+        app:buttonType="dash"
+        app:layout_constraintTop_toBottomOf="@id/btn_outline"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:icon="@drawable/ic_round_search_24_ffffff"
-        app:iconPosition="right"/>
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/btn_dash">
+
+        <com.kwon.taboo.button.TabooButton
+            android:id="@+id/btn_solid_small"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            app:icon="@drawable/ic_round_search_24_ffffff"
+            app:buttonShape="round"
+            app:size="small"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.kwon.taboo.button.TabooButton
+            android:id="@+id/btn_outline_small"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            app:buttonShape="round"
+            app:buttonType="outline"
+            app:icon="@drawable/ic_round_search_24_0047ff"
+            app:size="small"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_solid_small"/>
+
+        <com.kwon.taboo.button.TabooButton
+            android:id="@+id/btn_dash_small"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            app:buttonShape="round"
+            app:buttonType="dash"
+            app:icon="@drawable/ic_round_search_24_0047ff"
+            app:size="small"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_outline_small"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

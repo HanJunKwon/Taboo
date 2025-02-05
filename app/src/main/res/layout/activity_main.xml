@@ -14,24 +14,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <com.kwon.taboo.button.TabooIconButton
-        android:id="@+id/btn_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <com.kwon.taboo.button.TabooPreviewButton
-        android:id="@+id/btn_preview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/btn_icon"/>
-
-    <Button
-        android:id="@+id/btn_base"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/taboo_button_ripple_effect"
-        app:layout_constraintTop_toBottomOf="@id/btn_preview"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
