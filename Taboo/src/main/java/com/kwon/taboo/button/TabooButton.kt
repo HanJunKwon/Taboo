@@ -35,7 +35,7 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     private var isAttrApplying = false
 
     private var text = ""
-    private var textColor: ColorStateList? = null
+    private var textColor: Any? = null
     private var buttonShape = 0
     private var buttonType = BUTTON_TYPE_SOLID
 
@@ -60,7 +60,7 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         typed.recycle()
 
         setText(text)
-        setTextColor(textColor)
+        setTextColorInternal(textColor)
         setButtonShapeInternal(buttonShape)
         setButtonTypeInternal(buttonType)
         setButtonBackgroundTintInternal(buttonBackgroundTint)
@@ -71,6 +71,7 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     }
 
     private fun applyAttr() {
+        updateTextColor()
         updateButtonShape()
         updateButtonBackgroundTint(backgroundTint)
         updateIcon()
@@ -87,12 +88,34 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     }
 
     fun setTextColor(textColor: ColorStateList?) {
-        this.textColor = textColor ?: ContextCompat.getColorStateList(context, R.color.white)
+        setTextColorInternal(textColor)
         updateTextColor()
     }
 
+    private fun setTextColorInternal(textColor: ColorStateList?) {
+        this.textColor = textColor
+    }
+
     private fun updateTextColor() {
-        binding.tvButtonText.setTextColor(textColor)
+        if (textColor == null) {
+            binding.tvButtonText.setTextColor(ContextCompat.getColor(context, getDefaultTextColor(buttonType)))
+        } else {
+            if (textColor is Int) {
+                binding.tvButtonText.setTextColor(textColor as Int)
+            } else {
+                binding.tvButtonText.setTextColor(textColor as ColorStateList)
+            }
+        }
+    }
+
+    private fun getDefaultTextColor(buttonType: Int): Int {
+        return when (buttonType) {
+            BUTTON_TYPE_SOLID -> R.color.white
+            BUTTON_TYPE_FILL -> R.color.selector_taboo_button_fill_type_text_color
+            BUTTON_TYPE_OUTLINE -> R.color.taboo_vibrant_blue_01
+            BUTTON_TYPE_DASH -> R.color.taboo_vibrant_blue_01
+            else -> R.color.white
+        }
     }
 
     fun setButtonShape(shape: Int) {
