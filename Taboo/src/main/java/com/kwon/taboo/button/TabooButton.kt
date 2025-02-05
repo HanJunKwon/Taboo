@@ -31,9 +31,9 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         private const val SIZE_LARGE = 0
         private const val SIZE_SMALL = 1
 
-        private const val DEFAULT_STROKE_OUTLINE_WIDTH  = 3
-        private const val DEFAULT_STROKE_DASH_WIDTH     = 15f
-        private const val DEFAULT_STROKE_DASH_GAP       = 10f
+        private const val DEFAULT_STROKE_OUTLINE_WIDTH  = 1
+        private const val DEFAULT_STROKE_DASH_WIDTH     = 5f
+        private const val DEFAULT_STROKE_DASH_GAP       = 5f
     }
 
     private var text = ""
@@ -177,18 +177,19 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     }
 
     private fun updateButtonBackgroundTint(color: Any?) {
-        val background = binding.clButtonWrapper.background as? GradientDrawable
+        val background = binding.clButtonWrapper.background?.mutate() // mutate() 적용
+        val drawable = background as? GradientDrawable
 
         if (backgroundTint == null) {
             // 기본 색상 적용
-            background?.color = ContextCompat.getColorStateList(context, getDefaultBackgroundColor(buttonType))
+            drawable?.color = ContextCompat.getColorStateList(context, getDefaultBackgroundColor(buttonType))
         } else {
             // 지정한 색상 적용
-            if (background != null) {
+            if (drawable != null) {
                 when (color) {
-                    is Int -> background.setColor(ContextCompat.getColor(context, color))                           // 단일 색상 처리
-                    is ColorStateList -> background.color = color                                                   // ColorStateList 처리
-                    else -> background.setColor(ContextCompat.getColor(context, R.color.taboo_vibrant_blue_01))     // 기본값
+                    is Int -> drawable.setColor(ContextCompat.getColor(context, color))                           // 단일 색상 처리
+                    is ColorStateList -> drawable.color = color                                                   // ColorStateList 처리
+                    else -> drawable.setColor(ContextCompat.getColor(context, R.color.taboo_vibrant_blue_01))     // 기본값
                 }
             }
         }
