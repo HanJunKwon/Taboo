@@ -20,6 +20,11 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         private const val BUTTON_SHAPE_RECT = 0
         private const val BUTTON_SHAPE_ROUNDED = 1
 
+        private const val BUTTON_TYPE_SOLID = 0
+        private const val BUTTON_TYPE_FILL = 1
+        private const val BUTTON_TYPE_OUTLINE = 2
+        private const val BUTTON_TYPE_DASH = 3
+
         private const val ICON_POSITION_LEFT = 0
         private const val ICON_POSITION_RIGHT = 1
 
@@ -32,6 +37,7 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     private var text = ""
     private var textColor: ColorStateList? = null
     private var buttonShape = 0
+    private var buttonType = BUTTON_TYPE_SOLID
 
     private var backgroundTint: Any? = null
 
@@ -45,6 +51,7 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         val text = typed.getString(R.styleable.TabooButton_android_text) ?: ""
         val textColor = typed.getColorStateList(R.styleable.TabooButton_android_textColor)
         val buttonShape = typed.getInt(R.styleable.TabooButton_buttonShape, BUTTON_SHAPE_RECT)
+        val buttonType = typed.getInt(R.styleable.TabooButton_buttonType, BUTTON_TYPE_SOLID)
         val buttonBackgroundTint = typed.getColorStateList(R.styleable.TabooButton_buttonBackgroundTint)
         val icon = typed.getResourceId(R.styleable.TabooButton_icon, 0)
         val iconPosition = typed.getInt(R.styleable.TabooButton_iconPosition, ICON_POSITION_LEFT)
@@ -55,6 +62,7 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         setText(text)
         setTextColor(textColor)
         setButtonShapeInternal(buttonShape)
+        setButtonTypeInternal(buttonType)
         setButtonBackgroundTintInternal(buttonBackgroundTint)
         setIconInternal(icon, iconPosition)
         setSizeInternal(size)
@@ -106,6 +114,14 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         binding.clButtonWrapper.background = ContextCompat.getDrawable(context, backgroundDrawable)
     }
 
+    fun setButtonType(type: Int) {
+        setButtonTypeInternal(type)
+    }
+
+    private fun setButtonTypeInternal(type: Int) {
+        this.buttonType = type
+    }
+
     fun setButtonBackgroundTint(backgroundTint: Any?) {
         setButtonBackgroundTintInternal(backgroundTint)
         updateButtonBackgroundTint(backgroundTint)
@@ -117,12 +133,29 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
 
     private fun updateButtonBackgroundTint(color: Any?) {
         val background = binding.clButtonWrapper.background as? GradientDrawable
-        if (background != null) {
-            when (color) {
-                is Int -> background.setColor(ContextCompat.getColor(context, color))                           // 단일 색상 처리
-                is ColorStateList -> background.color = color                                                   // ColorStateList 처리
-                else -> background.setColor(ContextCompat.getColor(context, R.color.taboo_vibrant_blue_01))     // 기본값
+
+        if (backgroundTint == null) {
+            // 기본 색상 적용
+            background?.color = ContextCompat.getColorStateList(context, getDefaultBackgroundColor(buttonType))
+        } else {
+            // 지정한 색상 적용
+            if (background != null) {
+                when (color) {
+                    is Int -> background.setColor(ContextCompat.getColor(context, color))                           // 단일 색상 처리
+                    is ColorStateList -> background.color = color                                                   // ColorStateList 처리
+                    else -> background.setColor(ContextCompat.getColor(context, R.color.taboo_vibrant_blue_01))     // 기본값
+                }
             }
+        }
+    }
+
+    private fun getDefaultBackgroundColor(buttonType: Int): Int {
+        return when (buttonType) {
+            BUTTON_TYPE_SOLID -> R.color.selector_taboo_button_solid_type_background_color
+            BUTTON_TYPE_FILL -> R.color.selector_taboo_button_fill_type_background_color
+            BUTTON_TYPE_OUTLINE -> R.color.selector_taboo_button_outline_type_background_color
+            BUTTON_TYPE_DASH -> R.color.selector_taboo_button_dash_type_background_color
+            else -> R.color.selector_taboo_button_solid_type_background_color
         }
     }
 
