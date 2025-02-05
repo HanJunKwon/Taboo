@@ -33,6 +33,8 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     private var textColor: ColorStateList? = null
     private var buttonShape = 0
 
+    private var backgroundTint: Any? = null
+
     private var iconDrawable: Drawable? = null
     private var iconPosition = ICON_POSITION_LEFT
 
@@ -43,7 +45,7 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         val text = typed.getString(R.styleable.TabooButton_android_text) ?: ""
         val textColor = typed.getColorStateList(R.styleable.TabooButton_android_textColor)
         val buttonShape = typed.getInt(R.styleable.TabooButton_buttonShape, BUTTON_SHAPE_RECT)
-        val buttonBackgroundTint = typed.getColorStateList(R.styleable.TabooButton_buttonColor)
+        val buttonBackgroundTint = typed.getColorStateList(R.styleable.TabooButton_buttonBackgroundTint)
         val icon = typed.getResourceId(R.styleable.TabooButton_icon, 0)
         val iconPosition = typed.getInt(R.styleable.TabooButton_iconPosition, ICON_POSITION_LEFT)
         val size = typed.getInt(R.styleable.TabooButton_size, SIZE_LARGE)
@@ -52,8 +54,8 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
 
         setText(text)
         setTextColor(textColor)
-        setButtonShape(buttonShape)
-        setButtonBackgroundTint(buttonBackgroundTint)
+        setButtonShapeInternal(buttonShape)
+        setButtonBackgroundTintInternal(buttonBackgroundTint)
         setIconInternal(icon, iconPosition)
         setSizeInternal(size)
 
@@ -61,6 +63,8 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     }
 
     private fun applyAttr() {
+        updateButtonShape()
+        updateButtonBackgroundTint(backgroundTint)
         updateIcon()
         updateSize()
     }
@@ -84,27 +88,40 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     }
 
     fun setButtonShape(shape: Int) {
-        this.buttonShape = shape
+        setButtonShapeInternal(shape)
         updateButtonShape()
+    }
+
+    private fun setButtonShapeInternal(shape: Int) {
+        this.buttonShape = shape
     }
 
     private fun updateButtonShape() {
         val backgroundDrawable = when (this.buttonShape) {
-            BUTTON_SHAPE_RECT -> R.drawable.shape_rect_r0_a100_0047ff
-            BUTTON_SHAPE_ROUNDED -> R.drawable.shape_rect_r15_a100_0047ff
+            BUTTON_SHAPE_RECT -> R.drawable.shape_rect_r0_a0_000000
+            BUTTON_SHAPE_ROUNDED -> R.drawable.shape_rect_r15_a0_000000
             else -> 0
         }
 
         binding.clButtonWrapper.background = ContextCompat.getDrawable(context, backgroundDrawable)
     }
 
-    fun setButtonBackgroundTint(color: Any?) {
+    fun setButtonBackgroundTint(backgroundTint: Any?) {
+        setButtonBackgroundTintInternal(backgroundTint)
+        updateButtonBackgroundTint(backgroundTint)
+    }
+
+    private fun setButtonBackgroundTintInternal(color: Any?) {
+        backgroundTint = color
+    }
+
+    private fun updateButtonBackgroundTint(color: Any?) {
         val background = binding.clButtonWrapper.background as? GradientDrawable
         if (background != null) {
             when (color) {
-                is Int -> background.setColor(color)            // 단일 색상 처리
-                is ColorStateList -> background.color = color   // ColorStateList 처리
-                else -> background.setColor(ContextCompat.getColor(context, R.color.taboo_vibrant_blue_01))              // 기본값
+                is Int -> background.setColor(ContextCompat.getColor(context, color))                           // 단일 색상 처리
+                is ColorStateList -> background.color = color                                                   // ColorStateList 처리
+                else -> background.setColor(ContextCompat.getColor(context, R.color.taboo_vibrant_blue_01))     // 기본값
             }
         }
     }

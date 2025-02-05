@@ -15,7 +15,7 @@
             <enum name="rect" value="0"/>
             <enum name="round" value="1"/>
         </attr>
-        <attr name="buttonColor" format="reference|color"/>
+        <attr name="buttonBackgroundTint" format="reference|color"/>
         <attr name="icon"/>
         <attr name="iconPosition"/>
         <attr name="size" format="enum">
