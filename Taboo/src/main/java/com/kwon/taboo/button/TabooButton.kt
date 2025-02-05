@@ -155,7 +155,7 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
                 DEFAULT_STROKE_OUTLINE_WIDTH,
                 ContextCompat.getColor(context, R.color.taboo_vibrant_blue_01)
             )
-        } else {
+        } else if (buttonType == BUTTON_TYPE_DASH) {
             drawable?.setStroke(
                 DEFAULT_STROKE_OUTLINE_WIDTH,
                 ContextCompat.getColor(context, R.color.taboo_vibrant_blue_01),
