@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="taboo_pill_tag_text_size">10sp</dimen>
+
+    <dimen name="taboo_button_round_shape_radius">15dp</dimen>
 </resources>

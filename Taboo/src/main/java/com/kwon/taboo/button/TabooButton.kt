@@ -3,42 +3,37 @@ package com.kwon.taboo.button
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
+import com.kwon.taboo.attribute.ButtonAppearance
 import com.kwon.taboo.databinding.TabooButtonBinding
 
 class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(context, attrs) {
     private val binding = TabooButtonBinding.inflate(LayoutInflater.from(context), this, true)
 
     companion object {
-        private const val BUTTON_SHAPE_RECT = 0
-        private const val BUTTON_SHAPE_ROUNDED = 1
+        const val BUTTON_SHAPE_RECT = 0
+        const val BUTTON_SHAPE_ROUNDED = 1
 
-        private const val BUTTON_TYPE_SOLID = 0
-        private const val BUTTON_TYPE_FILL = 1
-        private const val BUTTON_TYPE_OUTLINE = 2
-        private const val BUTTON_TYPE_DASH = 3
+        const val BUTTON_TYPE_SOLID = 0
+        const val BUTTON_TYPE_FILL = 1
+        const val BUTTON_TYPE_OUTLINE = 2
+        const val BUTTON_TYPE_DASH = 3
 
         private const val ICON_POSITION_LEFT = 0
         private const val ICON_POSITION_RIGHT = 1
 
         private const val SIZE_LARGE = 0
         private const val SIZE_SMALL = 1
-
-        private const val DEFAULT_STROKE_OUTLINE_WIDTH  = 1
-        private const val DEFAULT_STROKE_DASH_WIDTH     = 5f
-        private const val DEFAULT_STROKE_DASH_GAP       = 5f
     }
 
     private var text = ""
     private var textColor: Any? = null
-    private var buttonShape = 0
+    private var buttonShape = BUTTON_SHAPE_RECT
     private var buttonType = BUTTON_TYPE_SOLID
 
     private var backgroundTint: Any? = null
@@ -63,8 +58,10 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
 
         setText(text)
         setTextColorInternal(textColor)
+
         setButtonShapeInternal(buttonShape)
         setButtonTypeInternal(buttonType)
+
         setButtonBackgroundTintInternal(buttonBackgroundTint)
         setIconInternal(icon, iconPosition)
         setSizeInternal(size)
@@ -74,11 +71,10 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
 
     private fun applyAttr() {
         updateTextColor()
-        updateButtonShape()
-        updateButtonType()
-        updateButtonBackgroundTint(backgroundTint)
         updateIcon()
         updateSize()
+
+        drawButton()
     }
 
     fun setText(text: String) {
@@ -123,21 +119,10 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
 
     fun setButtonShape(shape: Int) {
         setButtonShapeInternal(shape)
-        updateButtonShape()
     }
 
     private fun setButtonShapeInternal(shape: Int) {
         this.buttonShape = shape
-    }
-
-    private fun updateButtonShape() {
-        val backgroundDrawable = when (this.buttonShape) {
-            BUTTON_SHAPE_RECT -> R.drawable.shape_rect_r0_a0_000000
-            BUTTON_SHAPE_ROUNDED -> R.drawable.shape_rect_r15_a0_000000
-            else -> 0
-        }
-
-        binding.clButtonWrapper.background = ContextCompat.getDrawable(context, backgroundDrawable)
     }
 
     fun setButtonType(type: Int) {
@@ -148,61 +133,8 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         this.buttonType = type
     }
 
-    private fun updateButtonType() {
-        val drawable = binding.clButtonWrapper.background as? GradientDrawable
-        if (buttonType == BUTTON_TYPE_OUTLINE) {
-            drawable?.setStroke(
-                DEFAULT_STROKE_OUTLINE_WIDTH,
-                ContextCompat.getColor(context, R.color.taboo_vibrant_blue_01)
-            )
-        } else if (buttonType == BUTTON_TYPE_DASH) {
-            drawable?.setStroke(
-                DEFAULT_STROKE_OUTLINE_WIDTH,
-                ContextCompat.getColor(context, R.color.taboo_vibrant_blue_01),
-                DEFAULT_STROKE_DASH_WIDTH,
-                DEFAULT_STROKE_DASH_GAP
-            )
-        }
-
-        binding.clButtonWrapper.background = drawable
-    }
-
-    fun setButtonBackgroundTint(backgroundTint: Any?) {
-        setButtonBackgroundTintInternal(backgroundTint)
-        updateButtonBackgroundTint(backgroundTint)
-    }
-
     private fun setButtonBackgroundTintInternal(color: Any?) {
         backgroundTint = color
-    }
-
-    private fun updateButtonBackgroundTint(color: Any?) {
-        val background = binding.clButtonWrapper.background?.mutate() // mutate() 적용
-        val drawable = background as? GradientDrawable
-
-        if (backgroundTint == null) {
-            // 기본 색상 적용
-            drawable?.color = ContextCompat.getColorStateList(context, getDefaultBackgroundColor(buttonType))
-        } else {
-            // 지정한 색상 적용
-            if (drawable != null) {
-                when (color) {
-                    is Int -> drawable.setColor(ContextCompat.getColor(context, color))                           // 단일 색상 처리
-                    is ColorStateList -> drawable.color = color                                                   // ColorStateList 처리
-                    else -> drawable.setColor(ContextCompat.getColor(context, R.color.taboo_vibrant_blue_01))     // 기본값
-                }
-            }
-        }
-    }
-
-    private fun getDefaultBackgroundColor(buttonType: Int): Int {
-        return when (buttonType) {
-            BUTTON_TYPE_SOLID -> R.color.selector_taboo_button_solid_type_background_color
-            BUTTON_TYPE_FILL -> R.color.selector_taboo_button_fill_type_background_color
-            BUTTON_TYPE_OUTLINE -> R.color.selector_taboo_button_outline_type_background_color
-            BUTTON_TYPE_DASH -> R.color.selector_taboo_button_dash_type_background_color
-            else -> R.color.selector_taboo_button_solid_type_background_color
-        }
     }
 
     // <editor-fold desc="Icon">
@@ -217,7 +149,6 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     }
 
     private fun updateIcon() {
-        Log.d(">>>", "$iconDrawable")
         when {
             iconDrawable == null -> {
                 updateLeftIcon(null, GONE)
@@ -234,7 +165,7 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         }
     }
 
-    private fun  updateLeftIcon(iconDrawable: Drawable?, visibility: Int= VISIBLE) {
+    private fun updateLeftIcon(iconDrawable: Drawable?, visibility: Int= VISIBLE) {
         binding.ivButtonLeftIcon.setImageDrawable(iconDrawable)
         binding.ivButtonLeftIcon.visibility = visibility
     }
@@ -259,9 +190,10 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         binding.tvButtonText.visibility = if (size == SIZE_LARGE) VISIBLE else GONE
     }
 
-    override fun setEnabled(enabled: Boolean) {
-        super.setEnabled(enabled)
-        binding.clButtonWrapper.isEnabled = enabled
+    private fun drawButton() {
+        val gradientDrawable = ButtonAppearance(context, buttonShape, buttonType).create()
+
+        binding.root.background = gradientDrawable
     }
 
 }
