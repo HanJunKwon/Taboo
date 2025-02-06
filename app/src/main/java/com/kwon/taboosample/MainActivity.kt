@@ -15,14 +15,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<TabooPreviewButton>(R.id.btn_preview).apply {
-            setOnClickListener {
-                Log.d(">>>", "buttonClick")
-            }
-//            setIconResource(ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_hotel_48dp))
-            setIconResourceId(R.drawable.ic_hotel_48dp)
+        findViewById<Button>(R.id.btn_button_example).setOnClickListener {
+            startActivity(Intent(this, ButtonsActivity::class.java))
         }
-
-        findViewById<TabooEditText>(R.id.edt_text).getText()
     }
 }

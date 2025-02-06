@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/cl_button_wrapper"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/Taboo.Style.Button.Rect"
+    style="@style/Taboo.Style.Button"
+    android:layout_margin="2dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
