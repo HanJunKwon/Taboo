@@ -22,5 +22,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_edit_text_example).setOnClickListener {
             startActivity(Intent(this, EditTextsActivity::class.java))
         }
+
+        findViewById<Button>(R.id.btn_dialog_example).setOnClickListener {
+            startActivity(Intent(this, DialogsActivity::class.java))
+        }
     }
 }
