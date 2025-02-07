@@ -18,5 +18,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_button_example).setOnClickListener {
             startActivity(Intent(this, ButtonsActivity::class.java))
         }
+
+        findViewById<Button>(R.id.btn_edit_text_example).setOnClickListener {
+            startActivity(Intent(this, EditTextsActivity::class.java))
+        }
     }
 }
