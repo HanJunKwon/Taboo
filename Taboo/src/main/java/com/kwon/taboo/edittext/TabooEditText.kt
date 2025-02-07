@@ -2,7 +2,10 @@ package com.kwon.taboo.edittext
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.AttributeSet
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.kwon.taboo.R
@@ -226,5 +229,21 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
             l?.onFocusChange(v, hasFocus)
             super.setOnFocusChangeListener(l)
         }
+    }
+
+    fun setOnTextChangedListener(l: (v: TabooEditText, text: CharSequence, start: Int, before: Int, count: Int) -> Unit) {
+        binding.edtText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                l.invoke(this@TabooEditText, s ?: "", start, count, after)
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                l.invoke(this@TabooEditText, s ?: "", start, before, count)
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                l.invoke(this@TabooEditText, s ?: "", 0, 0, 0)
+            }
+        })
     }
 }
