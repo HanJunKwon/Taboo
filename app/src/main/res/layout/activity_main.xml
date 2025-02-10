@@ -18,8 +18,17 @@
         android:id="@+id/btn_edit_text_example"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit Text"
+        android:text="EDIT TEXT"
         app:layout_constraintTop_toBottomOf="@id/btn_button_example"
         app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/btn_dialog_example"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DIALOG"
+        app:layout_constraintTop_toBottomOf="@id/btn_edit_text_example"
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
