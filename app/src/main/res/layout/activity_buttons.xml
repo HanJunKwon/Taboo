@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="Solid Button"
-        android:enabled="false"
         app:buttonShape="round"
         app:buttonType="solid"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -22,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="10dp"
+        android:enabled="false"
         android:text="Fill Button"
         app:buttonShape="rect"
         app:buttonType="fill"
@@ -32,6 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="10dp"
+        android:enabled="false"
         android:text="Outline Button"
         app:buttonShape="round"
         app:buttonType="outline"
