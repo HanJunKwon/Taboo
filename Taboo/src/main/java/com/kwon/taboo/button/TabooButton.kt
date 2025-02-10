@@ -10,6 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
 import com.kwon.taboo.attribute.ButtonAppearance
+import com.kwon.taboo.attribute.ColorContainer
 import com.kwon.taboo.databinding.TabooButtonBinding
 
 class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(context, attrs) {
@@ -36,6 +37,11 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     private var buttonShape = BUTTON_SHAPE_RECT
     private var buttonType = BUTTON_TYPE_SOLID
 
+    private var colorContainer: ColorContainer = ColorContainer(
+        primaryColor = R.color.taboo_vibrant_blue_01,
+        secondaryColor = R.color.taboo_blue_06
+    )
+
     private var backgroundTint: Any? = null
 
     private var iconDrawable: Drawable? = null
@@ -49,10 +55,16 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         val textColor = typed.getColorStateList(R.styleable.TabooButton_android_textColor)
         val buttonShape = typed.getInt(R.styleable.TabooButton_buttonShape, BUTTON_SHAPE_RECT)
         val buttonType = typed.getInt(R.styleable.TabooButton_buttonType, BUTTON_TYPE_SOLID)
+
+        val primaryColor = typed.getColor(R.styleable.TabooButton_primaryColor, ContextCompat.getColor(context, R.color.taboo_vibrant_blue_01))
+        val secondaryColor = typed.getColor(R.styleable.TabooButton_secondaryColor, ContextCompat.getColor(context, R.color.taboo_blue_06))
+
         val buttonBackgroundTint = typed.getColorStateList(R.styleable.TabooButton_buttonBackgroundTint)
         val icon = typed.getResourceId(R.styleable.TabooButton_icon, 0)
         val iconPosition = typed.getInt(R.styleable.TabooButton_iconPosition, ICON_POSITION_LEFT)
         val size = typed.getInt(R.styleable.TabooButton_size, SIZE_LARGE)
+
+        val enabled = typed.getBoolean(R.styleable.TabooButton_android_enabled, true)
 
         typed.recycle()
 
@@ -62,9 +74,13 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         setButtonShapeInternal(buttonShape)
         setButtonTypeInternal(buttonType)
 
+        setColorContainerInternal(ColorContainer(primaryColor, secondaryColor))
+
         setButtonBackgroundTintInternal(buttonBackgroundTint)
         setIconInternal(icon, iconPosition)
         setSizeInternal(size)
+
+        isEnabled = enabled
 
         applyAttr()
     }
@@ -97,7 +113,7 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
 
     private fun updateTextColor() {
         if (textColor == null) {
-            binding.tvButtonText.setTextColor(ContextCompat.getColor(context, getDefaultTextColor(buttonType)))
+            binding.tvButtonText.setTextColor(getDefaultTextColor(buttonType))
         } else {
             if (textColor is Int) {
                 binding.tvButtonText.setTextColor(textColor as Int)
@@ -107,13 +123,10 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         }
     }
 
-    private fun getDefaultTextColor(buttonType: Int): Int {
+    private fun getDefaultTextColor(buttonType: Int): ColorStateList {
         return when (buttonType) {
-            BUTTON_TYPE_SOLID -> R.color.white
-            BUTTON_TYPE_FILL -> R.color.selector_taboo_button_fill_type_text_color
-            BUTTON_TYPE_OUTLINE -> R.color.taboo_vibrant_blue_01
-            BUTTON_TYPE_DASH -> R.color.taboo_vibrant_blue_01
-            else -> R.color.white
+            BUTTON_TYPE_SOLID -> context.resources.getColorStateList(R.color.white, null)
+            else -> colorContainer.getPrimaryColorStateList()
         }
     }
 
@@ -136,6 +149,14 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     private fun setButtonBackgroundTintInternal(color: Any?) {
         backgroundTint = color
     }
+
+    // <editor-fold desc="Color">
+
+    private fun setColorContainerInternal(colorContainer: ColorContainer) {
+        this.colorContainer = colorContainer
+    }
+
+    // </editor-fold>
 
     // <editor-fold desc="Icon">
     fun setIcon(@DrawableRes icon: Int, position: Int = ICON_POSITION_LEFT) {
@@ -191,9 +212,15 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     }
 
     private fun drawButton() {
-        val gradientDrawable = ButtonAppearance(context, buttonShape, buttonType).create()
+        val gradientDrawable = ButtonAppearance(context, buttonShape, buttonType, colorContainer).create()
 
         binding.root.background = gradientDrawable
+    }
+
+    override fun setEnabled(enabled: Boolean) {
+        super.setEnabled(enabled)
+        binding.root.isEnabled = enabled
+        binding.tvButtonText.isEnabled = enabled
     }
 
 }
