@@ -123,12 +123,54 @@
         <item name="android:padding">15dp</item>
     </style>
 
-    <style name="Taboo.Style.Button.Rect">
-        <item name="android:background">@drawable/shape_rect_r0_a0_000000</item>
+    <style name="Taboo.Style.PrimaryButton">
+        <item name="primaryColor">@color/taboo_vibrant_blue_01</item>
+        <item name="secondaryColor">@color/taboo_blue_06</item>
     </style>
 
-    <style name="Taboo.Style.Button.Round">
-        <item name="android:background">@drawable/shape_rect_r15_a0_000000</item>
+    <style name="Taboo.Style.PrimaryButton.Round">
+        <item name="buttonShape">round</item>
+    </style>
+
+    <style name="Taboo.Style.PrimaryButton.Round.Solid">
+        <item name="buttonType">solid</item>
+    </style>
+
+    <style name="Taboo.Style.PrimaryButton.Round.Fill">
+        <item name="buttonType">fill</item>
+    </style>
+
+    <style name="Taboo.Style.PrimaryButton.Round.Outline">
+        <item name="buttonType">outline</item>
+    </style>
+
+    <style name="Taboo.Style.PrimaryButton.Round.Dash">
+        <item name="buttonType">dash</item>
+    </style>
+
+    <style name="Taboo.Style.SecondaryButton">
+        <item name="primaryColor">@color/taboo_black_04</item>
+        <item name="secondaryColor">@color/taboo_gray_03</item>
+    </style>
+
+    <style name="Taboo.Style.SecondaryButton.Round">
+        <item name="buttonShape">round</item>
+    </style>
+
+    <style name="Taboo.Style.SecondaryButton.Round.Solid">
+        <item name="buttonType">solid</item>
+    </style>
+
+    <style name="Taboo.Style.SecondaryButton.Round.Fill">
+        <item name="buttonType">fill</item>
+    </style>
+
+    <style name="Taboo.Style.SecondaryButton.Round.Outline">
+        <item name="buttonType">outline</item>
+    </style>
+
+    <style name="Taboo.Style.SecondaryButton.Round.Dash">
+        <item name="buttonType">dash</item>
     </style>
 
     <style name="Taboo.Style.IconButton">
