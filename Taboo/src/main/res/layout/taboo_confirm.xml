@@ -36,10 +36,7 @@
             android:layout_height="60dp"
             android:layout_marginEnd="20dp"
             android:text="취소"
-            app:buttonShape="round"
-            app:buttonType="fill"
-            app:primaryColor="@color/taboo_black_04"
-            app:secondaryColor="@color/taboo_gray_03"
+            style="@style/Taboo.Style.SecondaryButton.Round.Fill"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btn_positive"/>
@@ -49,8 +46,7 @@
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:text="확인"
-            app:buttonShape="round"
-            app:buttonBackgroundTint="@color/taboo_vibrant_blue_01"
+            style="@style/Taboo.Style.PrimaryButton.Round.Solid"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_negative"
             app:layout_constraintEnd_toEndOf="parent"/>

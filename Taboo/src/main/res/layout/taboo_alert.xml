@@ -35,8 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:text="확인"
-            app:buttonType="solid"
-            app:buttonShape="round"
+            style="@style/Taboo.Style.PrimaryButton.Round.Solid"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
