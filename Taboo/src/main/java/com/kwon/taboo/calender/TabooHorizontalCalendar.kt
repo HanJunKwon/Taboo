@@ -30,10 +30,13 @@ class TabooHorizontalCalendar(context: Context, attrs: AttributeSet) : Constrain
      * Set calendar
      */
     private fun setCalendar() {
-        binding.rvHorizontalCalender.adapter = TabooHorizontalCalenderAdapter()
-        binding.rvHorizontalCalender.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.rvHorizontalCalender.addItemDecoration(CalendarHorizontalSpaceDecoration(20))
-        (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).initCalendarBlock()
+        binding.rvHorizontalCalender.apply {
+            adapter = TabooHorizontalCalenderAdapter().apply {
+                initCalendarBlock()
+            }
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            addItemDecoration(CalendarHorizontalSpaceDecoration(20))
+        }
     }
 
     fun setTimestamp(timestamp: Long) {
