@@ -84,6 +84,20 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="Taboo.TextAppearance.Confirm">
+        <item name="android:fontFamily">@font/font_pretendard_semi_bold</item>
+    </style>
+
+    <style name="Taboo.TextAppearance.Confirm.Title">
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Taboo.TextAppearance.Confirm.Message">
+        <item name="android:textColor">@color/on_surface_variant</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="Taboo.Style"/>
 
     <style name="Taboo.Style.Button">
@@ -169,6 +183,14 @@
 
     <style name="Taboo.Style.ImageView.PreviewButton">
         <item name="android:src">@drawable/ic_round_arrow_forward_cac4d0_24dp</item>
+    </style>
+
+    <style name="Taboo.Style.Confirm" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:background">@color/surface</item>
+        <item name="android:paddingTop">40dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
     </style>
 
 </resources>
