@@ -18,7 +18,6 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
     private var monthChangedListener: ((timestamp: Long) -> Unit)? = null
     private var selectedCalendarBlock: CalendarBlock? = null
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = TabooHorizontalCalenderItemBinding.inflate(inflater, parent, false)
@@ -26,6 +25,15 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
     }
 
     override fun getItemCount() = list.size
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: MutableList<Any>) {
+        if (payloads.isNotEmpty()) {
+            (holder as TabooHorizontalCalenderViewHolder).updateSelection(list[position] == selectedCalendarBlock)
+        } else {
+            super.onBindViewHolder(holder, position, payloads)
+        }
+    }
+
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         (holder as TabooHorizontalCalenderViewHolder).bind(list[position])
@@ -90,13 +98,13 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
         selectedCalendarBlock?.let { prevCalendarBlock ->
             val previousPosition = list.indexOfFirst { it.getFullDate() == prevCalendarBlock.getFullDate() }
             if (previousPosition != NO_POSITION) {
-                notifyItemChanged(previousPosition)
+                notifyItemChanged(previousPosition, "SELECTION_CHANGED")
             }
         }
 
         // 선택된 아이템 업데이트
         selectedCalendarBlock = list[position]
-        notifyItemChanged(position)
+        notifyItemChanged(position, "SELECTION_CHANGED")
 
         // 날짜 변경 리스너 호출
         itemChangedListener?.invoke(list[position])
@@ -143,6 +151,10 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
             }
 
             setVisibilityTodayDot(calendarBlock)
+        }
+
+        fun updateSelection(isSelected: Boolean) {
+            binding.root.isSelected = isSelected
         }
 
         private fun isToday(calendarBlock: CalendarBlock): Boolean {
