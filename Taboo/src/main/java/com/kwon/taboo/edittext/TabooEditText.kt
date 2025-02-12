@@ -2,11 +2,12 @@ package com.kwon.taboo.edittext
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Typeface
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.view.KeyEvent
 import android.view.LayoutInflater
+import android.view.inputmethod.EditorInfo
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.kwon.taboo.R
 import com.kwon.taboo.databinding.TabooEditTextBinding
@@ -195,7 +196,25 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
     }
 
     private fun updateInputType() {
-        binding.edtText.inputType = this.inputType
+        binding.edtText.inputType = inputType
+
+        // inputType이 비밀번호 타입이면 typeFace를 Default로 초기화.
+        if (isPasswordInputType(inputType) || isVisiblePasswordInputType(inputType)) {
+            binding.edtText.typeface = Typeface.DEFAULT
+        }
+    }
+
+    private fun isPasswordInputType(inputType: Int): Boolean {
+        val variation = inputType and (EditorInfo.TYPE_MASK_CLASS or EditorInfo.TYPE_MASK_VARIATION)
+        return (variation == (EditorInfo.TYPE_CLASS_TEXT or EditorInfo.TYPE_TEXT_VARIATION_PASSWORD)) ||
+                (variation == (EditorInfo.TYPE_CLASS_TEXT or EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD)) ||
+                (variation == (EditorInfo.TYPE_CLASS_NUMBER or EditorInfo.TYPE_NUMBER_VARIATION_PASSWORD))
+    }
+
+    private fun isVisiblePasswordInputType(inputType: Int): Boolean {
+        val variation =
+            inputType and (EditorInfo.TYPE_MASK_CLASS or EditorInfo.TYPE_MASK_VARIATION)
+        return (variation == (EditorInfo.TYPE_CLASS_TEXT or EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD))
     }
 
     fun getText() = binding.edtText.text.toString()
