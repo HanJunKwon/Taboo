@@ -73,6 +73,8 @@
         <attr name="suffixText" format="string"/>
         <attr name="suffixTextAppearance" format="reference"/>
         <attr name="suffixTextColor" format="reference|color"/>
+
+        <attr name="passwordToggleEnabled" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="TabooHorizontalCalender">
