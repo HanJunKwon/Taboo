@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.inputmethod.EditorInfo
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.kwon.taboo.R
 import com.kwon.taboo.databinding.TabooEditTextBinding
@@ -31,6 +32,9 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
     private var hint: String = ""
     private var inputType: Int = 0
     private var text: String = ""
+    private var passwordToggleEnable = false
+
+    private var isVisiblePassword = false
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooEditText)
@@ -53,6 +57,8 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
         val text = typed.getString(R.styleable.TabooEditText_android_text) ?: ""
         val enabled = typed.getBoolean(R.styleable.TabooEditText_android_enabled, true)
 
+        val passwordToggleEnabled = typed.getBoolean(R.styleable.TabooEditText_passwordToggleEnabled, false)
+
         typed.recycle()
 
         setTitle(title)
@@ -70,8 +76,11 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
 
         setHint(hint)
         setInputType(inputType)
+        setPasswordToggleEnabledInternal(passwordToggleEnabled)
         setText(text)
         setEnabled(enabled)
+
+        updatePasswordToggleEnabled()
     }
 
     fun setTitle(title: String) {
@@ -215,6 +224,46 @@ class TabooEditText(context: Context, attrs: AttributeSet) : ConstraintLayout(co
         val variation =
             inputType and (EditorInfo.TYPE_MASK_CLASS or EditorInfo.TYPE_MASK_VARIATION)
         return (variation == (EditorInfo.TYPE_CLASS_TEXT or EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD))
+    }
+
+    fun setPasswordToggleEnabledInternal(passwordToggleEnabled: Boolean) {
+        this.passwordToggleEnable = passwordToggleEnable
+    }
+
+    fun setPasswordToggleEnabled(passwordToggleEnabled: Boolean) {
+        setPasswordToggleEnabledInternal(passwordToggleEnabled)
+        updatePasswordToggleEnabled()
+    }
+
+    private fun updatePasswordToggleEnabled() {
+        val inputType = binding.edtText.inputType
+
+        if (isPasswordInputType(inputType) || isVisiblePasswordInputType(inputType)) {
+            val icon = AppCompatResources.getDrawable(context, R.drawable.ic_visibility_24dp_e5e8eb)?.mutate()
+            binding.ivPasswordToggle.setImageDrawable(icon)
+            binding.ivPasswordToggle.setColorFilter(context.getColor(R.color.taboo_gray_01))
+            binding.ivPasswordToggle.setOnClickListener {
+                val cursorPosition = binding.edtText.selectionStart
+
+                if (isVisiblePassword) {
+                    // 비밀번호 숨김
+                    binding.edtText.inputType = inputType
+                    binding.ivPasswordToggle.setColorFilter(context.getColor(R.color.taboo_gray_01))
+                } else {
+                    // 비밀번호 표시
+                    binding.edtText.inputType = EditorInfo.TYPE_CLASS_TEXT
+                    binding.ivPasswordToggle.setColorFilter(context.getColor(R.color.white))
+                }
+
+                // 상태값 변경
+                isVisiblePassword = !isVisiblePassword
+
+                // 커서 위치 변경
+                binding.edtText.setSelection(cursorPosition)
+            }
+        } else {
+            binding.ivPasswordToggle.setImageDrawable(null)
+        }
     }
 
     fun getText() = binding.edtText.text.toString()

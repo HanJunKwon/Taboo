@@ -63,10 +63,14 @@
                 android:layout_width="0dp"
                 android:layout_height="52dp"
                 android:textColorHint="@color/selector_taboo_edit_text_hint"
+                android:inputType="text"
+                android:layout_marginHorizontal="5dp"
                 app:layout_constraintStart_toEndOf="@id/tv_prefix"
                 app:layout_constraintEnd_toStartOf="@id/tv_suffix"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:hint="아이디를 입력해주세요." />
+                app:layout_goneMarginStart="0dp"
+                app:layout_goneMarginEnd="0dp"
+                tools:hint="아이디를 입력해주세요."/>
 
             <TextView
                 android:id="@+id/tv_suffix"
@@ -80,6 +84,15 @@
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/iv_password_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            app:layout_constraintTop_toTopOf="@id/cl_edit_text_wrapper"
+            app:layout_constraintBottom_toBottomOf="@id/cl_edit_text_wrapper"
+            app:layout_constraintEnd_toEndOf="@id/cl_edit_text_wrapper"/>
         
         <TextView
             android:id="@+id/tv_error_message"
