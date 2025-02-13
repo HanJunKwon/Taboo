@@ -55,11 +55,16 @@
         <attr name="icon"/>
     </declare-styleable>
 
-    <declare-styleable name="TabooEditText">
+    <declare-styleable name="TabooTextInput">
         <attr name="android:inputType" format="enum"/>
         <attr name="android:text" format="string"/>
         <attr name="android:hint" format="string"/>
         <attr name="android:enabled" format="boolean"/>
+
+        <attr name="textInputVariant" format="enum">
+            <enum name="editText" value="0"/>
+            <enum name="dropdown" value="1"/>
+        </attr>
 
         <attr name="title" format="string"/>
         <attr name="requiredIconVisible" format="boolean"/>

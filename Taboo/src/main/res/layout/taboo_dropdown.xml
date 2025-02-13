@@ -1,0 +1,38 @@
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_edit_text_wrapper"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout"
+    app:layout_constraintTop_toBottomOf="@id/cl_edit_text_title_wrapper"
+    app:layout_constraintStart_toStartOf="parent">
+
+    <EditText
+        android:id="@+id/edt_text"
+        style="@style/Taboo.Style.TabooEditText.Content"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:textColorHint="@color/selector_taboo_edit_text_hint"
+        android:layout_marginEnd="15dp"
+        android:inputType="text"
+        android:focusable="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/iv_dropdown"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginStart="0dp"
+        app:layout_goneMarginEnd="0dp"
+        tools:hint="항목을 선택해주세요."/>
+
+    <ImageView
+        android:id="@+id/iv_dropdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/ic_round_arrow_bottom"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</merge>

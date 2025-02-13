@@ -13,8 +13,8 @@ class EditTextsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_edit_texts)
-        findViewById<TabooEditText>(R.id.taboo_edit_text).setOnTextChangedListener { v, text, start, before, count ->
-            Log.d("EditTextsActivity", "text: $text")
-        }
+//        findViewById<TabooEditText>(R.id.taboo_edit_text).setOnTextChangedListener { v, text, start, before, count ->
+//            Log.d("EditTextsActivity", "text: $text")
+//        }
     }
 }
