@@ -7,12 +7,52 @@
     android:layout_height="match_parent"
     tools:context=".EditTextsActivity">
 
-    <com.kwon.taboo.edittext.TabooEditText
+    <com.kwon.taboo.edittext.TabooTextInput
         android:id="@+id/taboo_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="아이디를 입력해주세요."
+        android:layout_marginTop="30dp"
+        app:textInputVariant="editText"
         app:title="아이디"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.kwon.taboo.edittext.TabooTextInput
+        android:id="@+id/taboo_edit_text_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="비밀번호를 입력해주세요."
+        android:inputType="textPassword"
+        app:title="비밀번호"
+        app:passwordToggleEnabled="true"
+        app:layout_constraintTop_toBottomOf="@id/taboo_edit_text"/>
+
+    <com.kwon.taboo.edittext.TabooTextInput
+        android:id="@+id/taboo_edit_text_money"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="금액을 입력해주세요."
+        app:title="금액"
+        app:prefixText="$"
+        app:layout_constraintTop_toBottomOf="@id/taboo_edit_text_password"/>
+
+    <com.kwon.taboo.edittext.TabooTextInput
+        android:id="@+id/taboo_drop_down"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="국가를 선택해주세요."
+        android:text="대한민국"
+        app:title="국가"
+        app:textInputVariant="dropdown"
+        app:layout_constraintTop_toBottomOf="@id/taboo_edit_text_money"/>
+
+    <com.kwon.taboo.button.TabooButton
+        android:id="@+id/btn_ok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="확인"
+        app:buttonShape="round"
+        app:layout_constraintTop_toBottomOf="@id/taboo_drop_down"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
