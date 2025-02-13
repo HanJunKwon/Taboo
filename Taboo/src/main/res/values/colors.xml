@@ -59,4 +59,7 @@
     <color name="taboo_preview_text_color">#FF1DA1F2</color>
 
     <color name="taboo_edit_text_prefix_color">@color/taboo_gray_02</color>
+
+    <color name="taboo_edit_text_password_toggle_active">@color/taboo_gray_01</color>
+    <color name="taboo_edit_text_password_toggle_inactive">@color/taboo_gray_03</color>
 </resources>

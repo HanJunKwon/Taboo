@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.kwon.taboo.edittext.TabooEditText
+import com.kwon.taboo.edittext.TabooTextInput
 
 class EditTextsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

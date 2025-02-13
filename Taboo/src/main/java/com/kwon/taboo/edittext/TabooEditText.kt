@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
 import com.kwon.taboo.enums.AffixType
 
@@ -23,6 +25,12 @@ class TabooEditText(
     private var suffixTextView: TextView? = null
 
     private var inputType = EditorInfo.TYPE_CLASS_TEXT
+
+    private var passwordToggleButton: ImageView? = null
+    private var passwordToggleEnable = false
+    private var passwordToggleIcon = R.drawable.ic_visibility_24dp
+    private var passwordToggleIconActiveColor = R.color.taboo_edit_text_password_toggle_inactive
+    private var isVisiblePassword = false
 
     fun setText(text: String) {
         editText.setText(text)
@@ -40,6 +48,10 @@ class TabooEditText(
         if (isPasswordInputType(inputType) || isVisiblePasswordInputType(inputType)) {
             editText.typeface = Typeface.DEFAULT
         }
+    }
+
+    private fun isAnyPasswordInputType(inputType: Int): Boolean {
+        return isPasswordInputType(inputType) || isVisiblePasswordInputType(inputType)
     }
 
     private fun isPasswordInputType(inputType: Int): Boolean {
@@ -88,7 +100,7 @@ class TabooEditText(
      * [AffixType.PREFIX] 또는 [AffixType.SUFFIX]에 따라 [TextView]의 [ConstraintLayout] 제약 조건을 설정하는 메소드.
      *
      * @param constraintSet [ConstraintSet] 인스턴스로, 부모 레이아웃의 제약 조건을 변경하는 데 사용됨.
-     * @param textView 제약 조건을 적용할 대상 [TextView].
+     * @param view 제약 조건을 적용할 대상 [TextView].
      * @param affixType 접두사(PREFIX) 또는 접미사(SUFFIX) 유형을 지정하는 Enum 값. ([AffixType.PREFIX], [AffixType.SUFFIX])
      * @param parentView 제약 조건을 적용할 부모 [ConstraintLayout].
      *
@@ -108,26 +120,26 @@ class TabooEditText(
      */
     private fun applyAffixConstraints(
         constraintSet: ConstraintSet,
-        textView: TextView,
+        view: View,
         affixType: AffixType,
         parentView: ConstraintLayout
     ) {
         when (affixType) {
             AffixType.PREFIX -> {
-                constraintSet.connect(textView.id, ConstraintSet.START, parentView.id, ConstraintSet.START)
-                constraintSet.connect(textView.id, ConstraintSet.END, editText.id, ConstraintSet.START)
-                constraintSet.connect(editText.id, ConstraintSet.START, textView.id, ConstraintSet.END)
+                constraintSet.connect(view.id, ConstraintSet.START, parentView.id, ConstraintSet.START)
+                constraintSet.connect(view.id, ConstraintSet.END, editText.id, ConstraintSet.START)
+                constraintSet.connect(editText.id, ConstraintSet.START, view.id, ConstraintSet.END)
             }
             AffixType.SUFFIX -> {
-                constraintSet.connect(textView.id, ConstraintSet.START, editText.id, ConstraintSet.END)
-                constraintSet.connect(textView.id, ConstraintSet.END, parentView.id, ConstraintSet.END)
-                constraintSet.connect(editText.id, ConstraintSet.END, textView.id, ConstraintSet.START)
+                constraintSet.connect(view.id, ConstraintSet.START, editText.id, ConstraintSet.END)
+                constraintSet.connect(view.id, ConstraintSet.END, parentView.id, ConstraintSet.END)
+                constraintSet.connect(editText.id, ConstraintSet.END, view.id, ConstraintSet.START)
             }
         }
 
         // 공통 제약 조건 추가
-        constraintSet.connect(textView.id, ConstraintSet.TOP, parentView.id, ConstraintSet.TOP)
-        constraintSet.connect(textView.id, ConstraintSet.BOTTOM, parentView.id, ConstraintSet.BOTTOM)
+        constraintSet.connect(view.id, ConstraintSet.TOP, parentView.id, ConstraintSet.TOP)
+        constraintSet.connect(view.id, ConstraintSet.BOTTOM, parentView.id, ConstraintSet.BOTTOM)
     }
 
     /**
@@ -148,36 +160,103 @@ class TabooEditText(
     }
 
     fun setAffixText(affixType: AffixType, text: String) {
+        if (isAnyPasswordInputType(inputType)) return
+
         getAffixTextView(affixType).text = text
     }
 
     fun setAffixTextAppearance(affixType: AffixType, appearance: Int) {
-        getAffixTextView(affixType)?.setTextAppearance(appearance)
+        if (isAnyPasswordInputType(inputType)) return
+
+        getAffixTextView(affixType).setTextAppearance(appearance)
     }
 
     fun setAffixTextColor(affixType: AffixType, textColorStateList: ColorStateList?) {
+        if (isAnyPasswordInputType(inputType)) return
+
         if (textColorStateList == null)
             return
 
-        getAffixTextView(affixType)?.setTextColor(textColorStateList)
+        getAffixTextView(affixType).setTextColor(textColorStateList)
     }
 
     fun setEnabled(enabled: Boolean) {
         editText.isEnabled = enabled
     }
 
+    fun setPasswordToggleEnable(passwordToggleEnable: Boolean) {
+        this.passwordToggleEnable = passwordToggleEnable
+        updatePasswordToggleEnabled()
+    }
+
+    private fun updatePasswordToggleEnabled() {
+        if (passwordToggleEnable) {
+            createPasswordToggleButton()
+        } else {
+            removePasswordToggleButton()
+        }
+    }
+
+    private fun createPasswordToggleButton() {
+        val parentView = view.findViewById<ConstraintLayout>(R.id.cl_edit_text_wrapper)
+        passwordToggleButton = ImageView(context).apply {
+            setImageDrawable(ContextCompat.getDrawable(context, passwordToggleIcon))
+            setColorFilter(ContextCompat.getColor(context, passwordToggleIconActiveColor))
+            id = View.generateViewId()
+
+            setOnClickListener {
+                if (isVisiblePassword) {
+                    // 비밀번호 숨김
+                    hiddenPassword()
+                } else {
+                    // 비밀번호 표시
+                    showPassword()
+                }
+
+                // 비밀번호 표시 상태값 변경
+                isVisiblePassword = !isVisiblePassword
+            }
+        }
+
+        // 자식 뷰에 추가
+        parentView.addView(passwordToggleButton, 1)
+
+        ConstraintSet().apply {
+            clone(parentView)
+            applyAffixConstraints(this, passwordToggleButton!!, AffixType.SUFFIX, parentView)
+            applyTo(parentView)
+        }
+    }
+
+    private fun removePasswordToggleButton() {
+        passwordToggleButton?.let {
+            val parentView = view.findViewById<ConstraintLayout>(R.id.cl_edit_text_wrapper)
+            parentView.removeView(it)
+        }
+    }
+
+    /**
+     * 비밀번호 표시
+     */
     fun showPassword() {
         val cursorPosition = editText.selectionStart
 
         editText.inputType = EditorInfo.TYPE_CLASS_TEXT
         editText.setSelection(cursorPosition)
+
+        passwordToggleButton?.setColorFilter(ContextCompat.getColor(context, R.color.taboo_edit_text_password_toggle_active))
     }
 
+    /**
+     * 비밀번호 숨김
+     */
     fun hiddenPassword() {
         val cursorPosition = editText.selectionStart
 
         editText.inputType = inputType
         editText.setSelection(cursorPosition)
+
+        passwordToggleButton?.setColorFilter(ContextCompat.getColor(context, R.color.taboo_edit_text_password_toggle_inactive))
     }
 
 

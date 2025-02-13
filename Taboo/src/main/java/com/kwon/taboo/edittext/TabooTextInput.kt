@@ -30,9 +30,6 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
 
     private var hint: String = ""
 
-    private var passwordToggleEnable = false
-
-    private var isVisiblePassword = false
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooTextInput)
@@ -45,7 +42,6 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
         }
 
         val enabled = typed.getBoolean(R.styleable.TabooTextInput_android_enabled, true)
-        val passwordToggleEnabled = typed.getBoolean(R.styleable.TabooTextInput_passwordToggleEnabled, false)
 
         typed.recycle()
 
@@ -92,6 +88,8 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
         val suffixTextAppearance = typed.getResourceId(R.styleable.TabooTextInput_suffixTextAppearance, R.style.Taboo_TextAppearance_TabooEditText_Affix)
         val suffixTextColor = typed.getColorStateList(R.styleable.TabooTextInput_suffixTextColor)
 
+        val passwordToggleEnabled = typed.getBoolean(R.styleable.TabooTextInput_passwordToggleEnabled, false)
+
         TabooEditText(
             context,
             binding.clEditTextWrapper
@@ -99,6 +97,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
             setText(text)
             setHint(hint)
             setInputType(inputType)
+            setPasswordToggleEnable(passwordToggleEnabled)
 
             setAffixText(AffixType.PREFIX, prefixText)
             setAffixTextAppearance(AffixType.PREFIX, prefixTextAppearance)
@@ -172,6 +171,11 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
         binding.tvErrorMessage.visibility = if (error) VISIBLE else INVISIBLE
         binding.clEditTextWrapper.setBackgroundResource(if (error) R.drawable.shape_taboo_edit_text_error else R.drawable.selector_taboo_edit_text)
     }
+
+    fun setPasswordToggleEnable(passwordToggleEnable: Boolean) {
+
+    }
+
 
 
 //    fun setPasswordToggleEnabledInternal(passwordToggleEnabled: Boolean) {
