@@ -3,13 +3,13 @@ package com.kwon.taboo.edittext
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Typeface
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import com.kwon.taboo.R
 import com.kwon.taboo.enums.AffixType
 
@@ -19,8 +19,8 @@ class TabooEditText(
 ) {
     private val view = LayoutInflater.from(context).inflate(R.layout.taboo_edit_text, parent, true)
     private val editText = view.findViewById<EditText>(R.id.edt_text)
-    private val prefixTextView = view.findViewById<TextView>(R.id.tv_prefix)
-    private val suffixTextView = view.findViewById<TextView>(R.id.tv_suffix)
+    private var prefixTextView: TextView? = null
+    private var suffixTextView: TextView? = null
 
     private var inputType = EditorInfo.TYPE_CLASS_TEXT
 
@@ -55,10 +55,95 @@ class TabooEditText(
         return (variation == (EditorInfo.TYPE_CLASS_TEXT or EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD))
     }
 
+    /**
+     * Prefix 또는 Suffix 를 표시할 [TextView]를 생성 및 바인딩.
+     */
+    private fun createAffixTextView(affixType: AffixType): TextView {
+        return TextView(context).apply {
+            id = View.generateViewId()
+            bindAffixTextView(this, affixType)
+        }
+    }
+
+    /**
+     * [textView]를 화면에 바인딩한다.
+     * [affixType]이 [AffixType.PREFIX]이면 `0` 번째 인덱스의 자식뷰로 추가하고,
+     * [affixType]이 [AffixType.SUFFIX]이면 자식 뷰의 개수를 구한 다음에 마지막 자식뷰로 추가한다.
+     */
+    private fun bindAffixTextView(textView: TextView, affixType: AffixType) {
+        val parentView = view.findViewById<ConstraintLayout>(R.id.cl_edit_text_wrapper)
+        val addIndex = if (affixType == AffixType.PREFIX) 0 else parentView.childCount
+
+        // 자식 뷰에 추가
+        parentView.addView(textView, addIndex)
+
+        ConstraintSet().apply {
+            clone(parentView)
+            applyAffixConstraints(this, textView, affixType, parentView)
+            applyTo(parentView)
+        }
+    }
+
+    /**
+     * [AffixType.PREFIX] 또는 [AffixType.SUFFIX]에 따라 [TextView]의 [ConstraintLayout] 제약 조건을 설정하는 메소드.
+     *
+     * @param constraintSet [ConstraintSet] 인스턴스로, 부모 레이아웃의 제약 조건을 변경하는 데 사용됨.
+     * @param textView 제약 조건을 적용할 대상 [TextView].
+     * @param affixType 접두사(PREFIX) 또는 접미사(SUFFIX) 유형을 지정하는 Enum 값. ([AffixType.PREFIX], [AffixType.SUFFIX])
+     * @param parentView 제약 조건을 적용할 부모 [ConstraintLayout].
+     *
+     * - [AffixType.PREFIX] 경우:
+     *   1. `textView`를 부모 뷰의 START와 연결
+     *   2. `textView`의 END를 `editText`의 START와 연결
+     *   3. `editText`의 START를 `textView`의 END와 연결
+     *
+     * - [AffixType.SUFFIX] 경우:
+     *   1. `textView`의 START를 `editText`의 END와 연결
+     *   2. `textView`의 END를 부모 뷰의 END와 연결
+     *   3. `editText`의 END를 `textView`의 START와 연결
+     *
+     * - 공통 설정:
+     *   1. `textView`의 TOP을 부모 뷰의 TOP과 연결
+     *   2. `textView`의 BOTTOM을 부모 뷰의 BOTTOM과 연결
+     */
+    private fun applyAffixConstraints(
+        constraintSet: ConstraintSet,
+        textView: TextView,
+        affixType: AffixType,
+        parentView: ConstraintLayout
+    ) {
+        when (affixType) {
+            AffixType.PREFIX -> {
+                constraintSet.connect(textView.id, ConstraintSet.START, parentView.id, ConstraintSet.START)
+                constraintSet.connect(textView.id, ConstraintSet.END, editText.id, ConstraintSet.START)
+                constraintSet.connect(editText.id, ConstraintSet.START, textView.id, ConstraintSet.END)
+            }
+            AffixType.SUFFIX -> {
+                constraintSet.connect(textView.id, ConstraintSet.START, editText.id, ConstraintSet.END)
+                constraintSet.connect(textView.id, ConstraintSet.END, parentView.id, ConstraintSet.END)
+                constraintSet.connect(editText.id, ConstraintSet.END, textView.id, ConstraintSet.START)
+            }
+        }
+
+        // 공통 제약 조건 추가
+        constraintSet.connect(textView.id, ConstraintSet.TOP, parentView.id, ConstraintSet.TOP)
+        constraintSet.connect(textView.id, ConstraintSet.BOTTOM, parentView.id, ConstraintSet.BOTTOM)
+    }
+
+    /**
+     * [AffixType.PREFIX] 또는 [AffixType.SUFFIX]에 따라 해당하는 [TextView]를 반환하는 메서드.
+     *
+     * 접두사를 추가할 때는 `prefixTextView == null`이면 새롭게 생성한 후 저장하여 반환함.
+     *
+     * 접미사를 추가할 때는 `suffixTextViw == null`이면 새롭게 생성한 후 저장하여 반환함.
+     *
+     * @param affixType 접두사(PREFIX) 또는 접미사(SUFFIX) 유형을 지정하는 Enum 값.
+     * @return 해당 affixType에 맞는 TextView 객체.
+     */
     private fun getAffixTextView(affixType: AffixType): TextView {
         return when (affixType) {
-            AffixType.PREFIX -> prefixTextView
-            AffixType.SUFFIX -> suffixTextView
+            AffixType.PREFIX -> prefixTextView ?: createAffixTextView(affixType).also { prefixTextView = it }
+            AffixType.SUFFIX -> suffixTextView ?: createAffixTextView(affixType).also { suffixTextView = it }
         }
     }
 
@@ -66,16 +151,15 @@ class TabooEditText(
         getAffixTextView(affixType).text = text
     }
 
-
     fun setAffixTextAppearance(affixType: AffixType, appearance: Int) {
-        getAffixTextView(affixType).setTextAppearance(appearance)
+        getAffixTextView(affixType)?.setTextAppearance(appearance)
     }
 
     fun setAffixTextColor(affixType: AffixType, textColorStateList: ColorStateList?) {
         if (textColorStateList == null)
             return
 
-        getAffixTextView(affixType).setTextColor(textColorStateList)
+        getAffixTextView(affixType)?.setTextColor(textColorStateList)
     }
 
     fun setEnabled(enabled: Boolean) {

@@ -11,16 +11,6 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent">
 
-    <TextView
-        android:id="@+id/tv_prefix"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/Taboo.Style.TabooEditText.Prefix"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/edt_text"/>
-
     <EditText
         android:id="@+id/edt_text"
         style="@style/Taboo.Style.TabooEditText.Content"
@@ -29,31 +19,9 @@
         android:textColorHint="@color/selector_taboo_edit_text_hint"
         android:inputType="text"
         android:layout_marginHorizontal="5dp"
-        app:layout_constraintStart_toEndOf="@id/tv_prefix"
-        app:layout_constraintEnd_toStartOf="@id/tv_suffix"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_goneMarginStart="0dp"
-        app:layout_goneMarginEnd="0dp"
         tools:hint="아이디를 입력해주세요."/>
-
-    <TextView
-        android:id="@+id/tv_suffix"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/Taboo.Style.TabooEditText.Suffix"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/edt_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <ImageView
-        android:id="@+id/iv_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/edt_text"/>
 
 </merge>
