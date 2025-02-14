@@ -39,7 +39,7 @@
 
     <com.kwon.taboo.edittext.TabooTextInput
         android:id="@+id/taboo_drop_down"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:hint="국가를 선택해주세요."
         android:text="대한민국"

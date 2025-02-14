@@ -10,8 +10,11 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.inputmethod.EditorInfo
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ListPopupWindow
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -22,6 +25,7 @@ import com.kwon.taboo.enums.AffixType
 
 class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
     private val binding = TabooTextInputBinding.inflate(LayoutInflater.from(context), this, true)
+    private var liningView: Any? = null
 
     private var title: String = "Title"
     private var requiredIconVisible: Boolean = false
@@ -90,7 +94,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
 
         val passwordToggleEnabled = typed.getBoolean(R.styleable.TabooTextInput_passwordToggleEnabled, false)
 
-        TabooEditText(
+        liningView = TabooEditText(
             context,
             binding.clEditTextWrapper
         ).apply {
@@ -119,7 +123,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
         val text = typed.getString(R.styleable.TabooTextInput_android_text) ?: ""
         val hint = typed.getString(R.styleable.TabooTextInput_android_hint) ?: ""
 
-        TabooDropdown(
+        liningView = TabooDropdown(
             context,
             binding.clEditTextWrapper
         ).apply {
@@ -128,6 +132,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
 
             setDropdownIcon(R.drawable.ic_round_arrow_bottom)
             setDropdownIconColor(context.getColor(R.color.taboo_gray_01))
+            setItems(arrayOf("Item 1", "Item 2", "Item 3"))
         }
     }
 
@@ -174,6 +179,10 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
 
     fun setPasswordToggleEnable(passwordToggleEnable: Boolean) {
 
+    }
+
+    fun setDropdownItems(items: Array<String>) {
+        (liningView as? TabooDropdown)?.setItems(items)
     }
 
 
