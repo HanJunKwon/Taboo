@@ -159,6 +159,14 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
         binding.viewRequiredDot.visibility = if (requiredIconVisible) VISIBLE else GONE
     }
 
+    fun getText() : String {
+        return when (liningView) {
+            is TabooEditText -> return (liningView as TabooEditText).getText()
+            is TabooDropdown -> return (liningView as TabooDropdown).getText()
+            else -> ""
+        }
+    }
+
     fun setHint(hint: String) {
         liningView?.let {
             when (liningView) {
