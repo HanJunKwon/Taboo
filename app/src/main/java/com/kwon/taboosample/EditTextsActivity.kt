@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.kwon.taboo.edittext.TabooDropdown
 import com.kwon.taboo.edittext.TabooEditText
 import com.kwon.taboo.edittext.TabooTextInput
 
@@ -14,8 +15,18 @@ class EditTextsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_edit_texts)
-//        findViewById<TabooEditText>(R.id.taboo_edit_text).setOnTextChangedListener { v, text, start, before, count ->
-//            Log.d("EditTextsActivity", "text: $text")
-//        }
+
+        findViewById<TabooTextInput>(R.id.taboo_drop_down).apply {
+            setDropdownItems(arrayOf("대한민국", "일본", "미국"))
+            setDropdownItemSelectedListener { parent, view, position, id ->
+                 Log.d(">>>", "selectedListener() :: position: $position")
+            }
+
+            setDropdownItemChangedListener { position ->
+                Log.d(">>>", "changeListener() :: position: $position")
+            }
+
+            setDropdownSelectedPosition(-2)
+        }
     }
 }
