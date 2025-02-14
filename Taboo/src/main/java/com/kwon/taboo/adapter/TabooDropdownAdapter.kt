@@ -21,6 +21,16 @@ class TabooDropdownAdapter(
      * 선택된 아이템의 위치를 설정.
      */
     fun setSelectedPosition(position: Int) {
+        if (position < 0) {
+            selectedPosition = NO_SELECTION
+            return
+        }
+
+        if (position > items.size) {
+            Log.e(">>>", "TabooDropdownAdapter.setSelectedPosition() :: position is out of range.")
+            return
+        }
+
         selectedPosition = position
     }
 

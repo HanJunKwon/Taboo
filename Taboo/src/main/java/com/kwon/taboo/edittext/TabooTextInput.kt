@@ -186,6 +186,10 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
         (liningView as? TabooDropdown)?.setItems(items)
     }
 
+    fun setDropdownSelectedPosition(position: Int) {
+        (liningView as? TabooDropdown)?.setSelectedPosition(position)
+    }
+
     fun setDropdownItemSelectedListener(listener: ((parent: AdapterView<*>?, view: View?, position: Int, id: Long) -> Unit)?) {
         (liningView as? TabooDropdown)?.setOnItemSelectedListener(listener)
     }

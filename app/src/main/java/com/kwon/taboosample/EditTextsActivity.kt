@@ -25,6 +25,8 @@ class EditTextsActivity : AppCompatActivity() {
             setDropdownItemChangedListener { position ->
                 Log.d(">>>", "changeListener() :: position: $position")
             }
+
+            setDropdownSelectedPosition(-2)
         }
     }
 }

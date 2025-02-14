@@ -60,6 +60,11 @@ class TabooDropdown(
         this.items = items
     }
 
+    fun setSelectedPosition(position: Int) {
+        adapter?.setSelectedPosition(position)
+        itemChangedListener?.invoke(position)
+    }
+
     fun setDropdownClickListener(listener: () -> Unit) {
         this.listener = listener
     }
