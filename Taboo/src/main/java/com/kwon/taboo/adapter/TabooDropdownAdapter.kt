@@ -12,7 +12,7 @@ import com.kwon.taboo.R
 class TabooDropdownAdapter(
     context: Context,
     @LayoutRes private val layout: Int,
-    private var items: Array<String>
+    private var items: Array<String> = arrayOf()
 ) : ArrayAdapter<String>(context, layout, items) {
 
     private var selectedPosition = NO_SELECTION

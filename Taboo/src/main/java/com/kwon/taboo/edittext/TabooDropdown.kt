@@ -23,12 +23,17 @@ class TabooDropdown(
     private val editText = view.findViewById<EditText>(R.id.edt_text)
     private val ivDropdown = view.findViewById<ImageView>(R.id.iv_dropdown)
 
-    private var listener: (() -> Unit)? = null
+    private var adapter: TabooDropdownAdapter? = null
 
-    private var adapter = TabooDropdownAdapter(context, R.layout.taboo_dropdown_list_item, arrayOf("바나나", "사과")).apply {
-            setDropDownViewResource(R.layout.taboo_dropdown_list_item)
-        }
+    private var listener: (() -> Unit)? = null
     private var items = arrayOf<String>()
+
+//    private var adapter = TabooDropdownAdapter(
+//        context = context,
+//        layout = R.layout.taboo_dropdown_list_item
+//    ).apply {
+//        setDropDownViewResource(R.layout.taboo_dropdown_list_item)
+//    }
 
     init {
         setDropdownClickListener()
@@ -80,6 +85,16 @@ class TabooDropdown(
     }
 
     private fun showPopupWindow() {
+        if (adapter == null) {
+            adapter = TabooDropdownAdapter(
+                context = context,
+                layout = R.layout.taboo_dropdown_list_item,
+                items = items
+            ).apply {
+                setDropDownViewResource(R.layout.taboo_dropdown_list_item)
+            }
+        }
+
         ListPopupWindow(context)
             .apply {
                 setAnchorView(view)
@@ -87,7 +102,8 @@ class TabooDropdown(
                 setPromptPosition(ListPopupWindow.POSITION_PROMPT_ABOVE)
                 setAdapter(adapter)
                 setOnItemClickListener({ parent, v, position, id ->
-                    adapter.setSelectedPosition(position)
+                    adapter?.setSelectedPosition(position)
+                    editText.setText(items[position])
                     dismiss()
                 })
                 width = this@TabooDropdown.getWidth()
