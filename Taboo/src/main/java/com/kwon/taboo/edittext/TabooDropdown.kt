@@ -29,6 +29,7 @@ class TabooDropdown(
     private var items = arrayOf<String>()
 
     private var itemSelectedListener: ((parent: AdapterView<*>?, view: android.view.View?, position: Int, id: Long) -> Unit)? = null
+    private var itemChangedListener: ((position: Int) -> Unit)? = null
 
     init {
         setDropdownClickListener()
@@ -97,9 +98,15 @@ class TabooDropdown(
                 setPromptPosition(ListPopupWindow.POSITION_PROMPT_ABOVE)
                 setAdapter(adapter)
                 setOnItemClickListener({ parent, v, position, id ->
+                    // 아이템 선택 & 변경 리스너 콜백
                     itemSelectedListener?.invoke(parent, v, position, id)
+                    itemChangedListener?.invoke(position)
+
+                    // 선택 아이템 포지션 저장 및 텍스트 설정
                     adapter?.setSelectedPosition(position)
                     editText.setText(items[position])
+
+                    // 팝업 닫기
                     dismiss()
                 })
                 width = this@TabooDropdown.getWidth()
@@ -111,5 +118,9 @@ class TabooDropdown(
 
     fun setOnItemSelectedListener(listener: ((parent: AdapterView<*>?, view: android.view.View?, position: Int, id: Long) -> Unit)? = null) {
         itemSelectedListener = listener
+    }
+
+    fun setOnItemChangedListener(listener: ((position: Int) -> Unit)? = null) {
+        itemChangedListener = listener
     }
 }

@@ -190,6 +190,9 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
         (liningView as? TabooDropdown)?.setOnItemSelectedListener(listener)
     }
 
+    fun setDropdownItemChangedListener(listener: ((position: Int) -> Unit)?) {
+        (liningView as? TabooDropdown)?.setOnItemChangedListener(listener)
+    }
 
 
 //    fun setPasswordToggleEnabledInternal(passwordToggleEnabled: Boolean) {

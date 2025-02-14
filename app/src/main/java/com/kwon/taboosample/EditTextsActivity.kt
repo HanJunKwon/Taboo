@@ -19,7 +19,11 @@ class EditTextsActivity : AppCompatActivity() {
         findViewById<TabooTextInput>(R.id.taboo_drop_down).apply {
             setDropdownItems(arrayOf("대한민국", "일본", "미국"))
             setDropdownItemSelectedListener { parent, view, position, id ->
-                 Log.d(">>>", "position: $position")
+                 Log.d(">>>", "selectedListener() :: position: $position")
+            }
+
+            setDropdownItemChangedListener { position ->
+                Log.d(">>>", "changeListener() :: position: $position")
             }
         }
     }
