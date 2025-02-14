@@ -36,6 +36,10 @@ class TabooEditText(
         editText.setText(text)
     }
 
+    fun getText(): String {
+        return editText.text.toString()
+    }
+
     fun setHint(hint: String) {
         editText.hint = hint
     }
