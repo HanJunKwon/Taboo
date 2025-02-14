@@ -15,10 +15,12 @@ class EditTextsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_edit_texts)
-//        findViewById<TabooEditText>(R.id.taboo_edit_text).setOnTextChangedListener { v, text, start, before, count ->
-//            Log.d("EditTextsActivity", "text: $text")
-//        }
 
-        findViewById<TabooTextInput>(R.id.taboo_drop_down).setDropdownItems(arrayOf("Item 1", "Item 2", "Item 3"))
+        findViewById<TabooTextInput>(R.id.taboo_drop_down).apply {
+            setDropdownItems(arrayOf("대한민국", "일본", "미국"))
+            setDropdownItemSelectedListener { parent, view, position, id ->
+                 Log.d(">>>", "position: $position")
+            }
+        }
     }
 }

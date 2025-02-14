@@ -28,12 +28,7 @@ class TabooDropdown(
     private var listener: (() -> Unit)? = null
     private var items = arrayOf<String>()
 
-//    private var adapter = TabooDropdownAdapter(
-//        context = context,
-//        layout = R.layout.taboo_dropdown_list_item
-//    ).apply {
-//        setDropDownViewResource(R.layout.taboo_dropdown_list_item)
-//    }
+    private var itemSelectedListener: ((parent: AdapterView<*>?, view: android.view.View?, position: Int, id: Long) -> Unit)? = null
 
     init {
         setDropdownClickListener()
@@ -102,6 +97,7 @@ class TabooDropdown(
                 setPromptPosition(ListPopupWindow.POSITION_PROMPT_ABOVE)
                 setAdapter(adapter)
                 setOnItemClickListener({ parent, v, position, id ->
+                    itemSelectedListener?.invoke(parent, v, position, id)
                     adapter?.setSelectedPosition(position)
                     editText.setText(items[position])
                     dismiss()
@@ -112,4 +108,8 @@ class TabooDropdown(
     }
 
     private fun getWidth() = view.width
+
+    fun setOnItemSelectedListener(listener: ((parent: AdapterView<*>?, view: android.view.View?, position: Int, id: Long) -> Unit)? = null) {
+        itemSelectedListener = listener
+    }
 }

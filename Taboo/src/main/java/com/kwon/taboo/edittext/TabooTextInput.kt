@@ -9,6 +9,7 @@ import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -183,6 +184,10 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
 
     fun setDropdownItems(items: Array<String>) {
         (liningView as? TabooDropdown)?.setItems(items)
+    }
+
+    fun setDropdownItemSelectedListener(listener: ((parent: AdapterView<*>?, view: View?, position: Int, id: Long) -> Unit)?) {
+        (liningView as? TabooDropdown)?.setOnItemSelectedListener(listener)
     }
 
 
