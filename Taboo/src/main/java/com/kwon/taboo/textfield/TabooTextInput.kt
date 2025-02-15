@@ -1,26 +1,15 @@
-package com.kwon.taboo.edittext
+package com.kwon.taboo.textfield
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.content.res.TypedArray
-import android.graphics.Typeface
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.EditText
-import android.widget.ImageView
-import android.widget.ListPopupWindow
-import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.kwon.taboo.R
-import com.kwon.taboo.databinding.TabooEditTextBinding
 import com.kwon.taboo.databinding.TabooTextInputBinding
 import com.kwon.taboo.enums.AffixType
 

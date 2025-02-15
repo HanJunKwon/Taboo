@@ -1,4 +1,4 @@
-package com.kwon.taboo.edittext
+package com.kwon.taboo.textfield
 
 import android.content.Context
 import android.content.res.ColorStateList

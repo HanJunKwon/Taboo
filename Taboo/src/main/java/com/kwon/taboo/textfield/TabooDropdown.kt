@@ -1,11 +1,8 @@
-package com.kwon.taboo.edittext
+package com.kwon.taboo.textfield
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
-import android.widget.Adapter
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ListPopupWindow
