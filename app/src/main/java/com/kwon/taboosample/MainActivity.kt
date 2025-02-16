@@ -3,12 +3,7 @@ package com.kwon.taboosample
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
-import androidx.core.content.ContextCompat
-import com.kwon.taboo.button.TabooIconButton
-import com.kwon.taboo.button.TabooPreviewButton
-import com.kwon.taboo.edittext.TabooEditText
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

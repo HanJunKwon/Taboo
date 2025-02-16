@@ -1,26 +1,15 @@
-package com.kwon.taboo.edittext
+package com.kwon.taboo.textfield
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.content.res.TypedArray
-import android.graphics.Typeface
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.EditText
-import android.widget.ImageView
-import android.widget.ListPopupWindow
-import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.kwon.taboo.R
-import com.kwon.taboo.databinding.TabooEditTextBinding
 import com.kwon.taboo.databinding.TabooTextInputBinding
 import com.kwon.taboo.enums.AffixType
 
@@ -104,13 +93,17 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
             setInputType(inputType)
             setPasswordToggleEnable(passwordToggleEnabled)
 
-            setAffixText(AffixType.PREFIX, prefixText)
-            setAffixTextAppearance(AffixType.PREFIX, prefixTextAppearance)
-            setAffixTextColor(AffixType.PREFIX, prefixTextColor)
+            if (prefixText.isNotBlank()) {
+                setAffixText(AffixType.PREFIX, prefixText)
+                setAffixTextAppearance(AffixType.PREFIX, prefixTextAppearance)
+                setAffixTextColor(AffixType.PREFIX, prefixTextColor)
+            }
 
-            setAffixText(AffixType.SUFFIX, suffixText)
-            setAffixTextAppearance(AffixType.SUFFIX, suffixTextAppearance)
-            setAffixTextColor(AffixType.SUFFIX, suffixTextColor)
+            if (suffixText.isNotBlank()) {
+                setAffixText(AffixType.SUFFIX, suffixText)
+                setAffixTextAppearance(AffixType.SUFFIX, suffixTextAppearance)
+                setAffixTextColor(AffixType.SUFFIX, suffixTextColor)
+            }
         }
     }
 
@@ -128,6 +121,8 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
             context,
             binding.clEditTextWrapper
         ).apply {
+            bindDropdownIcon()
+
             setText(text)
             setHint(hint)
 
@@ -157,6 +152,13 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
 
     private fun updateRequiredIconVisible() {
         binding.viewRequiredDot.visibility = if (requiredIconVisible) VISIBLE else GONE
+    }
+
+    fun setText(text: String) {
+        when (liningView) {
+            is TabooEditText -> (liningView as TabooEditText).setText(text)
+            is TabooDropdown -> (liningView as TabooDropdown).setText(text)
+        }
     }
 
     fun getText() : String {
@@ -214,94 +216,4 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
     fun setDropdownItemChangedListener(listener: ((position: Int) -> Unit)?) {
         (liningView as? TabooDropdown)?.setOnItemChangedListener(listener)
     }
-
-
-//    fun setPasswordToggleEnabledInternal(passwordToggleEnabled: Boolean) {
-//        this.passwordToggleEnable = passwordToggleEnable
-//    }
-//
-//    fun setPasswordToggleEnabled(passwordToggleEnabled: Boolean) {
-//        setPasswordToggleEnabledInternal(passwordToggleEnabled)
-//        updatePasswordToggleEnabled()
-//    }
-//
-//    private fun updatePasswordToggleEnabled() {
-//        val inputType = binding.edtText.inputType
-//
-//        if (isPasswordInputType(inputType) || isVisiblePasswordInputType(inputType)) {
-//            val icon = AppCompatResources.getDrawable(context, R.drawable.ic_visibility_24dp_e5e8eb)?.mutate()
-//            binding.ivPasswordToggle.setImageDrawable(icon)
-//            binding.ivPasswordToggle.setColorFilter(context.getColor(R.color.taboo_gray_01))
-//            binding.ivPasswordToggle.setOnClickListener {
-//                val cursorPosition = binding.edtText.selectionStart
-//
-//                if (isVisiblePassword) {
-//                    // 비밀번호 숨김
-//                    binding.edtText.inputType = inputType
-//                    binding.ivPasswordToggle.setColorFilter(context.getColor(R.color.taboo_gray_01))
-//                } else {
-//                    // 비밀번호 표시
-//                    binding.edtText.inputType = EditorInfo.TYPE_CLASS_TEXT
-//                    binding.ivPasswordToggle.setColorFilter(context.getColor(R.color.white))
-//                }
-//
-//                // 상태값 변경
-//                isVisiblePassword = !isVisiblePassword
-//
-//                // 커서 위치 변경
-//                binding.edtText.setSelection(cursorPosition)
-//            }
-//        } else {
-//            binding.ivPasswordToggle.setImageDrawable(null)
-//        }
-//    }
-//
-//    fun getText() = binding.edtText.text.toString()
-//
-//    fun setText(text: String) {
-//        if (this.text == text)
-//            return
-//
-//        this.text = text
-//        updateText()
-//    }
-//
-//    private fun updateText() {
-//        binding.edtText.setText(this.text)
-//    }
-//
-//    override fun setEnabled(enabled: Boolean) {
-//        super.setEnabled(enabled)
-//        binding.tvEditTextTitle.isEnabled = enabled
-//        binding.viewRequiredDot.isEnabled = enabled
-//        binding.clEditTextWrapper.isEnabled = enabled
-//        binding.edtText.isEnabled = enabled
-//    }
-//
-//    override fun hasFocus(): Boolean {
-//        return binding.edtText.hasFocus()
-//    }
-//
-//    override fun setOnFocusChangeListener(l: OnFocusChangeListener?) {
-//        binding.edtText.setOnFocusChangeListener { v, hasFocus ->
-//            l?.onFocusChange(v, hasFocus)
-//            super.setOnFocusChangeListener(l)
-//        }
-//    }
-//
-//    fun setOnTextChangedListener(l: (v: TabooTextInput, text: CharSequence, start: Int, before: Int, count: Int) -> Unit) {
-//        binding.edtText.addTextChangedListener(object : TextWatcher {
-//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-//                l.invoke(this@TabooTextInput, s ?: "", start, count, after)
-//            }
-//
-//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//                l.invoke(this@TabooTextInput, s ?: "", start, before, count)
-//            }
-//
-//            override fun afterTextChanged(s: Editable?) {
-//                l.invoke(this@TabooTextInput, s ?: "", 0, 0, 0)
-//            }
-//        })
-//    }
 }
