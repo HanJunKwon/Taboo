@@ -20,18 +20,8 @@
         android:focusable="false"
         android:clickable="false"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/iv_dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:hint="항목을 선택해주세요."/>
-
-    <ImageView
-        android:id="@+id/iv_dropdown"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:src="@drawable/ic_round_arrow_bottom"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
 </merge>
