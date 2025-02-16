@@ -23,8 +23,6 @@ class TabooEditText(
     private var prefixTextView: TextView? = null
     private var suffixTextView: TextView? = null
 
-    private var inputType = EditorInfo.TYPE_CLASS_TEXT
-
     private var passwordToggleButton: ImageView? = null
     private var passwordToggleEnable = false
     private var passwordToggleIcon = R.drawable.ic_visibility_24dp
@@ -124,19 +122,19 @@ class TabooEditText(
     }
 
     fun setAffixText(affixType: AffixType, text: String) {
-        if (EditorUtils.isAnyPasswordInputType(inputType)) return
+        if (isAnyPasswordInputType()) return
 
         getAffixTextView(affixType).text = text
     }
 
     fun setAffixTextAppearance(affixType: AffixType, appearance: Int) {
-        if (EditorUtils.isAnyPasswordInputType(inputType)) return
+        if (isAnyPasswordInputType()) return
 
         getAffixTextView(affixType).setTextAppearance(appearance)
     }
 
     fun setAffixTextColor(affixType: AffixType, textColorStateList: ColorStateList?) {
-        if (EditorUtils.isAnyPasswordInputType(inputType)) return
+        if (isAnyPasswordInputType()) return
 
         if (textColorStateList == null)
             return
@@ -202,11 +200,8 @@ class TabooEditText(
     /**
      * 비밀번호 표시
      */
-    fun showPassword() {
-        val cursorPosition = editText.selectionStart
-
-        editText.inputType = EditorInfo.TYPE_CLASS_TEXT
-        editText.setSelection(cursorPosition)
+    override fun showPassword() {
+        super.showPassword()
 
         passwordToggleButton?.setColorFilter(ContextCompat.getColor(context, R.color.taboo_edit_text_password_toggle_active))
     }
@@ -214,11 +209,8 @@ class TabooEditText(
     /**
      * 비밀번호 숨김
      */
-    fun hiddenPassword() {
-        val cursorPosition = editText.selectionStart
-
-        editText.inputType = inputType
-        editText.setSelection(cursorPosition)
+    override fun hiddenPassword() {
+        super.hiddenPassword()
 
         passwordToggleButton?.setColorFilter(ContextCompat.getColor(context, R.color.taboo_edit_text_password_toggle_inactive))
     }
