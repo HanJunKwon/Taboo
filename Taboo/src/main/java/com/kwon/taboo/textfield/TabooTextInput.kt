@@ -201,6 +201,14 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
 
     }
 
+    fun setOnEditTextFocusChangeListener(l: OnFocusChangeListener?) {
+        (liningView as? TabooEditText)?.setOnFocusChangeListener(l)
+    }
+
+    fun setOnEditTextChangedListener(l: (text: CharSequence, start: Int, before: Int, count: Int) -> Unit) {
+        (liningView as? TabooEditText)?.setOnTextChangedListener(l)
+    }
+
     fun setDropdownItems(items: Array<String>) {
         (liningView as? TabooDropdown)?.setItems(items)
     }

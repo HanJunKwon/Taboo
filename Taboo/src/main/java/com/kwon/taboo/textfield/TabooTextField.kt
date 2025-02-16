@@ -2,7 +2,10 @@ package com.kwon.taboo.textfield
 
 import android.content.Context
 import android.graphics.Typeface
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -71,4 +74,26 @@ open class TabooTextField(
     }
 
     fun isAnyPasswordInputType() = EditorUtils.isAnyPasswordInputType(inputType)
+
+    fun setOnFocusChangeListener(l: OnFocusChangeListener?) {
+        editText.setOnFocusChangeListener { v, hasFocus ->
+            l?.onFocusChange(v, hasFocus)
+        }
+    }
+
+    fun setOnTextChangedListener(l: (text: CharSequence, start: Int, before: Int, count: Int) -> Unit) {
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                l.invoke(s ?: "", start, count, after)
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                l.invoke(s ?: "", start, before, count)
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                l.invoke(s ?: "", 0, 0, 0)
+            }
+        })
+    }
 }
