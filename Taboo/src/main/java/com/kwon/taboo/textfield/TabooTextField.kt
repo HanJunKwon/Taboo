@@ -22,11 +22,19 @@ open class TabooTextField(
 ) {
     protected val view: View = LayoutInflater.from(context).inflate(R.layout.taboo_edit_text, parent, true)
     protected val textFieldWrapper: ConstraintLayout = view.findViewById(R.id.wrapper)
-    protected val editText: EditText = view.findViewById(R.id.edt_text)
+    protected val editText: EditText = view.findViewById<EditText?>(R.id.edt_text).apply {
+        setOnFocusChangeListener { v, hasFocus ->
+            editTextOnFocusChangeListener?.onFocusChange(v, hasFocus)
+            textFieldWrapper.isSelected = hasFocus
+        }
+    }
+
+    private var editTextOnFocusChangeListener: OnFocusChangeListener? = null
 
     private var inputType = EditorInfo.TYPE_CLASS_TEXT
 
     open fun setEnabled(enabled: Boolean) {
+        textFieldWrapper.isEnabled = enabled
         editText.isEnabled = enabled
     }
 
@@ -85,9 +93,7 @@ open class TabooTextField(
     fun isAnyPasswordInputType() = EditorUtils.isAnyPasswordInputType(inputType)
 
     fun setOnFocusChangeListener(l: OnFocusChangeListener?) {
-        editText.setOnFocusChangeListener { v, hasFocus ->
-            l?.onFocusChange(v, hasFocus)
-        }
+        editTextOnFocusChangeListener = l
     }
 
     fun setOnTextChangedListener(l: (text: CharSequence, start: Int, before: Int, count: Int) -> Unit) {
