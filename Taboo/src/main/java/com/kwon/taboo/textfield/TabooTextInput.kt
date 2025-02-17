@@ -162,13 +162,10 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
     fun getText() = liningView?.getText() ?: ""
 
     fun setHint(hint: String) {
-        liningView?.let {
-            when (liningView) {
-                is TabooEditText -> (liningView as TabooEditText).setHint(hint)
-                is TabooDropdown -> (liningView as TabooDropdown).setHint(hint)
-            }
-        }
+        liningView?.setHint(hint)
     }
+
+    fun getHint() = liningView?.getHint() ?: ""
 
     fun setErrorMassage(errorMessage: String?) {
         this.errorMessage = errorMessage
