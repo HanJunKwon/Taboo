@@ -202,7 +202,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
     fun getEnabled() = this.enabled
 
     fun setPasswordToggleEnable(passwordToggleEnable: Boolean) {
-
+        (liningView as? TabooEditText)?.setPasswordToggleEnable(passwordToggleEnable)
     }
 
     fun setOnEditTextFocusChangeListener(l: OnFocusChangeListener?) {

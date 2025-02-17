@@ -81,6 +81,8 @@ class TabooEditText(
     }
 
     fun setPasswordToggleEnable(passwordToggleEnable: Boolean) {
+        if (!isAnyPasswordInputType()) return
+
         this.passwordToggleEnable = passwordToggleEnable
         updatePasswordToggleEnabled()
     }
