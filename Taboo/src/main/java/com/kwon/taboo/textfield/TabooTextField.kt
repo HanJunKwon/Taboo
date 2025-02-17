@@ -12,12 +12,13 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
 import com.kwon.taboo.enums.AffixType
 import com.kwon.utils.edit.EditorUtils
 
 open class TabooTextField(
-    context: Context,
+    private val context: Context,
     parent: ConstraintLayout
 ) {
     protected val view: View = LayoutInflater.from(context).inflate(R.layout.taboo_edit_text, parent, true)
@@ -32,6 +33,7 @@ open class TabooTextField(
     private var editTextOnFocusChangeListener: OnFocusChangeListener? = null
 
     private var inputType = EditorInfo.TYPE_CLASS_TEXT
+    private var isError = false
 
     open fun setEnabled(enabled: Boolean) {
         textFieldWrapper.isEnabled = enabled
@@ -91,6 +93,13 @@ open class TabooTextField(
     }
 
     fun isAnyPasswordInputType() = EditorUtils.isAnyPasswordInputType(inputType)
+
+    fun isError(error: Boolean) {
+        val backgroundDrawable = if (error) R.drawable.shape_taboo_edit_text_error else R.drawable.selector_taboo_edit_text
+        textFieldWrapper.background = ContextCompat.getDrawable(context, backgroundDrawable)
+    }
+
+    fun isError() = isError
 
     fun setOnFocusChangeListener(l: OnFocusChangeListener?) {
         editTextOnFocusChangeListener = l

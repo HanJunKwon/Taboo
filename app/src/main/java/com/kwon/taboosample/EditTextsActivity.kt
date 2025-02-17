@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.kwon.taboo.button.TabooButton
 import com.kwon.taboo.textfield.TabooTextInput
 
 class EditTextsActivity : AppCompatActivity() {
@@ -29,6 +30,10 @@ class EditTextsActivity : AppCompatActivity() {
             }
 
             setDropdownSelectedPosition(-2)
+        }
+
+        findViewById<TabooButton>(R.id.btn_ok).setOnClickListener {
+            findViewById<TabooTextInput>(R.id.taboo_edit_text).isError(true)
         }
     }
 }

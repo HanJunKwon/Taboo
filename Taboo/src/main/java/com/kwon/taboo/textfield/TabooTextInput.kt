@@ -36,8 +36,6 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
             }
         }
 
-        val enabled = typed.getBoolean(R.styleable.TabooTextInput_android_enabled, true)
-
         typed.recycle()
     }
 
@@ -60,7 +58,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
         setTitle(title)
         setRequiredIconVisible(requiredIconVisible)
         setErrorMassage(errorMessage)
-        setError(error)
+        isError(error)
         setEnabled(enabled)
     }
 
@@ -190,14 +188,16 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
         binding.tvErrorMessage.text = errorMessage
     }
 
-    fun setError(error: Boolean = false) {
+    fun isError(error: Boolean = false) {
         this.error = error
         updateError()
     }
 
+    fun isError() = this.error
+
     private fun updateError() {
         binding.tvErrorMessage.visibility = if (error) VISIBLE else INVISIBLE
-        binding.clEditTextWrapper.setBackgroundResource(if (error) R.drawable.shape_taboo_edit_text_error else R.drawable.selector_taboo_edit_text)
+        (liningView as? TabooTextField)?.isError(error)
     }
 
     override fun setEnabled(enabled: Boolean) {
