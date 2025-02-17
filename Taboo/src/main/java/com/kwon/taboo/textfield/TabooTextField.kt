@@ -100,4 +100,16 @@ open class TabooTextField(
             }
         })
     }
+
+    protected fun setFocusable(focusable: Boolean) {
+        editText.isFocusable = focusable
+    }
+
+    protected fun getFocusable() = editText.isFocusable
+
+    protected fun setClickable(clickable: Boolean) {
+        editText.isClickable = clickable
+    }
+
+    protected fun getClickable() = editText.isClickable
 }

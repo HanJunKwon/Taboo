@@ -29,8 +29,8 @@ class TabooDropdown(
     private var itemChangedListener: ((position: Int) -> Unit)? = null
 
     init {
-        editText.isFocusable = false
-        editText.isClickable = false
+        setFocusable(false)
+        setClickable(false)
     }
 
     private fun createDropdownIcon() {

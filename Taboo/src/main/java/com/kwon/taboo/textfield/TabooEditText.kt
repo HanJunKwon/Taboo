@@ -210,16 +210,4 @@ class TabooEditText(
 
         passwordToggleButton?.setColorFilter(ContextCompat.getColor(context, R.color.taboo_edit_text_password_toggle_inactive))
     }
-
-    fun setFocusable(focusable: Boolean) {
-        editText.isFocusable = focusable
-    }
-
-    fun getFocusable() = editText.isFocusable
-
-    fun setClickable(clickable: Boolean) {
-        editText.isClickable = clickable
-    }
-
-    fun getClickable() = editText.isClickable
 }
