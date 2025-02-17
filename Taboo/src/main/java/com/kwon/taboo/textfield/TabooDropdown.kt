@@ -8,7 +8,6 @@ import android.widget.ListPopupWindow
 import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
 import com.kwon.taboo.adapter.TabooDropdownAdapter
@@ -46,42 +45,9 @@ class TabooDropdown(
             createDropdownIcon()
         }
 
-        val parentView = view.findViewById<ConstraintLayout>(R.id.cl_edit_text_wrapper)
-
-        // 자식 뷰에 추가
-        parentView.addView(ivDropdown)
-
-        ConstraintSet().apply {
-            clone(parentView)
-            applyAffixConstraints(this, ivDropdown!!, AffixType.SUFFIX, parentView)
-            applyTo(parentView)
-        }
+        bindView(ivDropdown!!, AffixType.SUFFIX)
 
         setDropdownClickListener()
-    }
-
-    private fun applyAffixConstraints(
-        constraintSet: ConstraintSet,
-        view: View,
-        affixType: AffixType,
-        parentView: ConstraintLayout
-    ) {
-        when (affixType) {
-            AffixType.PREFIX -> {
-                constraintSet.connect(view.id, ConstraintSet.START, parentView.id, ConstraintSet.START)
-                constraintSet.connect(view.id, ConstraintSet.END, editText.id, ConstraintSet.START)
-                constraintSet.connect(editText.id, ConstraintSet.START, view.id, ConstraintSet.END)
-            }
-            AffixType.SUFFIX -> {
-                constraintSet.connect(view.id, ConstraintSet.START, editText.id, ConstraintSet.END)
-                constraintSet.connect(view.id, ConstraintSet.END, parentView.id, ConstraintSet.END)
-                constraintSet.connect(editText.id, ConstraintSet.END, view.id, ConstraintSet.START)
-            }
-        }
-
-        // 공통 제약 조건 추가
-        constraintSet.connect(view.id, ConstraintSet.TOP, parentView.id, ConstraintSet.TOP)
-        constraintSet.connect(view.id, ConstraintSet.BOTTOM, parentView.id, ConstraintSet.BOTTOM)
     }
 
     override fun setEnabled(enabled: Boolean) {
