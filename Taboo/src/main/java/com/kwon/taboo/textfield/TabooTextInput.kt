@@ -15,7 +15,7 @@ import com.kwon.taboo.enums.AffixType
 
 class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
     private val binding = TabooTextInputBinding.inflate(LayoutInflater.from(context), this, true)
-    private var liningView: Any? = null
+    private var liningView: TabooTextField? = null
 
     private var title: String = "Title"
     private var requiredIconVisible: Boolean = false
@@ -156,19 +156,10 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
     }
 
     fun setText(text: String) {
-        when (liningView) {
-            is TabooEditText -> (liningView as TabooEditText).setText(text)
-            is TabooDropdown -> (liningView as TabooDropdown).setText(text)
-        }
+        liningView?.setText(text)
     }
 
-    fun getText() : String {
-        return when (liningView) {
-            is TabooEditText -> return (liningView as TabooEditText).getText()
-            is TabooDropdown -> return (liningView as TabooDropdown).getText()
-            else -> ""
-        }
-    }
+    fun getText() = liningView?.getText() ?: ""
 
     fun setHint(hint: String) {
         liningView?.let {
