@@ -15,7 +15,7 @@ import com.kwon.taboo.enums.AffixType
 
 class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
     private val binding = TabooTextInputBinding.inflate(LayoutInflater.from(context), this, true)
-    private var liningView: Any? = null
+    private var liningView: TabooTextField? = null
 
     private var title: String = "Title"
     private var requiredIconVisible: Boolean = false
@@ -24,6 +24,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
 
     private var hint: String = ""
 
+    private var enabled = true
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooTextInput)
@@ -35,11 +36,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
             }
         }
 
-        val enabled = typed.getBoolean(R.styleable.TabooTextInput_android_enabled, true)
-
         typed.recycle()
-
-        setEnabled(enabled)
     }
 
     /**
@@ -56,11 +53,13 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
         val requiredIconVisible = typed.getBoolean(R.styleable.TabooTextInput_requiredIconVisible, false)
         val errorMessage = typed.getString(R.styleable.TabooTextInput_errorMessage)
         val error = typed.getBoolean(R.styleable.TabooTextInput_error, false)
+        val enabled = typed.getBoolean(R.styleable.TabooTextInput_android_enabled, true)
 
         setTitle(title)
         setRequiredIconVisible(requiredIconVisible)
         setErrorMassage(errorMessage)
-        setError(error)
+        isError(error)
+        setEnabled(enabled)
     }
 
     private fun initEditTextComponent(typed: TypedArray) {
@@ -92,6 +91,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
             setHint(hint)
             setInputType(inputType)
             setPasswordToggleEnable(passwordToggleEnabled)
+            setEnabled(enabled)
 
             if (prefixText.isNotBlank()) {
                 setAffixText(AffixType.PREFIX, prefixText)
@@ -125,6 +125,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
 
             setText(text)
             setHint(hint)
+            setEnabled(enabled)
 
             setDropdownIcon(R.drawable.ic_round_arrow_bottom)
             setDropdownIconColor(context.getColor(R.color.taboo_gray_01))
@@ -155,28 +156,16 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
     }
 
     fun setText(text: String) {
-        when (liningView) {
-            is TabooEditText -> (liningView as TabooEditText).setText(text)
-            is TabooDropdown -> (liningView as TabooDropdown).setText(text)
-        }
+        liningView?.setText(text)
     }
 
-    fun getText() : String {
-        return when (liningView) {
-            is TabooEditText -> return (liningView as TabooEditText).getText()
-            is TabooDropdown -> return (liningView as TabooDropdown).getText()
-            else -> ""
-        }
-    }
+    fun getText() = liningView?.getText() ?: ""
 
     fun setHint(hint: String) {
-        liningView?.let {
-            when (liningView) {
-                is TabooEditText -> (liningView as TabooEditText).setHint(hint)
-                is TabooDropdown -> (liningView as TabooDropdown).setHint(hint)
-            }
-        }
+        liningView?.setHint(hint)
     }
+
+    fun getHint() = liningView?.getHint() ?: ""
 
     fun setErrorMassage(errorMessage: String?) {
         this.errorMessage = errorMessage
@@ -187,18 +176,41 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
         binding.tvErrorMessage.text = errorMessage
     }
 
-    fun setError(error: Boolean = false) {
+    fun isError(error: Boolean = false) {
         this.error = error
         updateError()
     }
 
+    fun isError() = this.error
+
     private fun updateError() {
         binding.tvErrorMessage.visibility = if (error) VISIBLE else INVISIBLE
-        binding.clEditTextWrapper.setBackgroundResource(if (error) R.drawable.shape_taboo_edit_text_error else R.drawable.selector_taboo_edit_text)
+        liningView?.isError(error)
     }
 
-    fun setPasswordToggleEnable(passwordToggleEnable: Boolean) {
+    override fun setEnabled(enabled: Boolean) {
+        super.setEnabled(enabled)
+        this.enabled = enabled
 
+        binding.tvEditTextTitle.isEnabled = enabled
+        binding.viewRequiredDot.isEnabled = enabled
+        binding.clEditTextWrapper.isEnabled = enabled
+
+        liningView?.isError(enabled)
+    }
+
+    fun getEnabled() = this.enabled
+
+    fun setPasswordToggleEnable(passwordToggleEnable: Boolean) {
+        (liningView as? TabooEditText)?.setPasswordToggleEnable(passwordToggleEnable)
+    }
+
+    fun setOnEditTextFocusChangeListener(l: OnFocusChangeListener?) {
+        (liningView as? TabooEditText)?.setOnFocusChangeListener(l)
+    }
+
+    fun setOnEditTextChangedListener(l: (text: CharSequence, start: Int, before: Int, count: Int) -> Unit) {
+        (liningView as? TabooEditText)?.setOnTextChangedListener(l)
     }
 
     fun setDropdownItems(items: Array<String>) {

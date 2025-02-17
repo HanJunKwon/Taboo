@@ -15,6 +15,7 @@
         android:layout_marginTop="30dp"
         app:textInputVariant="editText"
         app:title="아이디"
+        app:errorMessage="아이디를 확인해주세요."
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.kwon.taboo.textfield.TabooTextInput
@@ -38,6 +39,14 @@
         app:layout_constraintTop_toBottomOf="@id/taboo_edit_text_password"/>
 
     <com.kwon.taboo.textfield.TabooTextInput
+        android:id="@+id/taboo_edit_text_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        app:title="이메일"
+        app:layout_constraintTop_toBottomOf="@id/taboo_edit_text_money"/>
+
+    <com.kwon.taboo.textfield.TabooTextInput
         android:id="@+id/taboo_drop_down"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
@@ -45,7 +54,7 @@
         android:text="대한민국"
         app:title="국가"
         app:textInputVariant="dropdown"
-        app:layout_constraintTop_toBottomOf="@id/taboo_edit_text_money"/>
+        app:layout_constraintTop_toBottomOf="@id/taboo_edit_text_email"/>
 
     <com.kwon.taboo.button.TabooButton
         android:id="@+id/btn_ok"
