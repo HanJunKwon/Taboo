@@ -185,7 +185,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
 
     private fun updateError() {
         binding.tvErrorMessage.visibility = if (error) VISIBLE else INVISIBLE
-        (liningView as? TabooTextField)?.isError(error)
+        liningView?.isError(error)
     }
 
     override fun setEnabled(enabled: Boolean) {
@@ -196,11 +196,10 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
         binding.viewRequiredDot.isEnabled = enabled
         binding.clEditTextWrapper.isEnabled = enabled
 
-        when (liningView) {
-            is TabooEditText -> (liningView as TabooEditText).setEnabled(enabled)
-            is TabooDropdown -> (liningView as TabooDropdown).setEnabled(enabled)
-        }
+        liningView?.isError(enabled)
     }
+
+    fun getEnabled() = this.enabled
 
     fun setPasswordToggleEnable(passwordToggleEnable: Boolean) {
 
