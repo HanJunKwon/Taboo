@@ -21,6 +21,10 @@ open class TabooTextField(
 
     private var inputType = EditorInfo.TYPE_CLASS_TEXT
 
+    open fun setEnabled(enabled: Boolean) {
+        editText.isEnabled = enabled
+    }
+
     fun setHint(hint: String) {
         editText.setHint(hint)
     }

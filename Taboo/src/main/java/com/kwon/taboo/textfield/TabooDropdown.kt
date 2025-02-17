@@ -28,6 +28,11 @@ class TabooDropdown(
     private var itemSelectedListener: ((parent: AdapterView<*>?, view: View?, position: Int, id: Long) -> Unit)? = null
     private var itemChangedListener: ((position: Int) -> Unit)? = null
 
+    init {
+        editText.isFocusable = false
+        editText.isClickable = false
+    }
+
     private fun createDropdownIcon() {
         ivDropdown = ImageView(context).apply {
             setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_round_arrow_bottom))
@@ -79,8 +84,9 @@ class TabooDropdown(
         constraintSet.connect(view.id, ConstraintSet.BOTTOM, parentView.id, ConstraintSet.BOTTOM)
     }
 
-    fun setEnabled(enabled: Boolean) {
-        editText.isEnabled = enabled
+    override fun setEnabled(enabled: Boolean) {
+        super.setEnabled(enabled)
+
         ivDropdown?.isEnabled = enabled
     }
 

@@ -142,10 +142,6 @@ class TabooEditText(
         getAffixTextView(affixType).setTextColor(textColorStateList)
     }
 
-    fun setEnabled(enabled: Boolean) {
-        editText.isEnabled = enabled
-    }
-
     fun setPasswordToggleEnable(passwordToggleEnable: Boolean) {
         this.passwordToggleEnable = passwordToggleEnable
         updatePasswordToggleEnabled()
@@ -214,4 +210,16 @@ class TabooEditText(
 
         passwordToggleButton?.setColorFilter(ContextCompat.getColor(context, R.color.taboo_edit_text_password_toggle_inactive))
     }
+
+    fun setFocusable(focusable: Boolean) {
+        editText.isFocusable = focusable
+    }
+
+    fun getFocusable() = editText.isFocusable
+
+    fun setClickable(clickable: Boolean) {
+        editText.isClickable = clickable
+    }
+
+    fun getClickable() = editText.isClickable
 }
