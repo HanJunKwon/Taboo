@@ -196,7 +196,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
         binding.viewRequiredDot.isEnabled = enabled
         binding.clEditTextWrapper.isEnabled = enabled
 
-        liningView?.isError(enabled)
+        liningView?.setEnabled(enabled)
     }
 
     fun getEnabled() = this.enabled
