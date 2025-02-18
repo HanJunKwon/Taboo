@@ -1,20 +1,20 @@
 package com.kwon.taboosample
 
 import android.os.Bundle
-import android.telephony.mbms.MbmsErrors.DownloadErrors
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.kwon.taboo.button.TabooButton
-import com.kwon.taboo.loading.TabooDownloading
+import com.kwon.taboo.enums.LoadingType
+import com.kwon.taboo.loading.TabooLoading
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class LoadingsActivity : AppCompatActivity() {
-    private val downloading = TabooDownloading(this)
+    private val downloading = TabooLoading(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,10 +28,14 @@ class LoadingsActivity : AppCompatActivity() {
 
         findViewById<TabooButton>(R.id.btn_downloading).setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
-                downloading.setMessage("Downloading...")
-                downloading.show()
+                downloading.apply {
+                    setLoadingType(LoadingType.DOWNLOADING)
+                    setLottieScaleXY(0.3f)
+                    setMessage("Downloading...")
+                    show()
+                }
                 delay(2000)
-                downloading.hide()
+                downloading.dismiss()
             }
         }
     }

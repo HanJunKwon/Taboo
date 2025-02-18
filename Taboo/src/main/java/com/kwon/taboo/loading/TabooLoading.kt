@@ -4,27 +4,30 @@ import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Window
 import com.airbnb.lottie.LottieDrawable
 import com.kwon.taboo.databinding.TabooDownloadingBinding
+import com.kwon.taboo.enums.LoadingType
 
-class TabooDownloading(
+class TabooLoading(
     private val context: Context
 ) {
     private var dialog: AlertDialog? = null
     private lateinit var binding: TabooDownloadingBinding
 
-    private var assetName: String = "animation_downloading.json"
-    private var lottieScaleXY: Float = 1.0f
+    private var loadingType = LoadingType.LOADING
+
+    private var assetName: String = ""
     private var message: String = ""
+
+    fun setLoadingType(loadingType: LoadingType) {
+        this.loadingType = loadingType
+    }
 
     fun setAssetName(assetName: String) {
         this.assetName = assetName
-    }
-
-    fun setLottieScaleXY(lottieScaleXY: Float) {
-        this.lottieScaleXY = lottieScaleXY
     }
 
     fun setMessage(message: String) {
@@ -33,10 +36,22 @@ class TabooDownloading(
 
     private fun updateLottieDownloading() {
         binding.lottieDownloading.apply {
-            setAnimation(assetName)
+            setAnimation(
+                assetName.ifBlank {
+                    getDefaultAssetName()
+                }
+            )
             setRepeatCount(LottieDrawable.INFINITE)
             playAnimation()
         }
+    }
+
+    /**
+     * [assetName]이 빈 값인 경우, [loadingType]에 따라 기본 애셋 이름을 반환.
+     */
+    private fun getDefaultAssetName() = when (loadingType) {
+        LoadingType.LOADING -> "animation_loading.json"
+        LoadingType.DOWNLOADING -> "animation_downloading.json"
     }
 
     private fun updateDownloadingMessage() {
@@ -44,7 +59,10 @@ class TabooDownloading(
     }
 
     fun show() {
-        if (isShowing()) return
+        if (isShowing()) {
+            Log.e("TabooDownloading", "Already showing")
+            return
+        }
 
         binding = TabooDownloadingBinding.inflate(LayoutInflater.from(context))
         updateLottieDownloading()
@@ -62,10 +80,9 @@ class TabooDownloading(
         }
 
         dialog?.show()
-
     }
 
-    fun hide() {
+    fun dismiss() {
         dialog?.dismiss()
     }
 
