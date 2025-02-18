@@ -25,5 +25,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_calendar_example).setOnClickListener {
             startActivity(Intent(this, CalendarActivity::class.java))
         }
+
+        findViewById<Button>(R.id.btn_loading_example).setOnClickListener {
+            startActivity(Intent(this, LoadingsActivity::class.java))
+        }
     }
 }
