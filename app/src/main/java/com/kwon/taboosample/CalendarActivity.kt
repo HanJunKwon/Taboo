@@ -8,6 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.kwon.taboo.button.TabooButton
 import com.kwon.taboo.calender.TabooHorizontalCalendar
+import com.kwon.utils.calendar.CalendarUtils
 
 class CalendarActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +31,8 @@ class CalendarActivity : AppCompatActivity() {
             val dayTextView = findViewById<TextView>(R.id.tv_day)
             dayTextView.text = "선택한 요일: " + it.getDay("ko")
         }
+
+        findViewById<TabooHorizontalCalendar>(R.id.calendar).setLocale(CalendarUtils.ESPANOL)
 
         findViewById<TabooButton>(R.id.btn_prev).setOnClickListener {
             findViewById<TabooHorizontalCalendar>(R.id.calendar).prevMonth()

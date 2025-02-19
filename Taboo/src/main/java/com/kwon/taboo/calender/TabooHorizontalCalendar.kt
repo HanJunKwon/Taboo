@@ -39,6 +39,14 @@ class TabooHorizontalCalendar(context: Context, attrs: AttributeSet) : Constrain
         }
     }
 
+    fun setLocale(locale: String) {
+        (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setLocale(locale)
+    }
+
+    fun getLocale(): String {
+        return (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).getLocale()
+    }
+
     fun setTimestamp(timestamp: Long) {
         (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setTimestamp(timestamp)
     }

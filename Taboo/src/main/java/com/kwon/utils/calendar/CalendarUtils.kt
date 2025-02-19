@@ -6,6 +6,7 @@ object CalendarUtils {
     const val KOREAN = "ko"
     const val ENGLISH = "en"
     const val VIETNAMESE = "vn"
+    const val ESPANOL = "es"
 
     private const val SUNDAY = 1
     private const val MONDAY = 2
@@ -41,6 +42,7 @@ object CalendarUtils {
             KOREAN -> "일"
             ENGLISH -> "S"
             VIETNAMESE -> "C"
+            ESPANOL -> "Dom."
             else -> ""
         }
     }
@@ -50,6 +52,7 @@ object CalendarUtils {
             KOREAN -> "월"
             ENGLISH -> "M"
             VIETNAMESE -> "H"
+            ESPANOL -> "Lun."
             else -> ""
         }
     }
@@ -59,6 +62,7 @@ object CalendarUtils {
             KOREAN -> "화"
             ENGLISH -> "T"
             VIETNAMESE -> "B"
+            ESPANOL -> "Mar."
             else -> ""
         }
     }
@@ -68,6 +72,7 @@ object CalendarUtils {
             KOREAN -> "수"
             ENGLISH -> "W"
             VIETNAMESE -> "T"
+            ESPANOL -> "Mié."
             else -> ""
         }
     }
@@ -77,6 +82,7 @@ object CalendarUtils {
             KOREAN -> "목"
             ENGLISH -> "T"
             VIETNAMESE -> "N"
+            ESPANOL -> "Jue."
             else -> ""
         }
     }
@@ -86,6 +92,7 @@ object CalendarUtils {
             KOREAN -> "금"
             ENGLISH -> "F"
             VIETNAMESE -> "S"
+            ESPANOL -> "Vie."
             else -> ""
         }
     }
@@ -95,6 +102,7 @@ object CalendarUtils {
             KOREAN -> "토"
             ENGLISH -> "S"
             VIETNAMESE -> "B"
+            ESPANOL -> "Sáb."
             else -> ""
         }
     }

@@ -18,6 +18,8 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
     private var monthChangedListener: ((timestamp: Long) -> Unit)? = null
     private var selectedCalendarBlock: CalendarBlock? = null
 
+    private var locale: String = CalendarUtils.KOREAN
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = TabooHorizontalCalenderItemBinding.inflate(inflater, parent, false)
@@ -130,9 +132,15 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
         monthChangedListener = listener
     }
 
+    fun setLocale(locale: String) {
+        this.locale = locale
+    }
+
+    fun getLocale() = locale
+
     inner class TabooHorizontalCalenderViewHolder(private val binding: TabooHorizontalCalenderItemBinding): ViewHolder(binding.root) {
         fun bind(calendarBlock: CalendarBlock) {
-            binding.tvDay.text = calendarBlock.getDay(CalendarUtils.KOREAN)
+            binding.tvDay.text = calendarBlock.getDay(locale)
             binding.tvDate.text = calendarBlock.getDate()
 
             binding.root.isSelected = when {
