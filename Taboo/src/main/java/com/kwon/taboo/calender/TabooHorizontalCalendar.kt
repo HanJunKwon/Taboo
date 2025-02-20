@@ -124,6 +124,10 @@ class TabooHorizontalCalendar(context: Context, attrs: AttributeSet) : Constrain
         (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setSelectedCalendarBlock(calendarBlock)
     }
 
+    fun getSelectedCalendarBlock(): CalendarBlock? {
+        return (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).getSelectedCalendarBlock()
+    }
+
     private fun RecyclerView.scrollToPositionWithCenter(context: Context, position: Int) {
         val layoutManager = this.layoutManager as? LinearLayoutManager
         if (layoutManager != null) {

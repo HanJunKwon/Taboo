@@ -120,6 +120,8 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
         setSelectedPosition(position)
     }
 
+    fun getSelectedCalendarBlock() = selectedCalendarBlock
+
     fun setOnItemClickListener(listener: (CalendarBlock) -> Unit) {
         clickListener = listener
     }
