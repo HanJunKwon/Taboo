@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -28,9 +29,14 @@ open class TabooTextField(
             editTextOnFocusChangeListener?.onFocusChange(v, hasFocus)
             textFieldWrapper.isSelected = hasFocus
         }
+
+        setOnClickListener { v ->
+            editTextOnClickListener?.onClick(v)
+        }
     }
 
     private var editTextOnFocusChangeListener: OnFocusChangeListener? = null
+    private var editTextOnClickListener: OnClickListener? = null
 
     private var inputType = EditorInfo.TYPE_CLASS_TEXT
     private var isError = false
@@ -103,6 +109,10 @@ open class TabooTextField(
 
     fun setOnFocusChangeListener(l: OnFocusChangeListener?) {
         editTextOnFocusChangeListener = l
+    }
+
+    fun setOnClickListener(l: OnClickListener?) {
+        editTextOnClickListener = l
     }
 
     fun setOnTextChangedListener(l: (text: CharSequence, start: Int, before: Int, count: Int) -> Unit) {

@@ -2,6 +2,7 @@ package com.kwon.taboo.textfield
 
 import android.content.Context
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.ListPopupWindow
@@ -28,8 +29,7 @@ class TabooDropdown(
     private var itemChangedListener: ((position: Int) -> Unit)? = null
 
     init {
-        setFocusable(false)
-        setClickable(false)
+        setInputType(EditorInfo.TYPE_NULL)
     }
 
     private fun createDropdownIcon() {
@@ -78,7 +78,13 @@ class TabooDropdown(
     }
 
     private fun setDropdownClickListener() {
-        editText.setOnClickListener {
+        setOnFocusChangeListener { v, hasFocus ->
+            if (hasFocus) {
+                view.performClick()
+            }
+        }
+
+        setOnClickListener { v ->
             view.performClick()
         }
 
