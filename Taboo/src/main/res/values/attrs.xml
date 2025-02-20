@@ -82,8 +82,7 @@
         <attr name="passwordToggleEnabled" format="boolean"/>
     </declare-styleable>
 
-    <declare-styleable name="TabooHorizontalCalender">
-    </declare-styleable>
+    <declare-styleable name="TabooHorizontalCalender"/>
 
     <declare-styleable name="TabooIconTextView">
         <attr name="android:src"/>
