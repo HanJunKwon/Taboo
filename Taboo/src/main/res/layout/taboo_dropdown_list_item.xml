@@ -14,6 +14,7 @@
         android:minHeight="48dp"
         android:gravity="center_vertical"
         android:textAppearance="@style/Taboo.TextAppearance.TabooEditText.Content"
+        android:textColor="@color/selector_taboo_dropdown_item_text_color"
         android:paddingHorizontal="10dp"
         android:background="@drawable/shape_taboo_dropdown_list_item_background"
         app:layout_constraintTop_toTopOf="parent"
