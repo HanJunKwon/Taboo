@@ -12,10 +12,21 @@ import com.kwon.taboo.R
 class TabooDropdownAdapter(
     context: Context,
     @LayoutRes private val layout: Int,
-    private var items: Array<String> = arrayOf()
+    private var items: List<String> = mutableListOf()
 ) : ArrayAdapter<String>(context, layout, items) {
 
     private var selectedPosition = NO_SELECTION
+
+    fun setItems(items: List<String>) {
+        selectedPosition = NO_SELECTION
+
+        this.items = items
+
+        clear()
+        addAll(items.toMutableList())
+
+        notifyDataSetChanged()
+    }
 
     /**
      * 선택된 아이템의 위치를 설정.
@@ -33,6 +44,8 @@ class TabooDropdownAdapter(
 
         selectedPosition = position
     }
+
+    override fun getItem(position: Int) = if (position >= 0 && position < items.size) super.getItem(position) else null
 
     /**
      * 드랍다운된 아이템의 뷰를 설정.

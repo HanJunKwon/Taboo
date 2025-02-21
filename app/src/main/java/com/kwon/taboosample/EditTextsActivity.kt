@@ -20,7 +20,7 @@ class EditTextsActivity : AppCompatActivity() {
         }
 
         findViewById<TabooTextInput>(R.id.taboo_drop_down).apply {
-            setDropdownItems(arrayOf("대한민국", "일본", "미국"))
+            setDropdownItems(listOf("대한민국", "일본", "미국"))
             setDropdownItemSelectedListener { parent, view, position, id ->
                  Log.d(">>>", "selectedListener() :: position: $position")
             }
@@ -34,6 +34,9 @@ class EditTextsActivity : AppCompatActivity() {
 
         findViewById<TabooButton>(R.id.btn_ok).setOnClickListener {
             findViewById<TabooTextInput>(R.id.taboo_edit_text).isError(true)
+
+            findViewById<TabooTextInput>(R.id.taboo_drop_down).setDropdownItems(listOf("010", "011", "019", "012"))
+            findViewById<TabooTextInput>(R.id.taboo_drop_down).setDropdownSelectedPosition(2)
         }
     }
 }
