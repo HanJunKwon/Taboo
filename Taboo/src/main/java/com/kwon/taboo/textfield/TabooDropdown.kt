@@ -76,6 +76,9 @@ class TabooDropdown(
 
     fun setSelectedPosition(position: Int) {
         adapter.setSelectedPosition(position)
+
+        editText.setText(adapter.getItem(position))
+
         itemChangedListener?.invoke(position)
     }
 

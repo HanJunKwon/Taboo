@@ -36,6 +36,7 @@ class EditTextsActivity : AppCompatActivity() {
             findViewById<TabooTextInput>(R.id.taboo_edit_text).isError(true)
 
             findViewById<TabooTextInput>(R.id.taboo_drop_down).setDropdownItems(listOf("010", "011", "019", "012"))
+            findViewById<TabooTextInput>(R.id.taboo_drop_down).setDropdownSelectedPosition(2)
         }
     }
 }
