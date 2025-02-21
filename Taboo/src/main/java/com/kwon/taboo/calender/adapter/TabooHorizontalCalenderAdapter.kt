@@ -172,7 +172,7 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
         }
 
         private fun setVisibilityTodayDot(calendarBlock: CalendarBlock) {
-            val todayDotVisibility = if (isToday(calendarBlock) && !binding.root.isSelected) View.VISIBLE else View.GONE
+            val todayDotVisibility = if (isToday(calendarBlock)) View.VISIBLE else View.GONE
 
             binding.viewTodayDot.visibility = todayDotVisibility
         }
