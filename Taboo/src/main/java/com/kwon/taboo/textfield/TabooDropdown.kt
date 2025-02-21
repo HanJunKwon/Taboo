@@ -70,6 +70,8 @@ class TabooDropdown(
 
     fun setItems(items: List<String>) {
         adapter.setItems(items)
+
+        editText.text.clear()
     }
 
     fun setSelectedPosition(position: Int) {
