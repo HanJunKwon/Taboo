@@ -20,10 +20,14 @@ class TabooDropdown(
 ) : TabooTextField(context, parent) {
     private var ivDropdown: ImageView? = null
 
-    private var adapter: TabooDropdownAdapter? = null
+    private var adapter = TabooDropdownAdapter(
+        context = context,
+        layout = R.layout.taboo_dropdown_list_item
+    ).apply {
+        setDropDownViewResource(R.layout.taboo_dropdown_list_item)
+    }
 
     private var listener: (() -> Unit)? = null
-    private var items = arrayOf<String>()
 
     private var itemSelectedListener: ((parent: AdapterView<*>?, view: View?, position: Int, id: Long) -> Unit)? = null
     private var itemChangedListener: ((position: Int) -> Unit)? = null
@@ -64,12 +68,12 @@ class TabooDropdown(
         ivDropdown?.setColorFilter(color)
     }
 
-    fun setItems(items: Array<String>) {
-        this.items = items
+    fun setItems(items: List<String>) {
+        adapter.setItems(items)
     }
 
     fun setSelectedPosition(position: Int) {
-        adapter?.setSelectedPosition(position)
+        adapter.setSelectedPosition(position)
         itemChangedListener?.invoke(position)
     }
 
@@ -100,16 +104,6 @@ class TabooDropdown(
     }
 
     private fun showPopupWindow() {
-        if (adapter == null) {
-            adapter = TabooDropdownAdapter(
-                context = context,
-                layout = R.layout.taboo_dropdown_list_item,
-                items = items
-            ).apply {
-                setDropDownViewResource(R.layout.taboo_dropdown_list_item)
-            }
-        }
-
         ListPopupWindow(context)
             .apply {
                 setAnchorView(view)
@@ -122,8 +116,8 @@ class TabooDropdown(
                     itemChangedListener?.invoke(position)
 
                     // 선택 아이템 포지션 저장 및 텍스트 설정
-                    adapter?.setSelectedPosition(position)
-                    editText.setText(items[position])
+                    adapter.setSelectedPosition(position)
+                    editText.setText(adapter.getItem(position))
 
                     // 팝업 닫기
                     dismiss()

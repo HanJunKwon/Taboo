@@ -12,10 +12,19 @@ import com.kwon.taboo.R
 class TabooDropdownAdapter(
     context: Context,
     @LayoutRes private val layout: Int,
-    private var items: Array<String> = arrayOf()
+    private var items: List<String> = mutableListOf()
 ) : ArrayAdapter<String>(context, layout, items) {
 
     private var selectedPosition = NO_SELECTION
+
+    fun setItems(items: List<String>) {
+        selectedPosition = NO_SELECTION
+
+        clear()
+        addAll(items.toMutableList())
+
+        notifyDataSetChanged()
+    }
 
     /**
      * 선택된 아이템의 위치를 설정.

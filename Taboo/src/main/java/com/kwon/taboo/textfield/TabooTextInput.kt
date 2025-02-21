@@ -129,7 +129,6 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
 
             setDropdownIcon(R.drawable.ic_round_arrow_bottom)
             setDropdownIconColor(context.getColor(R.color.taboo_gray_01))
-            setItems(arrayOf("Item 1", "Item 2", "Item 3"))
         }
     }
 
@@ -213,7 +212,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
         (liningView as? TabooEditText)?.setOnTextChangedListener(l)
     }
 
-    fun setDropdownItems(items: Array<String>) {
+    fun setDropdownItems(items: List<String>) {
         (liningView as? TabooDropdown)?.setItems(items)
     }
 
