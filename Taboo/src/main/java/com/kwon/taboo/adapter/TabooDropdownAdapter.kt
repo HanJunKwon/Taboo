@@ -20,6 +20,8 @@ class TabooDropdownAdapter(
     fun setItems(items: List<String>) {
         selectedPosition = NO_SELECTION
 
+        this.items = items
+
         clear()
         addAll(items.toMutableList())
 
@@ -42,6 +44,8 @@ class TabooDropdownAdapter(
 
         selectedPosition = position
     }
+
+    override fun getItem(position: Int) = if (position >= 0 && position < items.size) super.getItem(position) else null
 
     /**
      * 드랍다운된 아이템의 뷰를 설정.
