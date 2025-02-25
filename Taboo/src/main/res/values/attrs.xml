@@ -117,4 +117,9 @@
         <attr name="isEnabled" format="boolean"/>
         <attr name="isChecked" format="boolean"/>
     </declare-styleable>
+
+    <declare-styleable name="TabooTabLayout">
+        <attr name="tabIndicatorColor" format="reference|color"/>
+        <attr name="tabIndicatorHeight" format="dimension"/>
+    </declare-styleable>
 </resources>
