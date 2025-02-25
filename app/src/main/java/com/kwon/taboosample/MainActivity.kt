@@ -29,5 +29,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_loading_example).setOnClickListener {
             startActivity(Intent(this, LoadingsActivity::class.java))
         }
+
+        findViewById<Button>(R.id.btn_tab_example).setOnClickListener {
+            startActivity(Intent(this, TabsActivity::class.java))
+        }
     }
 }
