@@ -12,13 +12,15 @@ class TabooTabLayout(
     context: Context,
     attrs: AttributeSet
 ) : RecyclerView(context, attrs) {
-
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooTabLayout)
+        val isVisibilityNumbering = typed.getBoolean(R.styleable.TabooTabLayout_isVisibilityNumbering, false)
 
         typed.recycle()
 
         initTabLayout()
+
+        isVisibilityNumbering(isVisibilityNumbering)
     }
 
     private fun initTabLayout() {
@@ -65,5 +67,13 @@ class TabooTabLayout(
 
     fun setSelectedTabPosition(position: Int) {
         (adapter as TabooTabAdapter).setSelectedPosition(position)
+    }
+
+    fun isVisibilityNumbering(isVisibilityNumbering: Boolean) {
+        (adapter as TabooTabAdapter).isVisibilityNumbering(isVisibilityNumbering)
+    }
+
+    fun isVisibilityNumbering(): Boolean {
+        return (adapter as TabooTabAdapter).isVisibilityNumbering()
     }
 }

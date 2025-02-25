@@ -119,6 +119,7 @@
     </declare-styleable>
 
     <declare-styleable name="TabooTabLayout">
+        <attr name="isVisibilityNumbering" format="boolean"/>
         <attr name="tabIndicatorColor" format="reference|color"/>
         <attr name="tabIndicatorHeight" format="dimension"/>
     </declare-styleable>

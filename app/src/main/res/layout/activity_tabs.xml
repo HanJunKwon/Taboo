@@ -11,6 +11,7 @@
         android:id="@+id/ttl_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:isVisibilityNumbering="true"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <com.kwon.taboo.button.TabooButton
@@ -39,5 +40,14 @@
         android:text="첫 번째 탭 삭제"
         app:buttonShape="round"
         app:layout_constraintTop_toBottomOf="@id/btn_add_tab_at_first"/>
+
+    <com.kwon.taboo.button.TabooButton
+        android:id="@+id/btn_change_numbering_visibility"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="탭 번호 표시 여부 변경"
+        app:buttonShape="round"
+        app:layout_constraintTop_toBottomOf="@id/btn_remove_tab_at_first"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

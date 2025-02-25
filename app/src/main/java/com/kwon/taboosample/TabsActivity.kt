@@ -29,8 +29,13 @@ class TabsActivity : AppCompatActivity() {
         findViewById<TabooButton>(R.id.btn_add_tab_at_first).setOnClickListener {
             findViewById<TabooTabLayout>(R.id.ttl_tabs).addTab(TabooTabBlock("Tab 0", Random.nextInt()), 0)
         }
+
         findViewById<TabooButton>(R.id.btn_remove_tab_at_first).setOnClickListener {
             findViewById<TabooTabLayout>(R.id.ttl_tabs).removeTab(0)
+        }
+
+        findViewById<TabooButton>(R.id.btn_change_numbering_visibility).setOnClickListener {
+            findViewById<TabooTabLayout>(R.id.ttl_tabs).isVisibilityNumbering(!findViewById<TabooTabLayout>(R.id.ttl_tabs).isVisibilityNumbering())
         }
 
     }

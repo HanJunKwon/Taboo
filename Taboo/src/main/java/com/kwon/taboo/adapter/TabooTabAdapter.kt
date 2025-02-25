@@ -15,6 +15,7 @@ import com.kwon.taboo.tabs.TabooTabBlock
 
 class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHolder>(TabooTabDiffCallback()) {
     private var selectedTab: TabooTabBlock? = null
+    private var isVisibilityNumbering = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TabooTabViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -33,11 +34,35 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
                     PayLoad.SELECTION_CHANGED -> {
                         holder.updateSelected(holder.itemView.context,selectedTab?.uuid == currentList[position].uuid)
                     }
+                    PayLoad.NUMBERING_VISIBILITY_CHANGED -> {
+                        holder.updateNumberingVisibility(isVisibilityNumbering)
+                    }
                 }
             }
         } else {
             super.onBindViewHolder(holder, position, payloads)
         }
+    }
+
+    /**
+     * 탭 이름 오른쪽에 `TabooNumberingBall`을 사용하여 표시하는 숫자를 표시할지 여부를 설정합니다.
+     *
+     * @param isVisibilityNumbering `true`: 숫자 표시, `false`: 숫자 미표시
+     */
+    fun isVisibilityNumbering(isVisibilityNumbering: Boolean) {
+        this.isVisibilityNumbering = isVisibilityNumbering
+
+        // Numbering Visibility 변경
+        notifyItemRangeChanged(0, itemCount, PayLoad.NUMBERING_VISIBILITY_CHANGED)
+    }
+
+    /**
+     * 숫자 표시 여부를 반환합니다.
+     *
+     * @return `true`: 숫자 표시, `false`: 숫자 미표시
+     */
+    fun isVisibilityNumbering(): Boolean {
+        return isVisibilityNumbering
     }
 
     fun setSelectedPosition(selectedPosition: Int) {
@@ -66,6 +91,7 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
                 binding.ivTabIcon.setImageDrawable(ContextCompat.getDrawable(binding.root.context, tab.tabIcon))
             }
 
+            updateNumberingVisibility(isVisibilityNumbering)
             updateSelected(binding.root.context, currentList[adapterPosition].uuid == selectedTab?.uuid)
 
             binding.root.setOnClickListener {
@@ -83,6 +109,17 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
                 ContextCompat.getColor(context, if (isSelected) R.color.taboo_blue_02 else R.color.taboo_black_03),
                 PorterDuff.Mode.SRC_IN
             )
+        }
+
+        /**
+         * 숫자 표시 여부에 따라 숫자 `Visibility` 업데이트.
+         */
+        fun updateNumberingVisibility(isVisibilityNumbering: Boolean) {
+            binding.tnbCount.visibility = if (isVisibilityNumbering) {
+                android.view.View.VISIBLE
+            } else {
+                android.view.View.GONE
+            }
         }
     }
 }
