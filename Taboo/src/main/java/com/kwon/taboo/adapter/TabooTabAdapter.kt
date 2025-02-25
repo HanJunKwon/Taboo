@@ -1,9 +1,13 @@
 package com.kwon.taboo.adapter
 
+import android.content.Context
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.kwon.taboo.R
 import com.kwon.taboo.databinding.TabooTabBinding
 import com.kwon.taboo.diffutils.TabooTabDiffCallback
 import com.kwon.taboo.enums.PayLoad
@@ -27,7 +31,7 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
             payloads.forEach { payload ->
                 when (payload) {
                     PayLoad.SELECTION_CHANGED -> {
-                        holder.updateSelected(selectedTab?.uuid == currentList[position].uuid)
+                        holder.updateSelected(holder.itemView.context,selectedTab?.uuid == currentList[position].uuid)
                     }
                 }
             }
@@ -58,17 +62,27 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
         fun bind(tab: TabooTabBlock) {
             binding.tvTabTitle.text = tab.tabName
             binding.tnbCount.text = tab.tabNumber.toString()
+            if (tab.tabIcon != 0) {
+                binding.ivTabIcon.setImageDrawable(ContextCompat.getDrawable(binding.root.context, tab.tabIcon))
+            }
 
-            updateSelected(currentList[adapterPosition].uuid == selectedTab?.uuid)
+            updateSelected(binding.root.context, currentList[adapterPosition].uuid == selectedTab?.uuid)
 
             binding.root.setOnClickListener {
                 setSelectedPosition(adapterPosition)
             }
         }
 
-        fun updateSelected(isSelected: Boolean) {
+        /**
+         * 선택 여부에 따라 탭 업데이트.
+         */
+        fun updateSelected(context: Context, isSelected: Boolean) {
             binding.tvTabTitle.isSelected = isSelected
             binding.tnbCount.isActivated = isSelected
+            binding.ivTabIcon.setColorFilter(
+                ContextCompat.getColor(context, if (isSelected) R.color.taboo_blue_02 else R.color.taboo_black_03),
+                PorterDuff.Mode.SRC_IN
+            )
         }
     }
 }

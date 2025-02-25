@@ -23,7 +23,7 @@ class TabsActivity : AppCompatActivity() {
         }
 
         findViewById<TabooButton>(R.id.btn_add_tab_at_last).setOnClickListener {
-            findViewById<TabooTabLayout>(R.id.ttl_tabs).addTab(TabooTabBlock("Tab 4", Random.nextInt()))
+            findViewById<TabooTabLayout>(R.id.ttl_tabs).addTab(TabooTabBlock("Tab 4", Random.nextInt(), tabIcon = R.drawable.round_bluetooth_24))
         }
 
         findViewById<TabooButton>(R.id.btn_add_tab_at_first).setOnClickListener {
