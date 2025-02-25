@@ -38,5 +38,8 @@ class TabsActivity : AppCompatActivity() {
             findViewById<TabooTabLayout>(R.id.ttl_tabs).isVisibilityNumbering(!findViewById<TabooTabLayout>(R.id.ttl_tabs).isVisibilityNumbering())
         }
 
+        findViewById<TabooButton>(R.id.btn_change_icon_visibility).setOnClickListener {
+            findViewById<TabooTabLayout>(R.id.ttl_tabs).isVisibilityIcon(!findViewById<TabooTabLayout>(R.id.ttl_tabs).isVisibilityIcon())
+        }
     }
 }

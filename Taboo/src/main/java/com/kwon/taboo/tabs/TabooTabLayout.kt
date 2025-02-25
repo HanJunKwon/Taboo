@@ -15,12 +15,14 @@ class TabooTabLayout(
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooTabLayout)
         val isVisibilityNumbering = typed.getBoolean(R.styleable.TabooTabLayout_isVisibilityNumbering, false)
+        val isVisibilityIcon = typed.getBoolean(R.styleable.TabooTabLayout_isVisibilityIcon, false)
 
         typed.recycle()
 
         initTabLayout()
 
         isVisibilityNumbering(isVisibilityNumbering)
+        isVisibilityIcon(isVisibilityIcon)
     }
 
     private fun initTabLayout() {
@@ -75,5 +77,13 @@ class TabooTabLayout(
 
     fun isVisibilityNumbering(): Boolean {
         return (adapter as TabooTabAdapter).isVisibilityNumbering()
+    }
+
+    fun isVisibilityIcon(isVisibilityIcon: Boolean) {
+        (adapter as TabooTabAdapter).isVisibilityIcon(isVisibilityIcon)
+    }
+
+    fun isVisibilityIcon(): Boolean {
+        return (adapter as TabooTabAdapter).isVisibilityIcon()
     }
 }

@@ -16,6 +16,7 @@ import com.kwon.taboo.tabs.TabooTabBlock
 class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHolder>(TabooTabDiffCallback()) {
     private var selectedTab: TabooTabBlock? = null
     private var isVisibilityNumbering = false
+    private var isVisibilityIcon = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TabooTabViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -28,19 +29,26 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
     }
 
     override fun onBindViewHolder(holder: TabooTabViewHolder, position: Int, payloads: MutableList<Any>) {
-        if (payloads.isNotEmpty()) {
-            payloads.forEach { payload ->
-                when (payload) {
-                    PayLoad.SELECTION_CHANGED -> {
-                        holder.updateSelected(holder.itemView.context,selectedTab?.uuid == currentList[position].uuid)
-                    }
-                    PayLoad.NUMBERING_VISIBILITY_CHANGED -> {
-                        holder.updateNumberingVisibility(isVisibilityNumbering)
-                    }
+        if (payloads.isEmpty()) {
+            super.onBindViewHolder(holder, position, payloads)
+            return
+        }
+
+        payloads.forEach { payload ->
+            when (payload) {
+                // 선택된 탭 변경
+                PayLoad.SELECTION_CHANGED -> {
+                    holder.updateSelected(holder.itemView.context,selectedTab?.uuid == currentList[position].uuid)
+                }
+                // 숫자 표시 여부 변경
+                PayLoad.NUMBERING_VISIBILITY_CHANGED -> {
+                    holder.updateNumberingVisibility(isVisibilityNumbering)
+                }
+                // 아이콘 표시 여부 변경
+                PayLoad.ICON_VISIBILITY_CHANGED -> {
+                    holder.updateIconVisibility(isVisibilityIcon)
                 }
             }
-        } else {
-            super.onBindViewHolder(holder, position, payloads)
         }
     }
 
@@ -65,6 +73,26 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
         return isVisibilityNumbering
     }
 
+    /**
+     * 탭 아이콘을 표시할지 여부를 설정합니다.
+     *
+     * @param isVisibilityIcon `true`: 아이콘 표시, `false`: 아이콘 미표시
+     */
+    fun isVisibilityIcon(isVisibilityIcon: Boolean) {
+        this.isVisibilityIcon = isVisibilityIcon
+
+        notifyItemRangeChanged(0, itemCount, PayLoad.ICON_VISIBILITY_CHANGED)
+    }
+
+    /**
+     * 아이콘 표시 여부를 반환합니다.
+     *
+     * @return `true`: 아이콘 표시, `false`: 아이콘 미표시
+     */
+    fun isVisibilityIcon(): Boolean {
+        return isVisibilityIcon
+    }
+
     fun setSelectedPosition(selectedPosition: Int) {
         val newSelectedTab = getItem(selectedPosition)
 
@@ -83,7 +111,13 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
         notifyItemChanged(selectedPosition, PayLoad.SELECTION_CHANGED)
     }
 
+    /**
+     * 탭 뷰홀더
+     */
     inner class TabooTabViewHolder(private val binding: TabooTabBinding): ViewHolder(binding.root) {
+        /**
+         * 탭 데이터를 뷰에 바인딩.
+         */
         fun bind(tab: TabooTabBlock) {
             binding.tvTabTitle.text = tab.tabName
             binding.tnbCount.text = tab.tabNumber.toString()
@@ -92,6 +126,7 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
             }
 
             updateNumberingVisibility(isVisibilityNumbering)
+            updateIconVisibility(isVisibilityIcon)
             updateSelected(binding.root.context, currentList[adapterPosition].uuid == selectedTab?.uuid)
 
             binding.root.setOnClickListener {
@@ -101,21 +136,46 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
 
         /**
          * 선택 여부에 따라 탭 업데이트.
+         *
+         * 선택된 탭은 `TabooBlue02` 색상으로 표시되고, 선택되지 않은 탭은 `TabooBlack03` 색상으로 표시됩니다.
+         *
+         * @param context `Context`
+         * @param isSelected `true`: 선택된 탭, `false`: 선택되지 않은 탭
          */
         fun updateSelected(context: Context, isSelected: Boolean) {
             binding.tvTabTitle.isSelected = isSelected
             binding.tnbCount.isActivated = isSelected
+
+            // 아이콘 색상 변경
             binding.ivTabIcon.setColorFilter(
-                ContextCompat.getColor(context, if (isSelected) R.color.taboo_blue_02 else R.color.taboo_black_03),
+                ContextCompat.getColor(
+                    context,
+                    if (isSelected) R.color.taboo_blue_02 else R.color.taboo_black_03
+                ),
                 PorterDuff.Mode.SRC_IN
             )
         }
 
         /**
          * 숫자 표시 여부에 따라 숫자 `Visibility` 업데이트.
+         *
+         * @param isVisibilityNumbering `true`: 숫자 표시, `false`: 숫자 미표시
          */
         fun updateNumberingVisibility(isVisibilityNumbering: Boolean) {
             binding.tnbCount.visibility = if (isVisibilityNumbering) {
+                android.view.View.VISIBLE
+            } else {
+                android.view.View.GONE
+            }
+        }
+
+        /**
+         * 아이콘 표시 여부에 따라 아이콘 `Visibility` 업데이트.
+         *
+         * @param isVisibilityIcon `true`: 아이콘 표시, `false`: 아이콘 미표시
+         */
+        fun updateIconVisibility(isVisibilityIcon: Boolean) {
+            binding.ivTabIcon.visibility = if (isVisibilityIcon) {
                 android.view.View.VISIBLE
             } else {
                 android.view.View.GONE

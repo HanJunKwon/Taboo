@@ -50,4 +50,13 @@
         app:buttonShape="round"
         app:layout_constraintTop_toBottomOf="@id/btn_remove_tab_at_first"/>
 
+    <com.kwon.taboo.button.TabooButton
+        android:id="@+id/btn_change_icon_visibility"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="탭 아이콘 표시 여부 변경"
+        app:buttonShape="round"
+        app:layout_constraintTop_toBottomOf="@id/btn_change_numbering_visibility"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
