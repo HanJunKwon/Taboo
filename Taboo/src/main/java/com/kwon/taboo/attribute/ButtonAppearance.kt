@@ -4,10 +4,8 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.GradientDrawable.RECTANGLE
-import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
 import com.kwon.taboo.button.TabooButton.Companion.BUTTON_SHAPE_RECT
-import com.kwon.taboo.button.TabooButton.Companion.BUTTON_SHAPE_ROUNDED
 import com.kwon.taboo.button.TabooButton.Companion.BUTTON_TYPE_SOLID
 import com.kwon.taboo.button.TabooButton.Companion.BUTTON_TYPE_FILL
 import com.kwon.taboo.button.TabooButton.Companion.BUTTON_TYPE_OUTLINE
