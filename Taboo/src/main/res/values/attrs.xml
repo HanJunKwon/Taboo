@@ -99,7 +99,10 @@
         <attr name="tagBackgroundColor" format="reference|color"/>
     </declare-styleable>
 
-    <declare-styleable name="TabooNumberingBall"/>
+    <declare-styleable name="TabooNumberingBall">
+        <attr name="android:textColor" format="reference|color"/>
+        <attr name="ballColor" format="reference|color"/>
+    </declare-styleable>
 
     <declare-styleable name="TabooPillTag">
         <attr name="android:textColor" format="reference|color"/>

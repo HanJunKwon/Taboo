@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NumberingBallsActivity">
+
+    <LinearLayout
+        android:id="@+id/numbering_balls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.kwon.taboo.numbering.TabooNumberingBall
+            android:id="@+id/numbering_ball_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1123"
+            android:textColor="@color/taboo_red_01"/>
+
+        <com.kwon.taboo.numbering.TabooNumberingBall
+            android:id="@+id/numbering_ball_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2"/>
+
+        <com.kwon.taboo.numbering.TabooNumberingBall
+            android:id="@+id/numbering_ball_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3"/>
+
+        <com.kwon.taboo.numbering.TabooNumberingBall
+            android:id="@+id/numbering_ball_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4"/>
+
+    </LinearLayout>
+
+    <com.kwon.taboo.button.TabooButton
+        android:id="@+id/btn_taboo_numbering_balls_updated"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="볼 상태 업데이트"
+        android:layout_marginTop="20dp"
+        app:buttonShape="round"
+        app:layout_constraintTop_toBottomOf="@id/numbering_balls"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

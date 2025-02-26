@@ -93,7 +93,6 @@
 
     <style name="Taboo.TextAppearance.NumberingBall">
         <item name="android:fontFamily">@font/font_pretendard_medium</item>
-        <item name="android:textColor">@color/selector_taboo_numbering_ball_text</item>
         <item name="android:textSize">14sp</item>
     </style>
 

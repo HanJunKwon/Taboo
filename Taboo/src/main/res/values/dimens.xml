@@ -3,4 +3,6 @@
     <dimen name="taboo_pill_tag_text_size">10sp</dimen>
 
     <dimen name="taboo_button_round_shape_radius">15dp</dimen>
+
+    <dimen name="taboo_numbering_ball_min_size">24dp</dimen>
 </resources>
