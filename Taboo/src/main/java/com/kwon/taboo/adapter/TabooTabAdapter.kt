@@ -38,7 +38,10 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
             when (payload) {
                 // 선택된 탭 변경
                 PayLoad.SELECTION_CHANGED -> {
-                    holder.updateSelected(holder.itemView.context,selectedTab?.uuid == currentList[position].uuid)
+                    holder.updateSelected(
+                        context = holder.itemView.context,
+                        isSelected = selectedTab?.uuid == currentList[position].uuid
+                    )
                 }
                 // 숫자 표시 여부 변경
                 PayLoad.NUMBERING_VISIBILITY_CHANGED -> {
@@ -175,7 +178,7 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
          * @param isVisibilityIcon `true`: 아이콘 표시, `false`: 아이콘 미표시
          */
         fun updateIconVisibility(isVisibilityIcon: Boolean) {
-            binding.ivTabIcon.visibility = if (isVisibilityIcon) {
+            binding.ivTabIcon.visibility = if (isVisibilityIcon && binding.ivTabIcon.drawable != null) {
                 android.view.View.VISIBLE
             } else {
                 android.view.View.GONE

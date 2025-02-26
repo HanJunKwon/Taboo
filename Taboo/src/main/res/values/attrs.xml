@@ -122,6 +122,5 @@
         <attr name="isVisibilityNumbering" format="boolean"/>
         <attr name="isVisibilityIcon" format="boolean"/>
         <attr name="tabIndicatorColor" format="reference|color"/>
-        <attr name="tabIndicatorHeight" format="dimension"/>
     </declare-styleable>
 </resources>
