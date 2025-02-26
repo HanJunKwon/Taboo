@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MetricsCardActivity">
+
+    <com.kwon.taboo.metrics.MetricCard
+        android:id="@+id/metric_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:metricTitle="SMV 효율"
+        app:metricValue="523.2323"
+        app:metricPoint="-23.23"
+        app:unitType="custom"
+        app:unit="장"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.kwon.taboo.button.TabooButton
+        android:id="@+id/btn_plus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="+"
+        app:buttonShape="round"
+        app:layout_constraintTop_toBottomOf="@id/metric_card"/>
+
+    <com.kwon.taboo.button.TabooButton
+        android:id="@+id/btn_minus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:layout_marginTop="10dp"
+        app:buttonShape="round"
+        app:layout_constraintTop_toBottomOf="@id/btn_plus"/>
+
+    <com.kwon.taboo.button.TabooButton
+        android:id="@+id/btn_zero"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="zero"
+        android:layout_marginTop="10dp"
+        app:buttonShape="round"
+        app:layout_constraintTop_toBottomOf="@id/btn_minus"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

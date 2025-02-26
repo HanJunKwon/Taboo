@@ -17,6 +17,12 @@
             android:name=".TabsActivity"
             android:exported="false" />
         <activity
+            android:name=".MetricsCardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NumberingBallsActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoadingsActivity"
             android:exported="false" />
         <activity

@@ -2,6 +2,15 @@
 <resources>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="high_emphasis_label">#DE000000</color>             <!-- 텍스트 및 아이콘 색상1 : 투명도 87% -->
+    <color name="medium_emphasis_label">#99000000</color>           <!-- 텍스트 및 아이콘 색상1 : 투명도 60% -->
+    <color name="disabled_label">#61000000</color>                  <!-- 텍스트 및 아이콘 색상1 : 투명도 46% -->
+    <color name="_label">#61000000</color>                          <!-- 텍스트 및 아이콘 색상1 : 투명도 46% -->
+
+    <color name="invert_high_emphasis_label">#DEFFFFFF</color>      <!-- 텍스트 및 아이콘 색상2 : 투명도 87% -->
+    <color name="invert_medium_emphasis_label">#99FFFFFF</color>    <!-- 텍스트 및 아이콘 색상2 : 투명도 60% -->
+    <color name="invert_disabled_label">#61FFFFFF</color>           <!-- 텍스트 및 아이콘 색상2 : 투명도 46% -->
+
     <color name="taboo_blue_01">#FF1731E9</color>
     <color name="taboo_blue_02">#FF2553E5</color>
     <color name="taboo_blue_03">#FF294AF6</color>
