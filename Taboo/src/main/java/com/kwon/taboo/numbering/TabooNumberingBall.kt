@@ -2,6 +2,7 @@ package com.kwon.taboo.numbering
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.view.Gravity.CENTER
@@ -13,6 +14,8 @@ class TabooNumberingBall(
     context: Context,
     attrs: AttributeSet? = null
 ): AppCompatTextView(context, attrs) {
+
+    private var textColor: ColorStateList? = null
 
     /**
      * Ball 최소 너비
@@ -31,12 +34,22 @@ class TabooNumberingBall(
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooNumberingBall)
+
+        // 텍스트 색상
+        val textColor = typed.getColorStateList(R.styleable.TabooNumberingBall_android_textColor)
+            ?: ContextCompat.getColorStateList(context, R.color.selector_taboo_numbering_ball_text)
+            ?: ColorStateList.valueOf(Color.BLACK)
+
+        // Ball 색상
         val ballColor = typed.getColorStateList(R.styleable.TabooNumberingBall_ballColor)
 
         typed.recycle()
 
+        // 속성 값 설정
+        setTextColorInternal(textColor)
         setBallColorInternal(ballColor)
 
+        // 속성 값으로 UI 업데이트
         initNumberingBall()
     }
 
@@ -56,6 +69,37 @@ class TabooNumberingBall(
         val minHeight = resources.getDimensionPixelSize(ballMinHeight)
         setMinWidth(minWidth)
         setMinHeight(minHeight)
+    }
+
+    /**
+     * 내부적으로 텍스트 색상을 설정하는 메서드.
+     *
+     * @param color Text 색상.
+     */
+    private fun setTextColorInternal(color: ColorStateList) {
+        this.textColor = color
+    }
+
+    /**
+     * 텍스트 색상을 단일 `Color` 값으로 설정하는 메서드.
+     *
+     * `Color` 값을 [ColorStateList]로 변환하여 설정한다.
+     *
+     * [ColorStateList]로 설정하려면 `setTextColor(color: ColorStateList?)` 메서드를 사용한다.
+     *
+     * @param color Text 단일 색상.
+     */
+    override fun setTextColor(color: ColorStateList) {
+        setTextColorInternal(color)
+
+        updateTextColor()
+    }
+
+    /**
+     * 텍스트 색상을 업데이트하는 메서드.
+     */
+    private fun updateTextColor() {
+        super.setTextColor(textColor)
     }
 
     /**
@@ -110,7 +154,11 @@ class TabooNumberingBall(
         updateBallShape()
         updateBallSize()
         updateBallColor()
+
+        // 텍스트 스타일 설정
         setTextAppearance(R.style.Taboo_TextAppearance_NumberingBall)
+        updateTextColor()
+
         gravity = CENTER
         textAlignment = TEXT_ALIGNMENT_CENTER
         isSelected = false
