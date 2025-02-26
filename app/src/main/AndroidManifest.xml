@@ -14,10 +14,13 @@
         android:theme="@style/Theme.TabooSample"
         tools:targetApi="31">
         <activity
-            android:name=".NumberingBallsActivity"
+            android:name=".TabsActivity"
             android:exported="false" />
         <activity
-            android:name=".TabsActivity"
+            android:name=".MetricsCardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NumberingBallsActivity"
             android:exported="false" />
         <activity
             android:name=".LoadingsActivity"

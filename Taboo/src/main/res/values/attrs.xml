@@ -120,11 +120,27 @@
         <attr name="isEnabled" format="boolean"/>
         <attr name="isChecked" format="boolean"/>
     </declare-styleable>
-
+    
     <declare-styleable name="TabooTabLayout">
         <attr name="isVisibilityNumbering" format="boolean"/>
         <attr name="isVisibilityIcon" format="boolean"/>
         <attr name="tabIndicatorColor" format="reference|color"/>
         <attr name="tabIndicatorHeight" format="dimension"/>
+    </declare-styleable>
+  
+    <declare-styleable name="MetricCard">
+        <attr name="metricTitle" format="string"/>
+        <attr name="metricValueType" format="enum">
+            <enum name="integer" value="0"/>
+            <enum name="decimal" value="1"/>
+        </attr>
+        <attr name="metricValue" format="float|integer"/>
+        <attr name="metricPoint" format="float"/>
+        <attr name="unit" format="string"/>
+        <attr name="unitType" format="enum">
+            <enum name="none" value="0"/>
+            <enum name="percentage" value="1"/>
+            <enum name="custom" value="2"/>
+        </attr>
     </declare-styleable>
 </resources>

@@ -30,6 +30,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, LoadingsActivity::class.java))
         }
 
+        findViewById<Button>(R.id.btn_metric_card_example).setOnClickListener {
+            startActivity(Intent(this, MetricsCardActivity::class.java))
+
         findViewById<Button>(R.id.btn_tab_example).setOnClickListener {
             startActivity(Intent(this, TabsActivity::class.java))
         }
