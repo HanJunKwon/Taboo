@@ -29,10 +29,6 @@ open class TabooTextField(
             editTextOnFocusChangeListener?.onFocusChange(v, hasFocus)
             textFieldWrapper.isSelected = hasFocus
         }
-
-        setOnClickListener { v ->
-            editTextOnClickListener?.onClick(v)
-        }
     }
 
     private var editTextOnFocusChangeListener: OnFocusChangeListener? = null
@@ -111,8 +107,16 @@ open class TabooTextField(
         editTextOnFocusChangeListener = l
     }
 
+    /**
+     * 텍스트 입력 필드의 클릭 리스너 설정 메소드.
+     *
+     * 텍스트 입력을 하기 위한 [EditText]에 클릭 리스너를 등록하면 [EditorInfo.IME_ACTION_NEXT] 옵션이 동작하지 않는다.
+     * 드랍다운의 경우, 클릭 리스너를 등록해서 팝업을 띄우기 때문에 필수로 등록해야하지만 텍스트 입력을 해야하는 일반적인 상황에서는 권장하지 않는다.
+     */
     fun setOnClickListener(l: OnClickListener?) {
-        editTextOnClickListener = l
+        editText.setOnClickListener {
+            l?.onClick(it)
+        }
     }
 
     fun setOnTextChangedListener(l: (text: CharSequence, start: Int, before: Int, count: Int) -> Unit) {
