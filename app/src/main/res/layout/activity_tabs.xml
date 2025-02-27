@@ -12,6 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:isVisibilityNumbering="true"
+        app:tabDefaultColor="@color/taboo_black_04"
+        app:tabIndicatorColor="@color/taboo_red_01"
+        app:ballDefaultColor="@color/taboo_red_01"
+        app:ballIndicatorColor="@color/taboo_red_03"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <com.kwon.taboo.button.TabooButton
