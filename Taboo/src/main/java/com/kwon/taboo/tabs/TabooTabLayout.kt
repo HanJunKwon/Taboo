@@ -16,8 +16,11 @@ class TabooTabLayout(
     attrs: AttributeSet
 ) : RecyclerView(context, attrs) {
 
-    private var tabDefaultColor = R.color.taboo_black_03
-    private var tabIndicatorColor: Int = R.color.taboo_blue_02
+    private val tabDefaultColor = R.color.taboo_black_03
+    private val tabIndicatorColor: Int = R.color.taboo_blue_02
+
+    private val ballDefaultColor = R.color.taboo_gray_02
+    private val ballIndicatorColor = R.color.taboo_blue_06
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooTabLayout)
@@ -30,6 +33,13 @@ class TabooTabLayout(
             ?: ContextCompat.getColorStateList(context, tabIndicatorColor)
             ?: ColorStateList.valueOf(Color.BLUE)
 
+        val ballDefaultColor = typed.getColorStateList(R.styleable.TabooTabLayout_ballDefaultColor)
+            ?: ContextCompat.getColorStateList(context, ballDefaultColor)
+            ?: ColorStateList.valueOf(Color.BLACK)
+        val ballIndicatorColor = typed.getColorStateList(R.styleable.TabooTabLayout_ballIndicatorColor)
+            ?: ContextCompat.getColorStateList(context, ballIndicatorColor)
+            ?: ColorStateList.valueOf(Color.BLUE)
+
         typed.recycle()
 
         initTabLayout()
@@ -38,6 +48,7 @@ class TabooTabLayout(
         isVisibilityIcon(isVisibilityIcon)
 
         setTabColorInternal(tabDefaultColor.defaultColor, tabIndicatorColor.defaultColor)
+        setBallColorInternal(ballDefaultColor.defaultColor, ballIndicatorColor.defaultColor)
     }
 
     private fun initTabLayout() {
@@ -53,10 +64,21 @@ class TabooTabLayout(
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
+    /**
+     * 마지막에 Tab을 추가합니다.
+     *
+     * @param tabBlock 추가할 Tab
+     */
     fun addTab(tabBlock: TabooTabBlock) {
         addTab(tabBlock, (adapter as TabooTabAdapter).currentList.size)
     }
 
+    /**
+     * [position]에 Tab을 추가합니다.
+     *
+     * @param tabBlock 추가할 Tab
+     * @param position 추가할 위치
+     */
     fun addTab(tabBlock: TabooTabBlock, position: Int) {
         (adapter as TabooTabAdapter).submitList(
             (adapter as TabooTabAdapter).currentList.toMutableList().apply {
@@ -65,6 +87,11 @@ class TabooTabLayout(
         )
     }
 
+    /**
+     * [position]에 Tab을 삭제합니다. [position]은 탭의 크기보다 작아야합니다.
+     *
+     * @param position 삭제할 Tab 위치
+     */
     fun removeTab(position: Int) {
         (adapter as TabooTabAdapter).let { adapter ->
             // tab 크기보다 크거나 같은 position이 들어오면 에러 출력
@@ -102,6 +129,22 @@ class TabooTabLayout(
         return (adapter as TabooTabAdapter).isVisibilityIcon()
     }
 
+    /**
+     * Tab 색상을 설정합니다.
+     *
+     * 만약 [defaultColor] 또는 [selectedColor]가 0이면 기본 색상이 적용됩니다.
+     * 기본 색상은 아래와 같습니다.
+     * - Default Color: [R.color.taboo_black_03]
+     * - Selected Color: [R.color.taboo_blue_02]
+     *
+     * 색상이 적용되는 부분은 아래와 같습니다.
+     * - Tab Text
+     * - Tab Icon
+     * - Numbering Ball Text
+     * - Indicator Line
+     *
+     * Ball 배경 색상을 변경하고 싶다면 [setBallColor]를 사용하세요.
+     */
     private fun setTabColorInternal(defaultColor: Int, selectedColor: Int) {
         val colorStateList = ColorStateList(
             arrayOf(
@@ -115,5 +158,35 @@ class TabooTabLayout(
         )
 
         (adapter as TabooTabAdapter).setTabColorStateList(colorStateList)
+    }
+
+    /**
+     * Tab Numbering Ball 배경 색상을 설정합니다.
+     *
+     * 만약 [defaultColor] 또는 [selectedColor]가 0이면 기본 색상이 적용됩니다.
+     * 기본 색상은 아래와 같습니다.
+     * - Default Color: [R.color.taboo_gray_02]
+     * - Selected Color: [R.color.taboo_blue_06]
+     *
+     * @param defaultColor 기본 색상
+     * @param selectedColor 선택 색상
+     */
+    private fun setBallColorInternal(defaultColor: Int, selectedColor: Int) {
+        val colorStateList = ColorStateList(
+            arrayOf(
+                intArrayOf(android.R.attr.state_selected),      // Selected State
+                intArrayOf(-android.R.attr.state_selected)      // Default State
+            ),
+            intArrayOf(
+                selectedColor.takeIf { it != 0 } ?: ballIndicatorColor,      // Selected Color
+                defaultColor.takeIf { it != 0 } ?: ballDefaultColor          // Default Color
+            )
+        )
+
+        (adapter as TabooTabAdapter).setBallColorStateList(colorStateList)
+    }
+
+    private fun setBallColor(defaultColor: Int, selectedColor: Int) {
+        setBallColorInternal(defaultColor, selectedColor)
     }
 }

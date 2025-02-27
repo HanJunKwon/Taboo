@@ -126,6 +126,8 @@
         <attr name="isVisibilityIcon" format="boolean"/>
         <attr name="tabDefaultColor" format="reference|color"/>
         <attr name="tabIndicatorColor" format="reference|color"/>
+        <attr name="ballDefaultColor" format="reference|color"/>
+        <attr name="ballIndicatorColor" format="reference|color"/>
     </declare-styleable>
   
     <declare-styleable name="MetricCard">

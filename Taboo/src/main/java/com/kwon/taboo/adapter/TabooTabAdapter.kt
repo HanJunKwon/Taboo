@@ -17,6 +17,7 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
     private var selectedTab: TabooTabBlock? = null
 
     private var tabColorStateList: ColorStateList? = null
+    private var ballColorStateList: ColorStateList? = null
 
     private var isVisibilityNumbering = false
     private var isVisibilityIcon = false
@@ -56,6 +57,10 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
                 // 탭 색상 변경
                 PayLoad.TAB_COLOR_CHANGED -> {
                     holder.updateTabColor()
+                }
+                // Ball 색상 변경
+                PayLoad.BALL_COLOR_CHANGED -> {
+                    holder.updateBallColor()
                 }
             }
         }
@@ -126,6 +131,12 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
         notifyItemRangeChanged(0, itemCount, PayLoad.TAB_COLOR_CHANGED)
     }
 
+    fun setBallColorStateList(ballColorStateList: ColorStateList) {
+        this.ballColorStateList = ballColorStateList
+
+        notifyItemRangeChanged(0, itemCount, PayLoad.BALL_COLOR_CHANGED)
+    }
+
     /**
      * 탭 뷰홀더
      */
@@ -143,6 +154,7 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
             updateNumberingVisibility(isVisibilityNumbering)
             updateIconVisibility(isVisibilityIcon)
             updateTabColor()
+            updateBallColor()
             updateSelected(currentList[adapterPosition].uuid == selectedTab?.uuid)
 
             binding.root.setOnClickListener {
@@ -194,6 +206,12 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
                 binding.tvTabTitle.setTextColor(colorStateList)
                 binding.tnbCount.setTextColor(colorStateList)
                 binding.ivTabIcon.drawable?.setTintList(colorStateList)
+            }
+        }
+
+        fun updateBallColor() {
+            ballColorStateList?.let { colorStateList ->
+                binding.tnbCount.setBallColor(colorStateList)
             }
         }
     }
