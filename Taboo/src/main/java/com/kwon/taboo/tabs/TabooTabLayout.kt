@@ -1,8 +1,11 @@
 package com.kwon.taboo.tabs
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.util.AttributeSet
 import android.util.Log
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kwon.taboo.R
@@ -12,10 +15,20 @@ class TabooTabLayout(
     context: Context,
     attrs: AttributeSet
 ) : RecyclerView(context, attrs) {
+
+    private var tabDefaultColor = R.color.taboo_black_03
+    private var tabIndicatorColor: Int = R.color.taboo_blue_02
+
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooTabLayout)
         val isVisibilityNumbering = typed.getBoolean(R.styleable.TabooTabLayout_isVisibilityNumbering, false)
         val isVisibilityIcon = typed.getBoolean(R.styleable.TabooTabLayout_isVisibilityIcon, false)
+        val tabDefaultColor = typed.getColorStateList(R.styleable.TabooTabLayout_tabDefaultColor)
+            ?: ContextCompat.getColorStateList(context, tabDefaultColor)
+            ?: ColorStateList.valueOf(Color.BLACK)
+        val tabIndicatorColor = typed.getColorStateList(R.styleable.TabooTabLayout_tabIndicatorColor)
+            ?: ContextCompat.getColorStateList(context, tabIndicatorColor)
+            ?: ColorStateList.valueOf(Color.BLUE)
 
         typed.recycle()
 
@@ -23,6 +36,8 @@ class TabooTabLayout(
 
         isVisibilityNumbering(isVisibilityNumbering)
         isVisibilityIcon(isVisibilityIcon)
+
+        setTabColorInternal(tabDefaultColor.defaultColor, tabIndicatorColor.defaultColor)
     }
 
     private fun initTabLayout() {
@@ -85,5 +100,20 @@ class TabooTabLayout(
 
     fun isVisibilityIcon(): Boolean {
         return (adapter as TabooTabAdapter).isVisibilityIcon()
+    }
+
+    private fun setTabColorInternal(defaultColor: Int, selectedColor: Int) {
+        val colorStateList = ColorStateList(
+            arrayOf(
+                intArrayOf(android.R.attr.state_selected),      // Selected State
+                intArrayOf(-android.R.attr.state_selected)      // Default State
+            ),
+            intArrayOf(
+                selectedColor.takeIf { it != 0 } ?: tabIndicatorColor,      // Selected Color
+                defaultColor.takeIf { it != 0 } ?: tabDefaultColor          // Default Color
+            )
+        )
+
+        (adapter as TabooTabAdapter).setTabColorStateList(colorStateList)
     }
 }

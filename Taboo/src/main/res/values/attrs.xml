@@ -124,6 +124,7 @@
     <declare-styleable name="TabooTabLayout">
         <attr name="isVisibilityNumbering" format="boolean"/>
         <attr name="isVisibilityIcon" format="boolean"/>
+        <attr name="tabDefaultColor" format="reference|color"/>
         <attr name="tabIndicatorColor" format="reference|color"/>
     </declare-styleable>
   

@@ -1,7 +1,7 @@
 package com.kwon.taboo.adapter
 
 import android.content.Context
-import android.graphics.PorterDuff
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -15,6 +15,9 @@ import com.kwon.taboo.tabs.TabooTabBlock
 
 class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHolder>(TabooTabDiffCallback()) {
     private var selectedTab: TabooTabBlock? = null
+
+    private var tabColorStateList: ColorStateList? = null
+
     private var isVisibilityNumbering = false
     private var isVisibilityIcon = false
 
@@ -39,7 +42,6 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
                 // 선택된 탭 변경
                 PayLoad.SELECTION_CHANGED -> {
                     holder.updateSelected(
-                        context = holder.itemView.context,
                         isSelected = selectedTab?.uuid == currentList[position].uuid
                     )
                 }
@@ -50,6 +52,10 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
                 // 아이콘 표시 여부 변경
                 PayLoad.ICON_VISIBILITY_CHANGED -> {
                     holder.updateIconVisibility(isVisibilityIcon)
+                }
+                // 탭 색상 변경
+                PayLoad.TAB_COLOR_CHANGED -> {
+                    holder.updateTabColor()
                 }
             }
         }
@@ -114,6 +120,12 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
         notifyItemChanged(selectedPosition, PayLoad.SELECTION_CHANGED)
     }
 
+    fun setTabColorStateList(tabColorStateList: ColorStateList) {
+        this.tabColorStateList = tabColorStateList
+
+        notifyItemRangeChanged(0, itemCount, PayLoad.TAB_COLOR_CHANGED)
+    }
+
     /**
      * 탭 뷰홀더
      */
@@ -130,7 +142,8 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
 
             updateNumberingVisibility(isVisibilityNumbering)
             updateIconVisibility(isVisibilityIcon)
-            updateSelected(binding.root.context, currentList[adapterPosition].uuid == selectedTab?.uuid)
+            updateTabColor()
+            updateSelected(currentList[adapterPosition].uuid == selectedTab?.uuid)
 
             binding.root.setOnClickListener {
                 setSelectedPosition(adapterPosition)
@@ -142,25 +155,16 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
          *
          * 선택된 탭은 `TabooBlue02` 색상으로 표시되고, 선택되지 않은 탭은 `TabooBlack03` 색상으로 표시됩니다.
          *
-         * @param context `Context`
          * @param isSelected `true`: 선택된 탭, `false`: 선택되지 않은 탭
          */
-        fun updateSelected(context: Context, isSelected: Boolean) {
+        fun updateSelected(isSelected: Boolean) {
             binding.tvTabTitle.isSelected = isSelected
-            binding.tnbCount.isActivated = isSelected
-
-            // 아이콘 색상 변경
-            binding.ivTabIcon.setColorFilter(
-                ContextCompat.getColor(
-                    context,
-                    if (isSelected) R.color.taboo_blue_02 else R.color.taboo_black_03
-                ),
-                PorterDuff.Mode.SRC_IN
-            )
+            binding.tnbCount.isSelected = isSelected
+            binding.ivTabIcon.isSelected = isSelected
         }
 
         /**
-         * 숫자 표시 여부에 따라 숫자 `Visibility` 업데이트.
+         * **숫자** 표시 여부에 따라 숫자 `Visibility` 업데이트.
          *
          * @param isVisibilityNumbering `true`: 숫자 표시, `false`: 숫자 미표시
          */
@@ -173,7 +177,7 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
         }
 
         /**
-         * 아이콘 표시 여부에 따라 아이콘 `Visibility` 업데이트.
+         * **아이콘** 표시 여부에 따라 아이콘 `Visibility` 업데이트.
          *
          * @param isVisibilityIcon `true`: 아이콘 표시, `false`: 아이콘 미표시
          */
@@ -182,6 +186,14 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
                 android.view.View.VISIBLE
             } else {
                 android.view.View.GONE
+            }
+        }
+
+        fun updateTabColor() {
+            tabColorStateList?.let { colorStateList ->
+                binding.tvTabTitle.setTextColor(colorStateList)
+                binding.tnbCount.setTextColor(colorStateList)
+                binding.ivTabIcon.drawable?.setTintList(colorStateList)
             }
         }
     }
