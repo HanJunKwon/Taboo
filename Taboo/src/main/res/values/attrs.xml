@@ -52,6 +52,11 @@
         <attr name="descriptionTextAppearance" format="reference"/>
         <attr name="preview" format="string"/>
         <attr name="previewTextAppearance" format="reference"/>
+        <attr name="previewGravity" format="integer">
+            <enum name="top" value="0"/>
+            <enum name="center" value="1"/>
+            <enum name="bottom" value="2"/>
+        </attr>
         <attr name="icon"/>
     </declare-styleable>
 
