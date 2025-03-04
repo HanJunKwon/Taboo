@@ -70,6 +70,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
         val text = typed.getString(R.styleable.TabooTextInput_android_text) ?: ""
         val hint = typed.getString(R.styleable.TabooTextInput_android_hint) ?: ""
         val inputType = typed.getInt(R.styleable.TabooTextInput_android_inputType, EditorInfo.TYPE_CLASS_TEXT)
+        val textGravity = typed.getInt(R.styleable.TabooTextInput_textGravity, TEXT_GRAVITY_START)
 
         // Prefix 속성
         val prefixText = typed.getString(R.styleable.TabooTextInput_prefixText) ?: ""
@@ -90,6 +91,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
             setText(text)
             setHint(hint)
             setInputType(inputType)
+            setTextGravity(textGravity)
             setPasswordToggleEnable(passwordToggleEnabled)
             setEnabled(enabled)
 
@@ -116,6 +118,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
         // EditText 속성
         val text = typed.getString(R.styleable.TabooTextInput_android_text) ?: ""
         val hint = typed.getString(R.styleable.TabooTextInput_android_hint) ?: ""
+        val textGravity = typed.getInt(R.styleable.TabooTextInput_textGravity, TEXT_GRAVITY_START)
 
         liningView = TabooDropdown(
             context,
@@ -124,6 +127,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
             bindDropdownIcon()
 
             setText(text)
+            setTextGravity(textGravity)
             setHint(hint)
             setEnabled(enabled)
 
@@ -226,5 +230,10 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
 
     fun setDropdownItemChangedListener(listener: ((position: Int) -> Unit)?) {
         (liningView as? TabooDropdown)?.setOnItemChangedListener(listener)
+    }
+
+    companion object {
+        const val TEXT_GRAVITY_START = 0
+        const val TEXT_GRAVITY_END = 1
     }
 }
