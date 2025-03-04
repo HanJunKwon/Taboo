@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.View.OnFocusChangeListener
+import android.view.View.TEXT_ALIGNMENT_TEXT_END
+import android.view.View.TEXT_ALIGNMENT_TEXT_START
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
@@ -95,6 +97,10 @@ open class TabooTextField(
     }
 
     fun isAnyPasswordInputType() = EditorUtils.isAnyPasswordInputType(inputType)
+
+    fun setTextGravity(gravity: Int) {
+        editText.textAlignment = if (gravity == 0) TEXT_ALIGNMENT_TEXT_START else TEXT_ALIGNMENT_TEXT_END
+    }
 
     fun isError(error: Boolean) {
         val backgroundDrawable = if (error) R.drawable.shape_taboo_edit_text_error else R.drawable.selector_taboo_edit_text
