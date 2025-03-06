@@ -60,7 +60,9 @@ class TabooBadgeButton(
      * [TabooBadgeButton] UI 를 초기화.
      */
     private fun initBadgeButton() {
-
+        updateBadge()
+        updateText()
+        updatePrimaryColor()
     }
 
     /**
