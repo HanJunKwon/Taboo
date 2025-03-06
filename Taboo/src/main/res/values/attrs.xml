@@ -7,6 +7,8 @@
         <enum name="right" value="1"/>
     </attr>
 
+    <attr name="primaryColor" format="reference|color"/>
+
     <declare-styleable name="TabooButton">
         <attr name="android:enabled" format="boolean"/>
         <attr name="android:text" format="string"/>
@@ -22,7 +24,7 @@
             <enum name="outline" value="2"/>
             <enum name="dash" value="3"/>
         </attr>
-        <attr name="primaryColor" format="reference|color"/>
+        <attr name="primaryColor"/>
         <attr name="secondaryColor" format="reference|color"/>
         <attr name="buttonBackgroundTint" format="reference|color"/>
         <attr name="icon"/>
@@ -58,6 +60,13 @@
             <enum name="bottom" value="2"/>
         </attr>
         <attr name="icon"/>
+    </declare-styleable>
+
+    <declare-styleable name="TabooBadgeButton">
+        <attr name="android:enabled" format="boolean"/>
+        <attr name="android:text" format="string"/>
+        <attr name="primaryColor"/>
+        <attr name="badge" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="TabooTextInput">
