@@ -9,6 +9,11 @@
 
     <attr name="primaryColor" format="reference|color"/>
 
+    <attr name="title" format="string"/>
+    <attr name="description" format="string"/>
+
+    <attr name="isChecked" format="boolean"/>
+
     <declare-styleable name="TabooButton">
         <attr name="android:enabled" format="boolean"/>
         <attr name="android:text" format="string"/>
@@ -50,7 +55,7 @@
         <attr name="android:enabled" format="boolean"/>
         <attr name="android:text" format="string"/>
         <attr name="android:textAppearance" format="reference"/>
-        <attr name="description" format="string"/>
+        <attr name="description"/>
         <attr name="descriptionTextAppearance" format="reference"/>
         <attr name="preview" format="string"/>
         <attr name="previewTextAppearance" format="reference"/>
@@ -69,6 +74,12 @@
         <attr name="badge" format="integer"/>
     </declare-styleable>
 
+    <declare-styleable name="TabooCheckCardButton">
+        <attr name="title"/>
+        <attr name="description"/>
+        <attr name="isChecked"/>
+    </declare-styleable>
+
     <declare-styleable name="TabooTextInput">
         <attr name="android:inputType" format="enum"/>
         <attr name="android:text" format="string"/>
@@ -80,7 +91,7 @@
             <enum name="dropdown" value="1"/>
         </attr>
 
-        <attr name="title" format="string"/>
+        <attr name="title"/>
         <attr name="requiredIconVisible" format="boolean"/>
         <attr name="errorMessage" format="string"/>
         <attr name="error" format="boolean"/>
@@ -137,7 +148,7 @@
     <declare-styleable name="TabooRadioButton">
         <attr name="label" format="string"/>
         <attr name="isEnabled" format="boolean"/>
-        <attr name="isChecked" format="boolean"/>
+        <attr name="isChecked"/>
     </declare-styleable>
     
     <declare-styleable name="TabooTabLayout">

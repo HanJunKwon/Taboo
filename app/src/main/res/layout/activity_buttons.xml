@@ -97,4 +97,13 @@
         android:text="asd"
         app:layout_constraintTop_toBottomOf="@id/ll_small_button"/>
 
+    <com.kwon.taboo.button.TabooCheckCardButton
+        android:id="@+id/btn_check_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:title="English"
+        app:description="영어"
+        app:layout_constraintTop_toBottomOf="@id/btn_badge"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
