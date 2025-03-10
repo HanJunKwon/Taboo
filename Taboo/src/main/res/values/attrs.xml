@@ -14,6 +14,12 @@
 
     <attr name="isChecked" format="boolean"/>
 
+    <attr name="textGravity" format="enum">
+        <enum name="start" value="0"/>
+        <enum name="center" value="1"/>
+        <enum name="end" value="2"/>
+    </attr>
+
     <declare-styleable name="TabooButton">
         <attr name="android:enabled" format="boolean"/>
         <attr name="android:text" format="string"/>
@@ -96,10 +102,7 @@
         <attr name="errorMessage" format="string"/>
         <attr name="error" format="boolean"/>
 
-        <attr name="textGravity" format="integer">
-            <enum name="start" value="0"/>
-            <enum name="end" value="1"/>
-        </attr>
+        <attr name="textGravity"/>
 
         <attr name="prefixText" format="string"/>
         <attr name="prefixTextAppearance" format="reference"/>
@@ -174,5 +177,10 @@
             <enum name="percentage" value="1"/>
             <enum name="custom" value="2"/>
         </attr>
+    </declare-styleable>
+
+    <declare-styleable name="TabooWheelPicker">
+        <attr name="visibleItemCount" format="integer"/>
+        <attr name="textGravity"/>
     </declare-styleable>
 </resources>

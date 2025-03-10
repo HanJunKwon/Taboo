@@ -45,5 +45,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_preview_button_example).setOnClickListener {
             startActivity(Intent(this, PreviewButtonsActivity::class.java))
         }
+
+        findViewById<Button>(R.id.btn_time_picker_example).setOnClickListener {
+            startActivity(Intent(this, TimePickerActivity::class.java))
+        }
     }
 }

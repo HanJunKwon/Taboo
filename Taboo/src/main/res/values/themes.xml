@@ -147,6 +147,21 @@
         <item name="android:textColor">@color/taboo_blue_02</item>
     </style>
 
+    <style name="Taboo.TextAppearance.WheelPicker">
+        <item name="android:fontFamily">@font/font_pretendard_regular</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="Taboo.TextAppearance.WheelPicker.Selected">
+        <item name="android:textColor">@color/taboo_black_01</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Taboo.TextAppearance.WheelPicker.Unselected">
+        <item name="android:textColor">@color/taboo_gray_02</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="Taboo.Style"/>
 
     <style name="Taboo.Style.Button">
