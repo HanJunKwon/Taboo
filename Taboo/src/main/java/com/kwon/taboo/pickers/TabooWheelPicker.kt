@@ -14,14 +14,18 @@ import com.kwon.utils.calendar.ResourceUtils
 
 class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
     private val binding = TabooWheelPickerBinding.inflate(LayoutInflater.from(context), this, true)
+    private val adapter = WheelPickerAdapter(context)
+    private val layoutManager = LinearLayoutManager(context)
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooWheelPicker)
+        val textGravity = typed.getInt(R.styleable.TabooWheelPicker_textGravity, 1)
+
         typed.recycle()
 
         initWheelAdapter()
 
-        setItems((0..100).map { it.toString() })
+        setTextGravity(textGravity)
     }
 
     private fun initWheelAdapter() {
@@ -38,31 +42,29 @@ class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
                     val adapter = binding.rvWheelPicker.adapter as WheelPickerAdapter
-                    val layoutManager = binding.rvWheelPicker.layoutManager as LinearLayoutManager
 
-                    val firstVisibleItemPosition = layoutManager.findFirstCompletelyVisibleItemPosition().takeIf { it != -1 } ?: layoutManager.findFirstVisibleItemPosition()
-                    val lastVisibleItemPosition = layoutManager.findLastCompletelyVisibleItemPosition().takeIf { it != -1 } ?: layoutManager.findLastVisibleItemPosition()
+                    val (firstVisible, lastVisible) = getVisibleItemPosition()
 
                     if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        val selectedPosition = if (lastVisibleItemPosition == adapter.itemCount - 1 && firstVisibleItemPosition == adapter.itemCount - 2) {
-                            adapter.itemCount - 1
-                        } else if (firstVisibleItemPosition == 0 && lastVisibleItemPosition == 1) {
-                            0
-                        } else {
-                            Math.floorDiv(firstVisibleItemPosition + lastVisibleItemPosition, 2)
+                        val selectedPosition = when {
+                            lastVisible == adapter.itemCount - 1 && firstVisible == adapter.itemCount - 2 -> adapter.itemCount - 1
+                            firstVisible == 0 && lastVisible == 1 -> 0
+                            else -> (firstVisible + lastVisible) / 2
                         }
 
                         setSelectedPosition(selectedPosition)
                     }
-                }
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
                 }
             })
         }
 
         setSelectedPosition(0)
     }
+
+    fun setTextGravity(gravity: Int) {
+        (binding.rvWheelPicker.adapter as WheelPickerAdapter).setTextGravity(gravity)
+    }
+
 
     fun setItems(items: List<String>) {
         (binding.rvWheelPicker.adapter as WheelPickerAdapter).submitList(items)
@@ -76,4 +78,12 @@ class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout
         adapter.selectedPosition(position)
     }
 
+    private fun getVisibleItemPosition(): Pair<Int, Int> {
+        val layoutManager = binding.rvWheelPicker.layoutManager as LinearLayoutManager
+
+        val firstVisibleItemPosition = layoutManager.findFirstCompletelyVisibleItemPosition().takeIf { it != -1 } ?: layoutManager.findFirstVisibleItemPosition()
+        val lastVisibleItemPosition = layoutManager.findLastCompletelyVisibleItemPosition().takeIf { it != -1 } ?: layoutManager.findLastVisibleItemPosition()
+
+        return firstVisibleItemPosition to lastVisibleItemPosition
+    }
 }

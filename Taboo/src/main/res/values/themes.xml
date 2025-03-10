@@ -154,7 +154,7 @@
 
     <style name="Taboo.TextAppearance.WheelPicker.Selected">
         <item name="android:textColor">@color/taboo_black_01</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="Taboo.TextAppearance.WheelPicker.Unselected">
