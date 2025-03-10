@@ -175,4 +175,8 @@
             <enum name="custom" value="2"/>
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="TabooWheelPicker">
+        <attr name="wheelPickerItemCount" format="integer"/>
+    </declare-styleable>
 </resources>
