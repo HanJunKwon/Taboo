@@ -1,9 +1,16 @@
 package com.kwon.taboo.pickers
 
 import android.content.Context
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.InsetDrawable
+import android.graphics.drawable.LayerDrawable
+import android.os.Build
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kwon.taboo.R
@@ -20,12 +27,18 @@ class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout
     private var itemDecoration = TabooWheelPickerItemDecoration(0)
     private var itemHeightPixel: Int = resources.getDimensionPixelSize(R.dimen.taboo_wheel_picker_item_default_height)
 
+    @ColorInt private var selectionStrokeColor = ContextCompat.getColor(context, R.color.taboo_gray_03)
+
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooWheelPicker)
         val textGravity = typed.getInt(R.styleable.TabooWheelPicker_textGravity, 1)
         val itemHeight = typed.getDimension(
             R.styleable.TabooWheelPicker_itemHeight,
             resources.getDimension(R.dimen.taboo_wheel_picker_item_default_height)
+        )
+        val selectionStrokeColor = typed.getColor(
+            R.styleable.TabooWheelPicker_selectionStrokeColor,
+            ContextCompat.getColor(context, R.color.taboo_gray_03)
         )
 
         typed.recycle()
@@ -34,6 +47,13 @@ class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout
 
         setTextGravity(textGravity)
         setItemHeight(itemHeight)
+        setSelectionStrokeColorInternal(selectionStrokeColor)
+
+        initTabooWheelPicker()
+    }
+
+    private fun initTabooWheelPicker() {
+        updateSelectionStrokeColor()
     }
 
     private fun initWheelAdapter() {
@@ -128,6 +148,30 @@ class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout
 
         layoutManager.scrollToPositionWithOffset(position, itemHeightPixel)
         adapter.selectedPosition(position)
+    }
+
+    private fun setSelectionStrokeColorInternal(color: Int) {
+        selectionStrokeColor = color
+    }
+
+    fun setSelectionStrokeColor(@ColorRes color: Int) {
+        setSelectionStrokeColorInternal(ContextCompat.getColor(context, color))
+
+        updateSelectionStrokeColor()
+    }
+
+    private fun updateSelectionStrokeColor() {
+        binding.clWheelPicker.background = createSelectionBox()
+    }
+
+    private fun createSelectionBox(): LayerDrawable{
+        val gradientDecoration = GradientDrawable().apply {
+            setStroke(1, selectionStrokeColor)
+        }
+
+        val insetDrawable = InsetDrawable(gradientDecoration, -5, 0, -5, 0)
+
+        return LayerDrawable(arrayOf(insetDrawable))
     }
 
     private fun getVisibleItemPosition(): Pair<Int, Int> {
