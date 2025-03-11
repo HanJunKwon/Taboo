@@ -17,6 +17,8 @@
         android:id="@+id/minutePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:selectionStrokeColor="@color/taboo_blue_01"
+        app:selectionStrokeWidth="1dp"
         app:layout_constraintStart_toEndOf="@id/hourPicker"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

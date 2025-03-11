@@ -5,4 +5,7 @@
     <dimen name="taboo_button_round_shape_radius">15dp</dimen>
 
     <dimen name="taboo_numbering_ball_min_size">24dp</dimen>
+
+    <dimen name="taboo_wheel_picker_item_default_height">40dp</dimen>
+    <dimen name="taboo_wheel_picker_selection_box_default_stroke_width">1dp</dimen>
 </resources>

@@ -3,7 +3,7 @@ package com.kwon.utils.calendar
 import android.content.Context
 
 object ResourceUtils {
-    fun pxToDp(context: Context, px: Float,): Float {
+    fun pxToDp(context: Context, px: Int): Float {
         val density = context.resources.displayMetrics.density
         return px / density
     }
