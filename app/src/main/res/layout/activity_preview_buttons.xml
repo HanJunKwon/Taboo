@@ -12,9 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="asd"
-        app:description="123123123123132123123123123123123123123123123123123"
+        app:description="123"
         app:menuType="preview"
-        app:previewGravity="center"/>
+        app:previewGravity="center"
+        app:preview="한국어"/>
 
     <com.kwon.taboo.button.TabooMenuButton
         android:layout_width="match_parent"
@@ -22,5 +23,10 @@
         app:description="aaasdasdaasdasdasdasdasdasdasdasdasdasdasd"
         app:menuType="toggle"
         app:isChecked="true"/>
+
+    <com.kwon.taboo.button.TabooMenuButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:description="aaasdasdaasdasdasdasdasdasdasdasdasdasdasd" />
 
 </LinearLayout>
