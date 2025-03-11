@@ -17,15 +17,23 @@ class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout
     private val adapter = WheelPickerAdapter(context)
     private val layoutManager = LinearLayoutManager(context)
 
+    private var itemDecoration = TabooWheelPickerItemDecoration(0)
+    private var itemHeightPixel: Int = resources.getDimensionPixelSize(R.dimen.taboo_wheel_picker_item_default_height)
+
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooWheelPicker)
         val textGravity = typed.getInt(R.styleable.TabooWheelPicker_textGravity, 1)
+        val itemHeight = typed.getDimension(
+            R.styleable.TabooWheelPicker_itemHeight,
+            resources.getDimension(R.dimen.taboo_wheel_picker_item_default_height)
+        )
 
         typed.recycle()
 
         initWheelAdapter()
 
         setTextGravity(textGravity)
+        setItemHeight(itemHeight)
     }
 
     private fun initWheelAdapter() {
@@ -36,7 +44,7 @@ class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout
                 isItemPrefetchEnabled = false
             }
 
-            addItemDecoration(TabooWheelPickerItemDecoration())
+            addItemDecoration(itemDecoration)
 
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -65,6 +73,50 @@ class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout
         (binding.rvWheelPicker.adapter as WheelPickerAdapter).setTextGravity(gravity)
     }
 
+    /**
+     * 아이템의 높이를 dp로 설정.
+     * @param height dp
+     */
+    fun setItemHeight(height: Float) {
+        setItemHeight(ResourceUtils.dpToPx(context, height).toInt())
+    }
+
+    /**
+     * 아이템의 높이를 pixel로 설정.
+     * @param height pixel
+     */
+    fun setItemHeight(height: Int) {
+        itemHeightPixel = height
+
+        updateItemHeight()
+    }
+
+    /**
+     * 아이템의 높이를 변경한 경우 호출.
+     * - RecyclerView 의 아이템 높이 변경
+     * - RecyclerView 첫 번째 아이템의 Top, 마지막 아이템의 Bottom offset 변경
+     * - 선택된 아이템의 중앙 Offset 변경
+     */
+    private fun updateItemHeight() {
+        // RecyclerView 의 높이 변경
+        binding.rvWheelPicker.layoutParams = binding.rvWheelPicker.layoutParams.apply {
+            height = itemHeightPixel * 3
+        }
+
+        // 목록의 아이템 높이 변경
+        (binding.rvWheelPicker.adapter as WheelPickerAdapter).setItemHeight(itemHeightPixel)
+
+        // 선택된 아이템의 중앙 Offset 변경
+        binding.clWheelPicker.layoutParams = binding.clWheelPicker.layoutParams.apply {
+            height = itemHeightPixel
+        }
+
+        // 최상위, 최하위 아이템의 Top, Bottom offset 변경
+        binding.rvWheelPicker.getItemDecorationAt(0).let {
+            (it as TabooWheelPickerItemDecoration).setItemHeight(itemHeightPixel)
+            binding.rvWheelPicker.invalidateItemDecorations()
+        }
+    }
 
     fun setItems(items: List<String>) {
         (binding.rvWheelPicker.adapter as WheelPickerAdapter).submitList(items)
@@ -74,7 +126,7 @@ class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout
         val adapter = binding.rvWheelPicker.adapter as WheelPickerAdapter
         val layoutManager = binding.rvWheelPicker.layoutManager as LinearLayoutManager
 
-        layoutManager.scrollToPositionWithOffset(position, ResourceUtils.dpToPx(context, 32f).toInt())
+        layoutManager.scrollToPositionWithOffset(position, itemHeightPixel)
         adapter.selectedPosition(position)
     }
 

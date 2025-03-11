@@ -11,6 +11,7 @@ import android.view.View.TEXT_ALIGNMENT_VIEW_END
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import androidx.recyclerview.widget.RecyclerView.TEXT_ALIGNMENT_CENTER
@@ -22,8 +23,10 @@ import com.kwon.utils.calendar.ResourceUtils
 
 class WheelPickerAdapter(
     private val context: Context,
+    private var itemHeightPixel: Int = ResourceUtils.dpToPx(context, 32f).toInt()
 ): ListAdapter<String, WheelPickerAdapter.WheelPickerViewHolder>(TabooWheelPickerDiffCallback()) {
     private var textGravity: Int = 0
+
     private var selectedPosition = NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WheelPickerViewHolder {
@@ -51,6 +54,9 @@ class WheelPickerAdapter(
                     PayLoad.TEXT_GRAVITY_CHANGED -> {
                         holder.updateTextGravity()
                     }
+                    PayLoad.ITEM_HEIGHT_CHANGED -> {
+                        holder.updateItemHeight()
+                    }
                 }
             }
         }
@@ -58,7 +64,7 @@ class WheelPickerAdapter(
 
     private fun createPickerTextView(): TextView {
         return TextView(context).apply {
-            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ResourceUtils.dpToPx(context, 32f).toInt())
+            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeightPixel)
             textAlignment = TEXT_ALIGNMENT_CENTER
             gravity = TEXT_ALIGNMENT_CENTER
             setTextColor(ContextCompat.getColor(context, R.color.taboo_black_01))
@@ -74,6 +80,12 @@ class WheelPickerAdapter(
     fun setTextGravity(gravity: Int) {
         textGravity = gravity
         notifyItemRangeChanged(0, itemCount, PayLoad.TEXT_GRAVITY_CHANGED)
+    }
+
+    fun setItemHeight(heightPixel: Int) {
+        Log.d(">>>", "setItemHeight: $heightPixel")
+        itemHeightPixel = heightPixel
+        notifyItemRangeChanged(0, itemCount, PayLoad.ITEM_HEIGHT_CHANGED)
     }
 
     inner class WheelPickerViewHolder(private val textView: TextView): ViewHolder(textView) {
@@ -100,6 +112,12 @@ class WheelPickerAdapter(
                     else -> TEXT_ALIGNMENT_CENTER
                 }
             textView.gravity = CENTER_VERTICAL
+        }
+
+        fun updateItemHeight() {
+            textView.layoutParams = textView.layoutParams.apply {
+                height = ResourceUtils.pxToDp(context, itemHeightPixel).toInt()
+            }
         }
     }
 }

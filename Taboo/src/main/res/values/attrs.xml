@@ -182,5 +182,6 @@
     <declare-styleable name="TabooWheelPicker">
         <attr name="visibleItemCount" format="integer"/>
         <attr name="textGravity"/>
+        <attr name="itemHeight" format="dimension"/>
     </declare-styleable>
 </resources>
