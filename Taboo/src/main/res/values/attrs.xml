@@ -57,12 +57,17 @@
         <attr name="iconPosition"/>
     </declare-styleable>
 
-    <declare-styleable name="TabooPreviewButton">
+    <declare-styleable name="TabooMenuButton">
         <attr name="android:enabled" format="boolean"/>
         <attr name="android:text" format="string"/>
         <attr name="android:textAppearance" format="reference"/>
         <attr name="description"/>
         <attr name="descriptionTextAppearance" format="reference"/>
+        <attr name="menuType" format="enum">
+            <enum name="none" value="0"/>
+            <enum name="preview" value="1"/>
+            <enum name="toggle" value="2"/>
+        </attr>
         <attr name="preview" format="string"/>
         <attr name="previewTextAppearance" format="reference"/>
         <attr name="previewGravity" format="integer">
@@ -70,6 +75,7 @@
             <enum name="center" value="1"/>
             <enum name="bottom" value="2"/>
         </attr>
+        <attr name="isChecked"/>
         <attr name="icon"/>
     </declare-styleable>
 

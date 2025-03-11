@@ -8,9 +8,19 @@
     android:orientation="vertical"
     tools:context=".PreviewButtonsActivity">
 
-    <com.kwon.taboo.button.TabooPreviewButton
+    <com.kwon.taboo.button.TabooMenuButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:previewGravity="bottom"/>
+        android:text="asd"
+        app:description="123123123123132123123123123123123123123123123123123"
+        app:menuType="preview"
+        app:previewGravity="center"/>
+
+    <com.kwon.taboo.button.TabooMenuButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:description="aaasdasdaasdasdasdasdasdasdasdasdasdasdasd"
+        app:menuType="toggle"
+        app:isChecked="true"/>
 
 </LinearLayout>
