@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.InsetDrawable
 import android.graphics.drawable.LayerDrawable
-import android.os.Build
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.annotation.ColorInt
@@ -21,13 +20,12 @@ import com.kwon.utils.calendar.ResourceUtils
 
 class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
     private val binding = TabooWheelPickerBinding.inflate(LayoutInflater.from(context), this, true)
-    private val adapter = WheelPickerAdapter(context)
-    private val layoutManager = LinearLayoutManager(context)
 
     private var itemDecoration = TabooWheelPickerItemDecoration(0)
     private var itemHeightPixel: Int = resources.getDimensionPixelSize(R.dimen.taboo_wheel_picker_item_default_height)
 
     @ColorInt private var selectionStrokeColor = ContextCompat.getColor(context, R.color.taboo_gray_03)
+    private var selectionStrokeWidth = 1f
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooWheelPicker)
@@ -40,6 +38,10 @@ class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout
             R.styleable.TabooWheelPicker_selectionStrokeColor,
             ContextCompat.getColor(context, R.color.taboo_gray_03)
         )
+        val selectionStrokeWidth = typed.getDimension(
+            R.styleable.TabooWheelPicker_selectionStrokeWidth,
+            resources.getDimension(R.dimen.taboo_wheel_picker_selection_box_default_stroke_width)
+        )
 
         typed.recycle()
 
@@ -48,12 +50,13 @@ class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout
         setTextGravity(textGravity)
         setItemHeight(itemHeight)
         setSelectionStrokeColorInternal(selectionStrokeColor)
+        setSelectionStrokeWidthInternal(selectionStrokeWidth)
 
         initTabooWheelPicker()
     }
 
     private fun initTabooWheelPicker() {
-        updateSelectionStrokeColor()
+        updateSelectionBox()
     }
 
     private fun initWheelAdapter() {
@@ -157,19 +160,43 @@ class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout
     fun setSelectionStrokeColor(@ColorRes color: Int) {
         setSelectionStrokeColorInternal(ContextCompat.getColor(context, color))
 
-        updateSelectionStrokeColor()
+        updateSelectionBox()
     }
 
-    private fun updateSelectionStrokeColor() {
+
+    private fun setSelectionStrokeWidthInternal(width: Float) {
+        selectionStrokeWidth = width
+    }
+
+    fun setSelectionStrokeWidth(width: Float) {
+        setSelectionStrokeWidthInternal(width)
+
+        updateSelectionBox()
+    }
+
+    private fun updateSelectionBox() {
         binding.clWheelPicker.background = createSelectionBox()
     }
 
+    /**
+     * 선택 영역을 그리기 위한 Drawable 생성.
+     *
+     * Drawable은 아래와 같은 구조로 생성된다.
+     *
+     *
+     * @return [LayerDrawable]
+     */
     private fun createSelectionBox(): LayerDrawable{
         val gradientDecoration = GradientDrawable().apply {
-            setStroke(1, selectionStrokeColor)
+            setStroke(
+                ResourceUtils.dpToPx(context, selectionStrokeWidth).toInt(),
+                selectionStrokeColor
+            )
         }
 
-        val insetDrawable = InsetDrawable(gradientDecoration, -5, 0, -5, 0)
+        val horizontalOffset = -(ResourceUtils.dpToPx(context, 5f) * selectionStrokeWidth).toInt()
+
+        val insetDrawable = InsetDrawable(gradientDecoration, horizontalOffset, 0, horizontalOffset, 0)
 
         return LayerDrawable(arrayOf(insetDrawable))
     }

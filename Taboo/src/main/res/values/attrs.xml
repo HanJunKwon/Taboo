@@ -184,5 +184,6 @@
         <attr name="textGravity"/>
         <attr name="itemHeight" format="dimension"/>
         <attr name="selectionStrokeColor" format="reference|color"/>
+        <attr name="selectionStrokeWidth" format="dimension"/>
     </declare-styleable>
 </resources>
