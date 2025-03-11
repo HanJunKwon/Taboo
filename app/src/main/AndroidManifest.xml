@@ -17,6 +17,9 @@
             android:name=".PreviewButtonsActivity"
             android:exported="false" />
         <activity
+            android:name=".TimePickerActivity"
+            android:exported="false" />
+        <activity
             android:name=".TabsActivity"
             android:exported="false" />
         <activity
