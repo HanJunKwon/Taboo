@@ -8,9 +8,27 @@
     android:orientation="vertical"
     tools:context=".PreviewButtonsActivity">
 
-    <com.kwon.taboo.button.TabooPreviewButton
+    <com.kwon.taboo.button.TabooMenuButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:previewGravity="bottom"/>
+        app:menuTitle="언어 변경"
+        app:menuDescription="언어를 변경합니다."
+        app:menuType="preview"
+        app:previewGravity="center"
+        app:preview="한국어"/>
+
+    <com.kwon.taboo.button.TabooMenuButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:menuTitle="다크 테마"
+        app:menuDescription="화면을 어둡게 변경합니다."
+        app:menuType="toggle"
+        app:isChecked="true"/>
+
+    <com.kwon.taboo.button.TabooMenuButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:menuTitle="내 정보"
+        app:menuDescription="내 정보로 이동합니다."/>
 
 </LinearLayout>
