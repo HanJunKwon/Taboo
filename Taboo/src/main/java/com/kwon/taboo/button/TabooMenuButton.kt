@@ -24,7 +24,7 @@ class TabooMenuButton(
 ) : ConstraintLayout(context, attrs) {
     private val binding = TabooMenuButtonBinding.inflate(LayoutInflater.from(context), this, true)
 
-    private var text = "Preview Button"
+    private var menuTitle = "Preview Button"
     private var description = "Preview Button Description"
 
     private var menuType = MENU_TYPE_NONE
@@ -38,8 +38,8 @@ class TabooMenuButton(
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooMenuButton)
         val isEnabled = typed.getBoolean(R.styleable.TabooMenuButton_android_enabled, true)
-        val text = typed.getString(R.styleable.TabooMenuButton_android_text) ?: "Preview Button"
-        val description = typed.getString(R.styleable.TabooMenuButton_description) ?: "Preview Button Description"
+        val text = typed.getString(R.styleable.TabooMenuButton_menuTitle) ?: "Menu Title"
+        val description = typed.getString(R.styleable.TabooMenuButton_menuDescription) ?: "Menu Description"
         val type = typed.getInt(R.styleable.TabooMenuButton_menuType, MENU_TYPE_NONE)
         val preview = typed.getString(R.styleable.TabooMenuButton_preview) ?: "Preview"
         val previewGravity = typed.getInt(R.styleable.TabooMenuButton_previewGravity, PREVIEW_GRAVITY_TOP)
@@ -73,7 +73,7 @@ class TabooMenuButton(
      * @param text 타이틀에 표시할 텍스트.
      */
     fun setText(text: String) {
-        this.text = text
+        this.menuTitle = text
         updateText()
     }
 
@@ -81,7 +81,7 @@ class TabooMenuButton(
      * 타이틀을 업데이트 한다.
      */
     private fun updateText() {
-        binding.tvButtonName.text = text
+        binding.tvButtonName.text = menuTitle
     }
 
     /**

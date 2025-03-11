@@ -10,7 +10,6 @@
     <attr name="primaryColor" format="reference|color"/>
 
     <attr name="title" format="string"/>
-    <attr name="description" format="string"/>
 
     <attr name="isChecked" format="boolean"/>
 
@@ -59,10 +58,10 @@
 
     <declare-styleable name="TabooMenuButton">
         <attr name="android:enabled" format="boolean"/>
-        <attr name="android:text" format="string"/>
-        <attr name="android:textAppearance" format="reference"/>
-        <attr name="description"/>
-        <attr name="descriptionTextAppearance" format="reference"/>
+        <attr name="menuTitle" format="string"/>
+        <attr name="menuNameTextAppearance" format="reference"/>
+        <attr name="menuDescription" format="string"/>
+        <attr name="menuDescriptionTextAppearance" format="reference"/>
         <attr name="menuType" format="enum">
             <enum name="none" value="0"/>
             <enum name="preview" value="1"/>
@@ -88,7 +87,7 @@
 
     <declare-styleable name="TabooCheckCardButton">
         <attr name="title"/>
-        <attr name="description"/>
+        <attr name="description" format="string"/>
         <attr name="isChecked"/>
     </declare-styleable>
 
