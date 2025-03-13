@@ -45,5 +45,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_preview_button_example).setOnClickListener {
             startActivity(Intent(this, PreviewButtonsActivity::class.java))
         }
+
+        findViewById<Button>(R.id.btn_compose_button_example).setOnClickListener {
+            startActivity(Intent(this, ComposeButtonsActivity::class.java))
+        }
     }
 }
