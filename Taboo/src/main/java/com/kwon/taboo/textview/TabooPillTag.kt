@@ -89,8 +89,6 @@ class TabooPillTag(
     private fun setPillColorInternal(@ColorInt primaryColor: Int, @ColorInt secondaryColor: Int) {
         colorContainer.primaryColor = primaryColor
         colorContainer.secondaryColor = secondaryColor
-        val background = getMakePillBackgroundDrawable()
-        setBackgroundDrawable(background)
     }
 
     fun setPillColor(primaryColor: Int, secondaryColor: Int) {
