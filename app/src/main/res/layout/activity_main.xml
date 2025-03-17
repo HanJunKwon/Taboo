@@ -86,4 +86,12 @@
         app:layout_constraintTop_toBottomOf="@id/btn_preview_button_example"
         app:layout_constraintStart_toStartOf="parent"/>
 
+    <Button
+        android:id="@+id/btn_text_view_example"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TEXT VIEW"
+        app:layout_constraintTop_toBottomOf="@id/btn_time_picker_example"
+        app:layout_constraintStart_toStartOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
