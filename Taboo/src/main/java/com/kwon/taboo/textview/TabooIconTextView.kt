@@ -15,8 +15,8 @@ class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayou
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooIconTextView)
 
         val iconSrc = typed.getResourceId(R.styleable.TabooIconTextView_android_src, 0)
-        val iconWidth = typed.getDimension(R.styleable.TabooIconTextView_srcWidth, 36f)
-        val iconHeight = typed.getDimension(R.styleable.TabooIconTextView_srcHeight, 36f)
+        val iconWidth = typed.getDimension(R.styleable.TabooIconTextView_srcWidth, -1f)
+        val iconHeight = typed.getDimension(R.styleable.TabooIconTextView_srcHeight, -1f)
 
         val text = typed.getString(R.styleable.TabooIconTextView_android_text)
         val textAppearance = typed.getResourceId(R.styleable.TabooIconTextView_android_textAppearance, 0)
@@ -26,7 +26,7 @@ class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayou
         typed.recycle()
 
         setIconSrc(iconSrc)
-        setIconSize(iconWidth, iconHeight)
+        setIconSize(iconWidth.toInt(), iconHeight.toInt())
 
         setText(text ?: "")
         setTextAppearance(textAppearance)
@@ -41,9 +41,13 @@ class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayou
         binding.ivIcon.setImageResource(iconSrc)
     }
 
-    fun setIconSize(width: Float, height: Float) {
-        binding.ivIcon.layoutParams.width = width.toInt()
-        binding.ivIcon.layoutParams.height = height.toInt()
+    fun setIconSize(width: Int, height: Int) {
+        val layoutParams = binding.ivIcon.layoutParams.apply {
+            this.width = if (width == -1) LayoutParams.WRAP_CONTENT else width
+            this.height = if (height == -1) LayoutParams.WRAP_CONTENT else height
+        }
+
+        binding.ivIcon.layoutParams = layoutParams
     }
 
     fun setText(text: String) {
