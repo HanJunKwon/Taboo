@@ -8,6 +8,7 @@
     </attr>
 
     <attr name="primaryColor" format="reference|color"/>
+    <attr name="secondaryColor" format="reference|color"/>
 
     <attr name="title" format="string"/>
 
@@ -35,7 +36,7 @@
             <enum name="dash" value="3"/>
         </attr>
         <attr name="primaryColor"/>
-        <attr name="secondaryColor" format="reference|color"/>
+        <attr name="secondaryColor"/>
         <attr name="buttonBackgroundTint" format="reference|color"/>
         <attr name="icon"/>
         <attr name="iconPosition"/>
@@ -146,7 +147,8 @@
         <attr name="android:textColor" format="reference|color"/>
         <attr name="android:fontFamily" format="reference"/>
         <attr name="android:textSize" format="dimension"/>
-        <attr name="pillColor" format="reference|color"/>
+        <attr name="primaryColor"/>
+        <attr name="secondaryColor"/>
     </declare-styleable>
 
     <declare-styleable name="TabooRadioButtonGroup">

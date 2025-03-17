@@ -3,11 +3,13 @@ package com.kwon.taboo.attribute
 import android.content.res.ColorStateList
 import android.graphics.Color
 import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 import kotlin.math.roundToInt
 
 data class ColorContainer(
-    var primaryColor: Int,
-    var secondaryColor: Int
+    @ColorInt var primaryColor: Int,
+    @ColorInt var secondaryColor: Int
 ) {
     fun getPrimaryColorStateList(): ColorStateList {
         return ColorStateList(

@@ -19,6 +19,15 @@
         android:text="TabooPillTag"
         android:layout_marginTop="10dp"/>
 
+    <com.kwon.taboo.textview.TabooPillTag
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="TabooPillTag"
+        android:enabled="false"
+        app:primaryColor="@color/taboo_black_01"
+        app:secondaryColor="@color/taboo_gray_04"/>
+
     <com.kwon.taboo.textview.TabooIconTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -38,8 +38,8 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     private var buttonType = BUTTON_TYPE_SOLID
 
     private var colorContainer: ColorContainer = ColorContainer(
-        primaryColor = R.color.taboo_vibrant_blue_01,
-        secondaryColor = R.color.taboo_blue_06
+        primaryColor = ContextCompat.getColor(context, R.color.taboo_vibrant_blue_01),
+        secondaryColor = ContextCompat.getColor(context, R.color.taboo_blue_06)
     )
 
     private var backgroundTint: Any? = null

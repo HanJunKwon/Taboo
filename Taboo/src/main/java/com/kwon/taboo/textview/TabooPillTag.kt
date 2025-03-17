@@ -5,14 +5,15 @@ import android.content.res.ColorStateList
 import android.content.res.TypedArray
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity.CENTER
+import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.kwon.taboo.R
-
+import com.kwon.taboo.attribute.ColorContainer
+import com.kwon.utils.calendar.ResourceUtils
 
 
 class TabooPillTag(
@@ -20,8 +21,10 @@ class TabooPillTag(
     attrs: AttributeSet
 ): AppCompatTextView(context, attrs) {
 
-    private val defaultPillColor = R.color.taboo_gray_03
-    private val defaultTextColor = R.color.taboo_black_02
+    private val colorContainer = ColorContainer(
+        primaryColor = ContextCompat.getColor(context, R.color.taboo_vibrant_blue_01),
+        secondaryColor = ContextCompat.getColor(context, R.color.taboo_blue_06)
+    )
     private val defaultTextSize = 10f
 
     private val horizontalPadding = 10
@@ -30,10 +33,13 @@ class TabooPillTag(
     private val minimumHeightDp = 25
     private val minimumWidthDp = 80
 
-
-
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooPillTag)
+
+        val primaryColor = typed.getColor(R.styleable.TabooPillTag_primaryColor, ContextCompat.getColor(context, R.color.taboo_vibrant_blue_01))
+        val secondaryColor = typed.getColor(R.styleable.TabooPillTag_secondaryColor, ContextCompat.getColor(context, R.color.taboo_blue_06))
+
+        setPillColorInternal(primaryColor, secondaryColor)
 
         initTabooPillTag(typed)
 
@@ -41,10 +47,7 @@ class TabooPillTag(
     }
 
     private fun initTabooPillTag(typed: TypedArray) {
-        setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.shape_rect_r20_a0_000000))
-
-        val pillColor = typed.getColorStateList(R.styleable.TabooPillTag_pillColor)
-        setPillColor(pillColor)
+        updatePillColor()
 
         val fontFamily = typed.getResourceId(R.styleable.TabooPillTag_android_fontFamily, 0)
         typeface = if (fontFamily == 0) {
@@ -55,7 +58,7 @@ class TabooPillTag(
 
         val textColor = typed.getColorStateList(R.styleable.TabooPillTag_android_textColor)
         if (textColor == null) {
-            setTextColor(ContextCompat.getColor(context, defaultTextColor))
+            setTextColor(colorContainer.getPrimaryColorStateList())
         } else {
             setTextColor(textColor)
         }
@@ -81,13 +84,30 @@ class TabooPillTag(
         minimumWidth = Math.round(minimumWidthDp * density)
     }
 
-    fun setPillColor(pillColor: Any?) {
-        val background = background as? GradientDrawable
-        when (pillColor) {
-            is Int -> background?.setColor(pillColor)
-            is ColorStateList -> background?.color = pillColor
-            else -> background?.setColor(ContextCompat.getColor(context, defaultPillColor))
-        }
+    private fun setPillColorInternal(@ColorInt primaryColor: Int, @ColorInt secondaryColor: Int) {
+        colorContainer.primaryColor = primaryColor
+        colorContainer.secondaryColor = secondaryColor
+        val background = getMakePillBackgroundDrawable()
+        setBackgroundDrawable(background)
+    }
+
+    fun setPillColor(primaryColor: Int, secondaryColor: Int) {
+        setPillColorInternal(primaryColor, secondaryColor)
+
+        updatePillColor()
+    }
+
+    private fun updatePillColor() {
+        val background = getMakePillBackgroundDrawable()
+        setBackgroundDrawable(background)
+    }
+
+    private fun getMakePillBackgroundDrawable(): GradientDrawable {
+        val drawable = GradientDrawable()
+        drawable.cornerRadius = ResourceUtils.dpToPx(context, 20f)
+        drawable.setStroke(2, colorContainer.getPrimaryColorStateList())
+        drawable.color = colorContainer.getSecondaryColorStateList()
+        return drawable
     }
 
     /**
