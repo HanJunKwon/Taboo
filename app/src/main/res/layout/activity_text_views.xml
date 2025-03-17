@@ -45,11 +45,38 @@
         app:primaryColor="@color/taboo_black_01"
         app:secondaryColor="@color/taboo_gray_04"/>
 
-    <com.kwon.taboo.textview.TabooIconTextView
+    <com.kwon.taboo.textview.TabooPillTag
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_box_44dp"
+        android:layout_marginTop="10dp"
+        android:text="TabooPillTag - Font Regular"
+        android:textColor="@color/taboo_black_01"
+        android:fontFamily="@font/font_pretendard_regular"
+        app:radius="3dp"/>
+
+    <com.kwon.taboo.textview.TabooPillTag
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="TabooPillTag - Font Regular"
+        android:fontFamily="@font/font_pretendard_regular"
+        android:enabled="false"
+        app:radius="3dp"
+        app:primaryColor="@color/taboo_black_01"
+        app:secondaryColor="@color/taboo_gray_04"/>
+
+    <com.kwon.taboo.textview.TabooIconTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="TabooIconTextView"
         android:layout_marginTop="10dp"/>
+
+    <com.kwon.taboo.textview.TabooIconTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TabooIconTextView"
+        android:layout_marginTop="10dp"
+        app:srcWidth="36dp"
+        app:srcHeight="36dp"/>
 
 </LinearLayout>

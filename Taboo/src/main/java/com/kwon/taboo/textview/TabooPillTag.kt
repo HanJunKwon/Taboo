@@ -1,12 +1,15 @@
 package com.kwon.taboo.textview
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.content.res.TypedArray
+import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity.CENTER
 import androidx.annotation.ColorInt
+import androidx.annotation.FontRes
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -41,7 +44,7 @@ class TabooPillTag(
         val radius = typed.getDimension(R.styleable.TabooPillTag_radius, 20f)
 
         setPillColorInternal(primaryColor, secondaryColor)
-        setPillRadiusInternal(typed.getDimension(R.styleable.TabooPillTag_radius, 20f))
+        setPillRadiusInternal(radius)
 
         initTabooPillTag(typed)
 
@@ -51,19 +54,11 @@ class TabooPillTag(
     private fun initTabooPillTag(typed: TypedArray) {
         updatePill()
 
-        val fontFamily = typed.getResourceId(R.styleable.TabooPillTag_android_fontFamily, 0)
-        typeface = if (fontFamily == 0) {
-            ResourcesCompat.getFont(context, R.font.font_pretendard_semi_bold)
-        } else {
-            ResourcesCompat.getFont(context, fontFamily)
-        }
+        val fontFamilyResId = typed.getResourceId(R.styleable.TabooPillTag_android_fontFamily, 0)
+        setTypeface(fontFamilyResId)
 
         val textColor = typed.getColorStateList(R.styleable.TabooPillTag_android_textColor)
-        if (textColor == null) {
-            setTextColor(colorContainer.getPrimaryColorStateList())
-        } else {
-            setTextColor(textColor)
-        }
+        setTextColor(textColor)
 
         if (typed.hasValue(R.styleable.TabooPillTag_android_textSize)) {
             val typedValue = TypedValue()
@@ -84,6 +79,20 @@ class TabooPillTag(
         val density = context.resources.displayMetrics.density
         minimumHeight = Math.round(minimumHeightDp * density)
         minimumWidth = Math.round(minimumWidthDp * density)
+    }
+
+    override fun setTextColor(colors: ColorStateList?) {
+        val textColor = colors ?: colorContainer.getPrimaryColorStateList()
+        super.setTextColor(textColor)
+    }
+
+    fun setTypeface(@FontRes fontFamilyResId: Int) {
+        val typeface = if (fontFamilyResId == 0) null else ResourcesCompat.getFont(context, fontFamilyResId)
+        setTypeface(typeface)
+    }
+
+    override fun setTypeface(tf: Typeface?) {
+        super.setTypeface(tf ?: ResourcesCompat.getFont(context, R.font.font_pretendard_semi_bold))
     }
 
     private fun setPillColorInternal(@ColorInt primaryColor: Int, @ColorInt secondaryColor: Int) {
