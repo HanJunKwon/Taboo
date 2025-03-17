@@ -149,6 +149,7 @@
         <attr name="android:textSize" format="dimension"/>
         <attr name="primaryColor"/>
         <attr name="secondaryColor"/>
+        <attr name="radius" format="dimension"/>
     </declare-styleable>
 
     <declare-styleable name="TabooRadioButtonGroup">

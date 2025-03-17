@@ -28,10 +28,28 @@
         app:primaryColor="@color/taboo_black_01"
         app:secondaryColor="@color/taboo_gray_04"/>
 
+    <com.kwon.taboo.textview.TabooPillTag
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="TabooPillTag"
+        app:radius="3dp"/>
+
+    <com.kwon.taboo.textview.TabooPillTag
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="TabooPillTag"
+        android:enabled="false"
+        app:radius="3dp"
+        app:primaryColor="@color/taboo_black_01"
+        app:secondaryColor="@color/taboo_gray_04"/>
+
     <com.kwon.taboo.textview.TabooIconTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_box_44dp"
-        android:text="TabooIconTextView"/>
+        android:text="TabooIconTextView"
+        android:layout_marginTop="10dp"/>
 
 </LinearLayout>
