@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "TabooSample"
 include(":app")
 include(":Taboo")
+include(":TabooCompose")
