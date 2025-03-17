@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".TextViewsActivity">
+
+    <com.kwon.taboo.textview.TabooTagView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TabooTagView"/>
+
+    <com.kwon.taboo.textview.TabooPillTag
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TabooPillTag"
+        android:layout_marginTop="10dp"/>
+
+    <com.kwon.taboo.textview.TabooIconTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_box_44dp"
+        android:text="TabooIconTextView"/>
+
+</LinearLayout>
