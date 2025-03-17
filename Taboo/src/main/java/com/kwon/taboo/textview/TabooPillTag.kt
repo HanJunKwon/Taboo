@@ -1,6 +1,7 @@
 package com.kwon.taboo.textview
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.content.res.TypedArray
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
@@ -57,11 +58,7 @@ class TabooPillTag(
         setTypeface(fontFamilyResId)
 
         val textColor = typed.getColorStateList(R.styleable.TabooPillTag_android_textColor)
-        if (textColor == null) {
-            setTextColor(colorContainer.getPrimaryColorStateList())
-        } else {
-            setTextColor(textColor)
-        }
+        setTextColor(textColor)
 
         if (typed.hasValue(R.styleable.TabooPillTag_android_textSize)) {
             val typedValue = TypedValue()
@@ -82,6 +79,11 @@ class TabooPillTag(
         val density = context.resources.displayMetrics.density
         minimumHeight = Math.round(minimumHeightDp * density)
         minimumWidth = Math.round(minimumWidthDp * density)
+    }
+
+    override fun setTextColor(colors: ColorStateList?) {
+        val textColor = colors ?: colorContainer.getPrimaryColorStateList()
+        super.setTextColor(textColor)
     }
 
     fun setTypeface(@FontRes fontFamilyResId: Int) {
