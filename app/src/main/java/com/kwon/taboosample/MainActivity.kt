@@ -49,5 +49,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_text_view_example).setOnClickListener {
             startActivity(Intent(this, TextViewsActivity::class.java))
         }
+
+        findViewById<Button>(R.id.btn_timer_example).setOnClickListener {
+            startActivity(Intent(this, TimersActivity::class.java))
+        }
     }
 }

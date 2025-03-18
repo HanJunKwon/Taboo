@@ -194,4 +194,9 @@
         <attr name="selectionStrokeColor" format="reference|color"/>
         <attr name="selectionStrokeWidth" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="TabooTimer">
+        <attr name="trackColor" format="reference|color"/>
+        <attr name="indicatorColor" format="reference|color"/>
+    </declare-styleable>
 </resources>

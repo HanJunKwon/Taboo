@@ -162,6 +162,18 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="Taboo.TextAppearance.Timer.RemainTime" parent="Taboo.TextAppearance">
+        <item name="android:fontFamily">@font/font_pretendard_light</item>
+        <item name="android:textColor">@color/selector_taboo_timer_time</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="Taboo.TextAppearance.Timer.SettingTime" parent="Taboo.TextAppearance">
+        <item name="android:fontFamily">@font/font_pretendard_light</item>
+        <item name="android:textColor">@color/selector_taboo_timer_time</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="Taboo.Style"/>
 
     <style name="Taboo.Style.Button">
