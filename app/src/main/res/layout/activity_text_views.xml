@@ -65,6 +65,21 @@
         app:primaryColor="@color/taboo_black_01"
         app:secondaryColor="@color/taboo_gray_04"/>
 
+    <com.kwon.taboo.textview.TabooPillTag
+        android:id="@+id/tpt_change_color_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="TabooPillTag" />
+
+    <com.kwon.taboo.textview.TabooPillTag
+        android:id="@+id/tpt_change_color_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="TabooPillTag"
+        android:enabled="false"/>
+
     <com.kwon.taboo.textview.TabooIconTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

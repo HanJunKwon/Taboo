@@ -100,8 +100,9 @@ class TabooPillTag(
         colorContainer.secondaryColor = secondaryColor
     }
 
-    fun setPillColor(primaryColor: Int, secondaryColor: Int) {
+    fun setPillColor(@ColorInt primaryColor: Int, @ColorInt secondaryColor: Int) {
         setPillColorInternal(primaryColor, secondaryColor)
+        setTextColor(colorContainer.getPrimaryColorStateList())
 
         updatePill()
     }
