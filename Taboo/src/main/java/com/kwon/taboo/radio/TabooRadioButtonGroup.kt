@@ -10,6 +10,7 @@ import com.kwon.taboo.R
 
 class TabooRadioButtonGroup(context: Context, attrs: AttributeSet) : LinearLayout(context, attrs) {
     private var checkedButtonId: Int = View.NO_ID
+    private var onChangeRadioButtonListener: ((id:Int, position: Int) -> Unit)? = null
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooRadioButtonGroup)
@@ -47,10 +48,14 @@ class TabooRadioButtonGroup(context: Context, attrs: AttributeSet) : LinearLayou
             if (child is TabooRadioButton) {
                 child.setOnClickListener {
                     updateCheckedButton(child.id)
+                    onChangeRadioButtonListener?.invoke(child.id, i)
                 }
             }
         }
     }
 
+    fun setOnChangeRadioButtonListener(listener: (id:Int, position: Int) -> Unit) {
+        onChangeRadioButtonListener = listener
+    }
 
 }
