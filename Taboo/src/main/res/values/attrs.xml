@@ -194,4 +194,7 @@
         <attr name="selectionStrokeColor" format="reference|color"/>
         <attr name="selectionStrokeWidth" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="TabooSegmentControl">
+    </declare-styleable>
 </resources>
