@@ -30,4 +30,8 @@ class TabooSegmentControl(
         (adapter as TabooSegmentControlAdapter).submitList(items)
     }
 
+    fun setOnItemClickListener(listener: (Int) -> Unit) {
+        (adapter as TabooSegmentControlAdapter).setOnItemClickListener(listener)
+    }
+
 }

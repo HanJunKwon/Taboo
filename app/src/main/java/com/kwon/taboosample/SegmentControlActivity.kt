@@ -1,6 +1,7 @@
 package com.kwon.taboosample
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -19,6 +20,11 @@ class SegmentControlActivity : AppCompatActivity() {
             insets
         }
 
-        findViewById<TabooSegmentControl>(R.id.tsc_segment_control).setItems(listOf("세그먼트 1", "세그먼트 2", "세그먼트 3", "세그먼트 4", "세그먼트 5"))
+        findViewById<TabooSegmentControl>(R.id.tsc_segment_control).apply {
+            setItems(listOf("세그먼트 1", "세그먼트 2", "세그먼트 3", "세그먼트 4", "세그먼트 5"))
+            setOnItemClickListener {
+                Log.d(">>>", "Clicked $it")
+            }
+        }
     }
 }

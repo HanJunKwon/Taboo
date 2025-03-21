@@ -15,6 +15,8 @@ import com.kwon.utils.calendar.ResourceUtils
 class TabooSegmentControlAdapter : ListAdapter<String, TabooSegmentControlAdapter.TabooSegmentButtonViewHolder>(TabooSegmentDiffCallback()) {
     private var selectedIndex = RecyclerView.NO_POSITION
 
+    private var onItemClickListener: ((Int) -> Unit)? = null
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -49,6 +51,10 @@ class TabooSegmentControlAdapter : ListAdapter<String, TabooSegmentControlAdapte
         }
     }
 
+    fun setOnItemClickListener(listener: (Int) -> Unit) {
+        onItemClickListener = listener
+    }
+
     inner class TabooSegmentButtonViewHolder(private val binding: TextView): ViewHolder(binding) {
         fun bind() {
             binding.text = getItem(adapterPosition)
@@ -63,6 +69,8 @@ class TabooSegmentControlAdapter : ListAdapter<String, TabooSegmentControlAdapte
 
             updateSelected(false)
             binding.setOnClickListener {
+                onItemClickListener?.invoke(adapterPosition)
+
                 notifyItemChanged(selectedIndex, PayLoad.SELECTION_CHANGED)
 
                 selectedIndex = adapterPosition
