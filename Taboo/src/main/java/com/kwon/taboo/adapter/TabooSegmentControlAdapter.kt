@@ -1,11 +1,13 @@
 package com.kwon.taboo.adapter
 
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.kwon.taboo.R
 import com.kwon.taboo.diffutils.TabooSegmentDiffCallback
@@ -16,6 +18,7 @@ class TabooSegmentControlAdapter : ListAdapter<String, TabooSegmentControlAdapte
     private var selectedIndex = RecyclerView.NO_POSITION
 
     private var onItemClickListener: ((Int) -> Unit)? = null
+    private var onItemSelectedChangedListener: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -51,8 +54,33 @@ class TabooSegmentControlAdapter : ListAdapter<String, TabooSegmentControlAdapte
         }
     }
 
+    fun setSelectedPosition(position: Int) {
+        if (position < 0) {
+            Log.e("TabooSegmentControlAdapter", "Invalid position: $position")
+            return
+        }
+
+        if (position >= itemCount) {
+            Log.e("TabooSegmentControlAdapter", "Invalid position: $position")
+            return
+        }
+
+        if (selectedIndex != NO_POSITION) {
+            notifyItemChanged(selectedIndex, PayLoad.SELECTION_CHANGED)
+        }
+
+        selectedIndex = position
+        notifyItemChanged(selectedIndex, PayLoad.SELECTION_CHANGED)
+
+        onItemSelectedChangedListener?.invoke(selectedIndex)
+    }
+
     fun setOnItemClickListener(listener: (Int) -> Unit) {
         onItemClickListener = listener
+    }
+
+    fun setOnItemSelectedChangedListener(listener: (Int) -> Unit) {
+        onItemSelectedChangedListener = listener
     }
 
     inner class TabooSegmentButtonViewHolder(private val binding: TextView): ViewHolder(binding) {
@@ -67,14 +95,12 @@ class TabooSegmentControlAdapter : ListAdapter<String, TabooSegmentControlAdapte
             val paddingHorizontal = ResourceUtils.dpToPx(binding.context, 15f).toInt()
             binding.setPadding(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical)
 
-            updateSelected(false)
+            updateSelected(selectedIndex == adapterPosition)
+
             binding.setOnClickListener {
                 onItemClickListener?.invoke(adapterPosition)
 
-                notifyItemChanged(selectedIndex, PayLoad.SELECTION_CHANGED)
-
-                selectedIndex = adapterPosition
-                notifyItemChanged(selectedIndex, PayLoad.SELECTION_CHANGED)
+                setSelectedPosition(adapterPosition)
             }
         }
 

@@ -25,6 +25,12 @@ class SegmentControlActivity : AppCompatActivity() {
             setOnItemClickListener {
                 Log.d(">>>", "Clicked $it")
             }
+
+            setOnSelectedItemChangedListener {
+                Log.d(">>>", "Selected $it")
+            }
+
+            setSelectedItem(0)
         }
     }
 }

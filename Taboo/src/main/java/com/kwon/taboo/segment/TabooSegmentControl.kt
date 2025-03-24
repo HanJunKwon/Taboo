@@ -34,4 +34,11 @@ class TabooSegmentControl(
         (adapter as TabooSegmentControlAdapter).setOnItemClickListener(listener)
     }
 
+    fun setOnSelectedItemChangedListener(listener: (Int) -> Unit) {
+        (adapter as TabooSegmentControlAdapter).setOnItemSelectedChangedListener(listener)
+    }
+
+    fun setSelectedItem(position: Int) {
+        (adapter as TabooSegmentControlAdapter).setSelectedPosition(position)
+    }
 }
