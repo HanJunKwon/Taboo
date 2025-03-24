@@ -129,6 +129,8 @@
         <attr name="android:textAppearance"/>
         <attr name="android:textColor"/>
         <attr name="android:textSize"/>
+        <attr name="android:maxLines"/>
+        <attr name="android:ellipsize"/>
         <attr name="srcWidth" format="dimension"/>
         <attr name="srcHeight" format="dimension"/>
     </declare-styleable>

@@ -23,6 +23,9 @@ class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayou
         val textColor = typed.getColorStateList(R.styleable.TabooIconTextView_android_textColor)
         val textSize = typed.getDimension(R.styleable.TabooIconTextView_android_textSize, -1f)
 
+        val maxLines = typed.getInt(R.styleable.TabooIconTextView_android_maxLines, 1)
+        val ellipsize = typed.getInt(R.styleable.TabooIconTextView_android_ellipsize, 0)
+
         typed.recycle()
 
         setIconSrc(iconSrc)
@@ -32,6 +35,9 @@ class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayou
         setTextAppearance(textAppearance)
         setTextColor(textColor)
         setTextSize(textSize)
+
+        setMaxLines(maxLines)
+        setEllipsize(ellipsize)
     }
 
     fun setIconSrc(iconSrc: Int) {
@@ -70,5 +76,18 @@ class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayou
             return
 
         binding.tvText.textSize = size
+    }
+
+    fun setMaxLines(maxLines: Int) {
+        binding.tvText.maxLines = maxLines
+    }
+
+    fun setEllipsize(ellipsize: Int) {
+        binding.tvText.ellipsize = when (ellipsize) {
+            1 -> android.text.TextUtils.TruncateAt.START
+            2 -> android.text.TextUtils.TruncateAt.MIDDLE
+            3 -> android.text.TextUtils.TruncateAt.END
+            else -> android.text.TextUtils.TruncateAt.END
+        }
     }
 }
