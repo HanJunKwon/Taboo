@@ -3,12 +3,14 @@ package com.kwon.taboo.textview
 import android.content.Context
 import android.content.res.ColorStateList
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.kwon.taboo.R
 import com.kwon.taboo.databinding.TabooIconTextViewBinding
 
 class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
+
     private val binding = TabooIconTextViewBinding.inflate(LayoutInflater.from(context), this, true)
 
     init {
@@ -21,7 +23,7 @@ class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayou
         val text = typed.getString(R.styleable.TabooIconTextView_android_text)
         val textAppearance = typed.getResourceId(R.styleable.TabooIconTextView_android_textAppearance, 0)
         val textColor = typed.getColorStateList(R.styleable.TabooIconTextView_android_textColor)
-        val textSize = typed.getDimension(R.styleable.TabooIconTextView_android_textSize, -1f)
+        val textSize = typed.getDimension(R.styleable.TabooIconTextView_android_textSize, DEFAULT_TEXT_SIZE)
 
         val maxLines = typed.getInt(R.styleable.TabooIconTextView_android_maxLines, 1)
         val ellipsize = typed.getInt(R.styleable.TabooIconTextView_android_ellipsize, 0)
@@ -72,10 +74,7 @@ class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayou
     }
 
     fun setTextSize(size: Float) {
-        if (size == -1f)
-            return
-
-        binding.tvText.textSize = size
+        binding.tvText.setTextSize(TypedValue.COMPLEX_UNIT_PX, size)
     }
 
     fun setMaxLines(maxLines: Int) {
@@ -89,5 +88,9 @@ class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayou
             3 -> android.text.TextUtils.TruncateAt.END
             else -> android.text.TextUtils.TruncateAt.END
         }
+    }
+
+    companion object {
+        const val DEFAULT_TEXT_SIZE = 32f
     }
 }
