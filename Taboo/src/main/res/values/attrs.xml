@@ -128,7 +128,7 @@
         <attr name="android:text"/>
         <attr name="android:textAppearance"/>
         <attr name="android:textColor"/>
-        <attr name="android:textSize"/>
+        <attr name="android:textSize" format="dimension"/>
         <attr name="android:maxLines"/>
         <attr name="android:ellipsize"/>
         <attr name="srcWidth" format="dimension"/>
