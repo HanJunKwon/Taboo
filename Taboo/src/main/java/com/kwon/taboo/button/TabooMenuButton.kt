@@ -96,9 +96,12 @@ class TabooMenuButton(
 
     /**
      * description 을 업데이트 한다.
+     *
+     * [description]이 비어있을 경우, Description TextView [View.GONE] 처리.
      */
     private fun updateDescription() {
         binding.tvButtonDescription.text = description
+        binding.tvButtonDescription.visibility = if (description.isBlank()) View.GONE else View.VISIBLE
     }
 
     /**
