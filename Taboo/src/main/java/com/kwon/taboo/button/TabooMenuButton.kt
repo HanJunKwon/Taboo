@@ -31,7 +31,7 @@ class TabooMenuButton(
 
     private var preview = "Preview"
     private var previewGravity: Int = PREVIEW_GRAVITY_TOP
-    private var iconResource: Drawable? = null
+    private var iconDrawable: Drawable? = null
 
     private var inflatedView: View? = null
 
@@ -43,7 +43,7 @@ class TabooMenuButton(
         val type = typed.getInt(R.styleable.TabooMenuButton_menuType, MENU_TYPE_NONE)
         val preview = typed.getString(R.styleable.TabooMenuButton_preview) ?: "Preview"
         val previewGravity = typed.getInt(R.styleable.TabooMenuButton_previewGravity, PREVIEW_GRAVITY_TOP)
-        val iconResourceId = typed.getResourceId(R.styleable.TabooMenuButton_icon, R.drawable.ic_box_44dp)
+        val iconResourceId = typed.getResourceId(R.styleable.TabooMenuButton_icon, 0)
 
         typed.recycle()
 
@@ -217,12 +217,14 @@ class TabooMenuButton(
     /**
      * 버튼 왼쪽에 표시되는 아이콘을 설정한다.
      *
-     * @param resourceId 아이콘 리소스 ID
+     * @param iconResourceId 아이콘 리소스 ID
      *
      * @see [setIconResource]
      */
-    fun setIconResourceId(@DrawableRes resourceId: Int) {
-        setIconResource(ContextCompat.getDrawable(context, resourceId))
+    fun setIconResourceId(@DrawableRes iconResourceId: Int) {
+        val iconDrawable = if (iconResourceId == 0) null else ContextCompat.getDrawable(context, iconResourceId)
+
+        setIconResource(iconDrawable)
     }
 
     /**
@@ -230,10 +232,10 @@ class TabooMenuButton(
      *
      * @see [setIconResourceId]
      *
-     * @param resource 아이콘 Drawable
+     * @param iconDrawable 아이콘 Drawable
      */
-    fun setIconResource(resource: Drawable?) {
-        this.iconResource = resource
+    fun setIconResource(iconDrawable: Drawable?) {
+        this.iconDrawable = iconDrawable
 
         updateIconResource()
     }
@@ -242,7 +244,7 @@ class TabooMenuButton(
      * 아이콘을 업데이트 한다.
      */
     private fun updateIconResource() {
-        binding.ivButtonIcon.setImageDrawable(iconResource)
+        binding.ivButtonIcon.setImageDrawable(iconDrawable)
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
