@@ -128,7 +128,9 @@
         <attr name="android:text"/>
         <attr name="android:textAppearance"/>
         <attr name="android:textColor"/>
-        <attr name="android:textSize"/>
+        <attr name="android:textSize" format="dimension"/>
+        <attr name="android:maxLines"/>
+        <attr name="android:ellipsize"/>
         <attr name="srcWidth" format="dimension"/>
         <attr name="srcHeight" format="dimension"/>
     </declare-styleable>
@@ -193,6 +195,9 @@
         <attr name="itemHeight" format="dimension"/>
         <attr name="selectionStrokeColor" format="reference|color"/>
         <attr name="selectionStrokeWidth" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="TabooSegmentControl">
     </declare-styleable>
 
     <declare-styleable name="TabooTimer">

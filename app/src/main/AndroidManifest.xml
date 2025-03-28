@@ -17,6 +17,12 @@
             android:name=".TimersActivity"
             android:exported="false" />
         <activity
+            android:name=".SegmentControlActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RadiosActivity"
+            android:exported="false" />
+        <activity
             android:name=".TextViewsActivity"
             android:exported="false" />
         <activity
