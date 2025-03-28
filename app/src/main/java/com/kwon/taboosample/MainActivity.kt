@@ -57,5 +57,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_segment_control_example).setOnClickListener {
             startActivity(Intent(this, SegmentControlActivity::class.java))
         }
+
+        findViewById<Button>(R.id.btn_timer_example).setOnClickListener {
+            startActivity(Intent(this, TimersActivity::class.java))
+        }
     }
 }

@@ -199,4 +199,13 @@
 
     <declare-styleable name="TabooSegmentControl">
     </declare-styleable>
+
+    <declare-styleable name="TabooTimer">
+        <attr name="remainTime" format="string"/>
+        <attr name="remainTimeTextAppearance" format="reference"/>
+        <attr name="remainTimeTextColor" format="reference|color"/>
+        <attr name="remainTimeTextSize" format="dimension"/>
+        <attr name="trackColor" format="reference|color"/>
+        <attr name="indicatorColor" format="reference|color"/>
+    </declare-styleable>
 </resources>

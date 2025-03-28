@@ -52,6 +52,17 @@
     <color name="taboo_green_09">#FFC8E6C9</color>
     <color name="taboo_green_10">#FFE8F5E9</color>
 
+    <color name="taboo_flame_red_01">#FF6D220A</color>
+    <color name="taboo_flame_red_02">#FF8F2E0F</color>
+    <color name="taboo_flame_red_03">#FFB33A13</color>
+    <color name="taboo_flame_red_04">#FFCF4417</color>
+    <color name="taboo_flame_red_05">#FFE84C1A</color>
+    <color name="taboo_flame_red_06">#FFF4694C</color>
+    <color name="taboo_flame_red_07">#FFF78C6F</color>
+    <color name="taboo_flame_red_08">#FFF9B299</color>
+    <color name="taboo_flame_red_09">#FFFCD2C2</color>
+    <color name="taboo_flame_red_10">#FFFDECE5</color>
+
     <!-- Material M3 색상 스타일 -->
     <color name="surface_dim">#FFDED8E1</color>
     <color name="surface">#FFFEF7FF</color>
@@ -71,4 +82,7 @@
 
     <color name="taboo_edit_text_password_toggle_active">@color/taboo_gray_01</color>
     <color name="taboo_edit_text_password_toggle_inactive">@color/taboo_gray_03</color>
+
+    <color name="taboo_timer_remain_time">@color/taboo_black_01</color>
+    <color name="taboo_timer_remain_time_inactive">@color/taboo_gray_02</color>
 </resources>

@@ -48,4 +48,7 @@
     <color name="taboo_edit_text_password_toggle_active">@color/white</color>
     <color name="taboo_edit_text_password_toggle_inactive">@color/taboo_gray_01</color>
 
+    <color name="taboo_timer_remain_time">@color/white</color>
+    <color name="taboo_timer_remain_time_inactive">@color/taboo_gray_02</color>
+
 </resources>
