@@ -8,6 +8,7 @@
     tools:context=".TimersActivity">
 
     <com.kwon.taboo.timer.TabooTimer
+        android:id="@+id/taboo_timer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

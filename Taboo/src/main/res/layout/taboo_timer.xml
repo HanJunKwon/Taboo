@@ -16,15 +16,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/Taboo.TextAppearance.Timer.RemainTime"
-            tools:text="03:00"/>
+            tools:text="03:00" />
 
         <TextView
             android:id="@+id/tv_setting_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="3dp"
             android:textAppearance="@style/Taboo.TextAppearance.Timer.SettingTime"
-            tools:text="4min"/>
+            tools:text="4 min, 2 sec"/>
 
     </LinearLayout>
 
@@ -45,7 +45,7 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/bundle_timer"
+            android:id="@+id/circle_progress_timer"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:progress="0"
