@@ -87,6 +87,7 @@ class TabooTimer(
     override fun setActivated(isActivated: Boolean) {
         binding.tvRemainTime.isActivated = isActivated
         binding.tvSettingTime.isActivated = isActivated
+        binding.ivBundleTimerStatus.isActivated = isActivated
     }
 
     private fun setTimerState(@TimerState state: Int) {
