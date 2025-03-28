@@ -6,11 +6,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import androidx.annotation.IntDef
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.lifecycle.LiveData
 import com.kwon.taboo.R
 import com.kwon.taboo.databinding.TabooTimerBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -21,48 +21,76 @@ class TabooTimer(
 ): ConstraintLayout(context, attrs) {
     private val binding = TabooTimerBinding.inflate(LayoutInflater.from(context), this, true)
 
-    @TimerState private var state: Int = STATE_STOP
+    private var state: MutableStateFlow<Int> = MutableStateFlow(STATE_STOP)
 
     private var settingTimeMillis = 0L
     private var remainTimeMillis = 0L
-    private var remainTimeSeconds = 0L
 
-    private var timerJob = CoroutineScope(Dispatchers.Default).launch {
-        while (state == STATE_START) {
-            remainTimeMillis -= 50
-
-            val time = formatTime(remainTimeMillis)
-            updateRemainTimer(time)
-
-            // 타이머 프로그레스 업데이트
-            val progress = ((remainTimeMillis.toDouble() / settingTimeMillis) * 1000).toInt()
-            updateProgressTimer(progress)
-
-            // 남은 시간이 없으면 타이머 종료
-            if (remainTimeMillis <= 0) {
-                setTimerState(STATE_STOP)
-                break
-            }
-
-            kotlinx.coroutines.delay(50)
-        }
-    }
+    private var timerJob: Job? = null
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooTimer)
 
-        isActivated = true
-
         typed.recycle()
+
+        setEvent()
+
+        setObserve()
+    }
+
+    private fun setEvent() {
+        binding.circleProgressTimer.setOnClickListener {
+            when (state.value) {
+                STATE_START -> pause()
+                STATE_PAUSE -> start()
+                STATE_STOP -> start()
+            }
+        }
+    }
+
+    private fun setObserve() {
+        CoroutineScope(Dispatchers.Default).launch {
+            state.collectLatest { state ->
+                setActivated(state == STATE_START)
+
+                when (state) {
+                    STATE_START -> handleTimerStart()
+                    STATE_PAUSE -> handleTimerPause()
+                }
+            }
+        }
+    }
+
+    private fun createTimerJob() {
+        timerJob = CoroutineScope(Dispatchers.Default).launch {
+            while (state.value == STATE_START) {
+                remainTimeMillis -= 50
+
+                val time = formatTime(remainTimeMillis)
+                updateRemainTimer(time)
+
+                // 타이머 프로그레스 업데이트
+                val progress = ((remainTimeMillis.toDouble() / settingTimeMillis) * 1000).toInt()
+                updateProgressTimer(progress)
+
+                // 남은 시간이 없으면 타이머 종료
+                if (remainTimeMillis <= 0) {
+                    setTimerState(STATE_STOP)
+                    break
+                }
+
+                kotlinx.coroutines.delay(50)
+            }
+        }
     }
 
     override fun setActivated(isActivated: Boolean) {
-        binding.tvRemainTime.isActivated = true
-        binding.tvSettingTime.isActivated = true
+        binding.tvRemainTime.isActivated = isActivated
+        binding.tvSettingTime.isActivated = isActivated
     }
 
-    fun setTimerState(@TimerState state: Int) {
-        this.state = state
+    private fun setTimerState(@TimerState state: Int) {
+        this.state.value = state
     }
 
     /**
@@ -72,8 +100,8 @@ class TabooTimer(
      * [stop]을 호출하여 타이머를 중지한 후에 시간을 설정해야 합니다.
      */
     fun setTime(millis: Long) {
-        if (state != STATE_STOP) {
-            Log.d(">>>", "Do not set time while timer is running.")
+        if (state.value != STATE_STOP) {
+            Log.e(">>>", "Do not set time while timer is running.")
             return
         }
 
@@ -83,7 +111,11 @@ class TabooTimer(
     }
 
     private fun updateSettingTime() {
+        binding.tvRemainTime.text = formatTime(settingTimeMillis)
         binding.tvSettingTime.text = formatSettingTime()
+
+        val progress = ((remainTimeMillis.toDouble() / settingTimeMillis) * 1000).toInt()
+        updateProgressTimer(progress)
     }
 
     /**
@@ -93,11 +125,14 @@ class TabooTimer(
      */
     fun setRemainTime(millis: Long) {
         if (settingTimeMillis < millis) {
-            Log.d(">>>", "Remain time is greater than setting time.")
+            Log.e(">>>", "Remain time is greater than setting time.")
             return
         }
 
         remainTimeMillis = millis
+
+        val progress = ((remainTimeMillis.toDouble() / settingTimeMillis) * 1000).toInt()
+        updateProgressTimer(progress)
     }
 
     /**
@@ -106,24 +141,30 @@ class TabooTimer(
      * 이미 시작된 상태라면 아무런 동작을 하지 않습니다.
      */
     fun start() {
-        if (state == STATE_START) {
-            Log.d(">>>", "Timer is already started.")
-            return
-        }
-
         if (settingTimeMillis == 0L) {
-            Log.d(">>>", "Setting time is not set.")
+            Log.e(">>>", "Setting time is not set.")
             return
         }
 
         if (remainTimeMillis == 0L) {
-            Log.d(">>>", "Remain time is not set.")
+            Log.e(">>>", "Remain time is not set.")
             return
         }
 
         setTimerState(STATE_START)
+    }
 
-        timerJob.start()
+    private fun handleTimerStart() {
+        if (timerJob == null) {
+            createTimerJob()
+        }
+
+//        timerJob?.start()
+    }
+
+    private fun handleTimerPause() {
+        timerJob?.cancel()
+        timerJob = null
     }
 
     /**
@@ -133,8 +174,6 @@ class TabooTimer(
      */
     fun pause() {
         setTimerState(STATE_PAUSE)
-
-        timerJob.cancel()
     }
 
     /**
@@ -145,8 +184,6 @@ class TabooTimer(
      */
     fun stop() {
         setTimerState(STATE_STOP)
-
-        timerJob.cancel()
     }
 
     private fun updateRemainTimer(remainTime: String) = CoroutineScope(Dispatchers.Main).launch {

@@ -21,6 +21,11 @@ class TimersActivity : AppCompatActivity() {
         findViewById<TabooTimer>(R.id.taboo_timer).apply {
             setTime(10000)
             setRemainTime(10000)
+        }
+
+        findViewById<TabooTimer>(R.id.taboo_timer_2).apply {
+            setTime(2235000)
+            setRemainTime(1500000)
             start()
         }
     }
