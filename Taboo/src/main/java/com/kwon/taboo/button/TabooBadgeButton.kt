@@ -3,6 +3,7 @@ package com.kwon.taboo.button
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import androidx.annotation.ColorInt
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
@@ -38,13 +39,17 @@ class TabooBadgeButton(
         secondaryColor = ContextCompat.getColor(context, R.color.taboo_blue_06)
     )
 
+    @ColorInt
+    private var rippleColor: Int = ContextCompat.getColor(context, R.color.taboo_button_ripple_color)
+
     private var badge: Int = 0             // 뱃지 숫자
     private var text: String = ""
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooBadgeButton)
         val text = typed.getString(R.styleable.TabooBadgeButton_android_text) ?: ""
-        val primaryColor = typed.getInt(R.styleable.TabooButton_primaryColor, R.color.taboo_vibrant_blue_01)
+        val primaryColor = typed.getInt(R.styleable.TabooBadgeButton_primaryColor, R.color.taboo_vibrant_blue_01)
+        val rippleColor = typed.getColor(R.styleable.TabooBadgeButton_rippleColor, ContextCompat.getColor(context, R.color.taboo_button_ripple_color))
         val badge = typed.getInt(R.styleable.TabooBadgeButton_badge, 0)
 
         typed.recycle()
@@ -52,6 +57,9 @@ class TabooBadgeButton(
         setBadgeInternal(badge)
         setTextInternal(text)
         setPrimaryColor(primaryColor)
+        setRippleColorInternal(rippleColor)
+
+        isClickable = true
 
         initBadgeButton()
     }
@@ -105,26 +113,48 @@ class TabooBadgeButton(
         binding.tvButtonText.text = text
     }
 
+
+    // <editor-fold desc="Color">
     fun setPrimaryColor(primaryColor: Int) {
         colorContainer.primaryColor = ContextCompat.getColor(context, primaryColor)
 
         updatePrimaryColor()
     }
 
+    private fun updatePrimaryColor() {
+        binding.numberingBall.setTextColor(colorContainer.primaryColor)
+        binding.numberingBall.setBallColor(R.color.white)
+        drawButton()
+    }
+
+    private fun setRippleColorInternal(@ColorInt rippleColor: Int) {
+        if (rippleColor != 0) {
+            this.rippleColor = rippleColor
+        }
+    }
+
+    /**
+     * 버튼 클릭 시 발생하는 Ripple 효과의 Mask 색상을 지정한다.
+     *
+     * [rippleColor]가 0이면 기본 Ripple 색상인 [R.color.taboo_button_ripple_color]가 적용된다.
+     */
+    fun setRippleColor(@ColorInt rippleColor: Int) {
+        setRippleColorInternal(rippleColor)
+
+        drawButton()
+    }
+    // </editor-fold>
+
+
     private fun drawButton() {
         val gradientDrawable = ButtonAppearance(
             context = context,
             buttonShape = BUTTON_SHAPE_ROUNDED,
             buttonType = BUTTON_TYPE_SOLID,
-            colorContainer = colorContainer
+            colorContainer = colorContainer,
+            rippleColor = rippleColor
         ).create()
 
         binding.root.background = gradientDrawable
-    }
-
-    private fun updatePrimaryColor() {
-        binding.numberingBall.setTextColor(colorContainer.primaryColor)
-        binding.numberingBall.setBallColor(R.color.white)
-        drawButton()
     }
 }

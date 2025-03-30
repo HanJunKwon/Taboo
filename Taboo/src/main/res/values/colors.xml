@@ -76,6 +76,8 @@
     <color name="on_surface_variant">#FF49454F</color>
     <color name="inverse_on_surface">#FFF5EFF7</color>
 
+    <color name="taboo_button_ripple_color">#42ffffff</color>
+
     <color name="taboo_preview_text_color">#FF1DA1F2</color>
 
     <color name="taboo_edit_text_prefix_color">@color/taboo_gray_02</color>

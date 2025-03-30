@@ -37,7 +37,8 @@
         </attr>
         <attr name="primaryColor"/>
         <attr name="secondaryColor"/>
-        <attr name="buttonBackgroundTint" format="reference|color"/>
+        <attr name="rippleColor"/>
+
         <attr name="icon"/>
         <attr name="iconPosition"/>
         <attr name="size" format="enum">
@@ -83,6 +84,7 @@
         <attr name="android:enabled" format="boolean"/>
         <attr name="android:text" format="string"/>
         <attr name="primaryColor"/>
+        <attr name="rippleColor"/>
         <attr name="badge" format="integer"/>
     </declare-styleable>
 

@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.GradientDrawable.RECTANGLE
+import android.graphics.drawable.RippleDrawable
+import androidx.annotation.ColorInt
 import com.kwon.taboo.R
 import com.kwon.taboo.button.TabooButton.Companion.BUTTON_SHAPE_RECT
 import com.kwon.taboo.button.TabooButton.Companion.BUTTON_TYPE_SOLID
@@ -15,19 +17,23 @@ class ButtonAppearance(
     private val context: Context,
     private val buttonShape: Int = BUTTON_SHAPE_RECT,
     private val buttonType: Int = BUTTON_TYPE_SOLID,
-    private val colorContainer: ColorContainer
+    private val colorContainer: ColorContainer,
+    @ColorInt private val rippleColor: Int
 ) {
     private val gradientDrawable = GradientDrawable().apply {
         shape = RECTANGLE
     }
 
-    fun create() : GradientDrawable {
+    fun create() : RippleDrawable {
         gradientDrawable.apply {
             cornerRadius = getButtonRadius()
             color = getDefaultBackgroundColor()
             setStroke(getButtonStroke())
         }
-        return gradientDrawable
+
+        val rippleDrawable = RippleDrawable(getRippleColorState(), gradientDrawable, null)
+
+        return rippleDrawable
     }
 
     private fun getButtonRadius() : Float{
@@ -56,5 +62,18 @@ class ButtonAppearance(
 
     private fun GradientDrawable.setStroke(stroke: Stroke) {
         setStroke(stroke.width, stroke.color, stroke.dashWidth, stroke.dashGap)
+    }
+
+    private fun getRippleColorState(): ColorStateList {
+        return ColorStateList(
+            arrayOf(
+                intArrayOf(android.R.attr.state_pressed),
+                intArrayOf()
+            ),
+            intArrayOf(
+                rippleColor,
+                android.R.color.transparent
+            )
+        )
     }
 }
