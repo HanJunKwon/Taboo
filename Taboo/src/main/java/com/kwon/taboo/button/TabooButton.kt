@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -42,7 +43,7 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         secondaryColor = ContextCompat.getColor(context, R.color.taboo_blue_06)
     )
 
-    private var backgroundTint: Any? = null
+    @ColorInt private var rippleColor: Int = ContextCompat.getColor(context, R.color.taboo_button_ripple_color)
 
     private var iconDrawable: Drawable? = null
     private var iconPosition = ICON_POSITION_LEFT
@@ -58,8 +59,8 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
 
         val primaryColor = typed.getColor(R.styleable.TabooButton_primaryColor, ContextCompat.getColor(context, R.color.taboo_vibrant_blue_01))
         val secondaryColor = typed.getColor(R.styleable.TabooButton_secondaryColor, ContextCompat.getColor(context, R.color.taboo_blue_06))
+        val rippleColor = typed.getColor(R.styleable.TabooButton_rippleColor, 0)
 
-        val buttonBackgroundTint = typed.getColorStateList(R.styleable.TabooButton_buttonBackgroundTint)
         val icon = typed.getResourceId(R.styleable.TabooButton_icon, 0)
         val iconPosition = typed.getInt(R.styleable.TabooButton_iconPosition, ICON_POSITION_LEFT)
         val size = typed.getInt(R.styleable.TabooButton_size, SIZE_LARGE)
@@ -75,8 +76,8 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         setButtonTypeInternal(buttonType)
 
         setColorContainerInternal(ColorContainer(primaryColor, secondaryColor))
+        setRippleColorInternal(rippleColor)
 
-        setButtonBackgroundTintInternal(buttonBackgroundTint)
         setIconInternal(icon, iconPosition)
         setSizeInternal(size)
 
@@ -91,6 +92,8 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         updateSize()
 
         drawButton()
+
+        isClickable = true
     }
 
     fun setText(text: String) {
@@ -146,14 +149,27 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         this.buttonType = type
     }
 
-    private fun setButtonBackgroundTintInternal(color: Any?) {
-        backgroundTint = color
-    }
-
     // <editor-fold desc="Color">
 
     private fun setColorContainerInternal(colorContainer: ColorContainer) {
         this.colorContainer = colorContainer
+    }
+
+    private fun setRippleColorInternal(@ColorInt rippleColor: Int) {
+        if (rippleColor != 0) {
+            this.rippleColor = rippleColor
+        }
+    }
+
+    /**
+     * 버튼 클릭 시 발생하는 Ripple 효과의 Mask 색상을 지정한다.
+     *
+     * [rippleColor]가 0이면 기본 Ripple 색상인 [R.color.taboo_button_ripple_color]가 적용된다.
+     */
+    fun setRippleColor(@ColorInt rippleColor: Int) {
+        setRippleColorInternal(rippleColor)
+
+        drawButton()
     }
 
     // </editor-fold>
@@ -195,7 +211,6 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         binding.ivButtonRightIcon.setImageDrawable(iconDrawable)
         binding.ivButtonRightIcon.visibility = visibility
     }
-
     // </editor-fold>
 
     fun setSize(size: Int) {
@@ -212,7 +227,7 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     }
 
     private fun drawButton() {
-        val gradientDrawable = ButtonAppearance(context, buttonShape, buttonType, colorContainer).create()
+        val gradientDrawable = ButtonAppearance(context, buttonShape, buttonType, colorContainer, rippleColor).create()
 
         binding.root.background = gradientDrawable
     }
