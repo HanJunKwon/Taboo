@@ -19,7 +19,7 @@
     <style name="Taboo.TextAppearance.RadioButton">
         <item name="android:fontFamily">@font/font_pretendard_regular</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/taboo_black_01</item>
+        <item name="android:textColor">@color/selector_taboo_radio_button_text_color</item>
     </style>
 
     <style name="Taboo.TextAppearance.PreviewButton.Title" parent="Taboo.TextAppearance">

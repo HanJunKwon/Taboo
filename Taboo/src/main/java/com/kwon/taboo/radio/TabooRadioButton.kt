@@ -42,6 +42,9 @@ class TabooRadioButton(context: Context, attrs: AttributeSet) : ConstraintLayout
             context,
             if (isChecked) R.drawable.shape_taboo_radio_button_checked else R.drawable.shape_taboo_radio_button
         )
+
+        binding.tvRadioLabel.isSelected = isChecked
+
         binding.clRadioButton.background = ContextCompat.getDrawable(
             context,
             if (isChecked) R.drawable.shape_taboo_radio_button_icon_checked else R.drawable.shape_taboo_radio_button_icon
