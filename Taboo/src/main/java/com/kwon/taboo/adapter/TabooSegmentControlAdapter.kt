@@ -15,7 +15,7 @@ import com.kwon.taboo.enums.PayLoad
 import com.kwon.utils.calendar.ResourceUtils
 
 class TabooSegmentControlAdapter : ListAdapter<String, TabooSegmentControlAdapter.TabooSegmentButtonViewHolder>(TabooSegmentDiffCallback()) {
-    private var selectedIndex = RecyclerView.NO_POSITION
+    private var selectedIndex = NO_POSITION
 
     private var onItemClickListener: ((Int) -> Unit)? = null
     private var onItemSelectedChangedListener: ((Int) -> Unit)? = null

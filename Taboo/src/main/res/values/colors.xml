@@ -95,4 +95,9 @@
 
     <color name="taboo_numbering_ball_default_background">@color/taboo_gray_04</color>
     <color name="taboo_numbering_ball_indicator_background">@color/surface_container_low</color>
+
+    <color name="taboo_segment_control_button_text_color">@color/taboo_black_01</color>
+    <color name="taboo_segment_control_button_selected_text_color">@color/white</color>
+
+    <color name="taboo_segment_control_button_stroke_color">@color/taboo_gray_03</color>
 </resources>
