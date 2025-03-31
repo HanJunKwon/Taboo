@@ -43,6 +43,9 @@
     <color name="on_surface_variant">#FFCAC4D0</color>
     <color name="inverse_on_surface">#FF322F35</color>
 
+    <color name="taboo_dropdown_item_text_color">@color/invert_high_emphasis_label</color>
+    <color name="taboo_dropdown_selected_item_background">@color/surface_container_low</color>
+
     <color name="taboo_preview_text_color">#FF1DA1F2</color>
 
     <color name="taboo_edit_text_password_toggle_active">@color/white</color>
@@ -51,4 +54,13 @@
     <color name="taboo_timer_remain_time">@color/white</color>
     <color name="taboo_timer_remain_time_inactive">@color/taboo_gray_02</color>
 
+    <color name="taboo_numbering_ball_default_text_color">@color/on_surface</color>
+
+    <color name="taboo_numbering_ball_default_background">@color/surface_container_low</color>
+    <color name="taboo_numbering_ball_indicator_background">@color/surface_container_lowest</color>
+
+    <color name="taboo_segment_control_button_text_color">@color/taboo_gray_01</color>
+    <color name="taboo_segment_control_button_selected_text_color">@color/white</color>
+
+    <color name="taboo_segment_control_button_stroke_color">@color/taboo_gray_01</color>
 </resources>

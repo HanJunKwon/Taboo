@@ -27,7 +27,7 @@ class ButtonAppearance(
     fun create() : RippleDrawable {
         gradientDrawable.apply {
             cornerRadius = getButtonRadius()
-            color = getDefaultBackgroundColor()
+            color = getBackgroundColor()
             setStroke(getButtonStroke())
         }
 
@@ -41,12 +41,12 @@ class ButtonAppearance(
         return if (buttonShape == BUTTON_SHAPE_RECT) 0f else resources.getDimension(R.dimen.taboo_button_round_shape_radius)
     }
 
-    private fun getDefaultBackgroundColor(): ColorStateList {
+    private fun getBackgroundColor(): ColorStateList {
         return when (buttonType) {
             BUTTON_TYPE_SOLID -> colorContainer.getPrimaryColorStateList()
             BUTTON_TYPE_FILL -> colorContainer.getSecondaryColorStateList()
-            BUTTON_TYPE_OUTLINE -> context.resources.getColorStateList(R.color.white, null)
-            BUTTON_TYPE_DASH -> context.resources.getColorStateList(R.color.white, null)
+            BUTTON_TYPE_OUTLINE -> context.resources.getColorStateList(android.R.color.transparent, null)
+            BUTTON_TYPE_DASH -> context.resources.getColorStateList(android.R.color.transparent, null)
             else -> colorContainer.getPrimaryColorStateList()
         }
     }
