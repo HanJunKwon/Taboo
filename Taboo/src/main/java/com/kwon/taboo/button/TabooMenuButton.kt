@@ -5,9 +5,11 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.IntDef
+import androidx.appcompat.widget.SwitchCompat
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.constraintlayout.widget.ConstraintSet.BOTTOM
@@ -250,8 +252,29 @@ class TabooMenuButton(
         binding.ivButtonIcon.setImageDrawable(iconDrawable)
     }
 
+    fun setToggleChecked(isChecked: Boolean) {
+        if (menuType == MENU_TYPE_TOGGLE) {
+            inflatedView?.findViewById<SwitchCompat>(R.id.switch_menu)?.isChecked = isChecked
+        }
+    }
+
     override fun setOnClickListener(l: OnClickListener?) {
         super.setOnClickListener(l)
+    }
+
+    /**
+     * Toggle 버튼의 상태 변경 이벤트를 설정한다.
+     *
+     * [menuType]이 [MENU_TYPE_TOGGLE]일 때만 동작한다.
+     *
+     * 클릭 시 이벤트를 등록하고 싶으면 [setOnClickListener]를 사용한다.
+     */
+    fun setOnCheckedChangeListener(l: CompoundButton.OnCheckedChangeListener?) {
+        if (menuType == MENU_TYPE_TOGGLE) {
+            inflatedView?.findViewById<SwitchCompat>(R.id.switch_menu)?.setOnCheckedChangeListener { buttonView, isChecked ->
+                l?.onCheckedChanged(buttonView, isChecked)
+            }
+        }
     }
 
     @IntDef(MENU_TYPE_NONE, MENU_TYPE_PREVIEW, MENU_TYPE_TOGGLE)
