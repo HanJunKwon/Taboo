@@ -252,6 +252,12 @@ class TabooMenuButton(
         binding.ivButtonIcon.setImageDrawable(iconDrawable)
     }
 
+    fun setToggleChecked(isChecked: Boolean) {
+        if (menuType == MENU_TYPE_TOGGLE) {
+            inflatedView?.findViewById<SwitchCompat>(R.id.switch_menu)?.isChecked = isChecked
+        }
+    }
+
     override fun setOnClickListener(l: OnClickListener?) {
         super.setOnClickListener(l)
     }

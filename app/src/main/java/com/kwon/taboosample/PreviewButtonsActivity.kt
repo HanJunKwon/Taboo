@@ -28,5 +28,7 @@ class PreviewButtonsActivity : AppCompatActivity() {
         findViewById<TabooMenuButton>(R.id.tmb_theme).setOnClickListener {
             Log.d(">>>", "Theme button clicked")
         }
+
+        findViewById<TabooMenuButton>(R.id.tmb_theme).setToggleChecked(true)
     }
 }
