@@ -9,6 +9,7 @@
     tools:context=".PreviewButtonsActivity">
 
     <com.kwon.taboo.button.TabooMenuButton
+        android:id="@+id/tmb_language"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:menuTitle="언어 변경"
@@ -18,6 +19,7 @@
         app:preview="한국어"/>
 
     <com.kwon.taboo.button.TabooMenuButton
+        android:id="@+id/tmb_theme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:menuTitle="다크 테마"
@@ -26,6 +28,7 @@
         app:isChecked="true"/>
 
     <com.kwon.taboo.button.TabooMenuButton
+        android:id="@+id/tmb_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:menuTitle="내 정보"
