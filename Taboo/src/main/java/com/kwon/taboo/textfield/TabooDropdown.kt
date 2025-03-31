@@ -111,6 +111,7 @@ class TabooDropdown(
     private fun showPopupWindow() {
         ListPopupWindow(context)
             .apply {
+                setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.taboo_dropdown_list_box_background))
                 setAnchorView(view)
                 setModal(true)
                 setPromptPosition(ListPopupWindow.POSITION_PROMPT_ABOVE)
