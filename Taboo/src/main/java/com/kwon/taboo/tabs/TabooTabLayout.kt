@@ -16,11 +16,11 @@ class TabooTabLayout(
     attrs: AttributeSet
 ) : RecyclerView(context, attrs) {
 
-    private val tabDefaultColor = R.color.taboo_black_03
+    private val tabDefaultColor = R.color.taboo_numbering_ball_default_text_color
     private val tabIndicatorColor: Int = R.color.taboo_blue_02
 
-    private val ballDefaultColor = R.color.taboo_gray_02
-    private val ballIndicatorColor = R.color.taboo_blue_06
+    private val ballDefaultColor = R.color.taboo_numbering_ball_default_background
+    private val ballIndicatorColor = R.color.taboo_numbering_ball_default_background
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooTabLayout)

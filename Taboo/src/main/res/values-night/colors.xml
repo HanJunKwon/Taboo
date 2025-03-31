@@ -54,4 +54,8 @@
     <color name="taboo_timer_remain_time">@color/white</color>
     <color name="taboo_timer_remain_time_inactive">@color/taboo_gray_02</color>
 
+    <color name="taboo_numbering_ball_default_text_color">@color/on_surface</color>
+
+    <color name="taboo_numbering_ball_default_background">@color/surface_container_low</color>
+    <color name="taboo_numbering_ball_indicator_background">@color/surface_container_lowest</color>
 </resources>
