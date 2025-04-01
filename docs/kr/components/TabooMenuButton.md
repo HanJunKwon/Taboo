@@ -65,18 +65,18 @@
 ## 구성 및 주요 속성
 
 ### Text 속성들
-| 요소              | 속성                | 관련 메서드                  | 기본값                |
-|-----------------|-------------------|-------------------------|--------------------|
-| **Text**        | `android:text`    | `setText(String)`       | `Menu Title`       |
-| **Description** | `app:description` | `setMenuType(String)`   | `Menu Description` |
+| 요소              | 속성                | 관련 메서드                   | 기본값                |
+|-----------------|-------------------|--------------------------|--------------------|
+| **Text**        | `android:text`    | `setText(String)`        | `Menu Title`       |
+| **Description** | `app:description` | `setDescription(String)` | `Menu Description` |
 
 ### Type 속성들
-| 요소                  | 속성                   | 관련 메서드               | 기본값        |
-|---------------------|----------------------|----------------------|------------|
-| **Type**            | `app:menuType`       | `setButtonShape`     | `none`     |
-| **Preview**         | `app:preview`        | `setPreview`         | `Preview`  |
-| **Preview Gravity** | `app:previewGravity` | `setPreviewGravity`  | `top`      |
-| **checked**         |                      | `setToggleChecked`   | `false`    |
+| 요소                  | 속성                   | 관련 메서드              | 기본값        |
+|---------------------|----------------------|---------------------|------------|
+| **Type**            | `app:menuType`       | `setMenuType`       | `none`     |
+| **Preview**         | `app:preview`        | `setPreview`        | `Preview`  |
+| **Preview Gravity** | `app:previewGravity` | `setPreviewGravity` | `top`      |
+| **checked**         |                      | `setToggleChecked`  | `false`    |
 
 ### Icon 속성들
 | 요소                   | 속성                 | 관련 메서드              | 기본값 |
