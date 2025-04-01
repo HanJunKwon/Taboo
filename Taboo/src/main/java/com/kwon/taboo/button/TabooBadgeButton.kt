@@ -73,6 +73,8 @@ class TabooBadgeButton(
         updatePrimaryColor()
     }
 
+    fun getBadge() = badge
+
     /**
      * 뱃지 숫자를 설정한다.
      * @param badge 뱃지에 표시할 숫자
@@ -115,6 +117,8 @@ class TabooBadgeButton(
 
 
     // <editor-fold desc="Color">
+    fun getPrimaryColor() = colorContainer.primaryColor
+
     fun setPrimaryColor(primaryColor: Int) {
         colorContainer.primaryColor = ContextCompat.getColor(context, primaryColor)
 
@@ -126,6 +130,8 @@ class TabooBadgeButton(
         binding.numberingBall.setBallColor(R.color.white)
         drawButton()
     }
+
+    fun getRippleColor() = rippleColor
 
     private fun setRippleColorInternal(@ColorInt rippleColor: Int) {
         if (rippleColor != 0) {
