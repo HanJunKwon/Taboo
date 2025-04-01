@@ -1,7 +1,7 @@
 ## TabooButton
 `TabooButton`은 사용자가 클릭할 수 있는 기본적인 버튼입니다. `TabooButton`은 다양한 속성을 가지고 있어 다양한 스타일의 버튼을 만들 수 있습니다.
 
-![TabooButton](https://github.com/HanJunKwon/Taboo/blob/feature/readme/docs/assets/taboo_button.png)
+![TabooButton](https://github.com/HanJunKwon/Taboo/blob/feature/readme/docs/assets/buttons/taboo_button.png)
 
 ### `buttonShape` 속성
 `buttonShape` 속성은 버튼의 모양을 결정합니다. `buttonShape` 속성은 다음과 같은 값들을 가질 수 있습니다.
@@ -37,7 +37,7 @@
 ### 속성 사용 예제
 아래 예제는 버튼의 모양과 스타일을 지정하는 예제입니다.
 
-![TabooButton](https://github.com/HanJunKwon/Taboo/blob/feature/readme/docs/assets/taboo_button_shape_round_type_solid.png)
+![TabooButton](https://github.com/HanJunKwon/Taboo/blob/feature/readme/docs/assets/buttons/taboo_button_shape_round_type_solid.png)
 
 ```xml
 <com.kwon.taboo.button.TabooButton
