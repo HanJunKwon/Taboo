@@ -96,6 +96,8 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         isClickable = true
     }
 
+    fun getText() = text
+
     fun setText(text: String) {
         this.text = text
         updateText()
@@ -104,6 +106,8 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     private fun updateText() {
         binding.tvButtonText.text = text
     }
+
+    fun getTextColors() = textColor
 
     fun setTextColor(textColor: ColorStateList?) {
         setTextColorInternal(textColor)
@@ -133,6 +137,8 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         }
     }
 
+    fun getButtonShape() = buttonShape
+
     fun setButtonShape(shape: Int) {
         setButtonShapeInternal(shape)
     }
@@ -140,6 +146,8 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     private fun setButtonShapeInternal(shape: Int) {
         this.buttonShape = shape
     }
+
+    fun getButtonType() = buttonType
 
     fun setButtonType(type: Int) {
         setButtonTypeInternal(type)
@@ -161,6 +169,22 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         }
     }
 
+    fun getPrimaryColor() = colorContainer.primaryColor
+
+    fun setPrimaryColor(@ColorInt primaryColor: Int) {
+        colorContainer.primaryColor = primaryColor
+        drawButton()
+    }
+
+    fun getSecondaryColor() = colorContainer.secondaryColor
+
+    fun setSecondaryColor(@ColorInt secondaryColor: Int) {
+        colorContainer.secondaryColor = secondaryColor
+        drawButton()
+    }
+
+    fun getRippleColor() = rippleColor
+
     /**
      * 버튼 클릭 시 발생하는 Ripple 효과의 Mask 색상을 지정한다.
      *
@@ -175,6 +199,8 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     // </editor-fold>
 
     // <editor-fold desc="Icon">
+    fun getIcon() = iconDrawable
+
     fun setIcon(@DrawableRes icon: Int, position: Int = ICON_POSITION_LEFT) {
         setIconInternal(icon,position)
         updateIcon()
@@ -184,6 +210,8 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         this.iconDrawable = if (icon == 0) null else ContextCompat.getDrawable(context, icon)
         this.iconPosition = position
     }
+
+    fun getIconPosition() = iconPosition
 
     private fun updateIcon() {
         when {

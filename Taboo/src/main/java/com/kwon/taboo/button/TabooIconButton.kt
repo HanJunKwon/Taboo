@@ -8,6 +8,7 @@ import android.util.TypedValue.COMPLEX_UNIT_SP
 import android.view.LayoutInflater
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.annotation.StyleRes
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -30,6 +31,9 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
     private var textSizeUnit = COMPLEX_UNIT_SP
     private var typeface = ResourcesCompat.getFont(context, R.font.font_pretendard_regular)
 
+    @StyleRes
+    private var textAppearanceResId = 0
+
     @DrawableRes
     private var iconDrawable = 0
     private var iconPosition = ICON_POSITION_LEFT
@@ -51,8 +55,8 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
         setEnabled(enabled)
         setText(text)
         setTextColor(textColor)
-        setTypeFace(fontFamily)
-        internalTextSize(textSize)
+        setTypeface(fontFamily)
+        setTextSizeInternal(textSize)
         setIconPosition(iconPosition)
         setIconDrawable(iconDrawable)
 
@@ -70,6 +74,8 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
         binding.root.alpha = if (enabled) 1.0f else 0.3f
     }
 
+    fun getText() = text
+
     fun setText(text: String) {
          this.text = text
          updateText()
@@ -79,6 +85,8 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
         binding.tvButtonText.text = text
     }
 
+    fun getTextColor() = textColorStateList
+
     fun setTextColor(color: ColorStateList?) {
         if (color == null) return
 
@@ -87,7 +95,9 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
         updateTextColor()
     }
 
-    private fun internalTextSize(textSize: Int) {
+    fun getTextSize() = textSize
+
+    private fun setTextSizeInternal(textSize: Int) {
         if (textSize == 0) return
 
         this.textSize = textSize.toFloat()
@@ -115,7 +125,9 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
         binding.tvButtonText.setTextColor(textColorStateList)
     }
 
-    fun setTypeFace(fontFamily: Int) {
+    fun getTypeface() = typeface
+
+    fun setTypeface(fontFamily: Int) {
         if (fontFamily == 0) return
         this.typeface = ResourcesCompat.getFont(context, fontFamily)
         updateTypeFace()
@@ -124,6 +136,19 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
     private fun updateTypeFace() {
         binding.tvButtonText.typeface = typeface
     }
+
+    fun setTextAppearance(@StyleRes textAppearance: Int) {
+        this.textAppearanceResId = textAppearance
+        updateTextAppearance()
+    }
+
+    private fun updateTextAppearance() {
+        if (textAppearanceResId == 0) return
+
+        binding.tvButtonText.setTextAppearance(textAppearanceResId)
+    }
+
+    fun getIconDrawable() = iconDrawable
 
     fun setIconDrawable(@DrawableRes icon: Int) {
         this.iconDrawable = icon.takeIf { it != 0 } ?: getAlternativeIconDrawable()
@@ -154,6 +179,8 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
             if (isDarkTheme) R.drawable.ic_round_arrow_forward_e6e0e9_24dp else R.drawable.ic_round_arrow_forward_191f28_24dp
         }
     }
+
+    fun getIconPosition() = iconPosition
 
     fun setIconPosition(iconPosition: Int) {
         this.iconPosition = iconPosition

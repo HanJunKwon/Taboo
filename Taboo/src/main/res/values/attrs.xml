@@ -76,7 +76,7 @@
             <enum name="center" value="1"/>
             <enum name="bottom" value="2"/>
         </attr>
-        <attr name="isChecked"/>
+        <attr name="toggleChecked" format="boolean"/>
         <attr name="icon"/>
     </declare-styleable>
 

@@ -33,6 +33,9 @@ class TabooMenuButton(
 
     private var preview = "Preview"
     private var previewGravity: Int = PREVIEW_GRAVITY_TOP
+
+    private var isToggleChecked = false
+
     private var iconDrawable: Drawable? = null
 
     private var inflatedView: View? = null
@@ -42,9 +45,10 @@ class TabooMenuButton(
         val isEnabled = typed.getBoolean(R.styleable.TabooMenuButton_android_enabled, true)
         val text = typed.getString(R.styleable.TabooMenuButton_menuTitle) ?: "Menu Title"
         val description = typed.getString(R.styleable.TabooMenuButton_menuDescription) ?: "Menu Description"
-        val type = typed.getInt(R.styleable.TabooMenuButton_menuType, MENU_TYPE_NONE)
+        val menuType = typed.getInt(R.styleable.TabooMenuButton_menuType, MENU_TYPE_NONE)
         val preview = typed.getString(R.styleable.TabooMenuButton_preview) ?: "Preview"
         val previewGravity = typed.getInt(R.styleable.TabooMenuButton_previewGravity, PREVIEW_GRAVITY_TOP)
+        val isToggleChecked = typed.getBoolean(R.styleable.TabooMenuButton_toggleChecked, false)
         val iconResourceId = typed.getResourceId(R.styleable.TabooMenuButton_icon, 0)
 
         typed.recycle()
@@ -52,9 +56,10 @@ class TabooMenuButton(
         setEnabled(isEnabled)
         setText(text)
         setDescription(description)
-        setMenuType(type)
+        setMenuType(menuType)
         setPreview(preview)
         setPreviewGravity(previewGravity)
+        isToggleChecked(isToggleChecked)
         setIconResourceId(iconResourceId)
 
         binding.root.background = ContextCompat.getDrawable(context, R.drawable.taboo_button_ripple_effect)
@@ -68,6 +73,8 @@ class TabooMenuButton(
     private fun updateEnabled() {
         binding.root.alpha = if (isEnabled) 1.0f else 0.3f
     }
+
+    fun getText() = menuTitle
 
     /**
      * 버튼의 타이틀을 설정한다.
@@ -85,6 +92,8 @@ class TabooMenuButton(
     private fun updateText() {
         binding.tvButtonName.text = menuTitle
     }
+
+    fun getDescription() = description
 
     /**
      * 버튼의 description 을 설정한다.
@@ -105,6 +114,8 @@ class TabooMenuButton(
         binding.tvButtonDescription.text = description
         binding.tvButtonDescription.visibility = if (description.isBlank()) View.GONE else View.VISIBLE
     }
+
+    fun getMenuType() = menuType
 
     /**
      * [menuType]을 설정한다.
@@ -138,6 +149,8 @@ class TabooMenuButton(
             viewStub.inflate()
         }
     }
+
+    fun getPreview() = preview
 
     /**
      * 미리보기의 텍스트를 설정한다.
@@ -252,7 +265,15 @@ class TabooMenuButton(
         binding.ivButtonIcon.setImageDrawable(iconDrawable)
     }
 
-    fun setToggleChecked(isChecked: Boolean) {
+    fun isToggleChecked(): Boolean {
+        return if (menuType == MENU_TYPE_TOGGLE) {
+            inflatedView?.findViewById<SwitchCompat>(R.id.switch_menu)?.isChecked ?: false
+        } else {
+            false
+        }
+    }
+
+    fun isToggleChecked(isChecked: Boolean) {
         if (menuType == MENU_TYPE_TOGGLE) {
             inflatedView?.findViewById<SwitchCompat>(R.id.switch_menu)?.isChecked = isChecked
         }
