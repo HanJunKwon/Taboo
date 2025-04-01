@@ -52,22 +52,22 @@
 ## 구성 및 주요 속성
 
 ### Text 속성들
-| 요소               | 속성                  | 관련 메서드                          | 기본값                                                                                                         |
-|------------------|---------------------|---------------------------------|-------------------------------------------------------------------------------------------------------------|
-| **Text**         | `android:text`      | `setText(String)`               | ``                                                                                                          |
-| **Color**        | `android:textColor` | `setTextColor(ColorStateList?)` | `buttonTye`이 `solid`이면 `R.color.white`<br/>이며 그 외에는 `R.color.taboo_vibrant_blue_01` 이다.                     |
+| 요소        | 속성                  | 관련 메서드                                               | 기본값                                                                                     |
+|-----------|---------------------|------------------------------------------------------|-----------------------------------------------------------------------------------------|
+| **Text**  | `android:text`      | `setText(String)`<br/>`getText()`                    | ` `                                                                                     |
+| **Color** | `android:textColor` | `setTextColor(ColorStateList?)`<br/>`getTextColor()` | `buttonTye`이 `solid`이면 `R.color.white`<br/>이며 그 외에는 `R.color.taboo_vibrant_blue_01` 이다. |
 
 ### Button 속성들
-| 요소                  | 속성                        | 관련 메서드           | 기본값                                    |
-|---------------------|---------------------------|------------------|----------------------------------------|
-| **Shape**           | `app:buttonShape`         | `setButtonShape` | `rect`                                 |
-| **Type**            | `app:buttonType`          | `setButtonType`  | `solid`                                |
-| **Primary Color**   | `app:primaryColor`        |                  | `R.color.taboo_vibrant_blue_01`        |
-| **Secondary Color** | `app:secondaryColor`      |                  | `R.color.taboo_blue_06`                |
-| **Ripple Color**    | `app:rippleColor`         | `setRippleColor` | `R.color.taboo_button_ripple_color`    |
+| 요소                  | 속성                   | 관련 메서드                                      | 기본값                                 |
+|---------------------|----------------------|---------------------------------------------|-------------------------------------|
+| **Shape**           | `app:buttonShape`    | `setButtonShape`<br/>`getButtonShape`       | `rect`                              |
+| **Type**            | `app:buttonType`     | `setButtonType`<br/>`getButtonType`         | `solid`                             |
+| **Primary Color**   | `app:primaryColor`   | `setPrimaryColor`<br/>`getPrimaryColor`     | `R.color.taboo_vibrant_blue_01`     |
+| **Secondary Color** | `app:secondaryColor` | `setSecondaryColor`<br/>`getSecondaryColor` | `R.color.taboo_blue_06`             |
+| **Ripple Color**    | `app:rippleColor`    | `setRippleColor`<br/>`getRippleColor`       | `R.color.taboo_button_ripple_color` |
 
 ### Icon 속성들
-| 요소           | 속성                 | 관련 메서드      | 기본값    |
-|--------------|--------------------|-------------|--------|
-| **Icon**     | `app:icon`         | `setIcon`   | `null` |
-| **Position** | `app:iconPosition` |             | `left` |
+| 요소           | 속성                 | 관련 메서드                          | 기본값    |
+|--------------|--------------------|---------------------------------|--------|
+| **Icon**     | `app:icon`         | `setIcon`<br/>`getIcon`         | `null` |
+| **Position** | `app:iconPosition` | `setIcon`<br/>`getIconPosition` | `left` |
