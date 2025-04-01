@@ -96,8 +96,8 @@
         android:id="@+id/btn_badge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="asd"
-        app:layout_constraintTop_toBottomOf="@id/ll_small_button"/>
+        android:text="다음"
+        app:layout_constraintTop_toBottomOf="@id/ll_small_button" />
 
     <com.kwon.taboo.button.TabooCheckCardButton
         android:id="@+id/btn_check_card"
