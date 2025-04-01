@@ -35,22 +35,21 @@
 ## 구성 및 주요 속성
 
 ### Text 속성들
-| 요소               | 속성                       | 관련 메서드                          | 기본값    |
-|------------------|--------------------------|---------------------------------|--------|
-| **Text**         | `android:text`           | `setText(String)`               | ``     |
-| **Color**        | `android:textColor`      | `setTextColor(ColorStateList?)` | `null` |
-| **Size**         | `android:textSize`       | `setTextSize(float)`            | `16sp` |
-| **Font Family**  | `android:fontFamily`     | `setTypeface(Typeface)`         | `null` |    |     |
-| **Typography**   | `android:textAppearance` |                                 |        |
-| **Max Lines**    |                          |                                 |        | 
+| 요소               | 속성                       | 관련 메서드                                             | 기본값    |
+|------------------|--------------------------|----------------------------------------------------|--------|
+| **Text**         | `android:text`           | `setText(String)`<br/>`getText`                    | ` `    |
+| **Color**        | `android:textColor`      | `setTextColor(ColorStateList?)`<br/>`getTextColor` | `null` |
+| **Size**         | `android:textSize`       | `setTextSize(float)`<br/>`getTextSize`             | `16sp` |
+| **Font Family**  | `android:fontFamily`     | `setTypeface(Typeface)`<br/>`getTypeface`          | `null` |
+| **Typography**   | `android:textAppearance` | `setTextAppearance`                                | `0`    | 
 
 ### Button 속성들
-| 요소                  | 속성                   | 관련 메서드           | 기본값                                       |
-|---------------------|----------------------|------------------|-------------------------------------------|
-| **Background**      | `android:background` | `setBackground`  | `R.drawable.selector_taboo_icon_button`   |
+| 요소                  | 속성                   | 관련 메서드                              | 기본값                                       |
+|---------------------|----------------------|-------------------------------------|-------------------------------------------|
+| **Background**      | `android:background` | `setBackground`<br/>`getBackground` | `R.drawable.selector_taboo_icon_button`   |
 
 ### Icon 속성들
-| 요소           | 속성                 | 관련 메서드      | 기본값    |
-|--------------|--------------------|-------------|--------|
-| **Icon**     | `app:icon`         | `setIcon`   | `0`    |
-| **Position** | `app:iconPosition` |             | `left` |
+| 요소           | 속성                 | 관련 메서드                                  | 기본값    |
+|--------------|--------------------|-----------------------------------------|--------|
+| **Icon**     | `app:icon`         | `setIconDrawable`<br/>`getIconDrawable` | `0`    |
+| **Position** | `app:iconPosition` | `setIconPosition`<br/>`getIconPosition` | `left` |
