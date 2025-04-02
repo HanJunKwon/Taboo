@@ -3,29 +3,22 @@ package com.kwon.taboo.button
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.RippleDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
 import com.kwon.taboo.attribute.ButtonAppearance
+import com.kwon.taboo.attribute.ButtonAppearance.Companion.BUTTON_SHAPE_RECT
+import com.kwon.taboo.attribute.ButtonAppearance.Companion.BUTTON_TYPE_SOLID
 import com.kwon.taboo.attribute.ColorContainer
 import com.kwon.taboo.databinding.TabooButtonBinding
 
-class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(context, attrs) {
+class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCompat(context, attrs) {
     private val binding = TabooButtonBinding.inflate(LayoutInflater.from(context), this, true)
 
     companion object {
-        const val BUTTON_SHAPE_RECT = 0
-        const val BUTTON_SHAPE_ROUNDED = 1
-
-        const val BUTTON_TYPE_SOLID = 0
-        const val BUTTON_TYPE_FILL = 1
-        const val BUTTON_TYPE_OUTLINE = 2
-        const val BUTTON_TYPE_DASH = 3
-
         private const val ICON_POSITION_LEFT = 0
         private const val ICON_POSITION_RIGHT = 1
 
@@ -33,17 +26,7 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         private const val SIZE_SMALL = 1
     }
 
-    private var text = ""
     private var textColor: Any? = null
-    private var buttonShape = BUTTON_SHAPE_RECT
-    private var buttonType = BUTTON_TYPE_SOLID
-
-    private var colorContainer: ColorContainer = ColorContainer(
-        primaryColor = ContextCompat.getColor(context, R.color.taboo_vibrant_blue_01),
-        secondaryColor = ContextCompat.getColor(context, R.color.taboo_blue_06)
-    )
-
-    @ColorInt private var rippleColor: Int = ContextCompat.getColor(context, R.color.taboo_button_ripple_color)
 
     private var iconDrawable: Drawable? = null
     private var iconPosition = ICON_POSITION_LEFT
@@ -59,7 +42,7 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
 
         val primaryColor = typed.getColor(R.styleable.TabooButton_primaryColor, ContextCompat.getColor(context, R.color.taboo_vibrant_blue_01))
         val secondaryColor = typed.getColor(R.styleable.TabooButton_secondaryColor, ContextCompat.getColor(context, R.color.taboo_blue_06))
-        val rippleColor = typed.getColor(R.styleable.TabooButton_rippleColor, 0)
+        val rippleColor = typed.getColor(R.styleable.TabooButton_rippleColor, ContextCompat.getColor(context, R.color.taboo_button_ripple_color))
 
         val icon = typed.getResourceId(R.styleable.TabooButton_icon, 0)
         val iconPosition = typed.getInt(R.styleable.TabooButton_iconPosition, ICON_POSITION_LEFT)
@@ -69,14 +52,18 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
 
         typed.recycle()
 
-        setText(text)
+        this.text = text
         setTextColorInternal(textColor)
 
-        setButtonShapeInternal(buttonShape)
-        setButtonTypeInternal(buttonType)
-
-        setColorContainerInternal(ColorContainer(primaryColor, secondaryColor))
-        setRippleColorInternal(rippleColor)
+        setButtonAppearance(
+            ButtonAppearance(
+                context,
+                buttonShape,
+                buttonType,
+                ColorContainer(primaryColor, secondaryColor),
+                rippleColor
+            )
+        )
 
         setIconInternal(icon, iconPosition)
         setSizeInternal(size)
@@ -96,15 +83,8 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         isClickable = true
     }
 
-    fun getText() = text
-
-    fun setText(text: String) {
-        this.text = text
-        updateText()
-    }
-
     private fun updateText() {
-        binding.tvButtonText.text = text
+        binding.tvButtonText.text = text ?: "Taboo Button"
     }
 
     fun getTextColors() = textColor
@@ -120,7 +100,7 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
 
     private fun updateTextColor() {
         if (textColor == null) {
-            binding.tvButtonText.setTextColor(getDefaultTextColor(buttonType))
+            binding.tvButtonText.setTextColor(getDefaultTextColor())
         } else {
             if (textColor is Int) {
                 binding.tvButtonText.setTextColor(textColor as Int)
@@ -130,73 +110,14 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         }
     }
 
-    private fun getDefaultTextColor(buttonType: Int): ColorStateList {
+    private fun getDefaultTextColor(): ColorStateList {
+        val buttonAppearance = getButtonAppearance()
+        val buttonType = buttonAppearance.getButtonType()
         return when (buttonType) {
             BUTTON_TYPE_SOLID -> context.resources.getColorStateList(R.color.white, null)
-            else -> colorContainer.getPrimaryColorStateList()
+            else -> buttonAppearance.getColorContainer().getPrimaryColorStateList()
         }
     }
-
-    fun getButtonShape() = buttonShape
-
-    fun setButtonShape(shape: Int) {
-        setButtonShapeInternal(shape)
-    }
-
-    private fun setButtonShapeInternal(shape: Int) {
-        this.buttonShape = shape
-    }
-
-    fun getButtonType() = buttonType
-
-    fun setButtonType(type: Int) {
-        setButtonTypeInternal(type)
-    }
-
-    private fun setButtonTypeInternal(type: Int) {
-        this.buttonType = type
-    }
-
-    // <editor-fold desc="Color">
-
-    private fun setColorContainerInternal(colorContainer: ColorContainer) {
-        this.colorContainer = colorContainer
-    }
-
-    private fun setRippleColorInternal(@ColorInt rippleColor: Int) {
-        if (rippleColor != 0) {
-            this.rippleColor = rippleColor
-        }
-    }
-
-    fun getPrimaryColor() = colorContainer.primaryColor
-
-    fun setPrimaryColor(@ColorInt primaryColor: Int) {
-        colorContainer.primaryColor = primaryColor
-        drawButton()
-    }
-
-    fun getSecondaryColor() = colorContainer.secondaryColor
-
-    fun setSecondaryColor(@ColorInt secondaryColor: Int) {
-        colorContainer.secondaryColor = secondaryColor
-        drawButton()
-    }
-
-    fun getRippleColor() = rippleColor
-
-    /**
-     * 버튼 클릭 시 발생하는 Ripple 효과의 Mask 색상을 지정한다.
-     *
-     * [rippleColor]가 0이면 기본 Ripple 색상인 [R.color.taboo_button_ripple_color]가 적용된다.
-     */
-    fun setRippleColor(@ColorInt rippleColor: Int) {
-        setRippleColorInternal(rippleColor)
-
-        drawButton()
-    }
-
-    // </editor-fold>
 
     // <editor-fold desc="Icon">
     fun getIcon() = iconDrawable
@@ -241,6 +162,7 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     }
     // </editor-fold>
 
+    // <editor-fold desc="Size">
     fun setSize(size: Int) {
         setSizeInternal(size)
         updateSize()
@@ -253,12 +175,7 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
     private fun updateSize() {
         binding.tvButtonText.visibility = if (size == SIZE_LARGE) VISIBLE else GONE
     }
-
-    private fun drawButton() {
-        val gradientDrawable = ButtonAppearance(context, buttonShape, buttonType, colorContainer, rippleColor).create()
-
-        binding.root.background = gradientDrawable
-    }
+    // </editor-fold>
 
     override fun setEnabled(enabled: Boolean) {
         super.setEnabled(enabled)
@@ -266,4 +183,17 @@ class TabooButton(context: Context, attrs: AttributeSet): ConstraintLayout(conte
         binding.tvButtonText.isEnabled = enabled
     }
 
+    override fun drawButton() {
+         background = createBackground()
+    }
+
+    override fun createBackground(): RippleDrawable {
+        gradientDrawable.apply {
+            cornerRadius = getRadius()
+            color = getBackgroundColor()
+            setStroke(getButtonStroke())
+        }
+
+        return RippleDrawable(getRippleColorState(), gradientDrawable, null)
+    }
 }

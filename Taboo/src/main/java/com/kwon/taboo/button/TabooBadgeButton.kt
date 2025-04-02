@@ -153,14 +153,14 @@ class TabooBadgeButton(
 
 
     private fun drawButton() {
-        val gradientDrawable = ButtonAppearance(
-            context = context,
-            buttonShape = BUTTON_SHAPE_ROUNDED,
-            buttonType = BUTTON_TYPE_SOLID,
-            colorContainer = colorContainer,
-            rippleColor = rippleColor
-        ).create()
-
-        binding.root.background = gradientDrawable
+//        val gradientDrawable = ButtonAppearance(
+//            context = context,
+//            buttonShape = BUTTON_SHAPE_ROUNDED,
+//            buttonType = BUTTON_TYPE_SOLID,
+//            colorContainer = colorContainer,
+//            rippleColor = rippleColor
+//        ).create()
+//
+//        binding.root.background = gradientDrawable
     }
 }
