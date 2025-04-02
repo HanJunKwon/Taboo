@@ -26,8 +26,6 @@ class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCompat(cont
         private const val SIZE_SMALL = 1
     }
 
-    private var textColor: Any? = null
-
     private var iconDrawable: Drawable? = null
     private var iconPosition = ICON_POSITION_LEFT
 
@@ -36,7 +34,6 @@ class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCompat(cont
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooButton)
         val text = typed.getString(R.styleable.TabooButton_android_text) ?: ""
-        val textColor = typed.getColorStateList(R.styleable.TabooButton_android_textColor)
         val buttonShape = typed.getInt(R.styleable.TabooButton_buttonShape, BUTTON_SHAPE_RECT)
         val buttonType = typed.getInt(R.styleable.TabooButton_buttonType, BUTTON_TYPE_SOLID)
 
@@ -53,7 +50,6 @@ class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCompat(cont
         typed.recycle()
 
         this.text = text
-        setTextColorInternal(textColor)
 
         setButtonAppearance(
             ButtonAppearance(
@@ -74,6 +70,7 @@ class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCompat(cont
     }
 
     private fun applyAttr() {
+        updateText()
         updateTextColor()
         updateIcon()
         updateSize()
@@ -87,27 +84,8 @@ class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCompat(cont
         binding.tvButtonText.text = text ?: "Taboo Button"
     }
 
-    fun getTextColors() = textColor
-
-    fun setTextColor(textColor: ColorStateList?) {
-        setTextColorInternal(textColor)
-        updateTextColor()
-    }
-
-    private fun setTextColorInternal(textColor: ColorStateList?) {
-        this.textColor = textColor
-    }
-
     private fun updateTextColor() {
-        if (textColor == null) {
-            binding.tvButtonText.setTextColor(getDefaultTextColor())
-        } else {
-            if (textColor is Int) {
-                binding.tvButtonText.setTextColor(textColor as Int)
-            } else {
-                binding.tvButtonText.setTextColor(textColor as ColorStateList)
-            }
-        }
+        binding.tvButtonText.setTextColor(getDefaultTextColor())
     }
 
     private fun getDefaultTextColor(): ColorStateList {
@@ -184,7 +162,7 @@ class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCompat(cont
     }
 
     override fun drawButton() {
-         background = createBackground()
+         binding.root.background = createBackground()
     }
 
     override fun createBackground(): RippleDrawable {
