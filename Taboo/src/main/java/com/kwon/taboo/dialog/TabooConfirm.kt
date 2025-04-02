@@ -34,7 +34,7 @@ class TabooConfirm(context: Context): AlertDialog(context) {
         findViewById<TextView>(R.id.tv_confirm_message).text = message
 
         findViewById<TabooButton>(R.id.btn_negative).apply {
-            setText(negativeButtonText)
+            text = negativeButtonText
             setOnClickListener {
                 listener?.onNegative()
                 dismiss()
@@ -42,7 +42,7 @@ class TabooConfirm(context: Context): AlertDialog(context) {
         }
 
         findViewById<TabooButton>(R.id.btn_positive).apply {
-            setText(positiveButtonText)
+            text = positiveButtonText
             setOnClickListener {
                 listener?.onPositive()
                 dismiss()
