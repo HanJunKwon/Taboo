@@ -17,7 +17,7 @@ class TabooTabLayout(
 ) : RecyclerView(context, attrs) {
 
     private val tabDefaultColor = R.color.taboo_numbering_ball_default_text_color
-    private val tabIndicatorColor: Int = R.color.taboo_blue_02
+    private val tabIndicatorColor: Int = R.color.taboo_blue_600
 
     private val ballDefaultColor = R.color.taboo_numbering_ball_default_background
     private val ballIndicatorColor = R.color.taboo_numbering_ball_default_background
@@ -134,8 +134,8 @@ class TabooTabLayout(
      *
      * 만약 [defaultColor] 또는 [selectedColor]가 0이면 기본 색상이 적용됩니다.
      * 기본 색상은 아래와 같습니다.
-     * - Default Color: [R.color.taboo_black_03]
-     * - Selected Color: [R.color.taboo_blue_02]
+     * - Default Color: [R.color.taboo_gray_700]
+     * - Selected Color: [R.color.taboo_blue_600]
      *
      * 색상이 적용되는 부분은 아래와 같습니다.
      * - Tab Text
@@ -165,8 +165,8 @@ class TabooTabLayout(
      *
      * 만약 [defaultColor] 또는 [selectedColor]가 0이면 기본 색상이 적용됩니다.
      * 기본 색상은 아래와 같습니다.
-     * - Default Color: [R.color.taboo_gray_02]
-     * - Selected Color: [R.color.taboo_blue_06]
+     * - Default Color: [R.color.taboo_gray_400]
+     * - Selected Color: [R.color.taboo_blue_100]
      *
      * @param defaultColor 기본 색상
      * @param selectedColor 선택 색상

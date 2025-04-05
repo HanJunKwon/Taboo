@@ -55,15 +55,15 @@
 | 요소        | 속성                  | 관련 메서드                                               | 기본값                                                                                     |
 |-----------|---------------------|------------------------------------------------------|-----------------------------------------------------------------------------------------|
 | **Text**  | `android:text`      | `setText(String)`<br/>`getText()`                    | ` `                                                                                     |
-| **Color** | `android:textColor` | `setTextColor(ColorStateList?)`<br/>`getTextColor()` | `buttonTye`이 `solid`이면 `R.color.white`<br/>이며 그 외에는 `R.color.taboo_vibrant_blue_01` 이다. |
+| **Color** | `android:textColor` | `setTextColor(ColorStateList?)`<br/>`getTextColor()` | `buttonTye`이 `solid`이면 `R.color.white`<br/>이며 그 외에는 `R.color.taboo_blue_900` 이다. |
 
 ### Button 속성들
 | 요소                  | 속성                   | 관련 메서드                                      | 기본값                                 |
 |---------------------|----------------------|---------------------------------------------|-------------------------------------|
 | **Shape**           | `app:buttonShape`    | `setButtonShape`<br/>`getButtonShape`       | `rect`                              |
 | **Type**            | `app:buttonType`     | `setButtonType`<br/>`getButtonType`         | `solid`                             |
-| **Primary Color**   | `app:primaryColor`   | `setPrimaryColor`<br/>`getPrimaryColor`     | `R.color.taboo_vibrant_blue_01`     |
-| **Secondary Color** | `app:secondaryColor` | `setSecondaryColor`<br/>`getSecondaryColor` | `R.color.taboo_blue_06`             |
+| **Primary Color**   | `app:primaryColor`   | `setPrimaryColor`<br/>`getPrimaryColor`     | `R.color.taboo_blue_900`     |
+| **Secondary Color** | `app:secondaryColor` | `setSecondaryColor`<br/>`getSecondaryColor` | `R.color.taboo_blue_100`             |
 | **Ripple Color**    | `app:rippleColor`    | `setRippleColor`<br/>`getRippleColor`       | `R.color.taboo_button_ripple_color` |
 
 ### Icon 속성들

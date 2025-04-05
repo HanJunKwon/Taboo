@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1123"
-            android:textColor="@color/taboo_red_01"/>
+            android:textColor="@color/taboo_red_500"/>
 
         <com.kwon.taboo.numbering.TabooNumberingBall
             android:id="@+id/numbering_ball_2"

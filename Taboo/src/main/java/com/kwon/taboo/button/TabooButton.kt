@@ -37,8 +37,8 @@ class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCompat(cont
         val buttonShape = typed.getInt(R.styleable.TabooButton_buttonShape, BUTTON_SHAPE_RECT)
         val buttonType = typed.getInt(R.styleable.TabooButton_buttonType, BUTTON_TYPE_SOLID)
 
-        val primaryColor = typed.getColor(R.styleable.TabooButton_primaryColor, ContextCompat.getColor(context, R.color.taboo_vibrant_blue_01))
-        val secondaryColor = typed.getColor(R.styleable.TabooButton_secondaryColor, ContextCompat.getColor(context, R.color.taboo_blue_06))
+        val primaryColor = typed.getColor(R.styleable.TabooButton_primaryColor, ContextCompat.getColor(context, R.color.taboo_blue_900))
+        val secondaryColor = typed.getColor(R.styleable.TabooButton_secondaryColor, ContextCompat.getColor(context, R.color.taboo_blue_100))
         val rippleColor = typed.getColor(R.styleable.TabooButton_rippleColor, ContextCompat.getColor(context, R.color.taboo_button_ripple_color))
 
         val icon = typed.getResourceId(R.styleable.TabooButton_icon, 0)

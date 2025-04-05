@@ -19,6 +19,6 @@
         android:layout_marginStart="6dp"
         android:fontFamily="@font/font_pretendard_regular"
         android:text="TabooIconTextView"
-        android:textColor="@color/taboo_black_01"/>
+        android:textColor="@color/taboo_black"/>
 
 </LinearLayout>

@@ -77,8 +77,8 @@ class TabooCheckCardButton(
 
     private fun updateCheck() {
         val backgroundDrawable =
-            if (isChecked) R.drawable.shape_rect_r5_a100_f9fafb_a100_8b95a1
-            else R.drawable.shape_rect_r5_a100_000000_a100_8b95a1
+            if (isChecked) R.drawable.shape_rect_r5_a100_f9fafb_a100_b0b8c1
+            else R.drawable.shape_rect_r5_a100_000000_a100_b0b8c1
         background = ContextCompat.getDrawable(context, backgroundDrawable)
 
         binding.ivCheck.visibility = if (isChecked) VISIBLE else INVISIBLE

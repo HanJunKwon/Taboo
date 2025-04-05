@@ -46,7 +46,7 @@
         android:layout_marginTop="10dp"
         android:text="Dash Button"
         app:buttonType="dash"
-        app:rippleColor="@color/taboo_black_01"
+        app:rippleColor="@color/taboo_black"
         app:layout_constraintTop_toBottomOf="@id/btn_outline"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
