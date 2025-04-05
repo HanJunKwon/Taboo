@@ -24,7 +24,7 @@ class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout
     private var itemDecoration = TabooWheelPickerItemDecoration(0)
     private var itemHeightPixel: Int = resources.getDimensionPixelSize(R.dimen.taboo_wheel_picker_item_default_height)
 
-    @ColorInt private var selectionStrokeColor = ContextCompat.getColor(context, R.color.taboo_gray_03)
+    @ColorInt private var selectionStrokeColor = ContextCompat.getColor(context, R.color.taboo_gray_200)
     private var selectionStrokeWidth = 1f
 
     init {
@@ -36,7 +36,7 @@ class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout
         )
         val selectionStrokeColor = typed.getColor(
             R.styleable.TabooWheelPicker_selectionStrokeColor,
-            ContextCompat.getColor(context, R.color.taboo_gray_03)
+            ContextCompat.getColor(context, R.color.taboo_gray_200)
         )
         val selectionStrokeWidth = typed.getDimension(
             R.styleable.TabooWheelPicker_selectionStrokeWidth,

@@ -25,8 +25,8 @@
         android:layout_marginTop="10dp"
         android:text="TabooPillTag"
         android:enabled="false"
-        app:primaryColor="@color/taboo_black_01"
-        app:secondaryColor="@color/taboo_gray_04"/>
+        app:primaryColor="@color/taboo_black"
+        app:secondaryColor="@color/taboo_gray_100"/>
 
     <com.kwon.taboo.textview.TabooPillTag
         android:layout_width="wrap_content"
@@ -42,15 +42,15 @@
         android:text="TabooPillTag"
         android:enabled="false"
         app:radius="3dp"
-        app:primaryColor="@color/taboo_black_01"
-        app:secondaryColor="@color/taboo_gray_04"/>
+        app:primaryColor="@color/taboo_black"
+        app:secondaryColor="@color/taboo_gray_100"/>
 
     <com.kwon.taboo.textview.TabooPillTag
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="TabooPillTag - Font Regular"
-        android:textColor="@color/taboo_black_01"
+        android:textColor="@color/taboo_black"
         android:fontFamily="@font/font_pretendard_regular"
         app:radius="3dp"/>
 
@@ -62,8 +62,8 @@
         android:fontFamily="@font/font_pretendard_regular"
         android:enabled="false"
         app:radius="3dp"
-        app:primaryColor="@color/taboo_black_01"
-        app:secondaryColor="@color/taboo_gray_04"/>
+        app:primaryColor="@color/taboo_black"
+        app:secondaryColor="@color/taboo_gray_100"/>
 
     <com.kwon.taboo.textview.TabooPillTag
         android:id="@+id/tpt_change_color_1"

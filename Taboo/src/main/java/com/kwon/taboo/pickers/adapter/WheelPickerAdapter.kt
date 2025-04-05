@@ -2,16 +2,12 @@ package com.kwon.taboo.pickers.adapter
 
 import android.content.Context
 import android.util.Log
-import android.view.Gravity
 import android.view.Gravity.CENTER_VERTICAL
-import android.view.Gravity.END
-import android.view.Gravity.START
 import android.view.View.TEXT_ALIGNMENT_TEXT_START
 import android.view.View.TEXT_ALIGNMENT_VIEW_END
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import androidx.recyclerview.widget.RecyclerView.TEXT_ALIGNMENT_CENTER
@@ -67,7 +63,7 @@ class WheelPickerAdapter(
             layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeightPixel)
             textAlignment = TEXT_ALIGNMENT_CENTER
             gravity = TEXT_ALIGNMENT_CENTER
-            setTextColor(ContextCompat.getColor(context, R.color.taboo_black_01))
+            setTextColor(ContextCompat.getColor(context, R.color.taboo_black))
         }
     }
 

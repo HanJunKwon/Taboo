@@ -31,7 +31,7 @@
 ### Button 속성들
 | 요소                  | 속성                        | 관련 메서드                                  | 기본값                                    |
 |---------------------|---------------------------|-----------------------------------------|----------------------------------------|
-| **Primary Color**   | `app:primaryColor`        | `setPrimaryColor`<br/>`getPrimaryColor` | `R.color.taboo_vibrant_blue_01`        |
+| **Primary Color**   | `app:primaryColor`        | `setPrimaryColor`<br/>`getPrimaryColor` | `R.color.taboo_blue_900`        |
 | **Ripple Color**    | `app:rippleColor`         | `setRippleColor`<br/>`getRippleColor`   | `R.color.taboo_button_ripple_color`    |
 
 ### Badge 속성들

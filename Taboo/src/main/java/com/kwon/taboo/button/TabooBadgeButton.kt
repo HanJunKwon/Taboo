@@ -25,7 +25,7 @@ class TabooBadgeButton(
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooBadgeButton)
         val text = typed.getString(R.styleable.TabooBadgeButton_android_text) ?: ""
-        val primaryColor = typed.getColor(R.styleable.TabooBadgeButton_primaryColor, ContextCompat.getColor(context, R.color.taboo_vibrant_blue_01))
+        val primaryColor = typed.getColor(R.styleable.TabooBadgeButton_primaryColor, ContextCompat.getColor(context, R.color.taboo_blue_900))
         val rippleColor = typed.getColor(R.styleable.TabooBadgeButton_rippleColor, ContextCompat.getColor(context, R.color.taboo_button_ripple_color))
         val badge = typed.getInt(R.styleable.TabooBadgeButton_badge, 0)
 

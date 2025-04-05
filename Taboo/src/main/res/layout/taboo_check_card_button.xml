@@ -20,7 +20,7 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/taboo_black_01"
+            android:textColor="@color/taboo_black"
             android:textSize="16sp"
             android:fontFamily="@font/font_pretendard_semi_bold"
             tools:text="English"/>
@@ -29,7 +29,7 @@
             android:id="@+id/tv_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/taboo_black_04"
+            android:textColor="@color/taboo_gray_600"
             android:textSize="14sp"
             android:fontFamily="@font/font_pretendard_semi_bold"
             android:text="영어"/>

@@ -13,7 +13,7 @@
     <style name="Taboo.TextAppearance.IconButton">
         <item name="android:fontFamily">@font/font_pretendard_regular</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/taboo_black_01</item>
+        <item name="android:textColor">@color/taboo_black</item>
     </style>
 
     <style name="Taboo.TextAppearance.RadioButton">
@@ -24,19 +24,19 @@
 
     <style name="Taboo.TextAppearance.PreviewButton.Title" parent="Taboo.TextAppearance">
         <item name="android:fontFamily">@font/font_pretendard_medium</item>
-        <item name="android:textColor">@color/taboo_black_01</item>
+        <item name="android:textColor">@color/taboo_black</item>
         <item name="android:textSize">16sp</item>
     </style>
 
     <style name="Taboo.TextAppearance.PreviewButton.Description" parent="Taboo.TextAppearance">
         <item name="android:fontFamily">@font/font_pretendard_regular</item>
-        <item name="android:textColor">@color/taboo_black_03</item>
+        <item name="android:textColor">@color/taboo_gray_700</item>
         <item name="android:textSize">14sp</item>
     </style>
 
     <style name="Taboo.TextAppearance.PreviewButton.Preview" parent="Taboo.TextAppearance">
         <item name="android:fontFamily">@font/font_pretendard_regular</item>
-        <item name="android:textColor">@color/taboo_blue_01</item>
+        <item name="android:textColor">@color/taboo_blue_700</item>
         <item name="android:textSize">14sp</item>
     </style>
 
@@ -48,12 +48,12 @@
 
     <style name="Taboo.TextAppearance.TabooEditText.Content" parent="Taboo.TextAppearance">
         <item name="android:fontFamily">@font/font_pretendard_medium</item>
-        <item name="android:textColor">@color/taboo_black_01</item>
+        <item name="android:textColor">@color/taboo_black</item>
         <item name="android:textSize">14sp</item>
     </style>
 
     <style name="Taboo.TextAppearance.TabooEditText.Hint" parent="Taboo.TextAppearance">
-        <item name="android:textColor">@color/taboo_gray_02</item>
+        <item name="android:textColor">@color/taboo_gray_400</item>
     </style>
 
     <style name="Taboo.TextAppearance.TabooEditText.Affix" parent="Taboo.TextAppearance">
@@ -64,7 +64,7 @@
 
     <style name="Taboo.TextAppearance.TabooEditText.Error" parent="Taboo.TextAppearance">
         <item name="android:fontFamily">@font/font_pretendard_medium</item>
-        <item name="android:textColor">@color/taboo_red_01</item>
+        <item name="android:textColor">@color/taboo_red_500</item>
         <item name="android:textSize">14sp</item>
     </style>
 
@@ -77,7 +77,7 @@
     </style>
 
     <style name="Taboo.TextAppearance.Calender.Day.Selected">
-        <item name="android:textColor">@color/taboo_gray_05</item>
+        <item name="android:textColor">@color/taboo_gray_50</item>
     </style>
 
     <style name="Taboo.TextAppearance.Calender.Date">
@@ -101,12 +101,12 @@
     </style>
 
     <style name="Taboo.TextAppearance.Confirm.Title">
-        <item name="android:textColor">@color/taboo_black_01</item>
+        <item name="android:textColor">@color/taboo_black</item>
         <item name="android:textSize">20sp</item>
     </style>
 
     <style name="Taboo.TextAppearance.Confirm.Message">
-        <item name="android:textColor">@color/taboo_gray_01</item>
+        <item name="android:textColor">@color/taboo_gray_500</item>
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -124,13 +124,13 @@
 
     <style name="Taboo.TextAppearance.MetricCard.Title" parent="Taboo.TextAppearance">
         <item name="android:fontFamily">@font/font_pretendard_semi_bold</item>
-        <item name="android:textColor">@color/high_emphasis_label</item>
+        <item name="android:textColor">@color/taboo_opacity_black_b_89</item>
         <item name="android:textSize">16sp</item>
     </style>
 
     <style name="Taboo.TextAppearance.MetricCard.Value" parent="Taboo.TextAppearance">
         <item name="android:fontFamily">@font/font_pretendard_semi_bold</item>
-        <item name="android:textColor">@color/high_emphasis_label</item>
+        <item name="android:textColor">@color/taboo_opacity_black_b_89</item>
         <item name="android:textSize">64sp</item>
     </style>
 
@@ -140,11 +140,11 @@
     </style>
 
     <style name="Taboo.TextAppearance.MetricCard.Rate.Reduce">
-        <item name="android:textColor">@color/taboo_red_01</item>
+        <item name="android:textColor">@color/taboo_red_500</item>
     </style>
 
     <style name="Taboo.TextAppearance.MetricCard.Rate.Increase">
-        <item name="android:textColor">@color/taboo_blue_02</item>
+        <item name="android:textColor">@color/taboo_blue_600</item>
     </style>
 
     <style name="Taboo.TextAppearance.WheelPicker">
@@ -153,12 +153,12 @@
     </style>
 
     <style name="Taboo.TextAppearance.WheelPicker.Selected">
-        <item name="android:textColor">@color/taboo_black_01</item>
+        <item name="android:textColor">@color/taboo_black</item>
         <item name="android:textSize">18sp</item>
     </style>
 
     <style name="Taboo.TextAppearance.WheelPicker.Unselected">
-        <item name="android:textColor">@color/taboo_gray_02</item>
+        <item name="android:textColor">@color/taboo_gray_400</item>
         <item name="android:textSize">14sp</item>
     </style>
 
@@ -181,8 +181,8 @@
     </style>
 
     <style name="Taboo.Style.PrimaryButton">
-        <item name="primaryColor">@color/taboo_vibrant_blue_01</item>
-        <item name="secondaryColor">@color/taboo_blue_06</item>
+        <item name="primaryColor">@color/taboo_blue_900</item>
+        <item name="secondaryColor">@color/taboo_blue_100</item>
     </style>
 
     <style name="Taboo.Style.PrimaryButton.Round">
@@ -206,8 +206,8 @@
     </style>
 
     <style name="Taboo.Style.SecondaryButton">
-        <item name="primaryColor">@color/taboo_black_04</item>
-        <item name="secondaryColor">@color/taboo_gray_03</item>
+        <item name="primaryColor">@color/taboo_gray_600</item>
+        <item name="secondaryColor">@color/taboo_gray_200</item>
     </style>
 
     <style name="Taboo.Style.SecondaryButton.Round">
@@ -281,7 +281,7 @@
     <style name="Taboo.Style.Calender"/>
 
     <style name="Taboo.Style.Calender.Horizontal">
-        <item name="android:background">@drawable/shape_rect_r10_a100_294af6</item>
+        <item name="android:background">@drawable/shape_rect_r10_a100_2553e5</item>
     </style>
 
     <style name="Taboo.Style.Calender.Horizontal.Selected">

@@ -5,8 +5,8 @@
     android:viewportHeight="48">
   <path
       android:pathData="M20,11C20,9.343 18.657,8 17,8C15.343,8 14,9.343 14,11V37C14,38.657 15.343,40 17,40C18.657,40 20,38.657 20,37V11Z"
-      android:fillColor="@color/taboo_vibrant_blue_01"/>
+      android:fillColor="@color/taboo_blue_900"/>
   <path
       android:pathData="M34,11C34,9.343 32.657,8 31,8C29.343,8 28,9.343 28,11V37C28,38.657 29.343,40 31,40C32.657,40 34,38.657 34,37V11Z"
-      android:fillColor="@color/taboo_vibrant_blue_01"/>
+      android:fillColor="@color/taboo_blue_900"/>
 </vector>
