@@ -7,6 +7,17 @@ plugins {
     id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 }
 
+val localProperties = File(rootDir, "local.properties").takeIf { it.exists() }?.let {
+    java.util.Properties().apply { load(it.inputStream()) }
+}
+
+localProperties?.forEach { (key, value) ->
+    project.extra.set(key.toString(), value.toString())
+}
+
+println("USERNAME: " + project.findProperty("mavenCentralUsername"))
+println("PASSWORD: " + project.findProperty("mavenCentralPassword"))
+
 nexusPublishing {
     repositories {
         sonatype {

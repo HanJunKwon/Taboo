@@ -23,8 +23,8 @@ val ossrhUsername: String? = localProperties.getProperty("ossrhUsername")
 val ossrhPassword: String? = localProperties.getProperty("ossrhPassword")
 
 
-group = "com.kwon.taboo"
-version = "0.0.0"
+group = "io.github.hanjunkwon"
+version = "0.0.1"
 
 android {
     namespace = "com.kwon.taboo"
@@ -88,6 +88,8 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+
+
 }
 
 mavenPublishing {
@@ -95,8 +97,8 @@ mavenPublishing {
 
     signAllPublications()
 
-        // 프로젝트의 그룹 ID, 아티팩트 ID, 버전 설정
-    coordinates("com.kwon.taboo", "taboo-widget", "0.0.0")
+    // 프로젝트의 그룹 ID, 아티팩트 ID, 버전 설정
+    coordinates("io.github.hanjunkwon", "taboo-widget", "0.0.1")
 
     // POM 정보 설정
     pom {
@@ -132,3 +134,7 @@ mavenPublishing {
         }
     }
 }
+
+println("KEYID: " + project.findProperty("signing.keyId"))
+println("ASC: " + file("C:\\Users\\kwon\\GPG\\taboo-private-key.asc").readText())
+println("PASSWORD: " + project.findProperty("signing.password"))
