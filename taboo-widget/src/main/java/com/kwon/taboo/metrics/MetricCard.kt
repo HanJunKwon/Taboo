@@ -48,9 +48,9 @@ class MetricCard(
     private val decimalExpression = DecimalFormat("##.##")      // 실수 표현식
     private val integerExpression = DecimalFormat("#,###")      // 정수 표현식
 
-    private val zeroColor = R.color.taboo_opacity_black_b_89
-    private val increaseColor = R.color.taboo_blue_600
-    private val decreaseColor = R.color.taboo_red_500
+    private val zeroColor = com.kwon.taboo.uicore.R.color.taboo_opacity_black_b_89
+    private val increaseColor = com.kwon.taboo.uicore.R.color.taboo_blue_600
+    private val decreaseColor = com.kwon.taboo.uicore.R.color.taboo_blue_500
 
     init {
         val typed       = context.obtainStyledAttributes(attrs, R.styleable.MetricCard)

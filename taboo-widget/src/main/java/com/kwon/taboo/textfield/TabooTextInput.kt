@@ -132,7 +132,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
             setEnabled(enabled)
 
             setDropdownIcon(R.drawable.ic_round_arrow_bottom)
-            setDropdownIconColor(context.getColor(R.color.taboo_gray_500))
+            setDropdownIconColor(context.getColor(com.kwon.taboo.uicore.R.color.taboo_gray_500))
         }
     }
 

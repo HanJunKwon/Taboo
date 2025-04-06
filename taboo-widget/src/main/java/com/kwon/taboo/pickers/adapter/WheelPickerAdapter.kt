@@ -63,7 +63,7 @@ class WheelPickerAdapter(
             layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeightPixel)
             textAlignment = TEXT_ALIGNMENT_CENTER
             gravity = TEXT_ALIGNMENT_CENTER
-            setTextColor(ContextCompat.getColor(context, R.color.taboo_black))
+            setTextColor(ContextCompat.getColor(context, com.kwon.taboo.uicore.R.color.taboo_black))
         }
     }
 

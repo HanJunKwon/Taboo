@@ -17,7 +17,7 @@ class TabooTabLayout(
 ) : RecyclerView(context, attrs) {
 
     private val tabDefaultColor = R.color.taboo_numbering_ball_default_text_color
-    private val tabIndicatorColor: Int = R.color.taboo_blue_600
+    private val tabIndicatorColor: Int = com.kwon.taboo.uicore.R.color.taboo_blue_600
 
     private val ballDefaultColor = R.color.taboo_numbering_ball_default_background
     private val ballIndicatorColor = R.color.taboo_numbering_ball_default_background

@@ -24,8 +24,8 @@ class TabooPillTag(
 ): AppCompatTextView(context, attrs) {
     private var radius = ResourceUtils.dpToPx(context, 20f)
     private val colorContainer = ColorContainer(
-        primaryColor = ContextCompat.getColor(context, R.color.taboo_blue_900),
-        secondaryColor = ContextCompat.getColor(context, R.color.taboo_blue_100)
+        primaryColor = ContextCompat.getColor(context, com.kwon.taboo.uicore.R.color.taboo_blue_900),
+        secondaryColor = ContextCompat.getColor(context, com.kwon.taboo.uicore.R.color.taboo_blue_100)
     )
 
     private val defaultTextSize = 10f
@@ -39,8 +39,8 @@ class TabooPillTag(
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooPillTag)
 
-        val primaryColor = typed.getColor(R.styleable.TabooPillTag_primaryColor, ContextCompat.getColor(context, R.color.taboo_blue_900))
-        val secondaryColor = typed.getColor(R.styleable.TabooPillTag_secondaryColor, ContextCompat.getColor(context, R.color.taboo_blue_100))
+        val primaryColor = typed.getColor(R.styleable.TabooPillTag_primaryColor, ContextCompat.getColor(context, com.kwon.taboo.uicore.R.color.taboo_blue_900))
+        val secondaryColor = typed.getColor(R.styleable.TabooPillTag_secondaryColor, ContextCompat.getColor(context, com.kwon.taboo.uicore.R.color.taboo_blue_100))
         val radius = typed.getDimension(R.styleable.TabooPillTag_radius, 20f)
 
         setPillColorInternal(primaryColor, secondaryColor)

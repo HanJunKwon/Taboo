@@ -37,8 +37,8 @@ class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCompat(cont
         val buttonShape = typed.getInt(R.styleable.TabooButton_buttonShape, BUTTON_SHAPE_RECT)
         val buttonType = typed.getInt(R.styleable.TabooButton_buttonType, BUTTON_TYPE_SOLID)
 
-        val primaryColor = typed.getColor(R.styleable.TabooButton_primaryColor, ContextCompat.getColor(context, R.color.taboo_blue_900))
-        val secondaryColor = typed.getColor(R.styleable.TabooButton_secondaryColor, ContextCompat.getColor(context, R.color.taboo_blue_100))
+        val primaryColor = typed.getColor(R.styleable.TabooButton_primaryColor, ContextCompat.getColor(context, com.kwon.taboo.uicore.R.color.taboo_blue_900))
+        val secondaryColor = typed.getColor(R.styleable.TabooButton_secondaryColor, ContextCompat.getColor(context, com.kwon.taboo.uicore.R.color.taboo_blue_100))
         val rippleColor = typed.getColor(R.styleable.TabooButton_rippleColor, ContextCompat.getColor(context, R.color.taboo_button_ripple_color))
 
         val icon = typed.getResourceId(R.styleable.TabooButton_icon, 0)
@@ -92,7 +92,7 @@ class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCompat(cont
         val buttonAppearance = getButtonAppearance()
         val buttonType = buttonAppearance.getButtonType()
         return when (buttonType) {
-            BUTTON_TYPE_SOLID -> context.resources.getColorStateList(R.color.white, null)
+            BUTTON_TYPE_SOLID -> context.resources.getColorStateList(com.kwon.taboo.uicore.R.color.white, null)
             else -> buttonAppearance.getColorContainer().getPrimaryColorStateList()
         }
     }

@@ -39,7 +39,7 @@ class TabooDropdown(
     private fun createDropdownIcon() {
         ivDropdown = ImageView(context).apply {
             setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_round_arrow_bottom))
-            setDropdownIconColor(ContextCompat.getColor(context, R.color.taboo_gray_200))
+            setDropdownIconColor(ContextCompat.getColor(context, com.kwon.taboo.uicore.R.color.taboo_gray_200))
             id = View.generateViewId()
         }
     }

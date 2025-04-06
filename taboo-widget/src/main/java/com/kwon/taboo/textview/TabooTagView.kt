@@ -25,7 +25,7 @@ class TabooTagView(context: Context, attrs: AttributeSet): AppCompatTextView(con
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooTagView)
         val tagBackgroundColor = typed.getColorStateList(R.styleable.TabooTagView_tagBackgroundColor)
-        val textColor = typed.getColor(R.styleable.TabooTagView_android_textColor, ContextCompat.getColor(context, R.color.white))
+        val textColor = typed.getColor(R.styleable.TabooTagView_android_textColor, ContextCompat.getColor(context, com.kwon.taboo.uicore.R.color.white))
 
         typed.recycle()
 
@@ -47,7 +47,7 @@ class TabooTagView(context: Context, attrs: AttributeSet): AppCompatTextView(con
             when (color) {
                 is Int -> background.setColor(color)            // 단일 색상 처리
                 is ColorStateList -> background.color = color   // ColorStateList 처리
-                else -> background.setColor(ContextCompat.getColor(context, R.color.taboo_blue_700))              // 기본값
+                else -> background.setColor(ContextCompat.getColor(context, com.kwon.taboo.uicore.R.color.taboo_blue_700))              // 기본값
             }
         }
     }
