@@ -1,7 +1,26 @@
+import java.util.Properties
+import org.gradle.api.publish.maven.MavenPublication
+
 plugins {
     id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    kotlin("android")
+    id("maven-publish")
+    id("signing")
 }
+
+val localProperties = Properties().apply {
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        load(localPropertiesFile.inputStream())
+    }
+}
+
+val signingKeyId: String? = localProperties.getProperty("signing.keyId")
+val signingPassword: String? = localProperties.getProperty("signing.password")
+val signingSecretKeyRingFile: String? = localProperties.getProperty("signing.secretKeyRingFile")
+val ossrhUsername: String? = localProperties.getProperty("ossrhUsername")
+val ossrhPassword: String? = localProperties.getProperty("ossrhPassword")
+
 
 group = "com.kwon.taboo"
 version = "1.0.0"
@@ -53,6 +72,59 @@ android {
 
     buildFeatures {
         buildConfig = true
+    }
+
+    publishing {
+        singleVariant("release") // ✅ 이거 안 넣으면 components["release"] 못 씀!
+    }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+
+                groupId = "com.kwon.taboo"
+                artifactId = "taboo-widget"
+                version = "1.0.0"
+
+                pom {
+                    name.set("Taboo")
+                    description.set("UI Library for Android")
+                    url.set("https://github.com/HanJunKwon/Taboo")
+                    licenses {
+                        license {
+                            name.set("MIT License")
+                            url.set("https://opensource.org/licenses/MIT")
+                        }
+                    }
+                    developers {
+                        developer {
+                            id.set("copybara")
+                            name.set("Hanjun Kwon")
+                            email.set("skclaqks11@naver.com")
+                        }
+                    }
+                    scm {
+                        connection.set("scm:git:https://github.com/HanJunKwon/Taboo.git")
+                        developerConnection.set("scm:git:https://github.com/HanJunKwon/Taboo.git")
+                        url.set("https://github.com/HanJunKwon/Taboo")
+                    }
+                }
+            }
+        }
+
+        repositories {
+            maven {
+                name = "sonatype"
+                url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+                credentials {
+                    username = ossrhUsername
+                    password = ossrhPassword
+                }
+            }
+        }
     }
 }
 
