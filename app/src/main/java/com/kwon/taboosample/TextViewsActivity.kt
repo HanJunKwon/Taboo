@@ -20,13 +20,13 @@ class TextViewsActivity : AppCompatActivity() {
         }
 
         findViewById<TabooPillTag>(R.id.tpt_change_color_1).setPillColor(
-            primaryColor = ContextCompat.getColor(this, com.kwon.taboo.R.color.taboo_green_900),
-            secondaryColor = ContextCompat.getColor(this, com.kwon.taboo.R.color.taboo_green_400)
+            primaryColor = ContextCompat.getColor(this, com.kwon.taboo.uicore.R.color.taboo_green_900),
+            secondaryColor = ContextCompat.getColor(this, com.kwon.taboo.uicore.R.color.taboo_green_400)
         )
 
         findViewById<TabooPillTag>(R.id.tpt_change_color_2).setPillColor(
-            primaryColor = ContextCompat.getColor(this, com.kwon.taboo.R.color.taboo_green_900),
-            secondaryColor = ContextCompat.getColor(this, com.kwon.taboo.R.color.taboo_green_400)
+            primaryColor = ContextCompat.getColor(this, com.kwon.taboo.uicore.R.color.taboo_green_900),
+            secondaryColor = ContextCompat.getColor(this, com.kwon.taboo.uicore.R.color.taboo_green_400)
         )
     }
 }
