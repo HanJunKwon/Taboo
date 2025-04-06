@@ -44,7 +44,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":Taboo"))
+    implementation(project(":taboo-widget"))
     implementation(project(":TabooCompose"))
 
     implementation("androidx.core:core-ktx:1.15.0")

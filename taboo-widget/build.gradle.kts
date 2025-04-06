@@ -3,6 +3,9 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+group = "com.kwon.taboo"
+version = "1.0.0"
+
 android {
     namespace = "com.kwon.taboo"
     compileSdk = 34
