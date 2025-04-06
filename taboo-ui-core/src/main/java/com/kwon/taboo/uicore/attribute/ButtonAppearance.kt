@@ -1,14 +1,11 @@
-package com.kwon.taboo.attribute
+package com.kwon.taboo.uicore.attribute
 
 import android.content.Context
 import androidx.annotation.ColorInt
 import androidx.annotation.IntDef
-import androidx.annotation.RestrictTo
 import androidx.core.content.ContextCompat
-import com.kwon.taboo.R
-import com.kwon.taboo.attribute.ButtonAppearance.Companion.BUTTON_SHAPE_RECT
+import com.kwon.taboo.uicore.R
 
-@RestrictTo(RestrictTo.Scope.LIBRARY)
 class ButtonAppearance(private val context: Context) {
     /**
      * 버튼의 모양을 정의한다.
@@ -40,7 +37,7 @@ class ButtonAppearance(private val context: Context) {
      * 기본값은 [R.color.taboo_button_ripple_color]으로 색상은 `#000000`이며 투명도는 `66%`입니다.
      */
     @ColorInt
-    private var rippleColor: Int = ContextCompat.getColor(context, R.color.taboo_button_ripple_color)
+    private var rippleColor: Int = ContextCompat.getColor(context, R.color.taboo_opacity_white_w_60)
 
     constructor(
         context: Context,

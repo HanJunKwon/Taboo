@@ -44,6 +44,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":taboo-ui-core"))
     implementation(project(":taboo-widget"))
     implementation(project(":TabooCompose"))
 

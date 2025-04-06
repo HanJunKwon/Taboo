@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="taboo_button_round_shape_radius">15dp</dimen>
+</resources>

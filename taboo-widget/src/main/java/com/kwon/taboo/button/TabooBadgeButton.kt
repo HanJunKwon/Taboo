@@ -1,23 +1,20 @@
 package com.kwon.taboo.button
 
 import android.content.Context
-import android.graphics.Canvas
 import android.graphics.drawable.RippleDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.Button
-import androidx.annotation.ColorInt
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
-import com.kwon.taboo.attribute.ButtonAppearance
-import com.kwon.taboo.attribute.ColorContainer
 import com.kwon.taboo.databinding.TabooBadgeButtonBinding
+import com.kwon.taboo.uicore.attribute.ButtonAppearance
+import com.kwon.taboo.uicore.attribute.ColorContainer
+import com.kwon.taboo.uicore.button.TabooButtonCore
 
 class TabooBadgeButton(
     context: Context,
     attrs: AttributeSet
-): TabooButtonCompat(context, attrs) {
+): TabooButtonCore(context, attrs) {
     private val binding = TabooBadgeButtonBinding.inflate(LayoutInflater.from(context), this, true)
 
     private var badge: Int = 0             // 뱃지 숫자

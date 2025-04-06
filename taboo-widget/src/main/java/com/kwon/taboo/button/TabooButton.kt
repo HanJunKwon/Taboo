@@ -9,13 +9,12 @@ import android.view.LayoutInflater
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
-import com.kwon.taboo.attribute.ButtonAppearance
-import com.kwon.taboo.attribute.ButtonAppearance.Companion.BUTTON_SHAPE_RECT
-import com.kwon.taboo.attribute.ButtonAppearance.Companion.BUTTON_TYPE_SOLID
-import com.kwon.taboo.attribute.ColorContainer
 import com.kwon.taboo.databinding.TabooButtonBinding
+import com.kwon.taboo.uicore.attribute.ButtonAppearance
+import com.kwon.taboo.uicore.attribute.ColorContainer
+import com.kwon.taboo.uicore.button.TabooButtonCore
 
-class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCompat(context, attrs) {
+class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCore(context, attrs) {
     private val binding = TabooButtonBinding.inflate(LayoutInflater.from(context), this, true)
 
     companion object {
@@ -34,8 +33,8 @@ class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCompat(cont
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooButton)
         val text = typed.getString(R.styleable.TabooButton_android_text) ?: ""
-        val buttonShape = typed.getInt(R.styleable.TabooButton_buttonShape, BUTTON_SHAPE_RECT)
-        val buttonType = typed.getInt(R.styleable.TabooButton_buttonType, BUTTON_TYPE_SOLID)
+        val buttonShape = typed.getInt(R.styleable.TabooButton_buttonShape, ButtonAppearance.BUTTON_SHAPE_RECT)
+        val buttonType = typed.getInt(R.styleable.TabooButton_buttonType, ButtonAppearance.BUTTON_TYPE_SOLID)
 
         val primaryColor = typed.getColor(R.styleable.TabooButton_primaryColor, ContextCompat.getColor(context, com.kwon.taboo.uicore.R.color.taboo_blue_900))
         val secondaryColor = typed.getColor(R.styleable.TabooButton_secondaryColor, ContextCompat.getColor(context, com.kwon.taboo.uicore.R.color.taboo_blue_100))
@@ -92,7 +91,7 @@ class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCompat(cont
         val buttonAppearance = getButtonAppearance()
         val buttonType = buttonAppearance.getButtonType()
         return when (buttonType) {
-            BUTTON_TYPE_SOLID -> context.resources.getColorStateList(com.kwon.taboo.uicore.R.color.white, null)
+            ButtonAppearance.BUTTON_TYPE_SOLID -> context.resources.getColorStateList(com.kwon.taboo.uicore.R.color.white, null)
             else -> buttonAppearance.getColorContainer().getPrimaryColorStateList()
         }
     }

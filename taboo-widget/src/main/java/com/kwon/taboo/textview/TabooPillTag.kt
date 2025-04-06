@@ -14,7 +14,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.kwon.taboo.R
-import com.kwon.taboo.attribute.ColorContainer
+import com.kwon.taboo.uicore.attribute.ColorContainer
 import com.kwon.utils.calendar.ResourceUtils
 
 

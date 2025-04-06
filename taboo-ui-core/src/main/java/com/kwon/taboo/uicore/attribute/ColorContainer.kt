@@ -1,4 +1,4 @@
-package com.kwon.taboo.attribute
+package com.kwon.taboo.uicore.attribute
 
 import android.content.res.ColorStateList
 import android.graphics.Color
