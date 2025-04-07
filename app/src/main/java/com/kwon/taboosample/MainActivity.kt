@@ -61,5 +61,10 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_timer_example).setOnClickListener {
             startActivity(Intent(this, TimersActivity::class.java))
         }
+
+        findViewById<Button>(R.id.btn_counter_example).setOnClickListener {
+            startActivity(Intent(this, CountersActivity::class.java))
+        }
+
     }
 }

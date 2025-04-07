@@ -210,4 +210,12 @@
         <attr name="trackColor" format="reference|color"/>
         <attr name="indicatorColor" format="reference|color"/>
     </declare-styleable>
+
+    <declare-styleable name="TabooCounter">
+        <attr name="android:enabled"/>
+        <attr name="minCount" format="integer"/>
+        <attr name="maxCount" format="integer"/>
+        <attr name="minusIconTint" format="color"/>
+        <attr name="plusIconTint" format="color"/>
+    </declare-styleable>
 </resources>

@@ -28,7 +28,7 @@ version = "0.0.1"
 
 android {
     namespace = "com.kwon.taboo"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 23
@@ -134,7 +134,3 @@ mavenPublishing {
         }
     }
 }
-
-println("KEYID: " + project.findProperty("signing.keyId"))
-println("ASC: " + file("C:\\Users\\kwon\\GPG\\taboo-private-key.asc").readText())
-println("PASSWORD: " + project.findProperty("signing.password"))
