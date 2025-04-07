@@ -9,20 +9,6 @@ plugins {
     id("com.vanniktech.maven.publish") version "0.29.0"
 }
 
-val localProperties = Properties().apply {
-    val localPropertiesFile = rootProject.file("local.properties")
-    if (localPropertiesFile.exists()) {
-        load(localPropertiesFile.inputStream())
-    }
-}
-
-val signingKeyId: String? = localProperties.getProperty("signing.keyId")
-val signingPassword: String? = localProperties.getProperty("signing.password")
-val signingSecretKeyRingFile: String? = localProperties.getProperty("signing.secretKeyRingFile")
-val ossrhUsername: String? = localProperties.getProperty("ossrhUsername")
-val ossrhPassword: String? = localProperties.getProperty("ossrhPassword")
-
-
 group = "io.github.hanjunkwon"
 version = "0.0.4"
 
