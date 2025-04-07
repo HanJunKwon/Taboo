@@ -25,7 +25,6 @@ jobs:
 
       - name: Publish and Release to Maven Central
         run: ./gradlew publishAndReleaseToMavenCentral
-        continue-on-error: true
         env:
           ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
           ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
