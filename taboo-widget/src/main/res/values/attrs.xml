@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="icon" format="reference"/>
+    <attr name="iconPosition" format="enum">
+        <enum name="left" value="0"/>
+        <enum name="right" value="1"/>
+    </attr>
+
+    <attr name="primaryColor" format="reference|color"/>
+    <attr name="secondaryColor" format="reference|color"/>
+
+    <attr name="title" format="string"/>
+
+    <attr name="isChecked" format="boolean"/>
+
+    <attr name="textGravity" format="enum">
+        <enum name="start" value="0"/>
+        <enum name="center" value="1"/>
+        <enum name="end" value="2"/>
+    </attr>
+
+    <declare-styleable name="TabooButton">
+        <attr name="android:enabled" format="boolean"/>
+        <attr name="android:text" format="string"/>
+        <attr name="android:textColor" format="reference|color"/>
+        <attr name="android:backgroundTint" format="color|reference"/>
+        <attr name="buttonShape" format="enum">
+            <enum name="rect" value="0"/>
+            <enum name="round" value="1"/>
+        </attr>
+        <attr name="buttonType" format="enum">
+            <enum name="solid" value="0"/>
+            <enum name="fill" value="1"/>
+            <enum name="outline" value="2"/>
+            <enum name="dash" value="3"/>
+        </attr>
+        <attr name="primaryColor"/>
+        <attr name="secondaryColor"/>
+        <attr name="rippleColor"/>
+
+        <attr name="icon"/>
+        <attr name="iconPosition"/>
+        <attr name="size" format="enum">
+            <enum name="large" value="0"/>
+            <enum name="small" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="TabooIconButton">
+        <attr name="android:background" format="reference|color"/>
+        <attr name="android:enabled" format="boolean"/>
+        <attr name="android:text" format="string"/>
+        <attr name="android:textColor" format="reference|color"/>
+        <attr name="android:textSize" format="dimension"/>
+        <attr name="android:fontFamily" format="reference"/>
+        <attr name="icon"/>
+        <attr name="iconPosition"/>
+    </declare-styleable>
+
+    <declare-styleable name="TabooMenuButton">
+        <attr name="android:enabled" format="boolean"/>
+        <attr name="menuTitle" format="string"/>
+        <attr name="menuNameTextAppearance" format="reference"/>
+        <attr name="menuDescription" format="string"/>
+        <attr name="menuDescriptionTextAppearance" format="reference"/>
+        <attr name="menuType" format="enum">
+            <enum name="none" value="0"/>
+            <enum name="preview" value="1"/>
+            <enum name="toggle" value="2"/>
+        </attr>
+        <attr name="preview" format="string"/>
+        <attr name="previewTextAppearance" format="reference"/>
+        <attr name="previewGravity" format="integer">
+            <enum name="top" value="0"/>
+            <enum name="center" value="1"/>
+            <enum name="bottom" value="2"/>
+        </attr>
+        <attr name="toggleChecked" format="boolean"/>
+        <attr name="icon"/>
+    </declare-styleable>
+
+    <declare-styleable name="TabooBadgeButton">
+        <attr name="android:enabled" format="boolean"/>
+        <attr name="android:text" format="string"/>
+        <attr name="primaryColor"/>
+        <attr name="rippleColor"/>
+        <attr name="badge" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="TabooCheckCardButton">
+        <attr name="title"/>
+        <attr name="description" format="string"/>
+        <attr name="isChecked"/>
+    </declare-styleable>
+
+    <declare-styleable name="TabooTextInput">
+        <attr name="android:inputType" format="enum"/>
+        <attr name="android:text" format="string"/>
+        <attr name="android:hint" format="string"/>
+        <attr name="android:enabled" format="boolean"/>
+
+        <attr name="textInputVariant" format="enum">
+            <enum name="editText" value="0"/>
+            <enum name="dropdown" value="1"/>
+        </attr>
+
+        <attr name="title"/>
+        <attr name="requiredIconVisible" format="boolean"/>
+        <attr name="errorMessage" format="string"/>
+        <attr name="error" format="boolean"/>
+
+        <attr name="textGravity"/>
+
+        <attr name="prefixText" format="string"/>
+        <attr name="prefixTextAppearance" format="reference"/>
+        <attr name="prefixTextColor" format="reference|color"/>
+
+        <attr name="suffixText" format="string"/>
+        <attr name="suffixTextAppearance" format="reference"/>
+        <attr name="suffixTextColor" format="reference|color"/>
+
+        <attr name="passwordToggleEnabled" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="TabooHorizontalCalender"/>
+
+    <declare-styleable name="TabooIconTextView">
+        <attr name="android:src"/>
+        <attr name="android:text"/>
+        <attr name="android:textAppearance"/>
+        <attr name="android:textColor"/>
+        <attr name="android:textSize" format="dimension"/>
+        <attr name="android:maxLines"/>
+        <attr name="android:ellipsize"/>
+        <attr name="srcWidth" format="dimension"/>
+        <attr name="srcHeight" format="dimension"/>
+    </declare-styleable>
+    
+    <declare-styleable name="TabooTagView">
+        <attr name="android:textColor" format="reference|color"/>
+        <attr name="tagBackgroundColor" format="reference|color"/>
+    </declare-styleable>
+
+    <declare-styleable name="TabooNumberingBall">
+        <attr name="android:textColor" format="reference|color"/>
+        <attr name="ballColor" format="reference|color"/>
+    </declare-styleable>
+
+    <declare-styleable name="TabooPillTag">
+        <attr name="android:textColor" format="reference|color"/>
+        <attr name="android:fontFamily" format="reference"/>
+        <attr name="android:textSize" format="dimension"/>
+        <attr name="primaryColor"/>
+        <attr name="secondaryColor"/>
+        <attr name="radius" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="TabooRadioButtonGroup">
+        <attr name="android:checkedButton" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="TabooRadioButton">
+        <attr name="label" format="string"/>
+        <attr name="isEnabled" format="boolean"/>
+        <attr name="isChecked"/>
+    </declare-styleable>
+    
+    <declare-styleable name="TabooTabLayout">
+        <attr name="isVisibilityNumbering" format="boolean"/>
+        <attr name="isVisibilityIcon" format="boolean"/>
+        <attr name="tabDefaultColor" format="reference|color"/>
+        <attr name="tabIndicatorColor" format="reference|color"/>
+        <attr name="ballDefaultColor" format="reference|color"/>
+        <attr name="ballIndicatorColor" format="reference|color"/>
+    </declare-styleable>
+  
+    <declare-styleable name="MetricCard">
+        <attr name="metricTitle" format="string"/>
+        <attr name="metricValueType" format="enum">
+            <enum name="integer" value="0"/>
+            <enum name="decimal" value="1"/>
+        </attr>
+        <attr name="metricValue" format="float|integer"/>
+        <attr name="metricPoint" format="float"/>
+        <attr name="unit" format="string"/>
+        <attr name="unitType" format="enum">
+            <enum name="none" value="0"/>
+            <enum name="percentage" value="1"/>
+            <enum name="custom" value="2"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="TabooWheelPicker">
+        <attr name="visibleItemCount" format="integer"/>
+        <attr name="textGravity"/>
+        <attr name="itemHeight" format="dimension"/>
+        <attr name="selectionStrokeColor" format="reference|color"/>
+        <attr name="selectionStrokeWidth" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="TabooSegmentControl">
+    </declare-styleable>
+
+    <declare-styleable name="TabooTimer">
+        <attr name="remainTime" format="string"/>
+        <attr name="remainTimeTextAppearance" format="reference"/>
+        <attr name="remainTimeTextColor" format="reference|color"/>
+        <attr name="remainTimeTextSize" format="dimension"/>
+        <attr name="trackColor" format="reference|color"/>
+        <attr name="indicatorColor" format="reference|color"/>
+    </declare-styleable>
+
+    <declare-styleable name="TabooCounter">
+        <attr name="android:enabled"/>
+        <attr name="minCount" format="integer"/>
+        <attr name="maxCount" format="integer"/>
+        <attr name="minusIconTint" format="color"/>
+        <attr name="plusIconTint" format="color"/>
+    </declare-styleable>
+</resources>

@@ -1,0 +1,19 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="36dp"
+    android:height="36dp"
+    android:viewportWidth="36"
+    android:viewportHeight="36">
+
+    <!-- Background circle -->
+    <path
+        android:fillColor="@color/surface_container_high"
+        android:pathData="M18,3a15,15 0,1 1,-15,15a15,15 0,0 1,15,-15" />
+
+    <!-- Rounded Check icon -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M12,18l3.75,3.75L24,12" />
+</vector>

@@ -6,12 +6,58 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TabooSample"
         tools:targetApi="31">
+        <activity
+            android:name=".CountersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TimersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SegmentControlActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RadiosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TextViewsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PreviewButtonsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TimePickerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TabsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MetricsCardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NumberingBallsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoadingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CalendarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DialogsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditTextsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ButtonsActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

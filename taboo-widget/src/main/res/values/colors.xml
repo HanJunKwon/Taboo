@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="taboo_button_ripple_color">#42FFFFFF</color>
+
+    <color name="taboo_dropdown_item_text_color">@color/taboo_black</color>
+    <color name="taboo_dropdown_selected_item_background">@color/taboo_blue_100</color>
+
+    <color name="taboo_preview_text_color">#FF1DA1F2</color>
+
+    <color name="taboo_edit_text_prefix_color">@color/taboo_gray_400</color>
+
+    <color name="taboo_edit_text_password_toggle_active">@color/taboo_gray_500</color>
+    <color name="taboo_edit_text_password_toggle_inactive">@color/taboo_gray_200</color>
+
+    <color name="taboo_timer_remain_time">@color/taboo_black</color>
+    <color name="taboo_timer_remain_time_inactive">@color/taboo_gray_400</color>
+
+    <color name="taboo_numbering_ball_default_text_color">@color/taboo_gray_700</color>
+
+    <color name="taboo_numbering_ball_default_background">@color/taboo_gray_100</color>
+    <color name="taboo_numbering_ball_indicator_background">@color/surface_container_low</color>
+
+    <color name="taboo_segment_control_button_text_color">@color/taboo_black</color>
+    <color name="taboo_segment_control_button_selected_text_color">@color/white</color>
+
+    <color name="taboo_segment_control_button_stroke_color">@color/taboo_gray_200</color>
+</resources>

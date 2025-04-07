@@ -6,13 +6,137 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_button_example"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BUTTONS"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <Button
+                android:id="@+id/btn_edit_text_example"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EDIT TEXT"
+                app:layout_constraintTop_toBottomOf="@id/btn_button_example"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <Button
+                android:id="@+id/btn_dialog_example"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DIALOG"
+                app:layout_constraintTop_toBottomOf="@id/btn_edit_text_example"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/btn_calendar_example"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CALENDAR"
+                app:layout_constraintTop_toBottomOf="@id/btn_dialog_example"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <Button
+                android:id="@+id/btn_loading_example"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LOADING"
+                app:layout_constraintTop_toBottomOf="@id/btn_calendar_example"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <Button
+                android:id="@+id/btn_metric_card_example"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="METRIC CARD"
+                app:layout_constraintTop_toBottomOf="@id/btn_loading_example"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <Button
+                android:id="@+id/btn_tab_example"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TAB"
+                app:layout_constraintTop_toBottomOf="@id/btn_metric_card_example"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <Button
+                android:id="@+id/btn_numbering_ball_example"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NUMBERING BALL"
+                app:layout_constraintTop_toBottomOf="@id/btn_tab_example"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <Button
+                android:id="@+id/btn_preview_button_example"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PREVIEW BUTTON"
+                app:layout_constraintTop_toBottomOf="@id/btn_numbering_ball_example"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <Button
+                android:id="@+id/btn_time_picker_example"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TIME PICKER"
+                app:layout_constraintTop_toBottomOf="@id/btn_preview_button_example"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <Button
+                android:id="@+id/btn_text_view_example"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TEXT VIEW"
+                app:layout_constraintTop_toBottomOf="@id/btn_time_picker_example"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <Button
+                android:id="@+id/btn_radio_button_example"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RADIO BUTTON"
+                app:layout_constraintTop_toBottomOf="@id/btn_text_view_example"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <Button
+                android:id="@+id/btn_segment_control_example"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SEGMENT CONTROL"
+                app:layout_constraintTop_toBottomOf="@id/btn_radio_button_example"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <Button
+                android:id="@+id/btn_timer_example"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TIMER"
+                app:layout_constraintTop_toBottomOf="@id/btn_text_view_example"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <Button
+                android:id="@+id/btn_counter_example"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="COUNTER"
+                app:layout_constraintTop_toBottomOf="@id/btn_timer_example"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
