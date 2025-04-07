@@ -92,6 +92,9 @@ mavenPublishing {
     }
 }
 
+println("SIGNING_KEY is " + (System.getenv("signingKey")?.take(10) ?: "NOT FOUND"))
+println("SIGNING_PASSWORD is " + (System.getenv("signingPassword")?.replace(".", "*") ?: "NOT FOUND"))
+
 signing {
     useInMemoryPgpKeys(
         findProperty("signingKey") as String,
