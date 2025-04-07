@@ -24,7 +24,7 @@ val ossrhPassword: String? = localProperties.getProperty("ossrhPassword")
 
 
 group = "io.github.hanjunkwon"
-version = "0.0.1"
+version = "0.0.4"
 
 android {
     namespace = "com.kwon.taboo"
@@ -77,7 +77,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":taboo-ui-core"))
+    // api를 적용하여 taboo-widget 모듈 적용 시
+    // taboo-ui-core 모듈을 자동으로 자동으로 접근할 수 있게 노출.
+    api(project(":taboo-ui-core"))
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.7.0")
@@ -88,8 +90,6 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-
-
 }
 
 mavenPublishing {
@@ -98,7 +98,7 @@ mavenPublishing {
     signAllPublications()
 
     // 프로젝트의 그룹 ID, 아티팩트 ID, 버전 설정
-    coordinates("io.github.hanjunkwon", "taboo-widget", "0.0.1")
+    coordinates("io.github.hanjunkwon", "taboo-widget", "0.0.4")
 
     // POM 정보 설정
     pom {

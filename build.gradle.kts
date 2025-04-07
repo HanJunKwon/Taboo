@@ -15,14 +15,11 @@ localProperties?.forEach { (key, value) ->
     project.extra.set(key.toString(), value.toString())
 }
 
-println("USERNAME: " + project.findProperty("mavenCentralUsername"))
-println("PASSWORD: " + project.findProperty("mavenCentralPassword"))
-
 nexusPublishing {
     repositories {
         sonatype {
-            username.set(System.getenv("mavenCentralUsername"))
-            password.set(System.getenv("mavenCentralPassword"))
+            username.set(findProperty("ossrhUsername") as String)
+            password.set(findProperty("ossrhPassword") as String)
         }
     }
 }

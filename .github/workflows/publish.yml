@@ -1,4 +1,4 @@
-name: Publish to Maven Central
+name: Release to Maven Central
 
 on:
   push:
@@ -6,12 +6,11 @@ on:
       - 'v*.*.*'
 
 jobs:
-  publish:
-    name: Publish package
+  release:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up JDK
@@ -20,11 +19,13 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Configure Gradle
-        uses: gradle/actions/setup-gradle@v3
+      - name: Grant permission to Gradle
+        run: chmod +x gradlew
 
-      - name: Publish to Maven Central
-        run: ./gradlew :taboo-widget:publish
+      - name: Publish and Release to Maven Central
+        run: ./gradlew publishAndReleaseToMavenCentral --no-configuration-cache
         env:
-          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
-          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
+          ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
+          ORG_GRADLE_PROJECT_ossrhUsername: ${{ secrets.OSSRH_USERNAME }}
+          ORG_GRADLE_PROJECT_ossrhPassword: ${{ secrets.OSSRH_PASSWORD }}
