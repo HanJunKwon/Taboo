@@ -92,6 +92,9 @@ mavenPublishing {
     }
 }
 
+println("SIGNING_KEY (from project property): " + (findProperty("signingKey")?.toString()?.take(10) ?: "NOT FOUND"))
+println("SIGNING_PASSWORD (from project property): " + (findProperty("signingPassword")?.toString()?.replace(".", "*") ?: "NOT FOUND"))
+
 signing {
     useInMemoryPgpKeys(
         findProperty("signingKey") as String,
