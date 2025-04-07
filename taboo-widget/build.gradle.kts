@@ -24,7 +24,7 @@ val ossrhPassword: String? = localProperties.getProperty("ossrhPassword")
 
 
 group = "io.github.hanjunkwon"
-version = "0.0.2"
+version = "0.0.4"
 
 android {
     namespace = "com.kwon.taboo"
@@ -98,7 +98,7 @@ mavenPublishing {
     signAllPublications()
 
     // 프로젝트의 그룹 ID, 아티팩트 ID, 버전 설정
-    coordinates("io.github.hanjunkwon", "taboo-widget", "0.0.2")
+    coordinates("io.github.hanjunkwon", "taboo-widget", "0.0.4")
 
     // POM 정보 설정
     pom {
