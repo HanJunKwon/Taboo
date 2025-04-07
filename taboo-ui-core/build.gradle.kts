@@ -91,3 +91,10 @@ mavenPublishing {
         }
     }
 }
+
+signing {
+    useInMemoryPgpKeys(
+        findProperty("signingKey") as String,
+        findProperty("signingPassword") as String
+    )
+}
