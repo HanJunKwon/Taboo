@@ -12,12 +12,32 @@ import com.kwon.taboo.databinding.TabooCounterBinding
 class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(context, attrs) {
     private val binding = TabooCounterBinding.inflate(LayoutInflater.from(context), this, true)
 
-    private var counter = 0
+    /**
+     * Counter 값
+     */
+    private var count = 0
+
+    /**
+     * 최소 Counter 값
+     */
     private var minCount = 0
+
+    /**
+     * 최대 Counter 값
+     */
     private var maxCount = Int.MAX_VALUE
 
+    /**
+     * Minus 버튼 아이콘 Tint
+     */
     private var minusIconTint: ColorStateList? = null
+
+    /**
+     * Plus 버튼 아이콘 Tint
+     */
     private var plusIconTint: ColorStateList? = null
+
+    private var enabled = true
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooCounter)
@@ -29,79 +49,135 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
 
         typed.recycle()
 
-        setCounter(0)
-        setMinCounter(minCount)
-        setMaxCounter(maxCount)
+        setCount(0)
+        setMinCount(minCount)
+        setMaxCount(maxCount)
         setMinusIconTintList(minusIconTintList)
         setPlusIconTint(plusIconTintList)
-        setEnable(enabled)
+        isEnabled = enabled
 
         setEvent()
     }
 
-    fun setCounter(value: Int) {
-        counter = value
-        updateCounter()
+    /**
+     * Counter 값을 설정합니다.
+     */
+    fun setCount(value: Int) {
+        count = value
+        updateCount()
     }
 
-    fun getCounter(): Int {
-        return counter
+    /**
+     * Counter 값을 반환합니다.
+     */
+    fun getCount(): Int {
+        return count
     }
 
-    private fun updateCounter() {
-        binding.tvCounter.text = counter.toString()
+    /**
+     * Counter UI를 업데이트합니다.
+     */
+    private fun updateCount() {
+        binding.tvCount.text = count.toString()
     }
 
-    fun setMinCounter(value: Int) {
+    /**
+     * 최소 Counter 값을 설정합니다.
+     *
+     * [count]가 설정하라는 값보다 작더라도, [count]는 변경되지 않습니다.
+     * [TabooCounter]에서 관리되는 값보다 개발자가 관리하는 값을 우선 시하기 위함입니다.
+     * 만약 [minCount]가 변경됨에 따라 [count]를 변경하고 싶으면
+     * [setCount]를 사용하여 변경하시기 바랍니다.
+     */
+    fun setMinCount(value: Int) {
         minCount = value
     }
 
-    fun setMaxCounter(value: Int) {
+    /**
+     * 최대 Counter 값을 설정합니다.
+     *
+     * [count]가 설정하라는 값보다 크더라도, [count]는 변경되지 않습니다.
+     * [TabooCounter]에서 관리되는 값보다 개발자가 관리하는 값을 우선 시하기 위함입니다.
+     * 만약 [maxCount]가 변경됨에 따라 [count]를 변경하고 싶으면
+     * [setCount]를 사용하여 변경하시기 바랍니다.
+     */
+    fun setMaxCount(value: Int) {
         maxCount = value
     }
 
+    /**
+     * Minus 버튼 아이콘 Tint를 설정합니다.
+     */
     fun setMinusIconTintList(tintList: ColorStateList?) {
         this.minusIconTint = tintList
         updateMinusIconTint()
     }
 
+    /**
+     * Minus 버튼 아이콘 Tint를 반환합니다.
+     */
     fun getMinusIconTint(): ColorStateList? {
         return minusIconTint
     }
 
+    /**
+     * Minus 버튼 아이콘 Tint를 업데이트합니다.
+     */
     private fun updateMinusIconTint() {
         binding.btnMinus.imageTintList = minusIconTint
     }
 
+    /**
+     * Plus 버튼 아이콘 Tint를 설정합니다..
+     */
     fun setPlusIconTint(tintList: ColorStateList?) {
         plusIconTint = tintList
         updatePlusIconTint()
     }
 
+    /**
+     * Plus 버튼 아이콘 Tint를 반환합니다.
+     */
     fun getPlushIconTint(): ColorStateList? {
         return plusIconTint
     }
 
+    /**
+     * Plus 버튼 아이콘 Tint를 업데이트합니다.
+     */
     private fun updatePlusIconTint() {
         binding.btnPlus.imageTintList = plusIconTint
     }
 
-    fun setEnable(enable: Boolean) {
+    /**
+     * Counter를 활성화/비활성화 상태를 설정합니다.
+     */
+    override fun setEnabled(enable: Boolean) {
+        super.setEnabled(enable)
+
+        this.enabled = enable
         binding.btnMinus.isEnabled = enable
         binding.btnPlus.isEnabled = enable
-        binding.tvCounter.isEnabled = enable
+        binding.tvCount.isEnabled = enable
         binding.root.isEnabled = enable
+    }
+
+    /**
+     * Counter가 활성화/비활성화 상태를 반환합니다.
+     */
+    override fun isEnabled(): Boolean {
+        return enabled
     }
 
     private fun setEvent() {
         binding.btnMinus.setOnClickListener {
-            if (counter > minCount)
-                setCounter(counter - 1)
+            if (count > minCount)
+                setCount(count - 1)
         }
 
         binding.btnPlus.setOnClickListener {
-            if (counter < maxCount) {
-                setCounter(counter + 1)
+            if (count < maxCount) {
+                setCount(count + 1)
             }
         }
     }
