@@ -100,4 +100,5 @@ signing {
         findProperty("signingKey") as String,
         findProperty("signingPassword") as String
     )
+    sign(publishing.publications)
 }
