@@ -11,13 +11,6 @@ jobs:
     environment: Maven Central
 
     steps:
-      - name: Decode GPG private key
-        run: |
-          echo "$GPG_PRIVATE_KEY" | base64 --decode > private-key.asc
-        env:
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-        
-
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -27,13 +20,20 @@ jobs:
           distribution: temurin
           java-version: 17
 
+      - name: Decode and export GPG key to env
+        run: |
+          echo "ORG_GRADLE_PROJECT_signingKey<<EOF" >> $GITHUB_ENV
+          echo "$GPG_PRIVATE_KEY" | base64 --decode >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+
       - name: Grant permission to Gradle
         run: chmod +x gradlew
 
       - name: Publish and Release to Maven Central
         run: ./gradlew publishAndReleaseToMavenCentral
         env:
-          ORG_GRADLE_PROJECT_signingKey: "$(cat private-key.asc)"
           ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
           ORG_GRADLE_PROJECT_ossrhUsername: ${{ secrets.OSSRH_USERNAME }}
           ORG_GRADLE_PROJECT_ossrhPassword: ${{ secrets.OSSRH_PASSWORD }}
