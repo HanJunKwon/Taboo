@@ -8,7 +8,6 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    environment: Maven Central
 
     steps:
       - name: Checkout
@@ -20,20 +19,13 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Decode and export GPG key to env
-        run: |
-          echo "ORG_GRADLE_PROJECT_signingKey<<EOF" >> $GITHUB_ENV
-          echo "$GPG_PRIVATE_KEY" | base64 --decode >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-        env:
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-
       - name: Grant permission to Gradle
         run: chmod +x gradlew
 
       - name: Publish and Release to Maven Central
         run: ./gradlew publishAndReleaseToMavenCentral --no-configuration-cache
         env:
+          ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
           ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
