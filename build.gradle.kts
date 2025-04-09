@@ -18,8 +18,8 @@ localProperties?.forEach { (key, value) ->
 nexusPublishing {
     repositories {
         sonatype {
-            username.set(findProperty("ossrhUsername") as String)
-            password.set(findProperty("ossrhPassword") as String)
+            username.set(findProperty("mavenCentralUsername") as String?)
+            password.set(findProperty("mavenCentralPassword") as String?)
         }
     }
 }
