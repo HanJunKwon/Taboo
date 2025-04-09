@@ -92,13 +92,10 @@ mavenPublishing {
     }
 }
 
-println("SIGNING_KEY (from project property): " + (findProperty("signingKey")))
-println("SIGNING_PASSWORD (from project property): " + (findProperty("signingPassword")))
-
 signing {
     useInMemoryPgpKeys(
-        findProperty("signingKey") as String,
-        findProperty("signingPassword") as String
+        findProperty("signingKey") as String?,
+        findProperty("signingPassword") as String?
     )
     sign(publishing.publications)
 }
