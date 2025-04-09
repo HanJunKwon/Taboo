@@ -84,7 +84,7 @@ mavenPublishing {
     signAllPublications()
 
     // 프로젝트의 그룹 ID, 아티팩트 ID, 버전 설정
-    coordinates("io.github.hanjunkwon", "taboo-widget", "0.0.4")
+    coordinates("io.github.hanjunkwon", "taboo-widget", "0.0.5")
 
     // POM 정보 설정
     pom {
