@@ -6,13 +6,12 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.kwon.taboo.R
 import com.kwon.taboo.diffutils.TabooSegmentDiffCallback
 import com.kwon.taboo.enums.PayLoad
-import com.kwon.utils.calendar.ResourceUtils
+import com.kwon.taboo.uicore.util.ResourceUtils
 
 class TabooSegmentControlAdapter : ListAdapter<String, TabooSegmentControlAdapter.TabooSegmentButtonViewHolder>(TabooSegmentDiffCallback()) {
     private var selectedIndex = NO_POSITION
@@ -91,8 +90,8 @@ class TabooSegmentControlAdapter : ListAdapter<String, TabooSegmentControlAdapte
             binding.setTextColor(ContextCompat.getColorStateList(binding.context, R.color.selector_taboo_segement_control_button_text_color))
             binding.background = ContextCompat.getDrawable(binding.context, R.drawable.selector_taboo_segment_control_background)
 
-            val paddingVertical = ResourceUtils.dpToPx(binding.context, 7f).toInt()
-            val paddingHorizontal = ResourceUtils.dpToPx(binding.context, 15f).toInt()
+            val paddingVertical = ResourceUtils.dpToPx(binding.context, 7f)
+            val paddingHorizontal = ResourceUtils.dpToPx(binding.context, 15f)
             binding.setPadding(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical)
 
             updateSelected(selectedIndex == adapterPosition)

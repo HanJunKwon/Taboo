@@ -1,4 +1,4 @@
-package com.kwon.utils.calendar
+package com.kwon.taboo.uicore.util
 
 import android.content.Context
 
@@ -8,8 +8,8 @@ object ResourceUtils {
         return px / density
     }
 
-    fun dpToPx(context: Context, dp: Float): Float {
+    fun dpToPx(context: Context, dp: Float): Int {
         val density = context.resources.displayMetrics.density
-        return dp * density
+        return (dp * density).toInt()
     }
 }
