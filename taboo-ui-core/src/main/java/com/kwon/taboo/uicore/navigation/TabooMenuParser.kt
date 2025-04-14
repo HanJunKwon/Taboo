@@ -14,8 +14,19 @@ import com.kwon.taboo.uicore.navigation.model.TabooMenuItem
 import org.xmlpull.v1.XmlPullParser.END_TAG
 import org.xmlpull.v1.XmlPullParser.START_TAG
 
+/**
+ * [TabooMenuParser]는 XML 메뉴 리소스를 파싱하여 [TabooMenu] 객체를 생성하는 클래스입니다.
+ * 메뉴 리소스에서 사용가능한 속성은 다음과 같습니다.
+ * - android:id : 메뉴 아이템의 ID
+ * - android:title : 메뉴 아이템의 제목
+ * - android:titleTextColor : 메뉴 아이템의 제목 색상
+ */
 class TabooMenuParser(private val context: Context) {
 
+    /**
+     * XML 메뉴 리소스를 파싱하기 위한 메서드입니다.
+     * 외부 클래스에서 메뉴 리소스를 파싱하기 위해서는 이 메서드를 사용해야합니다.
+     */
     fun parse(@MenuRes menuRes: Int): TabooMenu {
         Log.d(">>>", "menuRes: $menuRes")
 
@@ -59,7 +70,7 @@ class TabooMenuParser(private val context: Context) {
         val sAttr = context.obtainStyledAttributes(attrs, R.styleable.TabooMenuItem)
         val id = sAttr.getResourceId(R.styleable.TabooMenuItem_android_id, -1)
         val title = sAttr.getString(R.styleable.TabooMenuItem_android_title) ?: ""
-        val titleTextColor = sAttr.getColorStateList(R.styleable.TabooMenuItem_android_title) ?:
+        val titleTextColor = sAttr.getColorStateList(R.styleable.TabooMenuItem_android_titleTextColor) ?:
             ContextCompat.getColorStateList(context, R.color.taboo_menu_item_title)
         val icon = sAttr.getResourceId(R.styleable.TabooMenuItem_android_icon, 0)
         val iconColor = sAttr.getColorStateList(R.styleable.TabooMenuItem_iconColor) ?:

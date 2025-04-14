@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.util.Xml
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import com.kwon.taboo.uicore.R
 import com.kwon.taboo.uicore.attribute.ColorContainer
 import com.kwon.taboo.uicore.attribute.Stroke
@@ -30,6 +31,8 @@ open class TabooNavigationCore(context: Context, attrs: AttributeSet): LinearLay
         val strokeWidth = typed.getDimension(R.styleable.TabooNavigationCore_strokeWidth, 1f)
 
         typed.recycle()
+
+        setPadding(ResourceUtils.dpToPx(context, 8f), 0, ResourceUtils.dpToPx(context, 8f), 0)
 
         setMenuItemColorContainer(
             ColorContainer(
@@ -71,11 +74,20 @@ open class TabooNavigationCore(context: Context, attrs: AttributeSet): LinearLay
         removeAllViews()
 
         TabooMenuParser(context).parse(menuResource).let { menu ->
-            menu.menus.forEach { item ->
+            weightSum = menu.menus.size.toFloat()
+            val menuOrientation = if (orientation == HORIZONTAL) VERTICAL else HORIZONTAL
+
+            menu.menus.forEachIndexed { index, tabooMenuItem ->
                 val menuItemView = TabooMenuItemView(context)
-                menuItemView.setMenuItem(item)
+                menuItemView.setMenuItem(tabooMenuItem)
+                menuItemView.setMenuOrientation(menuOrientation)
 
                 addView(menuItemView)
+                menuItemView.setWeight(1f)
+
+                if (index != menu.menus.size - 1) {
+                    menuItemView.setMarginEnd(ResourceUtils.dpToPx(context, 8f))
+                }
             }
         }
     }

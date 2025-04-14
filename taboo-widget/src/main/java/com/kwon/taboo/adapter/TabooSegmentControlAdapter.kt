@@ -86,7 +86,7 @@ class TabooSegmentControlAdapter : ListAdapter<String, TabooSegmentControlAdapte
         fun bind() {
             binding.text = getItem(adapterPosition)
             binding.textSize = 12f
-            binding.typeface = ResourcesCompat.getFont(binding.context, R.font.font_pretendard_regular)
+            binding.typeface = ResourcesCompat.getFont(binding.context, com.kwon.taboo.uicore.R.font.font_pretendard_regular)
             binding.setTextColor(ContextCompat.getColorStateList(binding.context, R.color.selector_taboo_segement_control_button_text_color))
             binding.background = ContextCompat.getDrawable(binding.context, R.drawable.selector_taboo_segment_control_background)
 

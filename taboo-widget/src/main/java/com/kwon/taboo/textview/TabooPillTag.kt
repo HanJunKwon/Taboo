@@ -92,7 +92,7 @@ class TabooPillTag(
     }
 
     override fun setTypeface(tf: Typeface?) {
-        super.setTypeface(tf ?: ResourcesCompat.getFont(context, R.font.font_pretendard_semi_bold))
+        super.setTypeface(tf ?: ResourcesCompat.getFont(context, com.kwon.taboo.uicore.R.font.font_pretendard_semi_bold))
     }
 
     private fun setPillColorInternal(@ColorInt primaryColor: Int, @ColorInt secondaryColor: Int) {

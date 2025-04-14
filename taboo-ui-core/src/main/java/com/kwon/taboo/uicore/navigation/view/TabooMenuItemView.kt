@@ -2,12 +2,16 @@ package com.kwon.taboo.uicore.navigation.view
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.util.TypedValue
+import android.view.Gravity.CENTER
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.kwon.taboo.uicore.R
 import com.kwon.taboo.uicore.navigation.model.TabooMenuItem
+import com.kwon.taboo.uicore.util.ResourceUtils
 
 class TabooMenuItemView(context: Context): LinearLayout(context) {
     private var menuItem: TabooMenuItem? = null
@@ -15,10 +19,25 @@ class TabooMenuItemView(context: Context): LinearLayout(context) {
     private var iconImageView: ImageView? = null
     private var menuTitleTextView: TextView? = null
 
+    private var menuTitleTextSize = 12f
+
+    init {
+        gravity = CENTER
+    }
+
+
     fun setMenuItem(menuItem: TabooMenuItem) {
         this.menuItem = menuItem
 
         updateMenu()
+    }
+
+    fun setMenuOrientation(orientation: Int) {
+        this.orientation = orientation
+
+        if (orientation == VERTICAL) {
+            minimumHeight = context.resources.getDimensionPixelSize(R.dimen.taboo_menu_item_min_height)
+        }
     }
 
     fun setIconTint(color: Int) {
@@ -38,6 +57,28 @@ class TabooMenuItemView(context: Context): LinearLayout(context) {
         super.setOrientation(orientation)
 
         updateMenu()
+    }
+
+    fun setWeight(weight: Float) {
+        val params = layoutParams as LayoutParams
+        params.weight = weight
+        if (orientation == HORIZONTAL) {
+            params.width = 0
+            params.height = LayoutParams.WRAP_CONTENT
+        } else {
+            params.height = LayoutParams.WRAP_CONTENT
+            params.width = 0
+        }
+    }
+
+    fun setMarginStart(marginStart: Int) {
+        val params = layoutParams as LayoutParams
+        params.marginStart = marginStart
+    }
+
+    fun setMarginEnd(marginEnd: Int) {
+        val params = layoutParams as LayoutParams
+        params.marginEnd = marginEnd
     }
 
     private fun updateMenu() {
@@ -66,7 +107,9 @@ class TabooMenuItemView(context: Context): LinearLayout(context) {
 
         menuTitleTextView?.let {
             it.text = menuItem?.title ?: ""
+            it.typeface = ResourcesCompat.getFont(context, R.font.font_pretendard_medium)
             it.setTextColor(menuItem?.iconTint)
+            it.setTextSize(TypedValue.COMPLEX_UNIT_SP, menuTitleTextSize)
         }
 
         removeAllViews()
@@ -74,5 +117,7 @@ class TabooMenuItemView(context: Context): LinearLayout(context) {
         // 아이콘과 메뉴명을 배치
         addView(iconImageView)
         addView(menuTitleTextView)
+
+        isSelected = false
     }
 }
