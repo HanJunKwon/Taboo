@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Material M3 색상 스타일 -->
+    <color name="surface_dim">#FF141218</color>
+    <color name="surface">#FF141218</color>
+    <color name="surface_bright">#FF3B383E</color>
+    <color name="surface_container_lowest">#FF0F0D13</color>
+    <color name="surface_container_low">#FF1D1B20</color>
+    <color name="surface_container">#FF211F26</color>
+    <color name="surface_container_high">#FF2B2930</color>
+    <color name="surface_container_highest">#FF36343B</color>
+    <color name="on_surface">#FFE6E0E9</color>
+    <color name="on_surface_variant">#FFCAC4D0</color>
+    <color name="inverse_on_surface">#FF322F35</color>
+</resources>
