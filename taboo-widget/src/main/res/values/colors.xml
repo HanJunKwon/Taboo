@@ -24,4 +24,7 @@
     <color name="taboo_segment_control_button_selected_text_color">@color/white</color>
 
     <color name="taboo_segment_control_button_stroke_color">@color/taboo_gray_200</color>
+
+    <color name="taboo_bottom_navigation_stroke">@color/taboo_black_50</color>
+    <color name="taboo_bottom_navigation_background">@color/white</color>
 </resources>
