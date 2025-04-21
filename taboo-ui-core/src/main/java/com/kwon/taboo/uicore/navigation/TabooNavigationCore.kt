@@ -23,6 +23,8 @@ open class TabooNavigationCore(context: Context, attrs: AttributeSet): LinearLay
 
     private var selectedMenuIndex = -1
 
+    private var setMenuItemChangeListener: ((Int) -> Unit)? = null
+
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooNavigationCore)
 
@@ -95,7 +97,9 @@ open class TabooNavigationCore(context: Context, attrs: AttributeSet): LinearLay
                 // 클릭 이벤트가 발생 시 현재 메뉴 아이템 외의 아이템은 isSelected을 false로 설정.
                 menuItemView.setClickListener({
                     menu.menus.forEachIndexed { i, _ ->
+                        selectedMenuIndex = i
                         (getChildAt(i) as TabooMenuItemView).isSelected(i == index)
+                        setMenuItemChangeListener?.invoke(i)
                     }
                 })
             }
@@ -108,5 +112,9 @@ open class TabooNavigationCore(context: Context, attrs: AttributeSet): LinearLay
 
     fun setStroke(stroke: Stroke) {
         this.stroke = stroke
+    }
+
+    fun setMenuItemChangeListener(listener: (Int) -> Unit) {
+        setMenuItemChangeListener = listener
     }
 }
