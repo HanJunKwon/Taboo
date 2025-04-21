@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.marginTop
 import com.kwon.taboo.uicore.R
 import com.kwon.taboo.uicore.navigation.model.TabooMenuItem
 import com.kwon.taboo.uicore.util.ResourceUtils
@@ -128,6 +129,7 @@ class TabooMenuItemView(context: Context): LinearLayout(context) {
             it.typeface = ResourcesCompat.getFont(context, R.font.font_pretendard_medium)
             it.setTextColor(menuItem?.iconTint)
             it.setTextSize(TypedValue.COMPLEX_UNIT_SP, menuTitleTextSize)
+            it.setPadding(0, ResourceUtils.dpToPx(context, 3f), 0, 0)
         }
 
         removeAllViews()
