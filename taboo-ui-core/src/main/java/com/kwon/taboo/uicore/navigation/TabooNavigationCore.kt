@@ -7,6 +7,7 @@ import android.util.Log
 import android.util.Xml
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.forEach
 import com.kwon.taboo.uicore.R
 import com.kwon.taboo.uicore.attribute.ColorContainer
 import com.kwon.taboo.uicore.attribute.Stroke
@@ -19,6 +20,8 @@ open class TabooNavigationCore(context: Context, attrs: AttributeSet): LinearLay
     private var stroke: Stroke? = null
 
     private var menuItemColorContainer: ColorContainer? = null
+
+    private var selectedMenuIndex = -1
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooNavigationCore)
@@ -88,6 +91,13 @@ open class TabooNavigationCore(context: Context, attrs: AttributeSet): LinearLay
                 if (index != menu.menus.size - 1) {
                     menuItemView.setMarginEnd(ResourceUtils.dpToPx(context, 8f))
                 }
+
+                // 클릭 이벤트가 발생 시 현재 메뉴 아이템 외의 아이템은 isSelected을 false로 설정.
+                menuItemView.setClickListener({
+                    menu.menus.forEachIndexed { i, _ ->
+                        (getChildAt(i) as TabooMenuItemView).isSelected(i == index)
+                    }
+                })
             }
         }
     }

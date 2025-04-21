@@ -2,6 +2,7 @@ package com.kwon.taboo.uicore.navigation.view
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity.CENTER
 import android.widget.ImageView
@@ -21,8 +22,23 @@ class TabooMenuItemView(context: Context): LinearLayout(context) {
 
     private var menuTitleTextSize = 12f
 
+    private var isSelected = false
+
     init {
+        isClickable = true
+        isFocusable = true
         gravity = CENTER
+        isSelected(false)
+    }
+
+    fun isSelected(isSelected: Boolean) {
+        this.isSelected = isSelected
+        iconImageView?.isSelected = isSelected
+        menuTitleTextView?.isSelected = isSelected
+    }
+
+    override fun isSelected(): Boolean {
+        return isSelected
     }
 
 
@@ -40,8 +56,10 @@ class TabooMenuItemView(context: Context): LinearLayout(context) {
         }
     }
 
-    fun setIconTint(color: Int) {
-        menuItem?.iconTint = ColorStateList.valueOf(color)
+    fun setIconTint(color: ColorStateList?) {
+        menuItem?.iconTint = color
+
+        updateMenuIconTint()
     }
 
     private fun updateMenuIconTint() {
@@ -93,7 +111,7 @@ class TabooMenuItemView(context: Context): LinearLayout(context) {
 
         iconImageView?.let {
             it.setImageResource(menuItem?.iconResId ?: 0)
-            it.imageTintList = menuItem?.titleTextColor
+            it.imageTintList = menuItem?.iconTint
         }
 
         if (menuTitleTextView == null) {
@@ -117,7 +135,11 @@ class TabooMenuItemView(context: Context): LinearLayout(context) {
         // 아이콘과 메뉴명을 배치
         addView(iconImageView)
         addView(menuTitleTextView)
+    }
 
-        isSelected = false
+    fun setClickListener(listener: OnClickListener?) {
+        setOnClickListener {
+            listener?.onClick(this)
+        }
     }
 }

@@ -28,8 +28,6 @@ class TabooMenuParser(private val context: Context) {
      * 외부 클래스에서 메뉴 리소스를 파싱하기 위해서는 이 메서드를 사용해야합니다.
      */
     fun parse(@MenuRes menuRes: Int): TabooMenu {
-        Log.d(">>>", "menuRes: $menuRes")
-
         @SuppressLint("ResourceType")
         val xmlParser = context.resources.getLayout(menuRes)
         val attrs = Xml.asAttributeSet(xmlParser)
