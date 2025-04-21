@@ -99,8 +99,9 @@ open class TabooNavigationCore(context: Context, attrs: AttributeSet): LinearLay
                     menu.menus.forEachIndexed { i, _ ->
                         selectedMenuIndex = i
                         (getChildAt(i) as TabooMenuItemView).isSelected(i == index)
-                        setMenuItemChangeListener?.invoke(i)
                     }
+
+                    setMenuItemChangeListener?.invoke(index)
                 })
             }
         }
