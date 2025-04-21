@@ -218,4 +218,10 @@
         <attr name="minusIconTint" format="color"/>
         <attr name="plusIconTint" format="color"/>
     </declare-styleable>
+
+    <declare-styleable name="TabooBottomNavigation">
+        <attr name="backgroundColor" format="color"/>
+        <attr name="strokeColor" format="color"/>
+        <attr name="strokeWidth" format="dimension"/>
+    </declare-styleable>
 </resources>

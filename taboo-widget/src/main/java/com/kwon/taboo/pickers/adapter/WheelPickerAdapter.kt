@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.kwon.taboo.R
 import com.kwon.taboo.diffutils.TabooWheelPickerDiffCallback
 import com.kwon.taboo.enums.PayLoad
-import com.kwon.utils.calendar.ResourceUtils
+import com.kwon.taboo.uicore.util.ResourceUtils
 
 class WheelPickerAdapter(
     private val context: Context,

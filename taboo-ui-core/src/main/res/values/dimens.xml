@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Height -->
+    <dimen name="taboo_menu_item_min_height">56dp</dimen>
+
+    <!-- Radius -->
     <dimen name="taboo_button_round_shape_radius">15dp</dimen>
+
+    <!-- 텍스트 사이즈 -->
+    <dimen name="taboo_button_text_size">12sp</dimen>
 </resources>
