@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
+    
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TabooSample"
         tools:targetApi="31">
+        <activity
+            android:name=".BottomNavigationActivity"
+            android:exported="false" />
         <activity
             android:name=".CountersActivity"
             android:exported="false" />

@@ -66,5 +66,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, CountersActivity::class.java))
         }
 
+        findViewById<Button>(R.id.btn_bottom_navigation_example).setOnClickListener {
+            startActivity(Intent(this, BottomNavigationActivity::class.java))
+        }
     }
 }

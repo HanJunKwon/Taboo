@@ -3,4 +3,20 @@
     <declare-styleable name="TabooButtonCore">
 
     </declare-styleable>
+
+    <declare-styleable name="TabooNavigationCore">
+        <attr name="menu" format="reference"/>
+        <attr name="menuItemPrimaryColor" format="reference|color"/>
+        <attr name="menuItemSecondaryColor" format="reference|color"/>
+        <attr name="strokeColor" format="reference|color"/>
+        <attr name="strokeWidth" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="TabooMenuItem">
+        <attr name="android:id"/>
+        <attr name="android:title"/>
+        <attr name="android:titleTextColor"/>
+        <attr name="android:icon"/>
+        <attr name="iconColor" format="reference|color"/>
+    </declare-styleable>
 </resources>

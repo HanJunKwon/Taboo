@@ -16,7 +16,7 @@ import com.kwon.taboo.R
 import com.kwon.taboo.databinding.TabooWheelPickerBinding
 import com.kwon.taboo.pickers.adapter.WheelPickerAdapter
 import com.kwon.taboo.pickers.decoration.TabooWheelPickerItemDecoration
-import com.kwon.utils.calendar.ResourceUtils
+import com.kwon.taboo.uicore.util.ResourceUtils
 
 class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
     private val binding = TabooWheelPickerBinding.inflate(LayoutInflater.from(context), this, true)

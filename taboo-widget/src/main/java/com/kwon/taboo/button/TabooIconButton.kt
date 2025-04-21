@@ -29,7 +29,7 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
     private var textColorStateList: ColorStateList? = null
     private var textSize = 16f
     private var textSizeUnit = COMPLEX_UNIT_SP
-    private var typeface = ResourcesCompat.getFont(context, R.font.font_pretendard_regular)
+    private var typeface = ResourcesCompat.getFont(context, com.kwon.taboo.uicore.R.font.font_pretendard_regular)
 
     @StyleRes
     private var textAppearanceResId = 0

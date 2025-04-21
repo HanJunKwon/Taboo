@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.kwon.taboo.R
 import com.kwon.taboo.uicore.attribute.ColorContainer
-import com.kwon.utils.calendar.ResourceUtils
+import com.kwon.taboo.uicore.util.ResourceUtils
 
 
 class TabooPillTag(
@@ -92,7 +92,7 @@ class TabooPillTag(
     }
 
     override fun setTypeface(tf: Typeface?) {
-        super.setTypeface(tf ?: ResourcesCompat.getFont(context, R.font.font_pretendard_semi_bold))
+        super.setTypeface(tf ?: ResourcesCompat.getFont(context, com.kwon.taboo.uicore.R.font.font_pretendard_semi_bold))
     }
 
     private fun setPillColorInternal(@ColorInt primaryColor: Int, @ColorInt secondaryColor: Int) {
@@ -124,7 +124,7 @@ class TabooPillTag(
 
     private fun getMakePillBackgroundDrawable(): GradientDrawable {
         val drawable = GradientDrawable()
-        drawable.cornerRadius = radius
+        drawable.cornerRadius = radius.toFloat()
         drawable.setStroke(2, colorContainer.getPrimaryColorStateList())
         drawable.color = colorContainer.getSecondaryColorStateList()
         return drawable
