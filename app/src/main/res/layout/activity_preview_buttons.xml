@@ -26,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:enabled="false"
         app:menuTitle="다크 테마"
         app:menuDescription="화면을 어둡게 변경합니다."
         app:menuType="toggle"

@@ -53,7 +53,6 @@ class TabooMenuButton(
 
         typed.recycle()
 
-        setEnabled(isEnabled)
         setText(text)
         setDescription(description)
         setMenuType(menuType)
@@ -61,6 +60,7 @@ class TabooMenuButton(
         setPreviewGravity(previewGravity)
         isToggleChecked(isToggleChecked)
         setIconResourceId(iconResourceId)
+        setEnabled(isEnabled)
 
         binding.root.background = ContextCompat.getDrawable(context, R.drawable.taboo_button_ripple_effect)
     }
@@ -72,6 +72,8 @@ class TabooMenuButton(
 
     private fun updateEnabled() {
         binding.root.alpha = if (isEnabled) 1.0f else 0.3f
+
+        inflatedView?.findViewById<TextView>(R.id.switch_menu)?.isEnabled = this.isEnabled
     }
 
     fun getText() = menuTitle
