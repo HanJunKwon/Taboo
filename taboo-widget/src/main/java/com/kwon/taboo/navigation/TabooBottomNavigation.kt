@@ -13,6 +13,7 @@ import com.kwon.taboo.uicore.util.ResourceUtils
 class TabooBottomNavigation(context: Context, attrs: AttributeSet): TabooNavigationCore(context, attrs) {
     init {
         createTopStrokeBackground()
+        setPadding(0, ResourceUtils.dpToPx(context, 3f), 0, ResourceUtils.dpToPx(context, 3f))
     }
 
     private fun createTopStrokeBackground() {
@@ -44,13 +45,13 @@ class TabooBottomNavigation(context: Context, attrs: AttributeSet): TabooNavigat
         val layerDrawable = LayerDrawable(arrayOf(gradient))
 
         // 3. Inset 설정 (단위: px)
-        val topBottomInset = (1 * context.resources.displayMetrics.density).toInt()
+        val bottomInset = (1 * context.resources.displayMetrics.density).toInt()
         val sideInset = (-5 * context.resources.displayMetrics.density).toInt()
 
         layerDrawable.setLayerInset(
             0, // index
             sideInset, // left
-            topBottomInset, // top
+            bottomInset, // top
             sideInset, // right
             sideInset // bottom
         )
