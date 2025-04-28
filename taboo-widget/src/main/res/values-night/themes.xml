@@ -117,7 +117,7 @@
     </style>
 
     <style name="Taboo.Style.PrimaryButton">
-        <item name="primaryColor">@color/taboo_blue_900</item>
+        <item name="primaryColor">@color/taboo_blue_700</item>
         <item name="secondaryColor">@color/taboo_blue_100</item>
     </style>
 
