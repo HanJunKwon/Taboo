@@ -42,11 +42,11 @@
             app:layout_constraintEnd_toStartOf="@id/btn_positive"/>
 
         <com.kwon.taboo.button.TabooButton
+            style="@style/Taboo.Style.PrimaryButton.Round.Solid"
             android:id="@+id/btn_positive"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:text="확인"
-            style="@style/Taboo.Style.PrimaryButton.Round.Solid"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_negative"
             app:layout_constraintEnd_toEndOf="parent"/>
