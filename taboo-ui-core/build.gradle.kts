@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "io.github.hanjunkwon"
-version = "0.0.8"
+version = "0.0.9"
 
 android {
     namespace = "com.kwon.taboo.uicore"
@@ -55,7 +55,7 @@ mavenPublishing {
     signAllPublications()
 
     // 프로젝트의 그룹 ID, 아티팩트 ID, 버전 설정
-    coordinates("io.github.hanjunkwon", "taboo-ui-core", "0.0.8")
+    coordinates("io.github.hanjunkwon", "taboo-ui-core", "0.0.9")
 
     // POM 정보 설정
     pom {
@@ -92,15 +92,9 @@ mavenPublishing {
     }
 }
 
-
-println("======================== start taboo-ui-core =========================")
-println("SIGNING_KEY (from project property): " + (findProperty("signingKey")))
-println("SIGNING_PASSWORD (from project property): " + (findProperty("signingPassword")))
-
 signing {
     useInMemoryPgpKeys(
         findProperty("signingKey") as String?,
         findProperty("signingPassword") as String?
     )
 }
-println("======================== end taboo-ui-core =========================\n\n\n")

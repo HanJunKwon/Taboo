@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "io.github.hanjunkwon"
-version = "0.0.10"
+version = "0.0.11"
 
 android {
     namespace = "com.kwon.taboo"
@@ -84,7 +84,7 @@ mavenPublishing {
     signAllPublications()
 
     // 프로젝트의 그룹 ID, 아티팩트 ID, 버전 설정
-    coordinates("io.github.hanjunkwon", "taboo-widget", "0.0.10")
+    coordinates("io.github.hanjunkwon", "taboo-widget", "0.0.11")
 
     // POM 정보 설정
     pom {
@@ -120,9 +120,6 @@ mavenPublishing {
         }
     }
 }
-println("======================== start taboo-widget =========================")
-println("SIGNING_KEY (from project property): " + (findProperty("signingKey")))
-println("SIGNING_PASSWORD (from project property): " + (findProperty("signingPassword")))
 
 signing {
     useInMemoryPgpKeys(
@@ -130,4 +127,3 @@ signing {
         findProperty("signingPassword") as String?
     )
 }
-println("======================== end taboo-widget =========================\n\n\n")
