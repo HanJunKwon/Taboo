@@ -17,4 +17,4 @@ rootProject.name = "TabooSample"
 include(":app")
 include(":taboo-widget")
 include(":taboo-ui-core")
-include(":taboo-compose")
+include(":taboo-compose-ui-widget")
