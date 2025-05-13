@@ -14,14 +14,15 @@ class TabooSegmentControl(
 ) : RecyclerView(context, attrs) {
 
     init {
-        val a = context.obtainStyledAttributes(attrs, R.styleable.TabooSegmentControl)
-        a.recycle()
+        val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooSegmentControl)
+        val segmentType = typed.getInt(R.styleable.TabooSegmentControl_segmentType, 0)
+        typed.recycle()
 
-        initAdapter()
+        initAdapter(segmentType)
     }
 
-    private fun initAdapter() {
-        adapter = TabooSegmentControlAdapter()
+    private fun initAdapter(@TabooSegmentControlAdapter.SegmentType segmentType: Int) {
+        adapter = TabooSegmentControlAdapter(segmentType)
         addItemDecoration(TabooSegmentDecoration())
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
