@@ -200,6 +200,10 @@
     </declare-styleable>
 
     <declare-styleable name="TabooSegmentControl">
+        <attr name="segmentType" format="enum">
+            <enum name="solid" value="0"/>
+            <enum name="outline" value="1"/>
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="TabooTimer">

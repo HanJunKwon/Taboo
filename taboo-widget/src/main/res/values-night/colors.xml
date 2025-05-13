@@ -16,8 +16,11 @@
     <color name="taboo_numbering_ball_default_background">@color/surface_container_low</color>
     <color name="taboo_numbering_ball_indicator_background">@color/surface_container_lowest</color>
 
-    <color name="taboo_segment_control_button_text_color">@color/taboo_gray_500</color>
-    <color name="taboo_segment_control_button_selected_text_color">@color/white</color>
+    <color name="taboo_segment_control_outline_type_text_color">@color/taboo_gray_500</color>
+    <color name="taboo_segment_control_outline_type_selected_text_color">@color/white</color>
+
+    <color name="taboo_segment_control_solid_type_background_color">@android:color/transparent</color>
+    <color name="taboo_segment_control_solid_type_selected_background_color">@color/white</color>
 
     <color name="taboo_segment_control_button_stroke_color">@color/taboo_gray_500</color>
 
