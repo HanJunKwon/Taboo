@@ -4,15 +4,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.kwon.taboo.calender.CalendarBlock
+import com.kwon.taboo.calender.diffcallback.TabooCalendarDiffCallback
 import com.kwon.taboo.databinding.TabooHorizontalCalenderItemBinding
 import com.kwon.utils.calendar.CalendarUtils
 
-class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
-    private var list = listOf<CalendarBlock>()
+class TabooHorizontalCalenderAdapter : ListAdapter<CalendarBlock, TabooHorizontalCalenderAdapter.TabooHorizontalCalenderViewHolder>(TabooCalendarDiffCallback()) {
     private var clickListener: ((CalendarBlock) -> Unit)? = null
     private var itemChangedListener: ((CalendarBlock) -> Unit)? = null
     private var monthChangedListener: ((timestamp: Long) -> Unit)? = null
@@ -20,30 +20,23 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
 
     private var locale: String = CalendarUtils.KOREAN
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TabooHorizontalCalenderViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = TabooHorizontalCalenderItemBinding.inflate(inflater, parent, false)
         return TabooHorizontalCalenderViewHolder(binding)
     }
 
-    override fun getItemCount() = list.size
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: MutableList<Any>) {
+    override fun onBindViewHolder(holder: TabooHorizontalCalenderViewHolder, position: Int, payloads: MutableList<Any>) {
         if (payloads.isNotEmpty()) {
-            (holder as TabooHorizontalCalenderViewHolder).updateSelection(list[position] == selectedCalendarBlock)
+            holder.updateSelection(getItem(position).timestamp == selectedCalendarBlock?.timestamp)
         } else {
             super.onBindViewHolder(holder, position, payloads)
         }
     }
 
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        (holder as TabooHorizontalCalenderViewHolder).bind(list[position])
-    }
-
-    override fun onViewRecycled(holder: ViewHolder) {
-        super.onViewRecycled(holder)
-        (holder as TabooHorizontalCalenderViewHolder)
+    override fun onBindViewHolder(holder: TabooHorizontalCalenderViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
     fun initCalendarBlock() {
@@ -52,26 +45,24 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
     }
 
     fun setTimestamp(timestamp: Long) {
-        list = listOf()
-        val monthDates = CalendarUtils.getMonthDates(timestamp)
-
         // 이번달 날짜 추가
-        for (dateTimestamp in monthDates) {
+        val list = mutableListOf<CalendarBlock>()
+        for (dateTimestamp in CalendarUtils.getMonthDates(timestamp)) {
             list += CalendarBlock(dateTimestamp)
         }
 
-        notifyDataSetChanged()
+        submitList(list)
 
         monthChangedListener?.invoke(timestamp)
     }
 
     fun getPosition(timestamp: Long) : Int {
-        val position = list.indexOfFirst { it.getFullDate() == CalendarBlock(timestamp).getFullDate() }
+        val position = currentList.indexOfFirst { it.getFullDate() == CalendarBlock(timestamp).getFullDate() }
         return if (position == -1) NO_POSITION else position
     }
 
     fun getSelectedPosition(): Int {
-        return list.indexOfFirst { it.getFullDate() == selectedCalendarBlock?.getFullDate() }
+        return currentList.indexOfFirst { it.getFullDate() == selectedCalendarBlock?.getFullDate() }
     }
 
     fun goSelectedDate() {
@@ -79,11 +70,11 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
     }
 
     fun nextMonth() {
-        setTimestamp(list.last().timestamp + 1000L * 60 * 60 * 24)
+        setTimestamp(currentList.last().timestamp + 1000L * 60 * 60 * 24)
     }
 
     fun prevMonth() {
-        setTimestamp(list.first().timestamp - 1000L * 60 * 60 * 24)
+        setTimestamp(currentList.first().timestamp - 1000L * 60 * 60 * 24)
     }
 
     /**
@@ -91,32 +82,32 @@ class TabooHorizontalCalenderAdapter: RecyclerView.Adapter<ViewHolder>() {
      */
     fun setSelectedPosition(position: Int) {
         // 범위 체크
-        if (position > list.size - 1) {
+        if (position > currentList.size - 1) {
             Log.e("TabooHorizontalCalenderAdapter", "position is out of range")
             return
         }
 
         // 이전 선택된 아이템 상태 업데이트
         selectedCalendarBlock?.let { prevCalendarBlock ->
-            val previousPosition = list.indexOfFirst { it.getFullDate() == prevCalendarBlock.getFullDate() }
+            val previousPosition = currentList.indexOfFirst { it.getFullDate() == prevCalendarBlock.getFullDate() }
             if (previousPosition != NO_POSITION) {
                 notifyItemChanged(previousPosition, "SELECTION_CHANGED")
             }
         }
 
         // 선택된 아이템 업데이트
-        selectedCalendarBlock = list[position]
+        selectedCalendarBlock = currentList[position]
         notifyItemChanged(position, "SELECTION_CHANGED")
 
         // 날짜 변경 리스너 호출
-        itemChangedListener?.invoke(list[position])
+        itemChangedListener?.invoke(currentList[position])
     }
 
     /**
      * 특정 날짜를 활성화할 때 사용
      */
     fun setSelectedCalendarBlock(calendarBlock: CalendarBlock) {
-        val position = list.indexOfFirst { it.getFullDate() == calendarBlock.getFullDate() }
+        val position = currentList.indexOfFirst { it.getFullDate() == calendarBlock.getFullDate() }
         setSelectedPosition(position)
     }
 
