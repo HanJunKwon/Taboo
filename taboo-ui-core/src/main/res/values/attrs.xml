@@ -13,7 +13,15 @@
     </declare-styleable>
 
     <declare-styleable name="TabooFadeScrollView">
-
+        <attr name="fadePosition" format="enum">
+            <enum name="top" value="0"/>
+            <enum name="bottom" value="1"/>
+            <enum name="start" value="2"/>
+            <enum name="end" value="3"/>
+            <enum name="vertical" value="4"/>
+            <enum name="horizontal" value="5"/>
+        </attr>
+        <attr name="fadeHeight" format="dimension"/>
     </declare-styleable>
 
     <declare-styleable name="TabooMenuItem">
