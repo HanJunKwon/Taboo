@@ -16,19 +16,10 @@ class TabooFadeScrollView(context: Context, attrs: AttributeSet): TabooScrollVie
     private var fadePosition = FADE_POSITION_BOTTOM
     private var fadeHeight = 0f
 
-    private var fadeContainer: LinearLayout = LinearLayout(context).apply {
-        id = View.generateViewId()
-        layoutParams = LayoutParams(
-            LayoutParams.MATCH_PARENT,
-            LayoutParams.WRAP_CONTENT
-        )
-        background = ContextCompat.getDrawable(context, R.drawable.gradient_scroll_view_fade)
-        orientation = LinearLayout.VERTICAL
-    }
+    private var topFadeView: View? = null
+    private var bottomFadeView: View? = null
 
     init {
-        super.addView(fadeContainer)
-
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooFadeScrollView)
         val fadePosition = typed.getInt(R.styleable.TabooFadeScrollView_fadePosition, FADE_POSITION_BOTTOM)
         val fadeHeight = typed.getDimension(R.styleable.TabooFadeScrollView_fadeHeight, 30f)
@@ -41,7 +32,7 @@ class TabooFadeScrollView(context: Context, attrs: AttributeSet): TabooScrollVie
     }
 
     override fun addView(child: View?) {
-        if (child === fadeContainer || child === scrollView) {
+        if (child === topFadeView || child === bottomFadeView || child === scrollView) {
             super.addView(child)
         } else {
             scrollView.addView(child)
@@ -49,7 +40,7 @@ class TabooFadeScrollView(context: Context, attrs: AttributeSet): TabooScrollVie
     }
 
     override fun addView(child: View?, index: Int) {
-        if (child === fadeContainer || child === scrollView) {
+        if (child === topFadeView || child === bottomFadeView || child === scrollView) {
             super.addView(child, index)
         } else {
             scrollView.addView(child, index)
@@ -57,7 +48,7 @@ class TabooFadeScrollView(context: Context, attrs: AttributeSet): TabooScrollVie
     }
 
     override fun addView(child: View?, params: ViewGroup.LayoutParams?) {
-        if (child === fadeContainer || child === scrollView) {
+        if (child === topFadeView || child === bottomFadeView || child === scrollView) {
             super.addView(child, params)
         } else {
             scrollView.addView(child, params)
@@ -65,7 +56,7 @@ class TabooFadeScrollView(context: Context, attrs: AttributeSet): TabooScrollVie
     }
 
     override fun addView(child: View?, index: Int, params: ViewGroup.LayoutParams?) {
-        if (child === fadeContainer || child === scrollView) {
+        if (child === topFadeView || child === bottomFadeView || child === scrollView) {
             super.addView(child, index, params)
         } else {
             scrollView.addView(child, index, params)
@@ -91,13 +82,79 @@ class TabooFadeScrollView(context: Context, attrs: AttributeSet): TabooScrollVie
     }
 
     private fun updateFadePosition() {
+        removeFadeViews()
+
+        when (fadePosition) {
+            FADE_POSITION_TOP -> {
+                addTopFadeView()
+            }
+            FADE_POSITION_BOTTOM -> {
+                addBottomFadeView()
+            }
+            FADE_POSITION_BOTH -> {
+                addTopFadeView()
+                addBottomFadeView()
+            }
+        }
+    }
+
+    private fun removeFadeViews() {
+        topFadeView?.let {
+            scrollView.removeView(it)
+            topFadeView = null
+        }
+
+        bottomFadeView?.let {
+            scrollView.removeView(it)
+            bottomFadeView = null
+        }
+    }
+
+    private fun createFadeView(isBottom: Boolean): View {
+        return View(context).apply {
+            id = View.generateViewId()
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                ResourceUtils.dpToPx(context, fadeHeight)
+            )
+
+            if (isBottom) background = ContextCompat.getDrawable(context, R.drawable.gradient_scroll_view_fade_top_to_bottom)
+            else background = ContextCompat.getDrawable(context, R.drawable.gradient_scroll_view_fade_bottom_to_top)
+        }
+    }
+
+    private fun addTopFadeView() {
+        if (topFadeView == null) {
+            topFadeView = createFadeView(false)
+            super.addView(topFadeView)
+        }
+
+        constraintsFadeView(topFadeView!!, false)
+    }
+
+    private fun addBottomFadeView() {
+        if (bottomFadeView == null) {
+            bottomFadeView = createFadeView(true)
+            super.addView(bottomFadeView)
+        }
+
+        constraintsFadeView(bottomFadeView!!, true)
+    }
+
+    private fun constraintsFadeView(fadeView: View, isBottom: Boolean) {
+        val constraintPosition = if (isBottom) {
+            ConstraintSet.BOTTOM
+        } else {
+            ConstraintSet.TOP
+        }
+
         ConstraintSet().apply {
             clone(this@TabooFadeScrollView)
             connect(
-                fadeContainer.id,
-                ConstraintSet.BOTTOM,
+                fadeView.id,
+                constraintPosition,
                 this@TabooFadeScrollView.id,
-                ConstraintSet.BOTTOM
+                constraintPosition
             )
             applyTo(this@TabooFadeScrollView)
         }
@@ -114,8 +171,15 @@ class TabooFadeScrollView(context: Context, attrs: AttributeSet): TabooScrollVie
     }
 
     private fun updateFadeHeight() {
-        fadeContainer.layoutParams.height = ResourceUtils.dpToPx(context, fadeHeight)
-        fadeContainer.requestLayout()
+        topFadeView?.let {
+            it.layoutParams.height = ResourceUtils.dpToPx(context, fadeHeight)
+            it.requestLayout()
+        }
+
+        bottomFadeView?.let {
+            it.layoutParams.height = ResourceUtils.dpToPx(context, fadeHeight)
+            it.requestLayout()
+        }
     }
 
     @IntDef(
@@ -141,8 +205,5 @@ class TabooFadeScrollView(context: Context, attrs: AttributeSet): TabooScrollVie
          * `orientation`이 `horizontal`일 때, **fade**의 위치를 **시작**에 설정.
          */
         const val FADE_POSITION_BOTH = 2
-
-        const val TOP_FADE_VIEW_INDEX = 0
-        const val BOTTOM_FADE_VIEW_INDEX = 1
     }
 }
