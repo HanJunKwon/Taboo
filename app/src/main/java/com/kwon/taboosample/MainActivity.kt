@@ -69,5 +69,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_bottom_navigation_example).setOnClickListener {
             startActivity(Intent(this, BottomNavigationActivity::class.java))
         }
+
+        findViewById<Button>(R.id.btn_fade_scroll_view_example).setOnClickListener {
+            startActivity(Intent(this, FadeScrollViewActivity::class.java))
+        }
     }
 }
