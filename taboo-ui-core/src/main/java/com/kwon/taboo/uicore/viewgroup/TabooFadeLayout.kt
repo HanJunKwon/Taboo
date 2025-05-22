@@ -6,23 +6,37 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.annotation.IntDef
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.uicore.R
 import com.kwon.taboo.uicore.util.ResourceUtils
 
-class TabooFadeScrollView(context: Context, attrs: AttributeSet): TabooScrollViewCore(context, attrs) {
+class TabooFadeLayout(context: Context, attrs: AttributeSet): ConstraintLayout (context, attrs) {
     @FadePosition
     private var fadePosition = FADE_POSITION_BOTTOM
     private var fadeHeight = 0f
 
+    private var contentView = LinearLayout(context).apply {
+        id = View.generateViewId()
+        layoutParams = LayoutParams(
+            LayoutParams.MATCH_PARENT,
+            LayoutParams.MATCH_PARENT
+        )
+    }
     private var topFadeView: View? = null
     private var bottomFadeView: View? = null
 
     init {
-        val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooFadeScrollView)
-        val fadePosition = typed.getInt(R.styleable.TabooFadeScrollView_fadePosition, FADE_POSITION_BOTTOM)
-        val fadeHeight = typed.getDimension(R.styleable.TabooFadeScrollView_fadeHeight, 30f)
+        initTabooFadeLayout()
+
+        super.addView(contentView)
+
+        val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooFadeLayout)
+        val fadePosition = typed.getInt(R.styleable.TabooFadeLayout_fadePosition,
+            FADE_POSITION_BOTTOM
+        )
+        val fadeHeight = typed.getDimension(R.styleable.TabooFadeLayout_fadeHeight, 30f)
         typed.recycle()
 
         setFadePositionInternal(fadePosition)
@@ -31,35 +45,45 @@ class TabooFadeScrollView(context: Context, attrs: AttributeSet): TabooScrollVie
         draw()
     }
 
+    private fun initTabooFadeLayout() {
+        id = generateViewId()
+        isClickable = false
+        isFocusable = false
+        layoutParams = LayoutParams(
+            LayoutParams.MATCH_PARENT,
+            LayoutParams.MATCH_PARENT
+        )
+    }
+
     override fun addView(child: View?) {
-        if (child === topFadeView || child === bottomFadeView || child === scrollView) {
+        if (child === topFadeView || child === bottomFadeView || child === contentView) {
             super.addView(child)
         } else {
-            scrollView.addView(child)
+            contentView.addView(child)
         }
     }
 
     override fun addView(child: View?, index: Int) {
-        if (child === topFadeView || child === bottomFadeView || child === scrollView) {
+        if (child === topFadeView || child === bottomFadeView || child === contentView) {
             super.addView(child, index)
         } else {
-            scrollView.addView(child, index)
+            contentView.addView(child, index)
         }
     }
 
     override fun addView(child: View?, params: ViewGroup.LayoutParams?) {
-        if (child === topFadeView || child === bottomFadeView || child === scrollView) {
+        if (child === topFadeView || child === bottomFadeView || child === contentView) {
             super.addView(child, params)
         } else {
-            scrollView.addView(child, params)
+            contentView.addView(child, params)
         }
     }
 
     override fun addView(child: View?, index: Int, params: ViewGroup.LayoutParams?) {
-        if (child === topFadeView || child === bottomFadeView || child === scrollView) {
+        if (child === topFadeView || child === bottomFadeView || child === contentView) {
             super.addView(child, index, params)
         } else {
-            scrollView.addView(child, index, params)
+            contentView.addView(child, index, params)
         }
     }
 
@@ -100,12 +124,12 @@ class TabooFadeScrollView(context: Context, attrs: AttributeSet): TabooScrollVie
 
     private fun removeFadeViews() {
         topFadeView?.let {
-            scrollView.removeView(it)
+            removeView(it)
             topFadeView = null
         }
 
         bottomFadeView?.let {
-            scrollView.removeView(it)
+            removeView(it)
             bottomFadeView = null
         }
     }
@@ -149,14 +173,14 @@ class TabooFadeScrollView(context: Context, attrs: AttributeSet): TabooScrollVie
         }
 
         ConstraintSet().apply {
-            clone(this@TabooFadeScrollView)
+            clone(this@TabooFadeLayout)
             connect(
                 fadeView.id,
                 constraintPosition,
-                this@TabooFadeScrollView.id,
+                this@TabooFadeLayout.id,
                 constraintPosition
             )
-            applyTo(this@TabooFadeScrollView)
+            applyTo(this@TabooFadeLayout)
         }
     }
 
@@ -192,17 +216,17 @@ class TabooFadeScrollView(context: Context, attrs: AttributeSet): TabooScrollVie
 
     companion object {
         /**
-         * `orientation`이 `horizontal`일 때, **fade**의 위치를 **상단**에 설정.
+         * Fade View 의 위치를 **상단**에 설정.
          */
         const val FADE_POSITION_TOP = 0
 
         /**
-         * `orientation`이 `horizontal`일 때, **fade**의 위치를 **하단**에 설정.
+         * Fade View 의 위치를 **하단**에 설정.
          */
         const val FADE_POSITION_BOTTOM = 1
 
         /**
-         * `orientation`이 `horizontal`일 때, **fade**의 위치를 **시작**에 설정.
+         * Fade View 의 위치를 **상단과 하단**에 설정.
          */
         const val FADE_POSITION_BOTH = 2
     }
