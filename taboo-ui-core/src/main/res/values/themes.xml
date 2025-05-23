@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Taboo.BottomDialog" parent="Theme.Material3.Light.Dialog.Alert">
+        <item name="android:windowMinWidthMinor">100%</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+    </style>
+
+    <style name="Taboo.BottomDialog.Animation">
+        <item name="android:windowEnterAnimation">@anim/anim_dialog_bottom_up_open</item>
+        <item name="android:windowExitAnimation">@anim/anim_dialog_bottom_up_close</item>
+    </style>
+</resources>
