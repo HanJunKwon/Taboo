@@ -13,15 +13,13 @@ import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
+import com.kwon.taboo.uicore.util.ResourceUtils
 
-private const val TAG_VIEW_PADDING_HORIZONTAL = 10
-private const val TAG_VIEW_PADDING_VERTICAL = 5
+private const val TAG_VIEW_PADDING_HORIZONTAL = 15f
+private const val TAG_VIEW_PADDING_VERTICAL = 5f
 private const val TAG_VIEW_MINIMUM_HEIGHT_DP = 32f
-private const val TAG_VIEW_MINIMUM_WIDTH_DP = 100f
 
 class TabooTagView(context: Context, attrs: AttributeSet): AppCompatTextView(context, attrs) {
-    private val backgroundColor: Any? = null
-
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooTagView)
         val tagBackgroundColor = typed.getColorStateList(R.styleable.TabooTagView_tagBackgroundColor)
@@ -29,7 +27,14 @@ class TabooTagView(context: Context, attrs: AttributeSet): AppCompatTextView(con
 
         typed.recycle()
 
-        setPadding(TAG_VIEW_PADDING_HORIZONTAL, TAG_VIEW_PADDING_VERTICAL, TAG_VIEW_PADDING_HORIZONTAL,TAG_VIEW_PADDING_VERTICAL)
+        val verticalPadding = ResourceUtils.dpToPx(context, TAG_VIEW_PADDING_VERTICAL)
+        val horizontalPadding = ResourceUtils.dpToPx(context, TAG_VIEW_PADDING_HORIZONTAL)
+        setPadding(
+            horizontalPadding,
+            verticalPadding,
+            horizontalPadding,
+            verticalPadding
+        )
         setBackgroundDrawable(ContextCompat.getDrawable(context,R.drawable.shape_rect_r10_a100_000000))
         setTagBackgroundColor(tagBackgroundColor)
         setTextColor(textColor)
@@ -38,7 +43,6 @@ class TabooTagView(context: Context, attrs: AttributeSet): AppCompatTextView(con
 
         val density = context.resources.displayMetrics.density
         minimumHeight = Math.round(TAG_VIEW_MINIMUM_HEIGHT_DP * density)
-        minimumWidth = Math.round(TAG_VIEW_MINIMUM_WIDTH_DP * density)
     }
 
     fun setTagBackgroundColor(color: Any?) {

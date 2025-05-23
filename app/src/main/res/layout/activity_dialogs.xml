@@ -25,4 +25,13 @@
         app:layout_constraintTop_toBottomOf="@id/btn_alert"
         app:layout_constraintStart_toStartOf="parent"/>
 
+    <com.kwon.taboo.button.TabooButton
+        android:id="@+id/btn_bottom_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Bottom Dialog"
+        app:layout_constraintTop_toBottomOf="@id/btn_confirm"
+        app:layout_constraintStart_toStartOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
