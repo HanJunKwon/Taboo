@@ -18,6 +18,8 @@ import com.kwon.taboo.uicore.attribute.ColorContainer
 import com.kwon.taboo.uicore.util.ResourceUtils
 
 
+private const val TAG_VIEW_PADDING_HORIZONTAL = 15f
+private const val TAG_VIEW_PADDING_VERTICAL = 7f
 class TabooPillTag(
     context: Context,
     attrs: AttributeSet
@@ -29,9 +31,6 @@ class TabooPillTag(
     )
 
     private val defaultTextSize = 10f
-
-    private val horizontalPadding = 10
-    private val verticalPadding = 5
 
     private val minimumHeightDp = 25
     private val minimumWidthDp = 80
@@ -73,6 +72,10 @@ class TabooPillTag(
         }
 
         alignTextCenter()
+
+
+        val horizontalPadding = ResourceUtils.dpToPx(context, TAG_VIEW_PADDING_HORIZONTAL)
+        val verticalPadding = ResourceUtils.dpToPx(context, TAG_VIEW_PADDING_VERTICAL)
 
         setPadding(horizontalPadding, verticalPadding, horizontalPadding, verticalPadding)
 
