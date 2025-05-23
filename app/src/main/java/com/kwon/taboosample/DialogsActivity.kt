@@ -40,10 +40,12 @@ class DialogsActivity : AppCompatActivity() {
         }
 
         findViewById<TabooButton>(R.id.btn_bottom_dialog).setOnClickListener {
-            TabooBottomAlert(context = this).apply {
-                val dialogView = LayoutInflater.from(context).inflate(com.kwon.taboo.R.layout.taboo_alert, null)
-                this.setView(dialogView)
-            }.show()
+            SampleBottomDialog(this@DialogsActivity).show()
+
+//            TabooBottomAlert(context = this).apply {
+//                val dialogView = LayoutInflater.from(context).inflate(com.kwon.taboo.R.layout.taboo_alert, null)
+//                this.setView(dialogView)
+//            }.show()
         }
     }
 }
