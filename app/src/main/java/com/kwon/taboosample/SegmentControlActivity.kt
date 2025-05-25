@@ -20,7 +20,20 @@ class SegmentControlActivity : AppCompatActivity() {
             insets
         }
 
-        findViewById<TabooSegmentControl>(R.id.tsc_segment_control).apply {
+        findViewById<TabooSegmentControl>(R.id.tsc_segment_control_outline_type).apply {
+            setItems(listOf("세그먼트 1", "세그먼트 2", "세그먼트 3", "세그먼트 4", "세그먼트 5"))
+            setOnItemClickListener {
+                Log.d(">>>", "Clicked $it")
+            }
+
+            setOnSelectedItemChangedListener {
+                Log.d(">>>", "Selected $it")
+            }
+
+            setSelectedItem(0)
+        }
+
+        findViewById<TabooSegmentControl>(R.id.tsc_segment_control_solid_type).apply {
             setItems(listOf("세그먼트 1", "세그먼트 2", "세그먼트 3", "세그먼트 4", "세그먼트 5"))
             setOnItemClickListener {
                 Log.d(">>>", "Clicked $it")

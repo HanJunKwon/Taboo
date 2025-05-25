@@ -35,6 +35,7 @@ class TabooHorizontalCalendar(context: Context, attrs: AttributeSet) : Constrain
                 initCalendarBlock()
             }
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            itemAnimator = null
             addItemDecoration(CalendarHorizontalSpaceDecoration(20))
         }
     }
