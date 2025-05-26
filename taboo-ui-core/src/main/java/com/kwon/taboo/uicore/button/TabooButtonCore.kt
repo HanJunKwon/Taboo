@@ -1,15 +1,22 @@
 package com.kwon.taboo.uicore.button
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
 import android.util.AttributeSet
+import android.view.MotionEvent
+import android.view.MotionEvent.ACTION_DOWN
+import android.view.MotionEvent.ACTION_UP
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.StyleRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.content.withStyledAttributes
+import com.kwon.taboo.uicore.R
+import com.kwon.taboo.uicore.attribute.ButtonAnimation
 import com.kwon.taboo.uicore.attribute.ButtonAppearance
 import com.kwon.taboo.uicore.attribute.ButtonAppearance.Companion.BUTTON_TYPE_DASH
 import com.kwon.taboo.uicore.attribute.ButtonAppearance.Companion.BUTTON_TYPE_FILL
@@ -26,6 +33,16 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
      */
     private var buttonAppearance = ButtonAppearance(context)
 
+    private var enabledAnimation = true
+
+    private var buttonAnimation = ButtonAnimation()
+
+    private val buttonAnimationPropertyNames = listOf("scaleX", "scaleY")
+
+    private var buttonPressedEnterObjectAnimations = mutableListOf<ObjectAnimator>()
+
+    private var buttonPressedExitObjectAnimations = mutableListOf<ObjectAnimator>()
+
     /**
      * 버튼의 텍스트.
      */
@@ -36,6 +53,33 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
      */
     @StyleRes
     protected val textAppearance: Int = 0
+
+    init {
+        context.withStyledAttributes(attrs, R.styleable.TabooButtonCore) {
+            setAnimationDuration(getInt(R.styleable.TabooButtonCore_animationDuration, 100).toLong())
+        }
+
+        createButtonObjectAnimators()
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (enabledAnimation) {
+            when (ev?.action) {
+                ACTION_UP -> {
+                    buttonPressedEnterObjectAnimations.forEach {
+                        it.start()
+                    }
+                }
+                ACTION_DOWN -> {
+                    buttonPressedExitObjectAnimations.forEach {
+                        it.start()
+                    }
+                }
+            }
+        }
+
+        return super.dispatchTouchEvent(ev)
+    }
 
     fun setButtonAppearance(buttonAppearance: ButtonAppearance) {
         this.buttonAppearance = buttonAppearance
@@ -208,6 +252,35 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
                 android.R.color.transparent
             )
         )
+    }
+
+    fun setAnimationDuration(duration: Long) {
+        buttonAnimation.setDuration(duration)
+    }
+
+    private fun createButtonObjectAnimators() {
+        buttonPressedEnterObjectAnimations.clear()
+        buttonPressedExitObjectAnimations.clear()
+
+        buttonAnimationPropertyNames.forEach { propertyName ->
+            buttonPressedEnterObjectAnimations.add(
+                ObjectAnimator
+                    .ofFloat(this, propertyName, buttonAnimation.getEndValue(), buttonAnimation.getStartValue())
+                    .apply {
+                        duration = buttonAnimation.getDuration()
+                        interpolator = buttonAnimation.getInterpolator()
+                    }
+            )
+
+            buttonPressedExitObjectAnimations.add(
+                ObjectAnimator
+                    .ofFloat(this, propertyName, buttonAnimation.getStartValue(), buttonAnimation.getEndValue())
+                    .apply {
+                        duration = buttonAnimation.getDuration()
+                        interpolator = buttonAnimation.getInterpolator()
+                    }
+            )
+        }
     }
 
     /**
