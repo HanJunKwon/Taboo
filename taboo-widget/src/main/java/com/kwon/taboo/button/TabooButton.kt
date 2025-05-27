@@ -48,7 +48,7 @@ class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCore(contex
 
         typed.recycle()
 
-        this.text = text
+        setText(text)
 
         setButtonAppearance(
             ButtonAppearance(
@@ -75,12 +75,10 @@ class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCore(contex
         updateSize()
 
         drawButton()
-
-        isClickable = true
     }
 
     private fun updateText() {
-        binding.tvButtonText.text = text ?: "Taboo Button"
+        binding.tvButtonText.text = getText() ?: "Taboo Button"
     }
 
     private fun updateTextColor() {

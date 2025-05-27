@@ -6,6 +6,7 @@ import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.MotionEvent.ACTION_CANCEL
 import android.view.MotionEvent.ACTION_DOWN
@@ -47,7 +48,7 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
     /**
      * 버튼의 텍스트.
      */
-    var text: String? = null
+    private var text: String? = null
 
     /**
      * 버튼의 텍스트 모양을 정의하는 스타일.
@@ -56,6 +57,9 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
     protected val textAppearance: Int = 0
 
     init {
+        isClickable = true
+        isFocusable = true
+
         context.withStyledAttributes(attrs, R.styleable.TabooButtonCore) {
             setEnabledAnimation(getBoolean(R.styleable.TabooButtonCore_enabledAnimation, true))
             setAnimationDuration(getInt(R.styleable.TabooButtonCore_animationDuration, 100).toLong())
@@ -66,6 +70,8 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        Log.d(">>>", "dispatchTouchEvent: ${ev?.action} on ${this.javaClass.simpleName}")
+
         if (enabledAnimation) {
             when (ev?.action) {
                 ACTION_DOWN -> {
@@ -312,6 +318,14 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
                     }
             )
         }
+    }
+
+    open fun setText(text: String) {
+        this.text = text
+    }
+
+    fun getText(): String? {
+        return text
     }
 
     /**
