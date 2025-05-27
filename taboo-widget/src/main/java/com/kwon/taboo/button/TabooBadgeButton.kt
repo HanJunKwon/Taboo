@@ -28,7 +28,7 @@ class TabooBadgeButton(
 
         typed.recycle()
 
-        this.text = text
+        setText(text)
         setBadgeInternal(badge)
 
         setButtonAppearance(
@@ -70,6 +70,11 @@ class TabooBadgeButton(
         drawButton()
     }
 
+    override fun setText(text: String) {
+        super.setText(text)
+        updateText()
+    }
+
     /**
      * 뱃지 숫자를 설정한다.
      * @param badge 뱃지에 표시할 숫자
@@ -97,6 +102,6 @@ class TabooBadgeButton(
     }
 
     private fun updateText() {
-        binding.tvButtonText.text = text
+        binding.tvButtonText.text = getText()
     }
 }

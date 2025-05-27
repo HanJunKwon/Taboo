@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="TabooButtonCore">
-
+        <attr name="enabledAnimation" format="boolean"/>
+        <attr name="animationDuration" format="integer"/>
+        <attr name="scaleRatio" format="float"/>
     </declare-styleable>
 
     <declare-styleable name="TabooNavigationCore">

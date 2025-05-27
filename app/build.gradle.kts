@@ -46,7 +46,6 @@ android {
 dependencies {
     implementation(project(":taboo-ui-core"))
     implementation(project(":taboo-widget"))
-    implementation(project(":TabooCompose"))
 
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.appcompat:appcompat:1.7.0")

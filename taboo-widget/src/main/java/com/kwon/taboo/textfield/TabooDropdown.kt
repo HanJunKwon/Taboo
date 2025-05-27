@@ -1,6 +1,7 @@
 package com.kwon.taboo.textfield
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
@@ -89,19 +90,23 @@ class TabooDropdown(
     private fun setDropdownClickListener() {
         setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
+                Log.d(">>>", "setOnFocusChangeListener")
                 view.performClick()
             }
         }
 
         setOnClickListener { v ->
+            Log.d(">>>", "setOnClickListener")
             view.performClick()
         }
 
         ivDropdown?.setOnClickListener {
+            Log.d(">>>", "ivDropdown?.performClick()")
             view.performClick()
         }
 
         view.setOnClickListener {
+            Log.d(">>>", "view.performClick()")
             showPopupWindow()
 
             listener?.invoke()
@@ -135,7 +140,7 @@ class TabooDropdown(
 
     private fun getWidth() = view.width
 
-    fun setOnItemSelectedListener(listener: ((parent: AdapterView<*>?, view: android.view.View?, position: Int, id: Long) -> Unit)? = null) {
+    fun setOnItemSelectedListener(listener: ((parent: AdapterView<*>?, view: View?, position: Int, id: Long) -> Unit)? = null) {
         itemSelectedListener = listener
     }
 
