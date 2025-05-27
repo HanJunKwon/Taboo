@@ -7,6 +7,7 @@ import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
 import android.util.AttributeSet
 import android.view.MotionEvent
+import android.view.MotionEvent.ACTION_CANCEL
 import android.view.MotionEvent.ACTION_DOWN
 import android.view.MotionEvent.ACTION_UP
 import androidx.annotation.ColorInt
@@ -65,12 +66,13 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (enabledAnimation) {
             when (ev?.action) {
-                ACTION_UP -> {
+                ACTION_DOWN -> {
                     buttonPressedEnterObjectAnimations.forEach {
                         it.start()
                     }
                 }
-                ACTION_DOWN -> {
+                ACTION_CANCEL,
+                ACTION_UP -> {
                     buttonPressedExitObjectAnimations.forEach {
                         it.start()
                     }
@@ -265,7 +267,7 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
         buttonAnimationPropertyNames.forEach { propertyName ->
             buttonPressedEnterObjectAnimations.add(
                 ObjectAnimator
-                    .ofFloat(this, propertyName, buttonAnimation.getEndValue(), buttonAnimation.getStartValue())
+                    .ofFloat(this, propertyName, buttonAnimation.getStartValue(), buttonAnimation.getEndValue())
                     .apply {
                         duration = buttonAnimation.getDuration()
                         interpolator = buttonAnimation.getInterpolator()
@@ -274,7 +276,7 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
 
             buttonPressedExitObjectAnimations.add(
                 ObjectAnimator
-                    .ofFloat(this, propertyName, buttonAnimation.getStartValue(), buttonAnimation.getEndValue())
+                    .ofFloat(this, propertyName, buttonAnimation.getEndValue(), buttonAnimation.getStartValue())
                     .apply {
                         duration = buttonAnimation.getDuration()
                         interpolator = buttonAnimation.getInterpolator()
