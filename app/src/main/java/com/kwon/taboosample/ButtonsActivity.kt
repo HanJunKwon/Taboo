@@ -1,11 +1,13 @@
 package com.kwon.taboosample
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.kwon.taboo.button.TabooBadgeButton
+import com.kwon.taboo.button.TabooGhostButton
 
 class ButtonsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,5 +21,13 @@ class ButtonsActivity : AppCompatActivity() {
         }
 
         findViewById<TabooBadgeButton>(R.id.btn_badge).setBadge(10)
+
+        findViewById<TabooGhostButton>(R.id.btn_add_machine).apply {
+            setOnClickListener { Log.d(">>>", "Add Machine Button Clicked") }
+            setOnLongClickListener {
+                Log.d(">>>", "Add Machine Button Long Clicked")
+                true
+            }
+        }
     }
 }
