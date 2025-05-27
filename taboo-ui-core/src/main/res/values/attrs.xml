@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="animationDuration" format="integer"/>
+
     <declare-styleable name="TabooButtonCore">
+        <attr name="animationDuration"/>
         <attr name="enabledAnimation" format="boolean"/>
-        <attr name="animationDuration" format="integer"/>
         <attr name="scaleRatio" format="float"/>
     </declare-styleable>
 
@@ -21,6 +23,18 @@
             <enum name="both" value="2"/>
         </attr>
         <attr name="fadeHeight" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="TabooTranslateLayout">
+        <attr name="animationDuration"/>
+        <attr name="translationDirection" format="enum">
+            <enum name="bottomUp" value="0"/>
+            <enum name="topDown" value="1"/>
+            <enum name="leftRight" value="2"/>
+            <enum name="rightLeft" value="3"/>
+        </attr>
+        <attr name="fromDelta" format="float"/>
+        <attr name="toDelta" format="float"/>
     </declare-styleable>
 
     <declare-styleable name="TabooMenuItem">
