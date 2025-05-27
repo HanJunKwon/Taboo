@@ -9,8 +9,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewStub
 import android.view.animation.DecelerateInterpolator
 import android.widget.CompoundButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.annotation.IntDef
@@ -29,7 +31,7 @@ class TabooMenuButton(
     context: Context,
     attrs: AttributeSet
 ) : ConstraintLayout(context, attrs) {
-    private val binding = TabooMenuButtonBinding.inflate(LayoutInflater.from(context), this, true)
+    private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_menu_button, this, true)
 
     private var menuTitle = "Preview Button"
     private var description = "Preview Button Description"
@@ -82,7 +84,7 @@ class TabooMenuButton(
         setEnabled(isEnabled)
         setPressedAnimationsEnabledInternal(pressedAnimation)
 
-        binding.root.background = ContextCompat.getDrawable(context, R.drawable.taboo_menu_button_background)
+        background = ContextCompat.getDrawable(context, R.drawable.taboo_menu_button_background)
 
         if (isPressedAnimationsEnabled) {
             setDurationInternal(duration)
@@ -102,7 +104,7 @@ class TabooMenuButton(
     }
 
     private fun updateEnabled() {
-        binding.root.alpha = if (isEnabled) 1.0f else 0.3f
+        alpha = if (isEnabled) 1.0f else 0.3f
 
         inflatedView?.findViewById<TextView>(R.id.switch_menu)?.isEnabled = this.isEnabled
     }
@@ -123,7 +125,7 @@ class TabooMenuButton(
      * 타이틀을 업데이트 한다.
      */
     private fun updateText() {
-        binding.tvButtonName.text = menuTitle
+        rootView.findViewById<TextView>(R.id.tv_button_name).text = menuTitle
     }
 
     fun getDescription() = description
@@ -144,8 +146,10 @@ class TabooMenuButton(
      * [description]이 비어있을 경우, Description TextView [View.GONE] 처리.
      */
     private fun updateDescription() {
-        binding.tvButtonDescription.text = description
-        binding.tvButtonDescription.visibility = if (description.isBlank()) View.GONE else View.VISIBLE
+        rootView.findViewById<TextView>(R.id.tv_button_description).apply {
+            text = description
+            visibility = if (description.isBlank()) View.GONE else View.VISIBLE
+        }
     }
 
     fun getMenuType() = menuType
@@ -177,7 +181,7 @@ class TabooMenuButton(
             else -> return
         }
 
-        inflatedView = binding.vsFragment.viewStub?.let { viewStub ->
+        inflatedView = rootView.findViewById<ViewStub>(R.id.vs_fragment)?.let { viewStub ->
             viewStub.layoutResource = view
             viewStub.inflate()
         }
@@ -236,11 +240,11 @@ class TabooMenuButton(
      */
     private fun updatePreviewGravity() {
         val constraintSet = ConstraintSet()
-        constraintSet.clone(binding.wrapper)
+        constraintSet.clone(rootView.findViewById<ConstraintLayout>(R.id.wrapper))
 
-        val buttonInfoId = binding.clButtonInformationContainer.id
+        val buttonInfoId = rootView.findViewById<ConstraintLayout>(R.id.cl_button_information_container).id
         val viewStubId = inflatedView?.id ?: return
-        val parentId = binding.wrapper.id
+        val parentId = rootView.findViewById<ConstraintLayout>(R.id.wrapper).id
 
         when (previewGravity) {
             PREVIEW_GRAVITY_TOP -> {
@@ -262,7 +266,7 @@ class TabooMenuButton(
         constraintSet.connect(buttonInfoId, END, viewStubId, START)
         constraintSet.connect(viewStubId, START, buttonInfoId, END)
 
-        constraintSet.applyTo(binding.wrapper)
+        constraintSet.applyTo(rootView.findViewById<ConstraintLayout>(R.id.wrapper))
     }
 
     /**
@@ -295,7 +299,7 @@ class TabooMenuButton(
      * 아이콘을 업데이트 한다.
      */
     private fun updateIconResource() {
-        binding.ivButtonIcon.setImageDrawable(iconDrawable)
+        rootView.findViewById<ImageView>(R.id.iv_button_icon).setImageDrawable(iconDrawable)
     }
 
     fun isToggleChecked(): Boolean {
@@ -382,22 +386,22 @@ class TabooMenuButton(
 
     private fun updatePressedAnimations() {
         if (isPressedAnimationsEnabled) {
-            pressedEnterScaleXAnim = ObjectAnimator.ofFloat(binding.root, "scaleX", 1.0f, scaleRatio).apply {
+            pressedEnterScaleXAnim = ObjectAnimator.ofFloat(this, "scaleX", 1.0f, scaleRatio).apply {
                 this.duration = duration
                 this.interpolator = DecelerateInterpolator()
             }
 
-            pressedEnterScaleYAnim = ObjectAnimator.ofFloat(binding.root, "scaleY", 1.0f, scaleRatio).apply {
+            pressedEnterScaleYAnim = ObjectAnimator.ofFloat(this, "scaleY", 1.0f, scaleRatio).apply {
                 this.duration = duration
                 this.interpolator = DecelerateInterpolator()
             }
 
-            pressedExitScaleXAnim = ObjectAnimator.ofFloat(binding.root, "scaleX", scaleRatio, 1.0f).apply {
+            pressedExitScaleXAnim = ObjectAnimator.ofFloat(this, "scaleX", scaleRatio, 1.0f).apply {
                 this.duration = duration
                 this.interpolator = DecelerateInterpolator()
             }
 
-            pressedExitScaleYAnim = ObjectAnimator.ofFloat(binding.root, "scaleY", scaleRatio, 1.0f).apply {
+            pressedExitScaleYAnim = ObjectAnimator.ofFloat(this, "scaleY", scaleRatio, 1.0f).apply {
                 this.duration = duration
                 this.interpolator = DecelerateInterpolator()
             }
@@ -407,8 +411,8 @@ class TabooMenuButton(
             pressedExitScaleXAnim?.cancel()
             pressedExitScaleYAnim?.cancel()
 
-            binding.root.scaleX = 1.0f
-            binding.root.scaleY = 1.0f
+            scaleX = 1.0f
+            scaleY = 1.0f
 
             pressedExitScaleXAnim = null
             pressedExitScaleYAnim = null

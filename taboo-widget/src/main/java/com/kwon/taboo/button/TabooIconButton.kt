@@ -7,6 +7,8 @@ import android.util.AttributeSet
 import android.util.TypedValue.COMPLEX_UNIT_PX
 import android.util.TypedValue.COMPLEX_UNIT_SP
 import android.view.LayoutInflater
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StyleRes
@@ -24,7 +26,7 @@ private const val ICON_POSITION_LEFT = 0
 private const val ICON_POSITION_RIGHT = 1
 
 class TabooIconButton(context: Context, attrs: AttributeSet): TabooButtonCore(context, attrs) {
-    private val binding = TabooIconButtonBinding.inflate(LayoutInflater.from(context), this, true)
+    private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_icon_button, this, true)
 
     private var enabled = true
 
@@ -75,7 +77,7 @@ class TabooIconButton(context: Context, attrs: AttributeSet): TabooButtonCore(co
     }
 
     override fun drawButton() {
-        binding.root.background = createBackground()
+        background = createBackground()
     }
 
     override fun setEnabled(enabled: Boolean) {
@@ -86,7 +88,7 @@ class TabooIconButton(context: Context, attrs: AttributeSet): TabooButtonCore(co
     }
 
     private fun updateEnabled() {
-        binding.root.alpha = if (enabled) 1.0f else 0.3f
+        alpha = if (enabled) 1.0f else 0.3f
     }
 
 
@@ -97,7 +99,7 @@ class TabooIconButton(context: Context, attrs: AttributeSet): TabooButtonCore(co
      }
 
     private fun updateText() {
-        binding.tvButtonText.text = getText()
+        rootView.findViewById<TextView>(R.id.tv_button_text).text = getText()
     }
 
     fun getTextColor() = textColorStateList
@@ -127,7 +129,7 @@ class TabooIconButton(context: Context, attrs: AttributeSet): TabooButtonCore(co
     }
 
     private fun updateTextSize() {
-        binding.tvButtonText.setTextSize(textSizeUnit, textSize)
+        rootView.findViewById<TextView>(R.id.tv_button_text).setTextSize(textSizeUnit, textSize)
     }
 
     fun setTextColor(@ColorRes color: Int) {
@@ -137,7 +139,7 @@ class TabooIconButton(context: Context, attrs: AttributeSet): TabooButtonCore(co
     }
 
     private fun updateTextColor() {
-        binding.tvButtonText.setTextColor(textColorStateList)
+        rootView.findViewById<TextView>(R.id.tv_button_text).setTextColor(textColorStateList)
     }
 
     fun getTypeface() = typeface
@@ -149,7 +151,7 @@ class TabooIconButton(context: Context, attrs: AttributeSet): TabooButtonCore(co
     }
 
     private fun updateTypeFace() {
-        binding.tvButtonText.typeface = typeface
+        rootView.findViewById<TextView>(R.id.tv_button_text).typeface = typeface
     }
 
     fun setTextAppearance(@StyleRes textAppearance: Int) {
@@ -160,7 +162,7 @@ class TabooIconButton(context: Context, attrs: AttributeSet): TabooButtonCore(co
     private fun updateTextAppearance() {
         if (textAppearanceResId == 0) return
 
-        binding.tvButtonText.setTextAppearance(textAppearanceResId)
+        rootView.findViewById<TextView>(R.id.tv_button_text).setTextAppearance(textAppearanceResId)
     }
 
     fun getIconDrawable() = iconDrawable
@@ -175,9 +177,9 @@ class TabooIconButton(context: Context, attrs: AttributeSet): TabooButtonCore(co
         val icon = ContextCompat.getDrawable(context, iconDrawable)
 
         if (iconPosition == ICON_POSITION_LEFT) {
-            binding.ivLeftIcon.setImageDrawable(icon)
+            rootView.findViewById<ImageView>(R.id.iv_left_icon).setImageDrawable(icon)
         } else {
-            binding.ivRightIcon.setImageDrawable(icon)
+            rootView.findViewById<ImageView>(R.id.iv_right_icon).setImageDrawable(icon)
         }
     }
 
@@ -205,11 +207,11 @@ class TabooIconButton(context: Context, attrs: AttributeSet): TabooButtonCore(co
 
     private fun updateIconPosition() {
         if (iconPosition == ICON_POSITION_LEFT) {
-            binding.ivLeftIcon.visibility = VISIBLE
-            binding.ivRightIcon.visibility = GONE
+            rootView.findViewById<ImageView>(R.id.iv_left_icon).visibility = VISIBLE
+            rootView.findViewById<ImageView>(R.id.iv_right_icon).visibility = GONE
         } else {
-            binding.ivLeftIcon.visibility = GONE
-            binding.ivRightIcon.visibility = VISIBLE
+            rootView.findViewById<ImageView>(R.id.iv_left_icon).visibility = GONE
+            rootView.findViewById<ImageView>(R.id.iv_right_icon).visibility = VISIBLE
         }
     }
 
