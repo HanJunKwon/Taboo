@@ -34,7 +34,7 @@
             android:id="@+id/btn_negative"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="7dp"
             android:text="취소"
             style="@style/Taboo.Style.SecondaryButton.Round.Fill"
             app:layout_constraintTop_toTopOf="parent"
