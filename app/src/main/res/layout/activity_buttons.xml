@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".ButtonsActivity">
 
     <LinearLayout
@@ -151,6 +152,12 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:layout_marginTop="10dp"/>
+
+        <com.kwon.taboo.button.TabooGhostButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="장비 추가하기"
+            android:src="@drawable/ic_add_24" />
 
     </LinearLayout>
 

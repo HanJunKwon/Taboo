@@ -14,7 +14,7 @@ import com.kwon.taboo.uicore.attribute.ButtonAppearance
 import com.kwon.taboo.uicore.attribute.ColorContainer
 import com.kwon.taboo.uicore.button.TabooButtonCore
 
-class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCore(context, attrs) {
+open class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCore(context, attrs) {
     private val binding = TabooButtonBinding.inflate(LayoutInflater.from(context), this, true)
 
     companion object {

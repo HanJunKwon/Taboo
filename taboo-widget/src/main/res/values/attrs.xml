@@ -97,6 +97,11 @@
         <attr name="isChecked"/>
     </declare-styleable>
 
+    <declare-styleable name="TabooGhostButton">
+        <attr name="android:text" format="string"/>
+        <attr name="android:src" format="reference"/>
+    </declare-styleable>
+
     <declare-styleable name="TabooTextInput">
         <attr name="android:inputType" format="enum"/>
         <attr name="android:text" format="string"/>
