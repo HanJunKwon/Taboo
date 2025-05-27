@@ -57,10 +57,12 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
 
     init {
         context.withStyledAttributes(attrs, R.styleable.TabooButtonCore) {
+            setEnabledAnimation(getBoolean(R.styleable.TabooButtonCore_enabledAnimation, true))
             setAnimationDuration(getInt(R.styleable.TabooButtonCore_animationDuration, 100).toLong())
-        }
+            setScaleRatio(getFloat(R.styleable.TabooButtonCore_scaleRatio, 0.95f))
 
-        createButtonObjectAnimators()
+            createButtonObjectAnimators()
+        }
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -256,8 +258,35 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
         )
     }
 
+    fun setEnabledAnimation(enabled: Boolean) {
+        enabledAnimation = enabled
+    }
+
+    fun isEnabledAnimation(): Boolean {
+        return enabledAnimation
+    }
+
     fun setAnimationDuration(duration: Long) {
         buttonAnimation.setDuration(duration)
+    }
+
+    fun getAnimationDuration(): Long {
+        return buttonAnimation.getDuration()
+    }
+
+    /**
+     * [ACTION_DOWN] 이벤트 시 버튼의 크기를 조정하는 비율을 설정합니다.
+     *
+     * [ButtonAnimation]의 `endValue`는 [ACTION_DOWN] 이벤트 시 버튼이 눌렸을 때의 크기 비율을 나타내기 때문에
+     * EndValue를 설정합니다.
+     * @param scaleRatio 버튼이 눌렸을 때의 크기 비율 (예: 0.95f는 95% 크기로 축소)
+     */
+    fun setScaleRatio(scaleRatio: Float) {
+        buttonAnimation.setEndValue(scaleRatio)
+    }
+
+    fun getScaleRatio(): Float {
+        return buttonAnimation.getEndValue()
     }
 
     private fun createButtonObjectAnimators() {
