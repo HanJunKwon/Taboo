@@ -70,8 +70,6 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        Log.d(">>>", "dispatchTouchEvent: ${ev?.action} on ${this.javaClass.simpleName}")
-
         if (enabledAnimation) {
             when (ev?.action) {
                 ACTION_DOWN -> {

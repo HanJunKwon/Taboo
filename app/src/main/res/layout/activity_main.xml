@@ -122,6 +122,12 @@
                 android:layout_height="wrap_content"
                 android:text="Fade ScrollView"/>
 
+            <Button
+                android:id="@+id/btn_bottom_up_view_example"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BottomUpLayout"/>
+
         </LinearLayout>
 
     </ScrollView>
