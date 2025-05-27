@@ -33,7 +33,7 @@ class TabooAlert(context: Context) : AlertDialog(context) {
         findViewById<TextView>(R.id.tv_confirm_message).text = message
 
         findViewById<TabooButton>(R.id.btn_alert).apply {
-            text = buttonText
+            setText(buttonText)
             setOnClickListener {
                 listener()
                 dismiss()

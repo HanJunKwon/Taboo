@@ -78,6 +78,9 @@
         </attr>
         <attr name="toggleChecked" format="boolean"/>
         <attr name="icon"/>
+        <attr name="pressedAnimation" format="boolean"/>
+        <attr name="pressedScaleRatio" format="float"/>
+        <attr name="animationDuration" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="TabooBadgeButton">
@@ -92,6 +95,11 @@
         <attr name="title"/>
         <attr name="description" format="string"/>
         <attr name="isChecked"/>
+    </declare-styleable>
+
+    <declare-styleable name="TabooGhostButton">
+        <attr name="android:text" format="string"/>
+        <attr name="android:src" format="reference"/>
     </declare-styleable>
 
     <declare-styleable name="TabooTextInput">

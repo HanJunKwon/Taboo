@@ -2,6 +2,7 @@ package com.kwon.taboo.button
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.drawable.RippleDrawable
 import android.util.AttributeSet
 import android.util.TypedValue.COMPLEX_UNIT_PX
 import android.util.TypedValue.COMPLEX_UNIT_SP
@@ -14,18 +15,19 @@ import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.content.withStyledAttributes
 import com.kwon.taboo.R
 import com.kwon.taboo.databinding.TabooIconButtonBinding
+import com.kwon.taboo.uicore.button.TabooButtonCore
 
 private const val ICON_POSITION_LEFT = 0
 private const val ICON_POSITION_RIGHT = 1
 
-class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(context, attrs) {
+class TabooIconButton(context: Context, attrs: AttributeSet): TabooButtonCore(context, attrs) {
     private val binding = TabooIconButtonBinding.inflate(LayoutInflater.from(context), this, true)
 
     private var enabled = true
 
-    private var text = ""
     private var textColorStateList: ColorStateList? = null
     private var textSize = 16f
     private var textSizeUnit = COMPLEX_UNIT_SP
@@ -39,28 +41,41 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
     private var iconPosition = ICON_POSITION_LEFT
 
     init {
-        val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooIconButton)
-        val background = typed.getResourceId(R.styleable.TabooIconButton_android_background, R.drawable.selector_taboo_icon_button)
-        val enabled = typed.getBoolean(R.styleable.TabooIconButton_android_enabled, true)
-        val text = typed.getString(R.styleable.TabooIconButton_android_text) ?: ""
-        val textColor = typed.getColorStateList(R.styleable.TabooIconButton_android_textColor)
-        val textSize = typed.getDimensionPixelSize(R.styleable.TabooIconButton_android_textSize, 0)
-        val fontFamily = typed.getResourceId(R.styleable.TabooIconButton_android_fontFamily, 0)
-        val iconDrawable = typed.getResourceId(R.styleable.TabooIconButton_icon, 0)
-        val iconPosition = typed.getInt(R.styleable.TabooIconButton_iconPosition, ICON_POSITION_LEFT)
+        context.withStyledAttributes(attrs, R.styleable.TabooIconButton) {
+            background = ContextCompat.getDrawable(
+                context,
+                getResourceId(
+                    R.styleable.TabooIconButton_android_background,
+                    R.drawable.selector_taboo_icon_button
+                )
+            )
+            setEnabled(getBoolean(R.styleable.TabooIconButton_android_enabled, true))
+            setText(getString(R.styleable.TabooIconButton_android_text) ?: "")
+            setTextColor(getColorStateList(R.styleable.TabooIconButton_android_textColor))
+            setTypeface(getResourceId(R.styleable.TabooIconButton_android_fontFamily, 0))
+            setTextSizeInternal(getDimensionPixelSize(R.styleable.TabooIconButton_android_textSize, 0))
+            setIconPosition(getInt(R.styleable.TabooIconButton_iconPosition, ICON_POSITION_LEFT))
+            setIconDrawable(getResourceId(R.styleable.TabooIconButton_icon, 0))
 
-        typed.recycle()
+            invalidate()
+        }
+    }
 
-        setBackground(ContextCompat.getDrawable(context, background))
-        setEnabled(enabled)
-        setText(text)
-        setTextColor(textColor)
-        setTypeface(fontFamily)
-        setTextSizeInternal(textSize)
-        setIconPosition(iconPosition)
-        setIconDrawable(iconDrawable)
+    override fun createBackground(): RippleDrawable {
+        gradientDrawable.apply {
+            cornerRadius = getRadius()
+            color = getBackgroundColor()
+        }
 
-        invalidate()
+        return RippleDrawable(
+            getRippleColorState(),
+            gradientDrawable,
+            null
+        )
+    }
+
+    override fun drawButton() {
+        binding.root.background = createBackground()
     }
 
     override fun setEnabled(enabled: Boolean) {
@@ -74,15 +89,15 @@ class TabooIconButton(context: Context, attrs: AttributeSet): ConstraintLayout(c
         binding.root.alpha = if (enabled) 1.0f else 0.3f
     }
 
-    fun getText() = text
 
-    fun setText(text: String) {
-         this.text = text
-         updateText()
+    override fun setText(text: String) {
+        super.setText(text)
+
+        updateText()
      }
 
     private fun updateText() {
-        binding.tvButtonText.text = text
+        binding.tvButtonText.text = getText()
     }
 
     fun getTextColor() = textColorStateList

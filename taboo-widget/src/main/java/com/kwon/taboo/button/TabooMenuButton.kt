@@ -1,10 +1,15 @@
 package com.kwon.taboo.button
 
+import android.animation.AnimatorInflater
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.animation.DecelerateInterpolator
 import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.annotation.DrawableRes
@@ -40,7 +45,18 @@ class TabooMenuButton(
 
     private var inflatedView: View? = null
 
+    private var isPressedAnimationsEnabled = true
+    private var duration: Long = 100L
+    private var scaleRatio: Float = 0.95f
+    private var pressedEnterScaleXAnim: ObjectAnimator? = null
+    private var pressedEnterScaleYAnim: ObjectAnimator? = null
+    private var pressedExitScaleXAnim: ObjectAnimator? = null
+    private var pressedExitScaleYAnim: ObjectAnimator? = null
+
     init {
+        isFocusable = true
+        isClickable = true
+
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooMenuButton)
         val isEnabled = typed.getBoolean(R.styleable.TabooMenuButton_android_enabled, true)
         val text = typed.getString(R.styleable.TabooMenuButton_menuTitle) ?: "Menu Title"
@@ -50,6 +66,9 @@ class TabooMenuButton(
         val previewGravity = typed.getInt(R.styleable.TabooMenuButton_previewGravity, PREVIEW_GRAVITY_TOP)
         val isToggleChecked = typed.getBoolean(R.styleable.TabooMenuButton_toggleChecked, false)
         val iconResourceId = typed.getResourceId(R.styleable.TabooMenuButton_icon, 0)
+        val pressedAnimation = typed.getBoolean(R.styleable.TabooMenuButton_pressedAnimation, true)
+        val duration = typed.getInt(R.styleable.TabooMenuButton_animationDuration, 50).toLong()
+        val scaleRatio = typed.getFloat(R.styleable.TabooMenuButton_pressedScaleRatio, 0.95f)
 
         typed.recycle()
 
@@ -61,8 +80,20 @@ class TabooMenuButton(
         isToggleChecked(isToggleChecked)
         setIconResourceId(iconResourceId)
         setEnabled(isEnabled)
+        setPressedAnimationsEnabledInternal(pressedAnimation)
 
-        binding.root.background = ContextCompat.getDrawable(context, R.drawable.taboo_button_ripple_effect)
+        binding.root.background = ContextCompat.getDrawable(context, R.drawable.taboo_menu_button_background)
+
+        if (isPressedAnimationsEnabled) {
+            setDurationInternal(duration)
+            setScaleRatioInternal(scaleRatio)
+
+            applyPressedAnimations()
+        }
+    }
+
+    private fun applyPressedAnimations() {
+        updatePressedAnimations()
     }
 
     override fun setEnabled(enabled: Boolean) {
@@ -281,8 +312,109 @@ class TabooMenuButton(
         }
     }
 
-    override fun setOnClickListener(l: OnClickListener?) {
-        super.setOnClickListener(l)
+    fun isPressedAnimationsEnabled(): Boolean {
+        return isPressedAnimationsEnabled
+    }
+
+    private fun setPressedAnimationsEnabledInternal(enabled: Boolean) {
+        isPressedAnimationsEnabled = enabled
+    }
+
+    fun isPressedAnimationsEnabled(enabled: Boolean) {
+        setPressedAnimationsEnabledInternal(enabled)
+        updatePressedAnimations()
+    }
+
+    fun getDuration(): Long {
+        return duration
+    }
+
+    private fun setDurationInternal(duration: Long) {
+        if (duration <= 0) {
+            throw IllegalArgumentException("Duration must be greater than 0")
+        }
+
+        this.duration = duration
+
+    }
+
+    fun setDuration(duration: Long) {
+        setDurationInternal(duration)
+
+        updatePressedAnimations()
+    }
+
+    fun getScaleRatio(): Float {
+        return scaleRatio
+    }
+
+    private fun setScaleRatioInternal(scaleRatio: Float) {
+        if (scaleRatio <= 0 || scaleRatio > 1) {
+            throw IllegalArgumentException("Scale ratio must be between 0 and 1")
+        }
+
+        this.scaleRatio = scaleRatio
+    }
+
+    fun setScaleRatio(scaleRatio: Float) {
+        setScaleRatioInternal(scaleRatio)
+
+        updatePressedAnimations()
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (isPressedAnimationsEnabled) {
+            when (ev?.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    pressedEnterScaleXAnim?.start()
+                    pressedEnterScaleYAnim?.start()
+                }
+                MotionEvent.ACTION_UP,
+                MotionEvent.ACTION_CANCEL -> {
+                    pressedExitScaleXAnim?.start()
+                    pressedExitScaleYAnim?.start()
+                }
+            }
+        }
+
+        return super.dispatchTouchEvent(ev)
+    }
+
+    private fun updatePressedAnimations() {
+        if (isPressedAnimationsEnabled) {
+            pressedEnterScaleXAnim = ObjectAnimator.ofFloat(binding.root, "scaleX", 1.0f, scaleRatio).apply {
+                this.duration = duration
+                this.interpolator = DecelerateInterpolator()
+            }
+
+            pressedEnterScaleYAnim = ObjectAnimator.ofFloat(binding.root, "scaleY", 1.0f, scaleRatio).apply {
+                this.duration = duration
+                this.interpolator = DecelerateInterpolator()
+            }
+
+            pressedExitScaleXAnim = ObjectAnimator.ofFloat(binding.root, "scaleX", scaleRatio, 1.0f).apply {
+                this.duration = duration
+                this.interpolator = DecelerateInterpolator()
+            }
+
+            pressedExitScaleYAnim = ObjectAnimator.ofFloat(binding.root, "scaleY", scaleRatio, 1.0f).apply {
+                this.duration = duration
+                this.interpolator = DecelerateInterpolator()
+            }
+        } else {
+            pressedEnterScaleXAnim?.cancel()
+            pressedEnterScaleYAnim?.cancel()
+            pressedExitScaleXAnim?.cancel()
+            pressedExitScaleYAnim?.cancel()
+
+            binding.root.scaleX = 1.0f
+            binding.root.scaleY = 1.0f
+
+            pressedExitScaleXAnim = null
+            pressedExitScaleYAnim = null
+            pressedEnterScaleXAnim = null
+            pressedEnterScaleYAnim = null
+        }
     }
 
     /**
