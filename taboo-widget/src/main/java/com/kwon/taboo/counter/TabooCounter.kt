@@ -4,13 +4,15 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
 import com.kwon.taboo.databinding.TabooCounterBinding
 
 class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(context, attrs) {
-    private val binding = TabooCounterBinding.inflate(LayoutInflater.from(context), this, true)
+    private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_counter, this, true)
 
     /**
      * Counter 값
@@ -78,7 +80,7 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
      * Counter UI를 업데이트합니다.
      */
     private fun updateCount() {
-        binding.tvCount.text = count.toString()
+        rootView.findViewById<TextView>(R.id.tv_count).text = count.toString()
     }
 
     /**
@@ -124,7 +126,7 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
      * Minus 버튼 아이콘 Tint를 업데이트합니다.
      */
     private fun updateMinusIconTint() {
-        binding.btnMinus.imageTintList = minusIconTint
+        rootView.findViewById<ImageView>(R.id.btn_minus).imageTintList = minusIconTint
     }
 
     /**
@@ -146,7 +148,7 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
      * Plus 버튼 아이콘 Tint를 업데이트합니다.
      */
     private fun updatePlusIconTint() {
-        binding.btnPlus.imageTintList = plusIconTint
+        rootView.findViewById<ImageView>(R.id.btn_plus).imageTintList = plusIconTint
     }
 
     /**
@@ -156,10 +158,9 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
         super.setEnabled(enable)
 
         this.enabled = enable
-        binding.btnMinus.isEnabled = enable
-        binding.btnPlus.isEnabled = enable
-        binding.tvCount.isEnabled = enable
-        binding.root.isEnabled = enable
+        rootView.findViewById<ImageView>(R.id.btn_minus).isEnabled = enable
+        rootView.findViewById<ImageView>(R.id.btn_plus).isEnabled = enable
+        rootView.findViewById<TextView>(R.id.tv_count).isEnabled = enable
     }
 
     /**
@@ -170,12 +171,12 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
     }
 
     private fun setEvent() {
-        binding.btnMinus.setOnClickListener {
+        rootView.findViewById<ImageView>(R.id.btn_minus).setOnClickListener {
             if (count > minCount)
                 setCount(count - 1)
         }
 
-        binding.btnPlus.setOnClickListener {
+        rootView.findViewById<ImageView>(R.id.btn_plus).setOnClickListener {
             if (count < maxCount) {
                 setCount(count + 1)
             }
