@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "io.github.hanjunkwon"
-version = "0.0.16"
+version = "0.0.18"
 
 android {
     namespace = "com.kwon.taboo.uicore"
@@ -55,7 +55,7 @@ mavenPublishing {
     signAllPublications()
 
     // 프로젝트의 그룹 ID, 아티팩트 ID, 버전 설정
-    coordinates("io.github.hanjunkwon", "taboo-ui-core", "0.0.16")
+    coordinates("io.github.hanjunkwon", "taboo-ui-core", "0.0.18")
 
     // POM 정보 설정
     pom {

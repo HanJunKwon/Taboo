@@ -10,16 +10,16 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kwon.taboo.R
-import com.kwon.taboo.databinding.TabooWheelPickerBinding
 import com.kwon.taboo.pickers.adapter.WheelPickerAdapter
 import com.kwon.taboo.pickers.decoration.TabooWheelPickerItemDecoration
 import com.kwon.taboo.uicore.util.ResourceUtils
 
 class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
-    private val binding = TabooWheelPickerBinding.inflate(LayoutInflater.from(context), this, true)
+    private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_wheel_picker, this, true)
 
     private var itemDecoration = TabooWheelPickerItemDecoration(0)
     private var itemHeightPixel: Int = resources.getDimensionPixelSize(R.dimen.taboo_wheel_picker_item_default_height)
@@ -60,7 +60,7 @@ class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout
     }
 
     private fun initWheelAdapter() {
-        binding.rvWheelPicker.apply {
+        rootView.findViewById<RecyclerView>(R.id.rv_wheel_picker).apply {
             adapter = WheelPickerAdapter(context)
             layoutManager = LinearLayoutManager(context).apply {
                 orientation = LinearLayoutManager.VERTICAL
@@ -72,7 +72,7 @@ class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
-                    val adapter = binding.rvWheelPicker.adapter as WheelPickerAdapter
+                    val adapter = this@TabooWheelPicker.getAdapter()
 
                     val (firstVisible, lastVisible) = getVisibleItemPosition()
 
@@ -92,8 +92,16 @@ class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout
         setSelectedPosition(0)
     }
 
+    fun getAdapter(): WheelPickerAdapter {
+        return rootView.findViewById<RecyclerView>(R.id.rv_wheel_picker).adapter as WheelPickerAdapter
+    }
+
+    fun getLayoutManager(): LinearLayoutManager {
+        return rootView.findViewById<RecyclerView>(R.id.rv_wheel_picker).layoutManager as LinearLayoutManager
+    }
+
     fun setTextGravity(gravity: Int) {
-        (binding.rvWheelPicker.adapter as WheelPickerAdapter).setTextGravity(gravity)
+        getAdapter().setTextGravity(gravity)
     }
 
     /**
@@ -122,35 +130,36 @@ class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout
      */
     private fun updateItemHeight() {
         // RecyclerView 의 높이 변경
-        binding.rvWheelPicker.layoutParams = binding.rvWheelPicker.layoutParams.apply {
+        val wheelPickerView = rootView.findViewById<RecyclerView>(R.id.rv_wheel_picker)
+        val clPickerView = rootView.findViewById<ConstraintLayout>(R.id.cl_wheel_picker)
+
+        // 3개의 아이템이 보이도록 설정
+        wheelPickerView.layoutParams = wheelPickerView.layoutParams.apply {
             height = itemHeightPixel * 3
         }
 
         // 목록의 아이템 높이 변경
-        (binding.rvWheelPicker.adapter as WheelPickerAdapter).setItemHeight(itemHeightPixel)
+        getAdapter().setItemHeight(itemHeightPixel)
 
         // 선택된 아이템의 중앙 Offset 변경
-        binding.clWheelPicker.layoutParams = binding.clWheelPicker.layoutParams.apply {
+        clPickerView.layoutParams = clPickerView.layoutParams.apply {
             height = itemHeightPixel
         }
 
         // 최상위, 최하위 아이템의 Top, Bottom offset 변경
-        binding.rvWheelPicker.getItemDecorationAt(0).let {
-            (it as TabooWheelPickerItemDecoration).setItemHeight(itemHeightPixel)
-            binding.rvWheelPicker.invalidateItemDecorations()
+        wheelPickerView.getItemDecorationAt(0).let {
+            getAdapter().setItemHeight(itemHeightPixel)
+            wheelPickerView.invalidateItemDecorations()
         }
     }
 
     fun setItems(items: List<String>) {
-        (binding.rvWheelPicker.adapter as WheelPickerAdapter).submitList(items)
+        getAdapter().submitList(items)
     }
 
     fun setSelectedPosition(position: Int) {
-        val adapter = binding.rvWheelPicker.adapter as WheelPickerAdapter
-        val layoutManager = binding.rvWheelPicker.layoutManager as LinearLayoutManager
-
-        layoutManager.scrollToPositionWithOffset(position, itemHeightPixel)
-        adapter.selectedPosition(position)
+        getLayoutManager().scrollToPositionWithOffset(position, itemHeightPixel)
+        getAdapter().selectedPosition(position)
     }
 
     private fun setSelectionStrokeColorInternal(color: Int) {
@@ -175,7 +184,7 @@ class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout
     }
 
     private fun updateSelectionBox() {
-        binding.clWheelPicker.background = createSelectionBox()
+        rootView.findViewById<ConstraintLayout>(R.id.cl_wheel_picker).background = createSelectionBox()
     }
 
     /**
@@ -189,7 +198,7 @@ class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout
     private fun createSelectionBox(): LayerDrawable{
         val gradientDecoration = GradientDrawable().apply {
             setStroke(
-                ResourceUtils.dpToPx(context, selectionStrokeWidth).toInt(),
+                ResourceUtils.dpToPx(context, selectionStrokeWidth),
                 selectionStrokeColor
             )
         }
@@ -202,7 +211,7 @@ class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout
     }
 
     private fun getVisibleItemPosition(): Pair<Int, Int> {
-        val layoutManager = binding.rvWheelPicker.layoutManager as LinearLayoutManager
+        val layoutManager = getLayoutManager()
 
         val firstVisibleItemPosition = layoutManager.findFirstCompletelyVisibleItemPosition().takeIf { it != -1 } ?: layoutManager.findFirstVisibleItemPosition()
         val lastVisibleItemPosition = layoutManager.findLastCompletelyVisibleItemPosition().takeIf { it != -1 } ?: layoutManager.findLastVisibleItemPosition()

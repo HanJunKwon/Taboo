@@ -2,11 +2,14 @@ package com.kwon.taboosample
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.kwon.taboo.TabooToast
 import com.kwon.taboo.button.TabooBadgeButton
+import com.kwon.taboo.button.TabooButton
 import com.kwon.taboo.button.TabooGhostButton
 
 class ButtonsActivity : AppCompatActivity() {
@@ -18,6 +21,12 @@ class ButtonsActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        findViewById<TabooButton>(R.id.btn_solid).setOnClickListener {
+            TabooToast(this)
+                .makeText(com.kwon.taboo.R.drawable.ic_success, "Solid Button Clicked", Toast.LENGTH_SHORT)
+                .show()
         }
 
         findViewById<TabooBadgeButton>(R.id.btn_badge).setBadge(10)

@@ -5,13 +5,13 @@ import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.kwon.taboo.R
-import com.kwon.taboo.databinding.TabooIconTextViewBinding
 
 class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
-
-    private val binding = TabooIconTextViewBinding.inflate(LayoutInflater.from(context), this, true)
+    private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_icon_text_view, this, true)
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooIconTextView)
@@ -46,43 +46,43 @@ class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayou
         if (iconSrc == 0) {
             return
         }
-        binding.ivIcon.setImageResource(iconSrc)
+        rootView.findViewById<ImageView>(R.id.iv_icon).setImageResource(iconSrc)
     }
 
     fun setIconSize(width: Int, height: Int) {
-        val layoutParams = binding.ivIcon.layoutParams.apply {
-            this.width = if (width == -1) LayoutParams.WRAP_CONTENT else width
-            this.height = if (height == -1) LayoutParams.WRAP_CONTENT else height
+        rootView.findViewById<ImageView>(R.id.iv_icon).apply {
+            this.layoutParams = this.layoutParams.apply {
+                this.width = if (width == -1) LayoutParams.WRAP_CONTENT else width
+                this.height = if (height == -1) LayoutParams.WRAP_CONTENT else height
+            }
         }
-
-        binding.ivIcon.layoutParams = layoutParams
     }
 
     fun setText(text: String) {
-        binding.tvText.text = text
+        rootView.findViewById<TextView>(R.id.tv_text).text = text
     }
 
     fun setTextAppearance(textAppearance: Int) {
-        binding.tvText.setTextAppearance(textAppearance)
+        rootView.findViewById<TextView>(R.id.tv_text).setTextAppearance(textAppearance)
     }
 
     fun setTextColor(color: ColorStateList?) {
         if (color == null)
             return
 
-        binding.tvText.setTextColor(color)
+        rootView.findViewById<TextView>(R.id.tv_text).setTextColor(color)
     }
 
     fun setTextSize(size: Float) {
-        binding.tvText.setTextSize(TypedValue.COMPLEX_UNIT_PX, size)
+        rootView.findViewById<TextView>(R.id.tv_text).setTextSize(TypedValue.COMPLEX_UNIT_PX, size)
     }
 
     fun setMaxLines(maxLines: Int) {
-        binding.tvText.maxLines = maxLines
+        rootView.findViewById<TextView>(R.id.tv_text).maxLines = maxLines
     }
 
     fun setEllipsize(ellipsize: Int) {
-        binding.tvText.ellipsize = when (ellipsize) {
+        rootView.findViewById<TextView>(R.id.tv_text).ellipsize = when (ellipsize) {
             1 -> android.text.TextUtils.TruncateAt.START
             2 -> android.text.TextUtils.TruncateAt.MIDDLE
             3 -> android.text.TextUtils.TruncateAt.END

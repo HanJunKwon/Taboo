@@ -4,14 +4,15 @@ import android.content.Context
 import android.graphics.drawable.RippleDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
 import com.kwon.taboo.R
-import com.kwon.taboo.databinding.TabooGhostButtonBinding
 import com.kwon.taboo.uicore.button.TabooButtonCore
 
 class TabooGhostButton(context: Context, attrs: AttributeSet): TabooButtonCore(context, attrs) {
-    private val binding = TabooGhostButtonBinding.inflate(LayoutInflater.from(context), this, true)
+    private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_ghost_button, this, true)
 
     init {
         context.withStyledAttributes(attrs, R.styleable.TabooGhostButton) {
@@ -32,11 +33,11 @@ class TabooGhostButton(context: Context, attrs: AttributeSet): TabooButtonCore(c
     }
 
     fun setIcon(icon: Int) {
-        binding.ivIcon.setImageResource(icon)
+        rootView.findViewById<ImageView>(R.id.iv_icon).setImageResource(icon)
     }
 
     override fun setText(text: String) {
-        binding.tvText.text = text
+        rootView.findViewById<TextView>(R.id.tv_text).text = text
     }
 
     override fun createBackground(): RippleDrawable {
@@ -53,6 +54,6 @@ class TabooGhostButton(context: Context, attrs: AttributeSet): TabooButtonCore(c
     }
 
     override fun drawButton() {
-        binding.root.background = createBackground()
+        background = createBackground()
     }
 }

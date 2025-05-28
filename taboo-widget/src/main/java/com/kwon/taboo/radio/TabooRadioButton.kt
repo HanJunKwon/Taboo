@@ -3,13 +3,13 @@ package com.kwon.taboo.radio
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
-import com.kwon.taboo.databinding.TabooRadioButtonBinding
 
 class TabooRadioButton(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
-    private val binding = TabooRadioButtonBinding.inflate(LayoutInflater.from(context), this, true)
+    private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_radio_button, this, true)
     private var isChecked = false
 
     init {
@@ -24,7 +24,7 @@ class TabooRadioButton(context: Context, attrs: AttributeSet) : ConstraintLayout
         setChecked(isChecked)
         setEnabled(isEnabled)
 
-        binding.root.rootView.setOnClickListener {
+        super.setOnClickListener {
             if (!this.isEnabled) return@setOnClickListener
 
             setChecked(!this.isChecked)
@@ -32,20 +32,20 @@ class TabooRadioButton(context: Context, attrs: AttributeSet) : ConstraintLayout
     }
 
     fun setLabel(label: String) {
-        binding.tvRadioLabel.text = label
+        rootView.findViewById<TextView>(R.id.tv_radio_label).text = label
     }
 
-    fun getLabel()  = binding.tvRadioLabel.text.toString()
+    fun getLabel()  = rootView.findViewById<TextView>(R.id.tv_radio_label).text.toString()
 
     private fun updateChecked() {
-        binding.root.background = ContextCompat.getDrawable(
+        rootView.findViewById<ConstraintLayout>(R.id.wrapper).background = ContextCompat.getDrawable(
             context,
             if (isChecked) R.drawable.shape_taboo_radio_button_checked else R.drawable.shape_taboo_radio_button
         )
 
-        binding.tvRadioLabel.isSelected = isChecked
+        rootView.findViewById<TextView>(R.id.tv_radio_label).isSelected = isChecked
 
-        binding.clRadioButton.background = ContextCompat.getDrawable(
+        rootView.findViewById<ConstraintLayout>(R.id.cl_radio_button).background = ContextCompat.getDrawable(
             context,
             if (isChecked) R.drawable.shape_taboo_radio_button_icon_checked else R.drawable.shape_taboo_radio_button_icon
         )
@@ -60,14 +60,8 @@ class TabooRadioButton(context: Context, attrs: AttributeSet) : ConstraintLayout
         updateChecked()
     }
 
-    override fun setEnabled(isEnabled: Boolean) {
-        binding.root.isEnabled = isEnabled
-    }
-
-    fun getEnabled() = binding.root.isEnabled
-
     internal fun setOnRadioButtonGroupListener(listener: (Boolean, Int) -> Unit) {
-        binding.root.rootView.setOnClickListener {
+        super.setOnClickListener {
             if (!this.isEnabled) return@setOnClickListener
 
             setChecked(!this.isChecked)

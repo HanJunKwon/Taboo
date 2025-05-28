@@ -8,13 +8,13 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.EditText
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.kwon.taboo.R
-import com.kwon.taboo.databinding.TabooTextInputBinding
 import com.kwon.taboo.enums.AffixType
 
 class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
-    private val binding = TabooTextInputBinding.inflate(LayoutInflater.from(context), this, true)
+    private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_text_input, this, true)
     private var liningView: TabooTextField? = null
 
     private var title: String = "Title"
@@ -86,7 +86,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
 
         liningView = TabooEditText(
             context,
-            binding.clEditTextWrapper
+            rootView.findViewById(R.id.cl_edit_text_wrapper)
         ).apply {
             setText(text)
             setHint(hint)
@@ -122,7 +122,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
 
         liningView = TabooDropdown(
             context,
-            binding.clEditTextWrapper
+            rootView.findViewById(R.id.cl_edit_text_wrapper)
         ).apply {
             bindDropdownIcon()
 
@@ -145,8 +145,10 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
     }
 
     private fun updateTitle() {
-        binding.tvEditTextTitle.visibility = if (this.title.isEmpty()) GONE else VISIBLE
-        binding.tvEditTextTitle.text = this.title
+        rootView.findViewById<TextView>(R.id.tv_edit_text_title).apply {
+            visibility = if (title.isEmpty()) GONE else VISIBLE
+            text = title
+        }
     }
 
     fun setRequiredIconVisible(isVisible: Boolean = false) {
@@ -155,7 +157,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
     }
 
     private fun updateRequiredIconVisible() {
-        binding.viewRequiredDot.visibility = if (requiredIconVisible) VISIBLE else GONE
+        rootView.findViewById<View>(R.id.view_required_dot).visibility = if (requiredIconVisible) VISIBLE else GONE
     }
 
     fun setText(text: String) {
@@ -176,7 +178,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
     }
 
     private fun updateErrorMessage() {
-        binding.tvErrorMessage.text = errorMessage
+        rootView.findViewById<TextView>(R.id.tv_error_message).text = errorMessage
     }
 
     fun isError(error: Boolean = false) {
@@ -187,7 +189,7 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
     fun isError() = this.error
 
     private fun updateError() {
-        binding.tvErrorMessage.visibility = if (error) VISIBLE else INVISIBLE
+        rootView.findViewById<TextView>(R.id.tv_error_message).visibility = if (error) VISIBLE else INVISIBLE
         liningView?.isError(error)
     }
 
@@ -195,9 +197,9 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
         super.setEnabled(enabled)
         this.enabled = enabled
 
-        binding.tvEditTextTitle.isEnabled = enabled
-        binding.viewRequiredDot.isEnabled = enabled
-        binding.clEditTextWrapper.isEnabled = enabled
+        rootView.findViewById<TextView>(R.id.tv_edit_text_title).isEnabled = enabled
+        rootView.findViewById<View>(R.id.view_required_dot).isEnabled = enabled
+        rootView.findViewById<ConstraintLayout>(R.id.cl_edit_text_wrapper).isEnabled = enabled
 
         liningView?.setEnabled(enabled)
     }

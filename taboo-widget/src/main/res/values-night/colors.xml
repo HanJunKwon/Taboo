@@ -26,4 +26,6 @@
 
     <color name="taboo_bottom_navigation_stroke">@color/taboo_black_700</color>
     <color name="taboo_bottom_navigation_background">@color/taboo_gray_900</color>
+
+    <color name="taboo_ripple_default_color">@color/taboo_opacity_white_w_5</color>
 </resources>

@@ -73,10 +73,10 @@
                 android:text="PREVIEW BUTTON"/>
 
             <Button
-                android:id="@+id/btn_time_picker_example"
+                android:id="@+id/btn_wheel_picker_example"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TIME PICKER"/>
+                android:text="WHEEL PICKER"/>
 
             <Button
                 android:id="@+id/btn_text_view_example"
@@ -121,6 +121,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Fade ScrollView"/>
+
+            <Button
+                android:id="@+id/btn_bottom_up_view_example"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BottomUpLayout"/>
 
         </LinearLayout>
 

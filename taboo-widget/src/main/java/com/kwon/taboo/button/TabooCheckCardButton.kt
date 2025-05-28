@@ -3,17 +3,19 @@ package com.kwon.taboo.button
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Checkable
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
-import com.kwon.taboo.databinding.TabooCheckCardButtonBinding
 
 class TabooCheckCardButton(
     context: Context,
     attrs: AttributeSet
 ) : ConstraintLayout(context, attrs), Checkable {
-    private val binding = TabooCheckCardButtonBinding.inflate(LayoutInflater.from(context), this, true)
+    private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_check_card_button, this, true)
 
     private var title = ""
     private var description = ""
@@ -54,7 +56,7 @@ class TabooCheckCardButton(
     }
 
     private fun updateTitle() {
-        binding.tvTitle.text = title
+        rootView.findViewById<TextView>(R.id.tv_title).text = title
     }
 
     fun getDescription() = description
@@ -66,7 +68,7 @@ class TabooCheckCardButton(
     }
 
     private fun updateDescription() {
-        binding.tvDescription.text = description
+        rootView.findViewById<TextView>(R.id.tv_description).text = description
     }
 
     override fun setChecked(checked: Boolean) {
@@ -81,7 +83,7 @@ class TabooCheckCardButton(
             else R.drawable.shape_rect_r5_a100_000000_a100_b0b8c1
         background = ContextCompat.getDrawable(context, backgroundDrawable)
 
-        binding.ivCheck.visibility = if (isChecked) VISIBLE else INVISIBLE
+        rootView.findViewById<ImageView>(R.id.iv_check).visibility = if (isChecked) VISIBLE else INVISIBLE
     }
 
     override fun isChecked() = isChecked
@@ -93,7 +95,7 @@ class TabooCheckCardButton(
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
-        binding.root.setOnClickListener {
+        super.setOnClickListener {
             toggle()
             listener?.onClick(this)
         }

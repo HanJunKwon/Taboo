@@ -13,10 +13,9 @@ import com.kwon.taboo.R
 import com.kwon.taboo.calender.adapter.TabooHorizontalCalenderAdapter
 import com.kwon.taboo.calender.decoration.CalendarHorizontalSpaceDecoration
 import com.kwon.taboo.calender.scroller.CenterSmoothScroller
-import com.kwon.taboo.databinding.TabooHorizontalCalenderBinding
 
 class TabooHorizontalCalendar(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
-    private val binding = TabooHorizontalCalenderBinding.inflate(LayoutInflater.from(context), this, true)
+    private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_horizontal_calender, this, true)
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooHorizontalCalender)
@@ -30,7 +29,7 @@ class TabooHorizontalCalendar(context: Context, attrs: AttributeSet) : Constrain
      * Set calendar
      */
     private fun setCalendar() {
-        binding.rvHorizontalCalender.apply {
+        rootView.findViewById<RecyclerView>(R.id.rv_horizontal_calender).apply {
             adapter = TabooHorizontalCalenderAdapter().apply {
                 initCalendarBlock()
             }
@@ -41,21 +40,21 @@ class TabooHorizontalCalendar(context: Context, attrs: AttributeSet) : Constrain
     }
 
     fun setLocale(locale: String) {
-        (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setLocale(locale)
+        getAdapter().setLocale(locale)
     }
 
     fun getLocale(): String {
-        return (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).getLocale()
+        return getAdapter().getLocale()
     }
 
     fun setTimestamp(timestamp: Long) {
-        (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setTimestamp(timestamp)
+        getAdapter().setTimestamp(timestamp)
     }
 
     fun goSelectedDate() {
-        val horizontalCalendar = binding.rvHorizontalCalender
+        val horizontalCalendar = rootView.findViewById<RecyclerView>(R.id.rv_horizontal_calender)
         val adapter = horizontalCalendar.adapter as TabooHorizontalCalenderAdapter
-        val position = adapter.getSelectedPosition()
+        val position = getAdapter().getSelectedPosition()
 
         if (position == -1) {
             adapter.goSelectedDate()
@@ -63,7 +62,7 @@ class TabooHorizontalCalendar(context: Context, attrs: AttributeSet) : Constrain
             horizontalCalendar.viewTreeObserver.addOnPreDrawListener(
                 object : ViewTreeObserver.OnPreDrawListener {
                     override fun onPreDraw(): Boolean {
-                        binding.rvHorizontalCalender.viewTreeObserver.removeOnPreDrawListener(this)
+                        rootView.findViewById<RecyclerView>(R.id.rv_horizontal_calender).viewTreeObserver.removeOnPreDrawListener(this)
 
                         // Position 을 다시 계산하기 위해 재귀 호출
                         goSelectedDate()
@@ -72,61 +71,68 @@ class TabooHorizontalCalendar(context: Context, attrs: AttributeSet) : Constrain
                 }
             )
         } else {
-            horizontalCalendar.scrollToPositionWithCenter(binding.root.context, position)
+            horizontalCalendar.scrollToPositionWithCenter(context, position)
         }
     }
 
     fun goToday() {
-        val position = (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).getPosition(System.currentTimeMillis())
+        val horizontalCalendar = rootView.findViewById<RecyclerView>(R.id.rv_horizontal_calender)
+        val adapter = horizontalCalendar.adapter as TabooHorizontalCalenderAdapter
+        val position = adapter.getPosition(System.currentTimeMillis())
+
         if (position == -1) {
             setTimestamp(System.currentTimeMillis())
 
-            binding.rvHorizontalCalender.viewTreeObserver.addOnPreDrawListener(
+            rootView.findViewById<RecyclerView>(R.id.rv_horizontal_calender).viewTreeObserver.addOnPreDrawListener(
                 object : ViewTreeObserver.OnPreDrawListener {
                     override fun onPreDraw(): Boolean {
-                        binding.rvHorizontalCalender.viewTreeObserver.removeOnPreDrawListener(this)
+                        rootView.findViewById<RecyclerView>(R.id.rv_horizontal_calender).viewTreeObserver.removeOnPreDrawListener(this)
                         goToday()
                         return true
                     }
                 }
             )
         } else {
-            binding.rvHorizontalCalender.scrollToPositionWithCenter(binding.root.context, position)
+            rootView.findViewById<RecyclerView>(R.id.rv_horizontal_calender).scrollToPositionWithCenter(context, position)
 
             setSelectedPosition(position)
         }
     }
 
     fun nextMonth() {
-        (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).nextMonth()
+        getAdapter().nextMonth()
     }
 
     fun prevMonth() {
-        (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).prevMonth()
+        getAdapter().prevMonth()
     }
 
     fun setOnItemClickListener(listener: (CalendarBlock) -> Unit) {
-        (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setOnItemClickListener(listener)
+        getAdapter().setOnItemClickListener(listener)
     }
 
     fun setOnItemChangedListener(listener: (CalendarBlock) -> Unit) {
-        (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setOnItemChangeListener(listener)
+        getAdapter().setOnItemChangeListener(listener)
     }
 
     fun setOnMonthChangedListener(listener: (Long) -> Unit) {
-        (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setOnMonthChangedListener(listener)
+        getAdapter().setOnMonthChangedListener(listener)
     }
 
     fun setSelectedPosition(position: Int) {
-        (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setSelectedPosition(position)
+        getAdapter().setSelectedPosition(position)
     }
 
     fun setSelectedCalendarBlock(calendarBlock: CalendarBlock) {
-        (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).setSelectedCalendarBlock(calendarBlock)
+        getAdapter().setSelectedCalendarBlock(calendarBlock)
     }
 
     fun getSelectedCalendarBlock(): CalendarBlock? {
-        return (binding.rvHorizontalCalender.adapter as TabooHorizontalCalenderAdapter).getSelectedCalendarBlock()
+        return getAdapter().getSelectedCalendarBlock()
+    }
+
+    fun getAdapter(): TabooHorizontalCalenderAdapter {
+        return rootView.findViewById<RecyclerView>(R.id.rv_horizontal_calender).adapter as TabooHorizontalCalenderAdapter
     }
 
     private fun RecyclerView.scrollToPositionWithCenter(context: Context, position: Int) {

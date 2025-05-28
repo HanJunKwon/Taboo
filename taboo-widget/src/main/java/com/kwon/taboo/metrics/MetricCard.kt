@@ -6,10 +6,11 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
-import com.kwon.taboo.databinding.TabooMetricCardBinding
 import com.kwon.taboo.enums.Sign
 import java.text.DecimalFormat
 
@@ -27,7 +28,7 @@ class MetricCard(
         const val UNIT_TYPE_CUSTOM = 2
     }
 
-    private val binding = TabooMetricCardBinding.inflate(LayoutInflater.from(context), this, true)
+    private val rooView = LayoutInflater.from(context).inflate(R.layout.taboo_metric_card, this, true)
 
     private var title: String = ""
 
@@ -93,7 +94,7 @@ class MetricCard(
      * 지표 제목 UI를 업데이트한다.
      */
     private fun updateTitle() {
-        binding.tvTitle.text = title
+        rootView.findViewById<TextView>(R.id.tv_title).text = title
     }
 
     /**
@@ -146,7 +147,7 @@ class MetricCard(
                     VALUE_TYPE_DECIMAL -> decimalExpression
                     else -> integerExpression
                 }
-                binding.tvValue.text = "${express.format(it.animatedValue)}$unit"
+                rootView.findViewById<TextView>(R.id.tv_value).text = "${express.format(it.animatedValue)}$unit"
             }
             start()
         }
@@ -176,7 +177,7 @@ class MetricCard(
             else -> decimalExpression
         }
 
-        binding.tvValue.text = "${expression.format(value)}$unit"
+        rootView.findViewById<TextView>(R.id.tv_value).text = "${expression.format(value)}$unit"
     }
 
     /**
@@ -224,7 +225,7 @@ class MetricCard(
             duration = 500
             interpolator = AccelerateDecelerateInterpolator()
             addUpdateListener {
-                binding.tvPoint.text = "${decimalExpression.format(it.animatedValue)}%"
+                rootView.findViewById<TextView>(R.id.tv_point).text = "${decimalExpression.format(it.animatedValue)}%"
             }
             start()
         }
@@ -239,14 +240,14 @@ class MetricCard(
      * [point] 부호에 맞는 포인트 색상 UI를 업데이트한다.
      */
     private fun updatePointColor() {
-        binding.tvPoint.setTextColor(getPointSignColor(pointSign))
+        rootView.findViewById<TextView>(R.id.tv_point).setTextColor(getPointSignColor(pointSign))
     }
 
     /**
      * [point] 부호에 맞는 화살표 이미지로 UI를 업데이트한다.
      */
     private fun updatePointArrow() {
-        binding.icPointArrow.setImageDrawable(getPointArrow(pointSign))
+        rootView.findViewById<ImageView>(R.id.ic_point_arrow).setImageDrawable(getPointArrow(pointSign))
     }
 
     /**

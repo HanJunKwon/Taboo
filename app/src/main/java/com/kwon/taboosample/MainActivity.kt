@@ -46,6 +46,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, PreviewButtonsActivity::class.java))
         }
 
+        findViewById<Button>(R.id.btn_wheel_picker_example).setOnClickListener {
+            startActivity(Intent(this, WheelPickerActivity::class.java))
+        }
+
         findViewById<Button>(R.id.btn_text_view_example).setOnClickListener {
             startActivity(Intent(this, TextViewsActivity::class.java))
         }
@@ -72,6 +76,10 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.btn_fade_scroll_view_example).setOnClickListener {
             startActivity(Intent(this, FadeScrollViewActivity::class.java))
+        }
+
+        findViewById<Button>(R.id.btn_bottom_up_view_example).setOnClickListener {
+            startActivity(Intent(this, BottomUpLayoutActivity::class.java))
         }
     }
 }
