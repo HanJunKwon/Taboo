@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AlertDialog
 import com.kwon.taboo.uicore.R
 
-open class TabooBottomAlert(context: Context): AlertDialog(context, R.style.Taboo_BottomDialog) {
+open class TabooBottomAlert(context: Context): AlertDialog(context) {
     init {
         this.window?.setBackgroundDrawableResource(android.R.color.transparent)
         this.window?.setLayout(
