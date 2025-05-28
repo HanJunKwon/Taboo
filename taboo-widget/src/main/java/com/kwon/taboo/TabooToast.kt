@@ -3,15 +3,16 @@ package com.kwon.taboo
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import com.kwon.taboo.databinding.TabooToastBinding
 
 class TabooToast(private val context: Context?) : Toast(context) {
-    private val binding = TabooToastBinding.inflate(LayoutInflater.from(context), null, false)
+    private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_toast, null)
 
     init {
-        this.view = binding.root
+        this.view = rootView
         this.duration = LENGTH_SHORT // Toast 표시 시간
     }
 
@@ -40,14 +41,14 @@ class TabooToast(private val context: Context?) : Toast(context) {
     }
 
     fun setIcon(icon: Drawable?) {
-        binding.ivToastIcon.setImageDrawable(icon)
+        rootView.findViewById<ImageView>(R.id.iv_toast_icon).setImageDrawable(icon)
     }
 
     override fun setText(resId: Int) {
-        binding.tvToastMessage.setText(resId)
+        rootView.findViewById<TextView>(R.id.tv_toast_message).setText(resId)
     }
 
     override fun setText(text: CharSequence) {
-        binding.tvToastMessage.text = text
+        rootView.findViewById<TextView>(R.id.tv_toast_message).text = text
     }
 }

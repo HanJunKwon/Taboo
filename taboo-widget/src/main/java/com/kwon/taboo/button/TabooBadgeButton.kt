@@ -4,9 +4,10 @@ import android.content.Context
 import android.graphics.drawable.RippleDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
-import com.kwon.taboo.databinding.TabooBadgeButtonBinding
+import com.kwon.taboo.numbering.TabooNumberingBall
 import com.kwon.taboo.uicore.attribute.ButtonAppearance
 import com.kwon.taboo.uicore.attribute.ColorContainer
 import com.kwon.taboo.uicore.button.TabooButtonCore
@@ -15,7 +16,7 @@ class TabooBadgeButton(
     context: Context,
     attrs: AttributeSet
 ): TabooButtonCore(context, attrs) {
-    private val binding = TabooBadgeButtonBinding.inflate(LayoutInflater.from(context), this, true)
+    private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_badge_button, this, true)
 
     private var badge: Int = 0             // 뱃지 숫자
 
@@ -47,7 +48,7 @@ class TabooBadgeButton(
     }
 
     override fun drawButton() {
-        binding.root.background = createBackground()
+        this.background = createBackground()
     }
 
     override fun createBackground(): RippleDrawable {
@@ -98,10 +99,10 @@ class TabooBadgeButton(
      * 뱃지 숫자 UI 를 업데이트한다.
      */
     private fun updateBadge() {
-        binding.numberingBall.text = badge.toString()
+        rootView.findViewById<TabooNumberingBall>(R.id.numbering_ball).text = badge.toString()
     }
 
     private fun updateText() {
-        binding.tvButtonText.text = getText()
+        rootView.findViewById<TextView>(R.id.tv_button_text).text = getText()
     }
 }

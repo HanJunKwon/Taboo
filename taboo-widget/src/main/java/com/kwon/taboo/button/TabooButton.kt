@@ -6,16 +6,17 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.RippleDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
-import com.kwon.taboo.databinding.TabooButtonBinding
 import com.kwon.taboo.uicore.attribute.ButtonAppearance
 import com.kwon.taboo.uicore.attribute.ColorContainer
 import com.kwon.taboo.uicore.button.TabooButtonCore
 
 open class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCore(context, attrs) {
-    private val binding = TabooButtonBinding.inflate(LayoutInflater.from(context), this, true)
+    private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_button, this, true)
 
     companion object {
         private const val ICON_POSITION_LEFT = 0
@@ -78,11 +79,11 @@ open class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCore(c
     }
 
     private fun updateText() {
-        binding.tvButtonText.text = getText() ?: "Taboo Button"
+        rootView.findViewById<TextView>(R.id.tv_button_text).text = getText() ?: "Taboo Button"
     }
 
     private fun updateTextColor() {
-        binding.tvButtonText.setTextColor(getDefaultTextColor())
+        rootView.findViewById<TextView>(R.id.tv_button_text).setTextColor(getDefaultTextColor())
     }
 
     private fun getDefaultTextColor(): ColorStateList {
@@ -127,13 +128,17 @@ open class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCore(c
     }
 
     private fun updateLeftIcon(iconDrawable: Drawable?, visibility: Int= VISIBLE) {
-        binding.ivButtonLeftIcon.setImageDrawable(iconDrawable)
-        binding.ivButtonLeftIcon.visibility = visibility
+        rootView.findViewById<ImageView>(R.id.iv_button_left_icon).apply {
+            setImageDrawable(iconDrawable)
+            this.visibility = visibility
+        }
     }
 
     private fun updateRightIcon(iconDrawable: Drawable?, visibility: Int= VISIBLE) {
-        binding.ivButtonRightIcon.setImageDrawable(iconDrawable)
-        binding.ivButtonRightIcon.visibility = visibility
+        rootView.findViewById<ImageView>(R.id.iv_button_right_icon).apply {
+            setImageDrawable(iconDrawable)
+            this.visibility = visibility
+        }
     }
     // </editor-fold>
 
@@ -148,18 +153,17 @@ open class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCore(c
     }
 
     private fun updateSize() {
-        binding.tvButtonText.visibility = if (size == SIZE_LARGE) VISIBLE else GONE
+        rootView.findViewById<TextView>(R.id.tv_button_text).visibility = if (size == SIZE_LARGE) VISIBLE else GONE
     }
     // </editor-fold>
 
     override fun setEnabled(enabled: Boolean) {
         super.setEnabled(enabled)
-        binding.root.isEnabled = enabled
-        binding.tvButtonText.isEnabled = enabled
+        rootView.findViewById<TextView>(R.id.tv_button_text).isEnabled = enabled
     }
 
     override fun drawButton() {
-         binding.root.background = createBackground()
+         background = createBackground()
     }
 
     override fun createBackground(): RippleDrawable {

@@ -1,16 +1,18 @@
 package com.kwon.taboo.adapter
 
-import android.content.Context
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.kwon.taboo.R
-import com.kwon.taboo.databinding.TabooTabBinding
 import com.kwon.taboo.diffutils.TabooTabDiffCallback
 import com.kwon.taboo.enums.PayLoad
+import com.kwon.taboo.numbering.TabooNumberingBall
 import com.kwon.taboo.tabs.TabooTabBlock
 
 class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHolder>(TabooTabDiffCallback()) {
@@ -24,8 +26,8 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TabooTabViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = TabooTabBinding.inflate(inflater, parent, false)
-        return TabooTabViewHolder(binding)
+        val view = inflater.inflate(com.kwon.taboo.R.layout.taboo_tab, parent, false)
+        return TabooTabViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: TabooTabViewHolder, position: Int) {
@@ -140,15 +142,17 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
     /**
      * 탭 뷰홀더
      */
-    inner class TabooTabViewHolder(private val binding: TabooTabBinding): ViewHolder(binding.root) {
+    inner class TabooTabViewHolder(private val view: View): ViewHolder(view.rootView) {
         /**
          * 탭 데이터를 뷰에 바인딩.
          */
         fun bind(tab: TabooTabBlock) {
-            binding.tvTabTitle.text = tab.tabName
-            binding.tnbCount.text = tab.tabNumber.toString()
+            view.findViewById<TextView>(R.id.tv_tab_title).text = tab.tabName
+            view.findViewById<TabooNumberingBall>(R.id.tnb_count).text = tab.tabNumber.toString()
             if (tab.tabIcon != 0) {
-                binding.ivTabIcon.setImageDrawable(ContextCompat.getDrawable(binding.root.context, tab.tabIcon))
+                view
+                    .findViewById<ImageView>(R.id.iv_tab_icon)
+                    .setImageDrawable(ContextCompat.getDrawable(view.rootView.context, tab.tabIcon))
             }
 
             updateNumberingVisibility(isVisibilityNumbering)
@@ -157,7 +161,7 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
             updateBallColor()
             updateSelected(currentList[adapterPosition].uuid == selectedTab?.uuid)
 
-            binding.root.setOnClickListener {
+            view.setOnClickListener {
                 setSelectedPosition(adapterPosition)
             }
         }
@@ -170,9 +174,9 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
          * @param isSelected `true`: 선택된 탭, `false`: 선택되지 않은 탭
          */
         fun updateSelected(isSelected: Boolean) {
-            binding.tvTabTitle.isSelected = isSelected
-            binding.tnbCount.isSelected = isSelected
-            binding.ivTabIcon.isSelected = isSelected
+            view.findViewById<TextView>(R.id.tv_tab_title).isSelected = isSelected
+            view.findViewById<TabooNumberingBall>(R.id.tnb_count).isSelected = isSelected
+            view.findViewById<ImageView>(R.id.iv_tab_icon).isSelected = isSelected
         }
 
         /**
@@ -181,10 +185,10 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
          * @param isVisibilityNumbering `true`: 숫자 표시, `false`: 숫자 미표시
          */
         fun updateNumberingVisibility(isVisibilityNumbering: Boolean) {
-            binding.tnbCount.visibility = if (isVisibilityNumbering) {
-                android.view.View.VISIBLE
+            view.findViewById<TabooNumberingBall>(R.id.tnb_count).visibility = if (isVisibilityNumbering) {
+                View.VISIBLE
             } else {
-                android.view.View.GONE
+                View.GONE
             }
         }
 
@@ -194,24 +198,25 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
          * @param isVisibilityIcon `true`: 아이콘 표시, `false`: 아이콘 미표시
          */
         fun updateIconVisibility(isVisibilityIcon: Boolean) {
-            binding.ivTabIcon.visibility = if (isVisibilityIcon && binding.ivTabIcon.drawable != null) {
-                android.view.View.VISIBLE
-            } else {
-                android.view.View.GONE
-            }
+            view.findViewById<ImageView>(R.id.iv_tab_icon).visibility =
+                if (isVisibilityIcon && view.findViewById<ImageView>(R.id.iv_tab_icon).drawable != null) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
         }
 
         fun updateTabColor() {
             tabColorStateList?.let { colorStateList ->
-                binding.tvTabTitle.setTextColor(colorStateList)
-                binding.tnbCount.setTextColor(colorStateList)
-                binding.ivTabIcon.drawable?.setTintList(colorStateList)
+                view.findViewById<TextView>(R.id.tv_tab_title).setTextColor(colorStateList)
+                view.findViewById<TabooNumberingBall>(R.id.tnb_count).setTextColor(colorStateList)
+                view.findViewById<ImageView>(R.id.iv_tab_icon).drawable?.setTintList(colorStateList)
             }
         }
 
         fun updateBallColor() {
             ballColorStateList?.let { colorStateList ->
-                binding.tnbCount.setBallColor(colorStateList)
+                view.findViewById<TabooNumberingBall>(R.id.tnb_count).setBallColor(colorStateList)
             }
         }
     }

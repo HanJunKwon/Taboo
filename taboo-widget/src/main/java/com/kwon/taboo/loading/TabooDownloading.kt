@@ -5,15 +5,18 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
+import android.view.View
 import android.view.Window
+import android.widget.TextView
+import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
-import com.kwon.taboo.databinding.TabooDownloadingBinding
+import com.kwon.taboo.R
 
 class TabooDownloading(
     private val context: Context
 ) {
     private var dialog: AlertDialog? = null
-    private lateinit var binding: TabooDownloadingBinding
+    private var rootView : View? = null
 
     private var assetName: String = "animation_downloading.json"
     private var lottieScaleXY: Float = 1.0f
@@ -32,27 +35,29 @@ class TabooDownloading(
     }
 
     private fun updateLottieDownloading() {
-        binding.lottieDownloading.apply {
-            setAnimation(assetName)
-            setRepeatCount(LottieDrawable.INFINITE)
-            playAnimation()
+        rootView?.findViewById<LottieAnimationView>(R.id.lottie_downloading)?.let{
+            it.setAnimation(assetName)
+            it.setRepeatCount(LottieDrawable.INFINITE)
+            it.playAnimation()
         }
     }
 
     private fun updateDownloadingMessage() {
-        binding.tvDownloadingMessage.text = message
+        rootView?.findViewById<TextView>(R.id.tv_downloading_message)?.text = message
     }
+
 
     fun show() {
         if (isShowing()) return
 
-        binding = TabooDownloadingBinding.inflate(LayoutInflater.from(context))
+        rootView = LayoutInflater.from(context).inflate(R.layout.taboo_downloading, null)
+
         updateLottieDownloading()
         updateDownloadingMessage()
 
         dialog = AlertDialog
             .Builder(context)
-            .setView(binding.root)
+            .setView(rootView)
             .setCancelable(false)
             .create()
 
@@ -62,11 +67,11 @@ class TabooDownloading(
         }
 
         dialog?.show()
-
     }
 
     fun hide() {
         dialog?.dismiss()
+        dialog?.setView(null)
     }
 
     fun isShowing() = dialog?.isShowing == true
