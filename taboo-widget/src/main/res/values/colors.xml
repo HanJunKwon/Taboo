@@ -32,4 +32,6 @@
 
     <color name="taboo_bottom_navigation_stroke">@color/taboo_black_50</color>
     <color name="taboo_bottom_navigation_background">@color/white</color>
+
+    <color name="taboo_ripple_default_color">@color/taboo_gray_100</color>
 </resources>
