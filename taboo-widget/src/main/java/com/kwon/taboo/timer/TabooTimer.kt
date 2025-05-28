@@ -4,8 +4,11 @@ import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.IntDef
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.kwon.taboo.R
 import com.kwon.taboo.databinding.TabooTimerBinding
 import kotlinx.coroutines.CoroutineScope
@@ -19,7 +22,7 @@ class TabooTimer(
     context: Context,
     attrs: AttributeSet
 ): ConstraintLayout(context, attrs) {
-    private val binding = TabooTimerBinding.inflate(LayoutInflater.from(context), this, true)
+    private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_timer, this, true)
 
     private var state: MutableStateFlow<Int> = MutableStateFlow(STATE_STOP)
 
@@ -39,7 +42,7 @@ class TabooTimer(
     }
 
     private fun setEvent() {
-        binding.circleProgressTimer.setOnClickListener {
+        rootView.findViewById<CircularProgressIndicator>(R.id.circle_progress_timer).setOnClickListener {
             when (state.value) {
                 STATE_START -> pause()
                 STATE_PAUSE -> start()
@@ -85,9 +88,9 @@ class TabooTimer(
     }
 
     override fun setActivated(isActivated: Boolean) {
-        binding.tvRemainTime.isActivated = isActivated
-        binding.tvSettingTime.isActivated = isActivated
-        binding.ivBundleTimerStatus.isActivated = isActivated
+        rootView.findViewById<TextView>(R.id.tv_remain_time).isActivated = isActivated
+        rootView.findViewById<TextView>(R.id.tv_setting_time).isActivated = isActivated
+        rootView.findViewById<ImageView>(R.id.iv_bundle_timer_status).isActivated = isActivated
     }
 
     private fun setTimerState(@TimerState state: Int) {
@@ -112,8 +115,8 @@ class TabooTimer(
     }
 
     private fun updateSettingTime() {
-        binding.tvRemainTime.text = formatTime(settingTimeMillis)
-        binding.tvSettingTime.text = formatSettingTime()
+        rootView.findViewById<TextView>(R.id.tv_remain_time).text = formatTime(settingTimeMillis)
+        rootView.findViewById<TextView>(R.id.tv_setting_time).text = formatSettingTime()
 
         val progress = ((remainTimeMillis.toDouble() / settingTimeMillis) * 1000).toInt()
         updateProgressTimer(progress)
@@ -188,11 +191,11 @@ class TabooTimer(
     }
 
     private fun updateRemainTimer(remainTime: String) = CoroutineScope(Dispatchers.Main).launch {
-        binding.tvRemainTime.text = remainTime
+        rootView.findViewById<TextView>(R.id.tv_remain_time).text = remainTime
     }
 
     private fun updateProgressTimer(progress: Int) = CoroutineScope(Dispatchers.Main).launch {
-        binding.circleProgressTimer.setProgressCompat(if (progress < 0) 0 else progress, true)
+        rootView.findViewById<CircularProgressIndicator>(R.id.circle_progress_timer).setProgressCompat(if (progress < 0) 0 else progress, true)
     }
 
     private fun formatSettingTime(): String{
