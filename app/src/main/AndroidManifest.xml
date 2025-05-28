@@ -41,7 +41,7 @@
             android:name=".PreviewButtonsActivity"
             android:exported="false" />
         <activity
-            android:name=".TimePickerActivity"
+            android:name=".WheelPickerActivity"
             android:exported="false" />
         <activity
             android:name=".TabsActivity"
