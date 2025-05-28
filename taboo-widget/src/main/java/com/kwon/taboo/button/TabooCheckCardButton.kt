@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
-import com.kwon.taboo.databinding.TabooCheckCardButtonBinding
 
 class TabooCheckCardButton(
     context: Context,

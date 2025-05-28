@@ -11,7 +11,6 @@ import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
-import com.kwon.taboo.databinding.TabooButtonBinding
 import com.kwon.taboo.uicore.attribute.ButtonAppearance
 import com.kwon.taboo.uicore.attribute.ColorContainer
 import com.kwon.taboo.uicore.button.TabooButtonCore

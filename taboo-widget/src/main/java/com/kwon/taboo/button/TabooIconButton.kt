@@ -14,12 +14,10 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StyleRes
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.content.withStyledAttributes
 import com.kwon.taboo.R
-import com.kwon.taboo.databinding.TabooIconButtonBinding
 import com.kwon.taboo.uicore.button.TabooButtonCore
 
 private const val ICON_POSITION_LEFT = 0

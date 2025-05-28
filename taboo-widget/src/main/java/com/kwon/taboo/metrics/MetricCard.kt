@@ -3,7 +3,6 @@ package com.kwon.taboo.metrics
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.text.Layout
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -12,7 +11,6 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
-import com.kwon.taboo.databinding.TabooMetricCardBinding
 import com.kwon.taboo.enums.Sign
 import java.text.DecimalFormat
 

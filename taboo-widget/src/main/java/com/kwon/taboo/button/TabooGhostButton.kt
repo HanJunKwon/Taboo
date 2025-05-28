@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
 import com.kwon.taboo.R
-import com.kwon.taboo.databinding.TabooGhostButtonBinding
 import com.kwon.taboo.uicore.button.TabooButtonCore
 
 class TabooGhostButton(context: Context, attrs: AttributeSet): TabooButtonCore(context, attrs) {

@@ -10,7 +10,6 @@ import androidx.annotation.IntDef
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.kwon.taboo.R
-import com.kwon.taboo.databinding.TabooTimerBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

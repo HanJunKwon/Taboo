@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.kwon.taboo.R
-import com.kwon.taboo.databinding.TabooIconTextViewBinding
 
 class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
     private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_icon_text_view, this, true)
