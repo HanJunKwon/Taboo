@@ -13,7 +13,6 @@ import com.kwon.taboo.R
 import com.kwon.taboo.calender.adapter.TabooHorizontalCalenderAdapter
 import com.kwon.taboo.calender.decoration.CalendarHorizontalSpaceDecoration
 import com.kwon.taboo.calender.scroller.CenterSmoothScroller
-import com.kwon.taboo.databinding.TabooHorizontalCalenderBinding
 
 class TabooHorizontalCalendar(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
     private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_horizontal_calender, this, true)

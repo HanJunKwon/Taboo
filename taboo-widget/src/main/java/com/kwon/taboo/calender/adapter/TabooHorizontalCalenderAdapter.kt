@@ -4,12 +4,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.kwon.taboo.R
 import com.kwon.taboo.calender.CalendarBlock
 import com.kwon.taboo.calender.diffcallback.TabooCalendarDiffCallback
-import com.kwon.taboo.databinding.TabooHorizontalCalenderItemBinding
 import com.kwon.utils.calendar.CalendarUtils
 
 class TabooHorizontalCalenderAdapter : ListAdapter<CalendarBlock, TabooHorizontalCalenderAdapter.TabooHorizontalCalenderViewHolder>(TabooCalendarDiffCallback()) {
@@ -21,9 +22,8 @@ class TabooHorizontalCalenderAdapter : ListAdapter<CalendarBlock, TabooHorizonta
     private var locale: String = CalendarUtils.KOREAN
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TabooHorizontalCalenderViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = TabooHorizontalCalenderItemBinding.inflate(inflater, parent, false)
-        return TabooHorizontalCalenderViewHolder(binding)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.taboo_horizontal_calender_item, parent, false)
+        return TabooHorizontalCalenderViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: TabooHorizontalCalenderViewHolder, position: Int, payloads: MutableList<Any>) {
@@ -131,12 +131,12 @@ class TabooHorizontalCalenderAdapter : ListAdapter<CalendarBlock, TabooHorizonta
 
     fun getLocale() = locale
 
-    inner class TabooHorizontalCalenderViewHolder(private val binding: TabooHorizontalCalenderItemBinding): ViewHolder(binding.root) {
+    inner class TabooHorizontalCalenderViewHolder(private val view: View): ViewHolder(view.rootView) {
         fun bind(calendarBlock: CalendarBlock) {
-            binding.tvDay.text = calendarBlock.getDay(locale)
-            binding.tvDate.text = calendarBlock.getDate()
+            view.findViewById<TextView>(R.id.tv_day).text = calendarBlock.getDay(locale)
+            view.findViewById<TextView>(R.id.tv_date).text = calendarBlock.getDate()
 
-            binding.root.isSelected = when {
+            view.isSelected = when {
                 selectedCalendarBlock == null && isToday(calendarBlock) -> {
                     selectedCalendarBlock = calendarBlock
                     true
@@ -145,7 +145,7 @@ class TabooHorizontalCalenderAdapter : ListAdapter<CalendarBlock, TabooHorizonta
             }
 
             // 클릭 리스너 설정
-            binding.root.setOnClickListener {
+            view.setOnClickListener {
                 setSelectedPosition(adapterPosition)
 
                 clickListener?.invoke(calendarBlock)
@@ -155,7 +155,7 @@ class TabooHorizontalCalenderAdapter : ListAdapter<CalendarBlock, TabooHorizonta
         }
 
         fun updateSelection(isSelected: Boolean) {
-            binding.root.isSelected = isSelected
+            view.isSelected = isSelected
         }
 
         private fun isToday(calendarBlock: CalendarBlock): Boolean {
@@ -165,7 +165,7 @@ class TabooHorizontalCalenderAdapter : ListAdapter<CalendarBlock, TabooHorizonta
         private fun setVisibilityTodayDot(calendarBlock: CalendarBlock) {
             val todayDotVisibility = if (isToday(calendarBlock)) View.VISIBLE else View.GONE
 
-            binding.viewTodayDot.visibility = todayDotVisibility
+            view.findViewById<View>(R.id.view_today_dot).visibility = todayDotVisibility
         }
     }
 }
