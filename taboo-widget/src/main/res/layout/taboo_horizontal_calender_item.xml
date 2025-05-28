@@ -1,43 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:minWidth="48dp"
+    android:background="@drawable/selector_taboo_horizon_calender_item"
+    android:paddingVertical="7dp">
+
+    <TextView
+        android:id="@+id/tv_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="48dp"
-        android:background="@drawable/selector_taboo_horizon_calender_item"
-        android:paddingVertical="7dp">
+        android:text="M"
+        style="@style/Taboo.TextAppearance.Calender.Day"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-        <TextView
-            android:id="@+id/tv_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="M"
-            style="@style/Taboo.TextAppearance.Calender.Day"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10"
+        style="@style/Taboo.TextAppearance.Calender.Date"
+        app:layout_constraintTop_toBottomOf="@id/tv_day"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10"
-            style="@style/Taboo.TextAppearance.Calender.Date"
-            app:layout_constraintTop_toBottomOf="@id/tv_day"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+    <View
+        android:id="@+id/view_today_dot"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:background="@drawable/shape_oval_a100_f04452"
+        android:layout_marginStart="0.5dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/tv_date"
+        app:layout_constraintStart_toEndOf="@id/tv_date"/>
 
-        <View
-            android:id="@+id/view_today_dot"
-            android:layout_width="5dp"
-            android:layout_height="5dp"
-            android:background="@drawable/shape_oval_a100_f04452"
-            android:layout_marginStart="0.5dp"
-            android:visibility="gone"
-            app:layout_constraintTop_toTopOf="@id/tv_date"
-            app:layout_constraintStart_toEndOf="@id/tv_date"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>
