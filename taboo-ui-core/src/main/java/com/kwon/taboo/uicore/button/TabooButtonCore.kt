@@ -63,6 +63,8 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
     @StyleRes
     protected val textAppearance: Int = 0
 
+    private var enabledVibration: Boolean = true
+
     init {
         isClickable = true
         isFocusable = true
@@ -71,6 +73,7 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
             setEnabledAnimation(getBoolean(R.styleable.TabooButtonCore_enabledAnimation, true))
             setAnimationDuration(getInt(R.styleable.TabooButtonCore_animationDuration, 100).toLong())
             setScaleRatio(getFloat(R.styleable.TabooButtonCore_scaleRatio, 0.95f))
+            setEnabledVibration(getBoolean(R.styleable.TabooButtonCore_enabledVibration, true))
 
             createButtonObjectAnimators()
         }
@@ -100,8 +103,11 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
 
     override fun setOnClickListener(l: OnClickListener?) {
         super.setOnClickListener { v ->
-            startVibration()
             l?.onClick(v)
+
+            if (enabledVibration) {
+                startVibration()
+            }
         }
     }
 
@@ -340,6 +346,14 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
 
     fun getText(): String? {
         return text
+    }
+
+    fun setEnabledVibration(enabled: Boolean) {
+        this.enabledVibration = enabled
+    }
+
+    fun getEnabledVibration(): Boolean {
+        return enabledVibration
     }
 
     @RequiresPermission(Manifest.permission.VIBRATE)

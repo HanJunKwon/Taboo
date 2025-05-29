@@ -6,6 +6,7 @@
         <attr name="animationDuration"/>
         <attr name="enabledAnimation" format="boolean"/>
         <attr name="scaleRatio" format="float"/>
+        <attr name="enabledVibration" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="TabooNavigationCore">
