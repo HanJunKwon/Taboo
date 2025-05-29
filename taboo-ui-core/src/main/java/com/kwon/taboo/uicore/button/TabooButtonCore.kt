@@ -65,6 +65,8 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
 
     private var enabledVibration: Boolean = true
 
+    private var vibrationDuration: Long = 20L // 진동 시간
+
     init {
         isClickable = true
         isFocusable = true
@@ -74,6 +76,7 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
             setAnimationDuration(getInt(R.styleable.TabooButtonCore_animationDuration, 100).toLong())
             setScaleRatio(getFloat(R.styleable.TabooButtonCore_scaleRatio, 0.95f))
             setEnabledVibration(getBoolean(R.styleable.TabooButtonCore_enabledVibration, true))
+            setVibrationDuration(getInt(R.styleable.TabooButtonCore_vibrationDuration, 20).toLong())
 
             createButtonObjectAnimators()
         }
@@ -356,6 +359,14 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
         return enabledVibration
     }
 
+    fun setVibrationDuration(duration: Long) {
+        this.vibrationDuration = duration
+    }
+
+    fun getVibrationDuration(): Long {
+        return vibrationDuration
+    }
+
     @RequiresPermission(Manifest.permission.VIBRATE)
     fun startVibration() {
         when (Build.VERSION.SDK_INT) {
@@ -374,7 +385,7 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
     @RequiresPermission(Manifest.permission.VIBRATE)
     @RequiresApi(Build.VERSION_CODES.O)
     private fun startVibrationO() {
-        val vibrationEffect = VibrationEffect.createOneShot(20L, 1)
+        val vibrationEffect = VibrationEffect.createOneShot(vibrationDuration, 1)
         vibrator.vibrate(vibrationEffect)
     }
 
@@ -383,7 +394,7 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
      */
     @RequiresPermission(Manifest.permission.VIBRATE)
     private fun startVibrationLegacy() {
-        vibrator.vibrate(20L)
+        vibrator.vibrate(vibrationDuration)
     }
 
     /**
