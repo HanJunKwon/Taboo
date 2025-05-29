@@ -20,6 +20,7 @@
             android:layout_height="60dp"
             android:text="Solid Button"
             app:enabledAnimation="false"
+            app:enabledVibration="false"
             app:buttonShape="round"
             app:buttonType="solid"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -105,6 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="다음"
+            app:vibrationDuration="1000"
             app:layout_constraintTop_toBottomOf="@id/ll_small_button" />
 
         <com.kwon.taboo.button.TabooIconButton
