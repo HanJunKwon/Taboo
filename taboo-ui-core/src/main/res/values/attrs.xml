@@ -18,6 +18,17 @@
         <attr name="strokeWidth" format="dimension"/>
     </declare-styleable>
 
+    <declare-styleable name="TabooFadeView">
+        <attr name="startColor" format="reference|color"/>
+        <attr name="endColor" format="reference|color"/>
+        <attr name="fadeOrientation" format="enum">
+            <enum name="top_bottom" value="0"/>
+            <enum name="bottom_top" value="1"/>
+            <enum name="left_right" value="2"/>
+            <enum name="right_left" value="3"/>
+        </attr>
+    </declare-styleable>
+
     <declare-styleable name="TabooFadeLayout">
         <attr name="fadePosition" format="enum">
             <enum name="top" value="0"/>

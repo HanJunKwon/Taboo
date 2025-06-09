@@ -12,4 +12,7 @@
     <color name="on_surface">#FFE6E0E9</color>
     <color name="on_surface_variant">#FFCAC4D0</color>
     <color name="inverse_on_surface">#FF322F35</color>
+
+    <color name="taboo_fade_view_default_start_color">@color/taboo_black</color>
+    <color name="taboo_fade_view_default_end_color">@android:color/transparent</color>
 </resources>
