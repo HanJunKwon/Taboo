@@ -9,7 +9,12 @@ import androidx.core.content.withStyledAttributes
 import com.kwon.taboo.uicore.R
 import com.kwon.taboo.uicore.attribute.FadeAppearance
 
-class TabooFadeView(context: Context, attrs: AttributeSet): View(context, attrs) {
+class TabooFadeView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttrs: Int = 0
+): View(context, attrs, defStyleAttrs) {
+
     private var fadeAppearance = FadeAppearance()
 
     init {
