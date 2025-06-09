@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <corners android:radius="5dp"/>
-    <solid android:color="@color/selector_taboo_counter_background"/>
+    <solid android:color="@color/taboo_counter_label_background_color"/>
 </shape>

@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Taboo.Style.Counter.Background"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="@drawable/shape_taboo_counter_background">
+    android:minWidth="92dp">
 
     <ImageView
+        style="@style/Taboo.Style.Counter.Icon.Minus"
         android:id="@+id/btn_minus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_minus"
-        android:paddingVertical="10dp"
-        android:paddingHorizontal="10dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
+        style="@style/Taboo.Style.Counter.Label"
         android:id="@+id/tv_count"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:fontFamily="@font/font_pretendard_regular"
-        android:textColor="@color/selector_taboo_counter_number"
-        android:textSize="16sp"
-        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:layout_marginHorizontal="5dp"
+        android:paddingVertical="2dp"
+        android:background="@drawable/shape_taboo_counter_label_background"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_minus"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,12 +34,10 @@
 
 
     <ImageView
+        style="@style/Taboo.Style.Counter.Icon.Plus"
         android:id="@+id/btn_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_plus"
-        android:paddingVertical="10dp"
-        android:paddingHorizontal="10dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

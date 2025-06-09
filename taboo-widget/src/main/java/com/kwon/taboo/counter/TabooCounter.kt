@@ -40,12 +40,15 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
 
     private var enabled = true
 
+    private var onCountClickListener: OnCountClickListener? = null
+    private var onCountChangeListener: OnCountChangeListener? = null
+
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooCounter)
         val minCount = typed.getInt(R.styleable.TabooCounter_minCount, 0)
         val maxCount = typed.getInt(R.styleable.TabooCounter_maxCount, Int.MAX_VALUE)
-        val minusIconTintList = typed.getColorStateList(R.styleable.TabooCounter_minusIconTint) ?: ContextCompat.getColorStateList(context, R.color.selector_taboo_counter_minus)
-        val plusIconTintList = typed.getColorStateList(R.styleable.TabooCounter_plusIconTint) ?: ContextCompat.getColorStateList(context, R.color.selector_taboo_counter_plus)
+        val minusIconTintList = typed.getColorStateList(R.styleable.TabooCounter_minusIconTint) ?: ContextCompat.getColorStateList(context, R.color.selector_taboo_counter_icon)
+        val plusIconTintList = typed.getColorStateList(R.styleable.TabooCounter_plusIconTint) ?: ContextCompat.getColorStateList(context, R.color.selector_taboo_counter_icon)
         val enabled = typed.getBoolean(R.styleable.TabooCounter_android_enabled, true)
 
         typed.recycle()
@@ -80,6 +83,8 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
      */
     private fun updateCount() {
         rootView.findViewById<TextView>(R.id.tv_count).text = count.toString()
+
+        onCountChangeListener?.onCountChanged(count)
     }
 
     /**
@@ -156,7 +161,6 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
     override fun setEnabled(enable: Boolean) {
         super.setEnabled(enable)
 
-        this.enabled = enable
         rootView.findViewById<ImageView>(R.id.btn_minus).isEnabled = enable
         rootView.findViewById<ImageView>(R.id.btn_plus).isEnabled = enable
         rootView.findViewById<TextView>(R.id.tv_count).isEnabled = enable
@@ -173,12 +177,46 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
         rootView.findViewById<ImageView>(R.id.btn_minus).setOnClickListener {
             if (count > minCount)
                 setCount(count - 1)
+
+            onCountClickListener?.onMinusClicked()
         }
 
         rootView.findViewById<ImageView>(R.id.btn_plus).setOnClickListener {
-            if (count < maxCount) {
+            if (count < maxCount)
                 setCount(count + 1)
-            }
+
+            onCountClickListener?.onPlusClicked()
         }
+    }
+
+    fun setOnCountClickListener(listener: OnCountClickListener?) {
+        this.onCountClickListener = listener
+    }
+
+    fun setOnCountChangeListener(listener: OnCountChangeListener?) {
+        this.onCountChangeListener = listener
+    }
+
+    /**
+     * Minus 또는 Plus 버튼을 클릭했을 때 호출되는 리스너입니다.
+     */
+    interface OnCountClickListener {
+        /**
+         * Minus 버튼이 클릭되었을 때 호출됩니다.
+         * @
+         */
+        fun onMinusClicked()
+
+        /**
+         * Plus 버튼이 클릭되었을 때 호출됩니다.
+         */
+        fun onPlusClicked()
+    }
+
+    interface OnCountChangeListener {
+        /**
+         * Counter 값이 변경되었을 때 호출됩니다.
+         */
+        fun onCountChanged(count: Int)
     }
 }
