@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import com.kwon.taboo.R
 
 class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(context, attrs) {
@@ -156,10 +157,9 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
     override fun setEnabled(enable: Boolean) {
         super.setEnabled(enable)
 
-        this.enabled = enable
-        rootView.findViewById<ImageView>(R.id.btn_minus).isEnabled = enable
-        rootView.findViewById<ImageView>(R.id.btn_plus).isEnabled = enable
-        rootView.findViewById<TextView>(R.id.tv_count).isEnabled = enable
+        children.forEach { view ->
+            view.isEnabled = enable
+        }
     }
 
     /**
