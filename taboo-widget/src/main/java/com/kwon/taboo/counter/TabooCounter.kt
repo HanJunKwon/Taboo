@@ -44,8 +44,8 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooCounter)
         val minCount = typed.getInt(R.styleable.TabooCounter_minCount, 0)
         val maxCount = typed.getInt(R.styleable.TabooCounter_maxCount, Int.MAX_VALUE)
-        val minusIconTintList = typed.getColorStateList(R.styleable.TabooCounter_minusIconTint) ?: ContextCompat.getColorStateList(context, R.color.selector_taboo_counter_minus)
-        val plusIconTintList = typed.getColorStateList(R.styleable.TabooCounter_plusIconTint) ?: ContextCompat.getColorStateList(context, R.color.selector_taboo_counter_plus)
+        val minusIconTintList = typed.getColorStateList(R.styleable.TabooCounter_minusIconTint) ?: ContextCompat.getColorStateList(context, R.color.selector_taboo_counter_icon)
+        val plusIconTintList = typed.getColorStateList(R.styleable.TabooCounter_plusIconTint) ?: ContextCompat.getColorStateList(context, R.color.selector_taboo_counter_icon)
         val enabled = typed.getBoolean(R.styleable.TabooCounter_android_enabled, true)
 
         typed.recycle()
