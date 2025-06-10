@@ -10,13 +10,15 @@
     tools:context=".CountersActivity">
 
     <com.kwon.taboo.counter.TabooCounter
-        android:layout_width="130dp"
+        android:id="@+id/counter_1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <com.kwon.taboo.counter.TabooCounter
-        android:layout_width="130dp"
+        android:id="@+id/counter_2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:enabled="false"

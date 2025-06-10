@@ -10,6 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.uicore.R
+import com.kwon.taboo.uicore.attribute.FadeAppearance
 import com.kwon.taboo.uicore.util.ResourceUtils
 
 class TabooFadeLayout(context: Context, attrs: AttributeSet): ConstraintLayout (context, attrs) {
@@ -135,15 +136,22 @@ class TabooFadeLayout(context: Context, attrs: AttributeSet): ConstraintLayout (
     }
 
     private fun createFadeView(isBottom: Boolean): View {
-        return View(context).apply {
+        return TabooFadeView(context).apply {
             id = View.generateViewId()
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 ResourceUtils.dpToPx(context, fadeHeight)
             )
 
-            if (isBottom) background = ContextCompat.getDrawable(context, R.drawable.gradient_scroll_view_fade_top_to_bottom)
-            else background = ContextCompat.getDrawable(context, R.drawable.gradient_scroll_view_fade_bottom_to_top)
+            setGradientColors(
+                startColor = ContextCompat.getColor(context, R.color.taboo_fade_view_default_start_color),
+                endColor = ContextCompat.getColor(context, R.color.taboo_fade_view_default_end_color)
+            )
+
+            setFadeOrientation(
+                if (isBottom) FadeAppearance.FadeOrientation.BOTTOM_TOP
+                else FadeAppearance.FadeOrientation.TOP_BOTTOM
+            )
         }
     }
 

@@ -1,18 +1,23 @@
 package com.kwon.taboo.uicore.button
 
+import android.Manifest
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.MotionEvent.ACTION_CANCEL
 import android.view.MotionEvent.ACTION_DOWN
 import android.view.MotionEvent.ACTION_UP
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
+import androidx.annotation.RequiresApi
+import androidx.annotation.RequiresPermission
 import androidx.annotation.StyleRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -29,6 +34,8 @@ import com.kwon.taboo.uicore.attribute.Stroke
 
 abstract class TabooButtonCore(context: Context, attrs: AttributeSet): ConstraintLayout(context, attrs) {
     protected val gradientDrawable = GradientDrawable()
+
+    private val vibrator = context.getSystemService(Vibrator::class.java)
 
     /**
      * 버튼의 스타일을 정의하는 객체.
@@ -56,6 +63,10 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
     @StyleRes
     protected val textAppearance: Int = 0
 
+    private var enabledVibration: Boolean = true
+
+    private var vibrationDuration: Long = 20L // 진동 시간
+
     init {
         isClickable = true
         isFocusable = true
@@ -64,9 +75,13 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
             setEnabledAnimation(getBoolean(R.styleable.TabooButtonCore_enabledAnimation, true))
             setAnimationDuration(getInt(R.styleable.TabooButtonCore_animationDuration, 100).toLong())
             setScaleRatio(getFloat(R.styleable.TabooButtonCore_scaleRatio, 0.95f))
+            setEnabledVibration(getBoolean(R.styleable.TabooButtonCore_enabledVibration, true))
+            setVibrationDuration(getInt(R.styleable.TabooButtonCore_vibrationDuration, 20).toLong())
 
             createButtonObjectAnimators()
         }
+
+        this.setOnClickListener(null)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -87,6 +102,16 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
         }
 
         return super.dispatchTouchEvent(ev)
+    }
+
+    override fun setOnClickListener(l: OnClickListener?) {
+        super.setOnClickListener { v ->
+            l?.onClick(v)
+
+            if (enabledVibration) {
+                startVibration()
+            }
+        }
     }
 
     fun setButtonAppearance(buttonAppearance: ButtonAppearance) {
@@ -324,6 +349,52 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
 
     fun getText(): String? {
         return text
+    }
+
+    fun setEnabledVibration(enabled: Boolean) {
+        this.enabledVibration = enabled
+    }
+
+    fun getEnabledVibration(): Boolean {
+        return enabledVibration
+    }
+
+    fun setVibrationDuration(duration: Long) {
+        this.vibrationDuration = duration
+    }
+
+    fun getVibrationDuration(): Long {
+        return vibrationDuration
+    }
+
+    @RequiresPermission(Manifest.permission.VIBRATE)
+    fun startVibration() {
+        when (Build.VERSION.SDK_INT) {
+            in Build.VERSION_CODES.O .. Build.VERSION_CODES.Q -> {
+                startVibrationO()
+            }
+            else -> {
+                startVibrationLegacy()
+            }
+        }
+    }
+
+    /**
+     * 안드로이드 8.0 이상 버전에서 진동
+     */
+    @RequiresPermission(Manifest.permission.VIBRATE)
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun startVibrationO() {
+        val vibrationEffect = VibrationEffect.createOneShot(vibrationDuration, 1)
+        vibrator.vibrate(vibrationEffect)
+    }
+
+    /**
+     * 안드로이드 8.0 미만 버전에서 진동
+     */
+    @RequiresPermission(Manifest.permission.VIBRATE)
+    private fun startVibrationLegacy() {
+        vibrator.vibrate(vibrationDuration)
     }
 
     /**

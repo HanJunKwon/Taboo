@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "io.github.hanjunkwon"
-version = "0.0.19"
+version = "0.0.21"
 
 android {
     namespace = "com.kwon.taboo.uicore"
@@ -38,6 +38,9 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
@@ -55,7 +58,7 @@ mavenPublishing {
     signAllPublications()
 
     // 프로젝트의 그룹 ID, 아티팩트 ID, 버전 설정
-    coordinates("io.github.hanjunkwon", "taboo-ui-core", "0.0.19")
+    coordinates("io.github.hanjunkwon", "taboo-ui-core", "0.0.21")
 
     // POM 정보 설정
     pom {

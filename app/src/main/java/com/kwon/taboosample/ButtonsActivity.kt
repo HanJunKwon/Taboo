@@ -29,6 +29,12 @@ class ButtonsActivity : AppCompatActivity() {
                 .show()
         }
 
+        findViewById<TabooButton>(R.id.btn_fill).setOnClickListener {
+            TabooToast(this)
+                .makeText(com.kwon.taboo.R.drawable.ic_success, "Fill Button Clicked", Toast.LENGTH_SHORT)
+                .show()
+        }
+
         findViewById<TabooBadgeButton>(R.id.btn_badge).setBadge(10)
 
         findViewById<TabooGhostButton>(R.id.btn_add_machine).apply {

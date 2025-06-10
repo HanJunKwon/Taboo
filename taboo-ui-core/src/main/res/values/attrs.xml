@@ -6,6 +6,8 @@
         <attr name="animationDuration"/>
         <attr name="enabledAnimation" format="boolean"/>
         <attr name="scaleRatio" format="float"/>
+        <attr name="enabledVibration" format="boolean"/>
+        <attr name="vibrationDuration" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="TabooNavigationCore">
@@ -14,6 +16,17 @@
         <attr name="menuItemSecondaryColor" format="reference|color"/>
         <attr name="strokeColor" format="reference|color"/>
         <attr name="strokeWidth" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="TabooFadeView">
+        <attr name="startColor" format="reference|color"/>
+        <attr name="endColor" format="reference|color"/>
+        <attr name="fadeOrientation" format="enum">
+            <enum name="top_bottom" value="0"/>
+            <enum name="bottom_top" value="1"/>
+            <enum name="left_right" value="2"/>
+            <enum name="right_left" value="3"/>
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="TabooFadeLayout">

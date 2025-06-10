@@ -4,6 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
+import com.kwon.taboo.uicore.util.ResourceUtils
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,5 +84,6 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_bottom_up_view_example).setOnClickListener {
             startActivity(Intent(this, BottomUpLayoutActivity::class.java))
         }
+
     }
 }
