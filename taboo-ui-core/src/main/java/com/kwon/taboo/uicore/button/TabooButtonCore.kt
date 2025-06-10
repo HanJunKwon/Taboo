@@ -23,6 +23,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
 import com.kwon.taboo.uicore.R
+import com.kwon.taboo.uicore.animation.ScaleXYAnimation
 import com.kwon.taboo.uicore.attribute.ButtonAnimation
 import com.kwon.taboo.uicore.attribute.ButtonAppearance
 import com.kwon.taboo.uicore.attribute.ButtonAppearance.Companion.BUTTON_TYPE_DASH
@@ -44,13 +45,8 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
 
     private var enabledAnimation = true
 
-    private var buttonAnimation = ButtonAnimation()
-
-    private val buttonAnimationPropertyNames = listOf("scaleX", "scaleY")
-
-    private var buttonPressedEnterObjectAnimations = mutableListOf<ObjectAnimator>()
-
-    private var buttonPressedExitObjectAnimations = mutableListOf<ObjectAnimator>()
+    private var buttonEnterScaleAnimation = ScaleXYAnimation(this)
+    private var buttonExitScaleAnimation = ScaleXYAnimation(this)
 
     /**
      * 버튼의 텍스트.
@@ -88,15 +84,11 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
         if (enabledAnimation) {
             when (ev?.action) {
                 ACTION_DOWN -> {
-                    buttonPressedEnterObjectAnimations.forEach {
-                        it.start()
-                    }
+                    buttonEnterScaleAnimation.start()
                 }
                 ACTION_CANCEL,
                 ACTION_UP -> {
-                    buttonPressedExitObjectAnimations.forEach {
-                        it.start()
-                    }
+                    buttonExitScaleAnimation.start()
                 }
             }
         }
@@ -296,11 +288,12 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
     }
 
     fun setAnimationDuration(duration: Long) {
-        buttonAnimation.setDuration(duration)
+        buttonEnterScaleAnimation.setDuration(duration)
+        buttonExitScaleAnimation.setDuration(duration)
     }
 
     fun getAnimationDuration(): Long {
-        return buttonAnimation.getDuration()
+        return buttonEnterScaleAnimation.getDuration()
     }
 
     /**
@@ -311,36 +304,17 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
      * @param scaleRatio 버튼이 눌렸을 때의 크기 비율 (예: 0.95f는 95% 크기로 축소)
      */
     fun setScaleRatio(scaleRatio: Float) {
-        buttonAnimation.setEndValue(scaleRatio)
+        buttonEnterScaleAnimation.setScaleXY(1f, scaleRatio)
+        buttonExitScaleAnimation.setScaleXY(scaleRatio, 1f)
     }
 
-    fun getScaleRatio(): Float {
-        return buttonAnimation.getEndValue()
+    fun getScaleRatio(): FloatArray {
+        return buttonEnterScaleAnimation.getScaleXY()
     }
 
     private fun createButtonObjectAnimators() {
-        buttonPressedEnterObjectAnimations.clear()
-        buttonPressedExitObjectAnimations.clear()
-
-        buttonAnimationPropertyNames.forEach { propertyName ->
-            buttonPressedEnterObjectAnimations.add(
-                ObjectAnimator
-                    .ofFloat(this, propertyName, buttonAnimation.getStartValue(), buttonAnimation.getEndValue())
-                    .apply {
-                        duration = buttonAnimation.getDuration()
-                        interpolator = buttonAnimation.getInterpolator()
-                    }
-            )
-
-            buttonPressedExitObjectAnimations.add(
-                ObjectAnimator
-                    .ofFloat(this, propertyName, buttonAnimation.getEndValue(), buttonAnimation.getStartValue())
-                    .apply {
-                        duration = buttonAnimation.getDuration()
-                        interpolator = buttonAnimation.getInterpolator()
-                    }
-            )
-        }
+        buttonEnterScaleAnimation.setScaleXY(1f, 0.95f)
+        buttonExitScaleAnimation.setScaleXY(0.95f, 1f)
     }
 
     open fun setText(text: String) {
