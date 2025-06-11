@@ -23,7 +23,7 @@ import com.kwon.taboo.uicore.button.TabooButtonCore
 private const val ICON_POSITION_LEFT = 0
 private const val ICON_POSITION_RIGHT = 1
 
-class TabooIconButton(context: Context, attrs: AttributeSet): TabooButtonCore(context, attrs) {
+class TabooIconButtonButtonCore(context: Context, attrs: AttributeSet): TabooButtonCore(context, attrs) {
     private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_icon_button, this, true)
 
     private var enabled = true

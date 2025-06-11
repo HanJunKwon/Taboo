@@ -1,12 +1,11 @@
 package com.kwon.taboosample
 
 import android.os.Bundle
-import android.telephony.mbms.MbmsErrors.DownloadErrors
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.kwon.taboo.button.TabooButton
+import com.kwon.taboo.button.TabooButtonButtonCore
 import com.kwon.taboo.loading.TabooDownloading
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +25,7 @@ class LoadingsActivity : AppCompatActivity() {
             insets
         }
 
-        findViewById<TabooButton>(R.id.btn_downloading).setOnClickListener {
+        findViewById<TabooButtonButtonCore>(R.id.btn_downloading).setOnClickListener {
             CoroutineScope(Dispatchers.Main).launch {
                 downloading.setMessage("Downloading...")
                 downloading.show()

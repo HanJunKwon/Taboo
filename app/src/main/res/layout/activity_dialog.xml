@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".LoadingsActivity">
 
-    <com.kwon.taboo.button.TabooButton
+    <com.kwon.taboo.button.TabooButtonButtonCore
         android:id="@+id/btn_downloading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

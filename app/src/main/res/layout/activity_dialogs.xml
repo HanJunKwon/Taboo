@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".DialogsActivity">
 
-    <com.kwon.taboo.button.TabooButton
+    <com.kwon.taboo.button.TabooButtonButtonCore
         android:id="@+id/btn_alert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <com.kwon.taboo.button.TabooButton
+    <com.kwon.taboo.button.TabooButtonButtonCore
         android:id="@+id/btn_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         app:layout_constraintTop_toBottomOf="@id/btn_alert"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <com.kwon.taboo.button.TabooButton
+    <com.kwon.taboo.button.TabooButtonButtonCore
         android:id="@+id/btn_bottom_dialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.kwon.taboo.button.TabooButton
+import com.kwon.taboo.button.TabooButtonButtonCore
 import com.kwon.taboo.numbering.TabooNumberingBall
 
 class NumberingBallsActivity : AppCompatActivity() {
@@ -20,7 +20,7 @@ class NumberingBallsActivity : AppCompatActivity() {
             insets
         }
 
-        findViewById<TabooButton>(R.id.btn_taboo_numbering_balls_updated).setOnClickListener {
+        findViewById<TabooButtonButtonCore>(R.id.btn_taboo_numbering_balls_updated).setOnClickListener {
             findViewById<TabooNumberingBall>(R.id.numbering_ball_1).apply {
 //                setTextColor(ContextCompat.getColorStateList(this@NumberingBallsActivity, R.color.selector_test))
                 isSelected = true

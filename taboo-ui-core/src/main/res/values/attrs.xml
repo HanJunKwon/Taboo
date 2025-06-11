@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="animationDuration" format="integer"/>
+    <attr name="enabledAnimation" format="boolean"/>
+    <attr name="scaleAnimationRatio" format="float"/>
+    <attr name="enabledVibration" format="boolean"/>
+    <attr name="vibrationDuration" format="integer"/>
 
-    <declare-styleable name="TabooButtonCore">
+    <declare-styleable name="TabooClickableViewCore">
+        <attr name="enabledAnimation"/>
         <attr name="animationDuration"/>
-        <attr name="enabledAnimation" format="boolean"/>
-        <attr name="scaleRatio" format="float"/>
-        <attr name="enabledVibration" format="boolean"/>
-        <attr name="vibrationDuration" format="integer"/>
+        <attr name="scaleAnimationRatio"/>
+        <attr name="enabledVibration"/>
+        <attr name="vibrationDuration"/>
     </declare-styleable>
+
+    <declare-styleable name="TabooButtonCore"/>
 
     <declare-styleable name="TabooNavigationCore">
         <attr name="menu" format="reference"/>

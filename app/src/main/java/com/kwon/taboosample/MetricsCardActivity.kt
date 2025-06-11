@@ -5,7 +5,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.kwon.taboo.button.TabooButton
+import com.kwon.taboo.button.TabooButtonButtonCore
 import com.kwon.taboo.metrics.MetricCard
 import kotlin.random.Random
 
@@ -20,21 +20,21 @@ class MetricsCardActivity : AppCompatActivity() {
             insets
         }
 
-        findViewById<TabooButton>(R.id.btn_plus).setOnClickListener {
+        findViewById<TabooButtonButtonCore>(R.id.btn_plus).setOnClickListener {
             findViewById<MetricCard>(R.id.metric_card).apply {
                 setValue(getValue().toInt() + 100)
                 setPoint(Random.nextDouble(0.0, 100.0).toFloat())
             }
         }
 
-        findViewById<TabooButton>(R.id.btn_minus).setOnClickListener {
+        findViewById<TabooButtonButtonCore>(R.id.btn_minus).setOnClickListener {
             findViewById<MetricCard>(R.id.metric_card).apply {
                 setValue(getValue().toInt() - 100)
                 setPoint(Random.nextDouble(-100.0, 0.0).toFloat())
             }
         }
 
-        findViewById<TabooButton>(R.id.btn_zero).setOnClickListener {
+        findViewById<TabooButtonButtonCore>(R.id.btn_zero).setOnClickListener {
             findViewById<MetricCard>(R.id.metric_card).apply {
                 setPoint(0f)
             }

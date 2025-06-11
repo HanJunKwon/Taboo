@@ -18,7 +18,7 @@
         app:ballIndicatorColor="@color/taboo_red_50"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <com.kwon.taboo.button.TabooButton
+    <com.kwon.taboo.button.TabooButtonButtonCore
         android:id="@+id/btn_add_tab_at_last"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         app:buttonShape="round"
         app:layout_constraintTop_toBottomOf="@id/ttl_tabs"/>
 
-    <com.kwon.taboo.button.TabooButton
+    <com.kwon.taboo.button.TabooButtonButtonCore
         android:id="@+id/btn_add_tab_at_first"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
         app:buttonShape="round"
         app:layout_constraintTop_toBottomOf="@id/btn_add_tab_at_last"/>
 
-    <com.kwon.taboo.button.TabooButton
+    <com.kwon.taboo.button.TabooButtonButtonCore
         android:id="@+id/btn_remove_tab_at_first"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
         app:buttonShape="round"
         app:layout_constraintTop_toBottomOf="@id/btn_add_tab_at_first"/>
 
-    <com.kwon.taboo.button.TabooButton
+    <com.kwon.taboo.button.TabooButtonButtonCore
         android:id="@+id/btn_change_numbering_visibility"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
         app:buttonShape="round"
         app:layout_constraintTop_toBottomOf="@id/btn_remove_tab_at_first"/>
 
-    <com.kwon.taboo.button.TabooButton
+    <com.kwon.taboo.button.TabooButtonButtonCore
         android:id="@+id/btn_change_icon_visibility"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

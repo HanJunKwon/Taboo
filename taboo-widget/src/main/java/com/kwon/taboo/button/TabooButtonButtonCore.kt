@@ -15,7 +15,7 @@ import com.kwon.taboo.uicore.attribute.ButtonAppearance
 import com.kwon.taboo.uicore.attribute.ColorContainer
 import com.kwon.taboo.uicore.button.TabooButtonCore
 
-open class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCore(context, attrs) {
+open class TabooButtonButtonCore(context: Context, attrs: AttributeSet): TabooButtonCore(context, attrs) {
     private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_button, this, true)
 
     companion object {

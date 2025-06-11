@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tv_day"/>
 
-    <com.kwon.taboo.button.TabooButton
+    <com.kwon.taboo.button.TabooButtonButtonCore
         android:id="@+id/btn_prev"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
         style="@style/Taboo.Style.PrimaryButton.Round.Solid"
         app:layout_constraintTop_toBottomOf="@id/calendar"/>
 
-    <com.kwon.taboo.button.TabooButton
+    <com.kwon.taboo.button.TabooButtonButtonCore
         android:id="@+id/btn_next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
         style="@style/Taboo.Style.PrimaryButton.Round.Solid"
         app:layout_constraintTop_toBottomOf="@id/btn_prev"/>
 
-    <com.kwon.taboo.button.TabooButton
+    <com.kwon.taboo.button.TabooButtonButtonCore
         android:id="@+id/btn_today"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

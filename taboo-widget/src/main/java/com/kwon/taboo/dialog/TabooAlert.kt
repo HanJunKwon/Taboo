@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
-import com.kwon.taboo.button.TabooButton
+import com.kwon.taboo.button.TabooButtonButtonCore
 
 class TabooAlert(context: Context) : AlertDialog(context) {
     private var listener: () -> Unit = {}
@@ -32,7 +32,7 @@ class TabooAlert(context: Context) : AlertDialog(context) {
         findViewById<TextView>(R.id.tv_confirm_title).text = title
         findViewById<TextView>(R.id.tv_confirm_message).text = message
 
-        findViewById<TabooButton>(R.id.btn_alert).apply {
+        findViewById<TabooButtonButtonCore>(R.id.btn_alert).apply {
             setText(buttonText)
             setOnClickListener {
                 listener()

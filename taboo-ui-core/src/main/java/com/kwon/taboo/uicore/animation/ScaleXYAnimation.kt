@@ -6,7 +6,7 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.Interpolator
 
 class ScaleXYAnimation(private val view: View) {
-    private val scaleValues = floatArrayOf(-1f, -1f)
+    private val scaleValues = floatArrayOf(1f, 1f)
 
     private var duration = 100L
 

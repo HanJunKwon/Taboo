@@ -40,7 +40,7 @@
 
     </LinearLayout>
 
-    <com.kwon.taboo.button.TabooButton
+    <com.kwon.taboo.button.TabooButtonButtonCore
         android:id="@+id/btn_taboo_numbering_balls_updated"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

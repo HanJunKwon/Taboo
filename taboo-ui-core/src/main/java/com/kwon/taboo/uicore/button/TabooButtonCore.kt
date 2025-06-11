@@ -1,30 +1,15 @@
 package com.kwon.taboo.uicore.button
 
-import android.Manifest
-import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.RippleDrawable
-import android.os.Build
-import android.os.VibrationEffect
-import android.os.Vibrator
 import android.util.AttributeSet
-import android.view.MotionEvent
-import android.view.MotionEvent.ACTION_CANCEL
-import android.view.MotionEvent.ACTION_DOWN
-import android.view.MotionEvent.ACTION_UP
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
-import androidx.annotation.RequiresApi
-import androidx.annotation.RequiresPermission
 import androidx.annotation.StyleRes
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.content.withStyledAttributes
-import com.kwon.taboo.uicore.R
-import com.kwon.taboo.uicore.animation.ScaleXYAnimation
-import com.kwon.taboo.uicore.attribute.ButtonAnimation
+import com.kwon.taboo.uicore.TabooClickableViewCore
 import com.kwon.taboo.uicore.attribute.ButtonAppearance
 import com.kwon.taboo.uicore.attribute.ButtonAppearance.Companion.BUTTON_TYPE_DASH
 import com.kwon.taboo.uicore.attribute.ButtonAppearance.Companion.BUTTON_TYPE_FILL
@@ -33,20 +18,13 @@ import com.kwon.taboo.uicore.attribute.ButtonAppearance.Companion.BUTTON_TYPE_SO
 import com.kwon.taboo.uicore.attribute.ColorContainer
 import com.kwon.taboo.uicore.attribute.Stroke
 
-abstract class TabooButtonCore(context: Context, attrs: AttributeSet): ConstraintLayout(context, attrs) {
+abstract class TabooButtonCore(context: Context, attrs: AttributeSet): TabooClickableViewCore(context, attrs) {
     protected val gradientDrawable = GradientDrawable()
-
-    private val vibrator = context.getSystemService(Vibrator::class.java)
 
     /**
      * 버튼의 스타일을 정의하는 객체.
      */
     private var buttonAppearance = ButtonAppearance(context)
-
-    private var enabledAnimation = true
-
-    private var buttonEnterScaleAnimation = ScaleXYAnimation(this)
-    private var buttonExitScaleAnimation = ScaleXYAnimation(this)
 
     /**
      * 버튼의 텍스트.
@@ -58,53 +36,6 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
      */
     @StyleRes
     protected val textAppearance: Int = 0
-
-    private var enabledVibration: Boolean = true
-
-    private var vibrationDuration: Long = 20L // 진동 시간
-
-    init {
-        isClickable = true
-        isFocusable = true
-
-        context.withStyledAttributes(attrs, R.styleable.TabooButtonCore) {
-            setEnabledAnimation(getBoolean(R.styleable.TabooButtonCore_enabledAnimation, true))
-            setAnimationDuration(getInt(R.styleable.TabooButtonCore_animationDuration, 100).toLong())
-            setScaleRatio(getFloat(R.styleable.TabooButtonCore_scaleRatio, 0.95f))
-            setEnabledVibration(getBoolean(R.styleable.TabooButtonCore_enabledVibration, true))
-            setVibrationDuration(getInt(R.styleable.TabooButtonCore_vibrationDuration, 20).toLong())
-
-            createButtonObjectAnimators()
-        }
-
-        this.setOnClickListener(null)
-    }
-
-    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        if (enabledAnimation) {
-            when (ev?.action) {
-                ACTION_DOWN -> {
-                    buttonEnterScaleAnimation.start()
-                }
-                ACTION_CANCEL,
-                ACTION_UP -> {
-                    buttonExitScaleAnimation.start()
-                }
-            }
-        }
-
-        return super.dispatchTouchEvent(ev)
-    }
-
-    override fun setOnClickListener(l: OnClickListener?) {
-        super.setOnClickListener { v ->
-            l?.onClick(v)
-
-            if (enabledVibration) {
-                startVibration()
-            }
-        }
-    }
 
     fun setButtonAppearance(buttonAppearance: ButtonAppearance) {
         this.buttonAppearance = buttonAppearance
@@ -279,96 +210,12 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): Constrain
         )
     }
 
-    fun setEnabledAnimation(enabled: Boolean) {
-        enabledAnimation = enabled
-    }
-
-    fun isEnabledAnimation(): Boolean {
-        return enabledAnimation
-    }
-
-    fun setAnimationDuration(duration: Long) {
-        buttonEnterScaleAnimation.setDuration(duration)
-        buttonExitScaleAnimation.setDuration(duration)
-    }
-
-    fun getAnimationDuration(): Long {
-        return buttonEnterScaleAnimation.getDuration()
-    }
-
-    /**
-     * [ACTION_DOWN] 이벤트 시 버튼의 크기를 조정하는 비율을 설정합니다.
-     *
-     * [ButtonAnimation]의 `endValue`는 [ACTION_DOWN] 이벤트 시 버튼이 눌렸을 때의 크기 비율을 나타내기 때문에
-     * EndValue를 설정합니다.
-     * @param scaleRatio 버튼이 눌렸을 때의 크기 비율 (예: 0.95f는 95% 크기로 축소)
-     */
-    fun setScaleRatio(scaleRatio: Float) {
-        buttonEnterScaleAnimation.setScaleXY(1f, scaleRatio)
-        buttonExitScaleAnimation.setScaleXY(scaleRatio, 1f)
-    }
-
-    fun getScaleRatio(): FloatArray {
-        return buttonEnterScaleAnimation.getScaleXY()
-    }
-
-    private fun createButtonObjectAnimators() {
-        buttonEnterScaleAnimation.setScaleXY(1f, 0.95f)
-        buttonExitScaleAnimation.setScaleXY(0.95f, 1f)
-    }
-
     open fun setText(text: String) {
         this.text = text
     }
 
     fun getText(): String? {
         return text
-    }
-
-    fun setEnabledVibration(enabled: Boolean) {
-        this.enabledVibration = enabled
-    }
-
-    fun getEnabledVibration(): Boolean {
-        return enabledVibration
-    }
-
-    fun setVibrationDuration(duration: Long) {
-        this.vibrationDuration = duration
-    }
-
-    fun getVibrationDuration(): Long {
-        return vibrationDuration
-    }
-
-    @RequiresPermission(Manifest.permission.VIBRATE)
-    fun startVibration() {
-        when (Build.VERSION.SDK_INT) {
-            in Build.VERSION_CODES.O .. Build.VERSION_CODES.Q -> {
-                startVibrationO()
-            }
-            else -> {
-                startVibrationLegacy()
-            }
-        }
-    }
-
-    /**
-     * 안드로이드 8.0 이상 버전에서 진동
-     */
-    @RequiresPermission(Manifest.permission.VIBRATE)
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun startVibrationO() {
-        val vibrationEffect = VibrationEffect.createOneShot(vibrationDuration, 1)
-        vibrator.vibrate(vibrationEffect)
-    }
-
-    /**
-     * 안드로이드 8.0 미만 버전에서 진동
-     */
-    @RequiresPermission(Manifest.permission.VIBRATE)
-    private fun startVibrationLegacy() {
-        vibrator.vibrate(vibrationDuration)
     }
 
     /**

@@ -12,7 +12,7 @@ import com.kwon.taboo.uicore.attribute.ButtonAppearance
 import com.kwon.taboo.uicore.attribute.ColorContainer
 import com.kwon.taboo.uicore.button.TabooButtonCore
 
-class TabooBadgeButton(
+class TabooBadgeButtonButtonCore(
     context: Context,
     attrs: AttributeSet
 ): TabooButtonCore(context, attrs) {
@@ -62,7 +62,7 @@ class TabooBadgeButton(
     }
 
     /**
-     * [TabooBadgeButton] UI 를 초기화.
+     * [TabooBadgeButtonButtonCore] UI 를 초기화.
      */
     private fun initBadgeButton() {
         updateBadge()
