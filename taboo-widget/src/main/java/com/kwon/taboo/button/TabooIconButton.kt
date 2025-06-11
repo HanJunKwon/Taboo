@@ -52,7 +52,7 @@ class TabooIconButton(context: Context, attrs: AttributeSet): TabooButtonCore(co
             setEnabled(getBoolean(R.styleable.TabooIconButton_android_enabled, true))
             setText(getString(R.styleable.TabooIconButton_android_text) ?: "")
             setTextColor(getColorStateList(R.styleable.TabooIconButton_android_textColor))
-            setTypeface(getResourceId(R.styleable.TabooIconButton_android_fontFamily, 0))
+            setTypeface(getResourceId(R.styleable.TabooIconButton_font, 0))
             setTextSizeInternal(getDimensionPixelSize(R.styleable.TabooIconButton_android_textSize, 0))
             setIconPosition(getInt(R.styleable.TabooIconButton_iconPosition, ICON_POSITION_LEFT))
             setIconDrawable(getResourceId(R.styleable.TabooIconButton_icon, 0))
