@@ -8,9 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.kwon.taboo.TabooToast
-import com.kwon.taboo.button.TabooBadgeButtonButtonCore
-import com.kwon.taboo.button.TabooButtonButtonCore
-import com.kwon.taboo.button.TabooGhostButtonButtonCore
+import com.kwon.taboo.button.TabooBadgeButton
+import com.kwon.taboo.button.TabooButton
+import com.kwon.taboo.button.TabooGhostButton
 
 class ButtonsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,21 +23,21 @@ class ButtonsActivity : AppCompatActivity() {
             insets
         }
 
-        findViewById<TabooButtonButtonCore>(R.id.btn_solid).setOnClickListener {
+        findViewById<TabooButton>(R.id.btn_solid).setOnClickListener {
             TabooToast(this)
                 .makeText(com.kwon.taboo.R.drawable.ic_success, "Solid Button Clicked", Toast.LENGTH_SHORT)
                 .show()
         }
 
-        findViewById<TabooButtonButtonCore>(R.id.btn_fill).setOnClickListener {
+        findViewById<TabooButton>(R.id.btn_fill).setOnClickListener {
             TabooToast(this)
                 .makeText(com.kwon.taboo.R.drawable.ic_success, "Fill Button Clicked", Toast.LENGTH_SHORT)
                 .show()
         }
 
-        findViewById<TabooBadgeButtonButtonCore>(R.id.btn_badge).setBadge(10)
+        findViewById<TabooBadgeButton>(R.id.btn_badge).setBadge(10)
 
-        findViewById<TabooGhostButtonButtonCore>(R.id.btn_add_machine).apply {
+        findViewById<TabooGhostButton>(R.id.btn_add_machine).apply {
             setOnClickListener { Log.d(">>>", "Add Machine Button Clicked") }
             setOnLongClickListener {
                 Log.d(">>>", "Add Machine Button Long Clicked")

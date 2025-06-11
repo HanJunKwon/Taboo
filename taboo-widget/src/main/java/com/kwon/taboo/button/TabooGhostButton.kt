@@ -11,7 +11,7 @@ import androidx.core.content.withStyledAttributes
 import com.kwon.taboo.R
 import com.kwon.taboo.uicore.button.TabooButtonCore
 
-class TabooGhostButtonButtonCore(context: Context, attrs: AttributeSet): TabooButtonCore(context, attrs) {
+class TabooGhostButton(context: Context, attrs: AttributeSet): TabooButtonCore(context, attrs) {
     private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_ghost_button, this, true)
 
     init {

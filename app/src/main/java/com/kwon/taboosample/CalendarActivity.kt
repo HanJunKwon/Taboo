@@ -6,7 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.kwon.taboo.button.TabooButtonButtonCore
+import com.kwon.taboo.button.TabooButton
 import com.kwon.taboo.calender.TabooHorizontalCalendar
 import com.kwon.utils.calendar.CalendarUtils
 
@@ -34,15 +34,15 @@ class CalendarActivity : AppCompatActivity() {
 
         findViewById<TabooHorizontalCalendar>(R.id.calendar).setLocale(CalendarUtils.ESPANOL)
 
-        findViewById<TabooButtonButtonCore>(R.id.btn_prev).setOnClickListener {
+        findViewById<TabooButton>(R.id.btn_prev).setOnClickListener {
             findViewById<TabooHorizontalCalendar>(R.id.calendar).prevMonth()
         }
 
-        findViewById<TabooButtonButtonCore>(R.id.btn_next).setOnClickListener {
+        findViewById<TabooButton>(R.id.btn_next).setOnClickListener {
             findViewById<TabooHorizontalCalendar>(R.id.calendar).nextMonth()
         }
 
-        findViewById<TabooButtonButtonCore>(R.id.btn_today).setOnClickListener {
+        findViewById<TabooButton>(R.id.btn_today).setOnClickListener {
             findViewById<TabooHorizontalCalendar>(R.id.calendar).goToday()
         }
     }

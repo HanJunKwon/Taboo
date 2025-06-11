@@ -23,7 +23,7 @@ import com.kwon.taboo.uicore.button.TabooButtonCore
 private const val ICON_POSITION_LEFT = 0
 private const val ICON_POSITION_RIGHT = 1
 
-class TabooIconButtonButtonCore(context: Context, attrs: AttributeSet): TabooButtonCore(context, attrs) {
+class TabooIconButton(context: Context, attrs: AttributeSet): TabooButtonCore(context, attrs) {
     private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_icon_button, this, true)
 
     private var enabled = true
@@ -52,7 +52,7 @@ class TabooIconButtonButtonCore(context: Context, attrs: AttributeSet): TabooBut
             setEnabled(getBoolean(R.styleable.TabooIconButton_android_enabled, true))
             setText(getString(R.styleable.TabooIconButton_android_text) ?: "")
             setTextColor(getColorStateList(R.styleable.TabooIconButton_android_textColor))
-            setTypeface(getResourceId(R.styleable.TabooIconButton_android_fontFamily, 0))
+            setTypeface(getResourceId(R.styleable.TabooIconButton_font, 0))
             setTextSizeInternal(getDimensionPixelSize(R.styleable.TabooIconButton_android_textSize, 0))
             setIconPosition(getInt(R.styleable.TabooIconButton_iconPosition, ICON_POSITION_LEFT))
             setIconDrawable(getResourceId(R.styleable.TabooIconButton_icon, 0))

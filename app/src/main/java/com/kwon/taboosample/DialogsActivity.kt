@@ -5,7 +5,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.kwon.taboo.button.TabooButtonButtonCore
+import com.kwon.taboo.button.TabooButton
 import com.kwon.taboo.dialog.TabooAlert
 import com.kwon.taboo.dialog.TabooConfirm
 
@@ -20,7 +20,7 @@ class DialogsActivity : AppCompatActivity() {
             insets
         }
 
-        findViewById<TabooButtonButtonCore>(R.id.btn_alert).setOnClickListener {
+        findViewById<TabooButton>(R.id.btn_alert).setOnClickListener {
             TabooAlert(context = this).apply {
                 setTitle("알림!!")
                 setMessage("알림 내용입니다~~")
@@ -28,7 +28,7 @@ class DialogsActivity : AppCompatActivity() {
             }.show()
         }
 
-        findViewById<TabooButtonButtonCore>(R.id.btn_confirm).setOnClickListener {
+        findViewById<TabooButton>(R.id.btn_confirm).setOnClickListener {
             TabooConfirm(context = this).apply {
                 setTitle("경고!!")
                 setMessage("저장하시겠습니까?")
@@ -37,7 +37,7 @@ class DialogsActivity : AppCompatActivity() {
             }.show()
         }
 
-        findViewById<TabooButtonButtonCore>(R.id.btn_bottom_dialog).setOnClickListener {
+        findViewById<TabooButton>(R.id.btn_bottom_dialog).setOnClickListener {
             SampleBottomDialog(this@DialogsActivity).show()
 
 //            TabooBottomAlert(context = this).apply {

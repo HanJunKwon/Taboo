@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
-import com.kwon.taboo.button.TabooButtonButtonCore
+import com.kwon.taboo.button.TabooButton
 
 class TabooConfirm(context: Context): AlertDialog(context) {
     private var listener: TabooConfirmListener? = null
@@ -33,7 +33,7 @@ class TabooConfirm(context: Context): AlertDialog(context) {
         findViewById<TextView>(R.id.tv_confirm_title).text = title
         findViewById<TextView>(R.id.tv_confirm_message).text = message
 
-        findViewById<TabooButtonButtonCore>(R.id.btn_negative).apply {
+        findViewById<TabooButton>(R.id.btn_negative).apply {
             setText(negativeButtonText)
             setOnClickListener {
                 listener?.onNegative()
@@ -41,7 +41,7 @@ class TabooConfirm(context: Context): AlertDialog(context) {
             }
         }
 
-        findViewById<TabooButtonButtonCore>(R.id.btn_positive).apply {
+        findViewById<TabooButton>(R.id.btn_positive).apply {
             setText(positiveButtonText)
             setOnClickListener {
                 listener?.onPositive()

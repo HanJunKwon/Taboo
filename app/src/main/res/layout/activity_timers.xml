@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <com.kwon.taboo.button.TabooButtonButtonCore
+    <com.kwon.taboo.button.TabooButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

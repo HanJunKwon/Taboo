@@ -5,14 +5,13 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoadingsActivity">
+    tools:context=".button.TextButtonActivity">
 
-    <com.kwon.taboo.button.TabooButton
-        android:id="@+id/btn_downloading"
-        android:layout_width="match_parent"
+    <com.kwon.taboo.button.TabooTextButton
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Downloading"
-        app:buttonShape="round"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:text="장비 추가하기"
+        app:icon="@drawable/ic_add_24"
+        app:iconTint="@color/taboo_blue_700"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

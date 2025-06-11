@@ -18,7 +18,7 @@
         app:unit="장"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <com.kwon.taboo.button.TabooButtonButtonCore
+    <com.kwon.taboo.button.TabooButton
         android:id="@+id/btn_plus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
         app:buttonShape="round"
         app:layout_constraintTop_toBottomOf="@id/metric_card"/>
 
-    <com.kwon.taboo.button.TabooButtonButtonCore
+    <com.kwon.taboo.button.TabooButton
         android:id="@+id/btn_minus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
         app:buttonShape="round"
         app:layout_constraintTop_toBottomOf="@id/btn_plus"/>
 
-    <com.kwon.taboo.button.TabooButtonButtonCore
+    <com.kwon.taboo.button.TabooButton
         android:id="@+id/btn_zero"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

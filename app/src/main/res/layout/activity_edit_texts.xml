@@ -69,7 +69,7 @@
         app:textInputVariant="dropdown"
         app:layout_constraintTop_toBottomOf="@id/taboo_edit_text_email"/>
 
-    <com.kwon.taboo.button.TabooButtonButtonCore
+    <com.kwon.taboo.button.TabooButton
         android:id="@+id/btn_ok"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
