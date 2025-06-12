@@ -1,37 +1,35 @@
 package com.kwon.taboo.dialog
 
-import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.widget.FrameLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
 import com.kwon.taboo.button.TabooButton
+import com.kwon.taboo.uicore.dialog.TabooAlertDialogCore
 
-class TabooConfirm(context: Context): AlertDialog(context) {
+class TabooConfirm(context: Context): TabooAlertDialogCore<TabooConfirm>(context) {
     private var listener: TabooConfirmListener? = null
-
-    var title: String? = null
-        private set
-    var message: String? = null
-        private set
 
     private var positiveButtonText: String = ""
     private var negativeButtonText: String = ""
 
     init {
-        val dialogView = LayoutInflater.from(context).inflate(R.layout.taboo_confirm, null)
-        this.setView(dialogView)
-
-        this.window?.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.shape_taboo_confirm))
+        setView(LayoutInflater.from(context).inflate(R.layout.taboo_confirm, null))
+        setCustomViewResId(R.layout.taboo_alert_dialog_base)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        findViewById<TextView>(R.id.tv_confirm_title).text = title
-        findViewById<TextView>(R.id.tv_confirm_message).text = message
+        findViewById<FrameLayout>(R.id.fl_custom_view).let {
+            it.removeAllViews()
+            it.addView(customView)
+        }
+
+        findViewById<TextView>(R.id.tv_confirm_title)?.text = title
+        findViewById<TextView>(R.id.tv_confirm_message)?.text = message
 
         findViewById<TabooButton>(R.id.btn_negative).apply {
             setText(negativeButtonText)
@@ -50,36 +48,28 @@ class TabooConfirm(context: Context): AlertDialog(context) {
         }
     }
 
-    override fun setTitle(title: CharSequence?) {
-        this.title = (title ?: "").toString()
-    }
-
-    override fun setTitle(titleId: Int) {
-        this.title = context.getString(titleId)
-    }
-
-    override fun setMessage(message: CharSequence?) {
-        this.message = (message ?: "").toString()
-    }
-
-    fun setMessage(messageId: Int) {
-        this.message = context.getString(messageId)
-    }
-
-    fun setPositiveText(text: CharSequence?) {
+    fun setPositiveText(text: CharSequence?) : TabooConfirm {
         positiveButtonText = (text ?: "").toString()
+
+        return this
     }
 
-    fun setPositiveText(textId: Int) {
+    fun setPositiveText(textId: Int) : TabooConfirm {
         positiveButtonText = context.getString(textId)
+
+        return this
     }
 
-    fun setNegativeText(text: CharSequence?) {
+    fun setNegativeText(text: CharSequence?) : TabooConfirm {
         negativeButtonText = (text ?: "").toString()
+
+        return this
     }
 
-    fun setNegativeText(textId: Int) {
+    fun setNegativeText(textId: Int) : TabooConfirm {
         negativeButtonText = context.getString(textId)
+
+        return this
     }
 
     fun setListener(listener: TabooConfirmListener?) : TabooConfirm {
