@@ -21,29 +21,43 @@ class DialogsActivity : AppCompatActivity() {
         }
 
         findViewById<TabooButton>(R.id.btn_alert).setOnClickListener {
-            TabooAlert(context = this).apply {
-                setTitle("알림!!")
-                setMessage("알림 내용입니다~~")
-                setButtonText("확인")
-            }.show()
+            TabooAlert(context = this)
+                .setTitle("알림!!")
+                .setMessage("알림 내용입니다~~")
+                .setButtonText("확인")
+                .show()
         }
 
         findViewById<TabooButton>(R.id.btn_confirm).setOnClickListener {
-            TabooConfirm(context = this).apply {
-                setTitle("경고!!")
-                setMessage("저장하시겠습니까?")
-                setNegativeText("취소")
-                setPositiveText("저장")
-            }.show()
+            TabooConfirm(context = this)
+                .setTitle("경고!!")
+                .setMessage("저장하시겠습니까?")
+                .setNegativeText("취소")
+                .setPositiveText("저장")
+                .show()
         }
 
         findViewById<TabooButton>(R.id.btn_bottom_dialog).setOnClickListener {
             SampleBottomDialog(this@DialogsActivity).show()
+        }
 
-//            TabooBottomAlert(context = this).apply {
-//                val dialogView = LayoutInflater.from(context).inflate(com.kwon.taboo.R.layout.taboo_alert, null)
-//                this.setView(dialogView)
-//            }.show()
+        findViewById<TabooButton>(R.id.btn_custom_alert).setOnClickListener {
+            TabooAlert(context = this)
+                .setTitle("알림!!")
+                .setMessage("알림 내용입니다~~")
+                .setCustomViewResId(R.layout.taboo_dialog_custom_view)
+                .setButtonText("확인")
+                .show()
+        }
+
+        findViewById<TabooButton>(R.id.btn_custom_dialog).setOnClickListener {
+            TabooConfirm(context = this)
+                .setTitle("경고!!")
+                .setMessage("저장하시겠습니까?")
+                .setNegativeText("취소")
+                .setPositiveText("저장")
+                .setCustomViewResId(R.layout.taboo_dialog_custom_view)
+                .show()
         }
     }
 }
