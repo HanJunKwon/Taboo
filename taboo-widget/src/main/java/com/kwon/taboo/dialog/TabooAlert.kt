@@ -16,20 +16,25 @@ class TabooAlert(context: Context) : TabooAlertDialogCore<TabooAlert>(context) {
 
     init {
         setView(LayoutInflater.from(context).inflate(R.layout.taboo_alert, null))
-        setCustomViewResId(R.layout.taboo_alert_dialog_base)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        findViewById<FrameLayout>(R.id.fl_custom_view).let {
+        findViewById<FrameLayout>(R.id.fl_content_view_wrapper).let {
             it.removeAllViews()
-            it.addView(customView)
+
+            if (customContentView == null) {
+                it.addView(defaultContentView)
+                findViewById<TextView>(R.id.tv_confirm_title).text = title
+                findViewById<TextView>(R.id.tv_confirm_message).text = message
+            } else {
+                it.addView(customContentView)
+            }
         }
+    }
 
-        findViewById<TextView>(R.id.tv_confirm_title)?.text = title
-        findViewById<TextView>(R.id.tv_confirm_message)?.text = message
-
+    override fun setupButtons() {
         findViewById<TabooButton>(R.id.btn_alert).apply {
             setText(buttonText)
             setOnClickListener {

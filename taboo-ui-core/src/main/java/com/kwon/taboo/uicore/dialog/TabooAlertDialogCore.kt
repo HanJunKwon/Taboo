@@ -13,7 +13,10 @@ abstract class TabooAlertDialogCore<T: TabooAlertDialogCore<T>>(context: Context
     protected var title = ""
     protected var message = ""
 
-    protected var customView: View? = null
+    protected val defaultContentView: View
+        get() = LayoutInflater.from(context).inflate(R.layout.taboo_alert_dialog_base, null)
+
+    protected var customContentView: View? = null
 
     init {
         this.window?.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.shape_taboo_confirm))
@@ -21,6 +24,8 @@ abstract class TabooAlertDialogCore<T: TabooAlertDialogCore<T>>(context: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setupButtons()
     }
 
     fun setTitle(title: String): T {
@@ -45,11 +50,12 @@ abstract class TabooAlertDialogCore<T: TabooAlertDialogCore<T>>(context: Context
     }
 
     fun setCustomView(view: View): T {
-        if (customView != view) {
-            customView = view
+        if (customContentView != view) {
+            customContentView = view
         }
 
         return this as T
     }
 
+    abstract fun setupButtons()
 }

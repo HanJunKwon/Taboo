@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Taboo.TextAppearance.Confirm.Title">
+        <item name="android:textColor">@color/on_surface</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Taboo.TextAppearance.Confirm.Message">
+        <item name="android:textColor">@color/on_surface_variant</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+</resources>
