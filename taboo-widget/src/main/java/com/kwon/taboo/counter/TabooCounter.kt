@@ -207,11 +207,29 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
             }
         }
 
-        rootView.findViewById<TabooTextButton>(R.id.btn_plus).setOnClickListener {
-            if (count < maxCount)
-                setCount(count + 1)
+        rootView.findViewById<TabooTextButton>(R.id.btn_plus).apply {
+            // Touch 이벤트 등록
+            setOnTouchListener { v, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        startCounterLabelScaleDown()
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        startCounterLabelScaleUp()
+                        startCounterLabelTextChange()
+                        v.performClick()
+                    }
+                }
+                true
+            }
 
-            onCountClickListener?.onPlusClicked()
+            // click 이벤트 등록
+            setOnClickListener {
+                if (count < maxCount)
+                    setCount(count + 1)
+
+                onCountClickListener?.onPlusClicked()
+            }
         }
     }
 
