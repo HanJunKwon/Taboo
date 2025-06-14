@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.MotionEvent.ACTION_CANCEL
 import android.view.MotionEvent.ACTION_DOWN
@@ -45,6 +46,10 @@ open class TabooClickableViewCore @JvmOverloads constructor(
      */
     private var exitScaleAnimation = ScaleXYAnimation(this)
 
+    private var enterAnimationListener: ScaleXYAnimation.ScaleAnimatorListener? = null
+
+    private var exitAnimationListener: ScaleXYAnimation.ScaleAnimatorListener? = null
+
     init {
         isClickable = true
         isFocusable = true
@@ -56,6 +61,10 @@ open class TabooClickableViewCore @JvmOverloads constructor(
             setEnabledVibration(getBoolean(R.styleable.TabooClickableViewCore_enabledVibration, true))
             setVibrationDuration(getInt(R.styleable.TabooClickableViewCore_vibrationDuration, 20).toLong())
         }
+
+        enterScaleAnimation.addListener(enterAnimationListener)
+
+        exitScaleAnimation.addListener(exitAnimationListener)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -80,6 +89,18 @@ open class TabooClickableViewCore @JvmOverloads constructor(
             }
         }
     }
+
+    fun setEnterScaleAnimationListener(scaleAnimatorListener: ScaleXYAnimation.ScaleAnimatorListener?) {
+        enterScaleAnimation.addListener(scaleAnimatorListener)
+    }
+
+    fun getEnterScaleAnimationListener() = this.enterAnimationListener
+
+    fun setExitScaleAnimationListener(scaleAnimatorListener: ScaleXYAnimation.ScaleAnimatorListener?) {
+        exitScaleAnimation.addListener(scaleAnimatorListener)
+    }
+
+    fun getExitScaleAnimationListener() = this.exitAnimationListener
 
     fun setEnabledScaleAnimation(enabled: Boolean) {
         enabledScaleAnimation = enabled

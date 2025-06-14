@@ -126,6 +126,10 @@ class TabooTextButton @JvmOverloads constructor(
         )
     }
 
+    override fun performClick(): Boolean {
+        return super.performClick()
+    }
+
     fun setIcon(@DrawableRes iconDrawable: Int) {
         if (iconDrawable != 0) {
             iconImageView.setImageDrawable(ContextCompat.getDrawable(context, iconDrawable))
