@@ -8,11 +8,15 @@
     android:orientation="horizontal"
     android:minWidth="92dp">
 
-    <ImageView
+    <com.kwon.taboo.button.TabooTextButton
         style="@style/Taboo.Style.Counter.Icon.Minus"
         android:id="@+id/btn_minus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text=""
+        app:contentSpace="0dp"
+        app:icon="@drawable/ic_round_minus"
+        app:iconScaleType="fit"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -32,12 +36,15 @@
         app:layout_constraintEnd_toStartOf="@id/btn_plus"
         tools:text="2"/>
 
-
-    <ImageView
-        style="@style/Taboo.Style.Counter.Icon.Plus"
+    <com.kwon.taboo.button.TabooTextButton
+        style="@style/Taboo.Style.Counter.Icon.Minus"
         android:id="@+id/btn_plus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text=""
+        app:icon="@drawable/ic_round_plus"
+        app:iconScaleType="fit"
+        app:contentSpace="0dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

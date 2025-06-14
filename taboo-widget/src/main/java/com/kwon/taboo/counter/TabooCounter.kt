@@ -4,11 +4,17 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.ImageView
+import android.view.MotionEvent
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
+import com.kwon.taboo.button.TabooTextButton
+import com.kwon.taboo.uicore.animation.ScaleXYAnimation
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(context, attrs) {
     private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_counter, this, true)
@@ -42,6 +48,8 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
 
     private var onCountClickListener: OnCountClickListener? = null
     private var onCountChangeListener: OnCountChangeListener? = null
+
+    private var counterChangedTime = 0L
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooCounter)
@@ -130,7 +138,7 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
      * Minus 버튼 아이콘 Tint를 업데이트합니다.
      */
     private fun updateMinusIconTint() {
-        rootView.findViewById<ImageView>(R.id.btn_minus).imageTintList = minusIconTint
+        rootView.findViewById<TabooTextButton>(R.id.btn_minus).setImageTintList(minusIconTint)
     }
 
     /**
@@ -152,7 +160,7 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
      * Plus 버튼 아이콘 Tint를 업데이트합니다.
      */
     private fun updatePlusIconTint() {
-        rootView.findViewById<ImageView>(R.id.btn_plus).imageTintList = plusIconTint
+        rootView.findViewById<TabooTextButton>(R.id.btn_plus).setImageTintList(plusIconTint)
     }
 
     /**
@@ -161,8 +169,8 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
     override fun setEnabled(enable: Boolean) {
         super.setEnabled(enable)
 
-        rootView.findViewById<ImageView>(R.id.btn_minus).isEnabled = enable
-        rootView.findViewById<ImageView>(R.id.btn_plus).isEnabled = enable
+        rootView.findViewById<TabooTextButton>(R.id.btn_minus).isEnabled = enable
+        rootView.findViewById<TabooTextButton>(R.id.btn_plus).isEnabled = enable
         rootView.findViewById<TextView>(R.id.tv_count).isEnabled = enable
     }
 
@@ -174,14 +182,32 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
     }
 
     private fun setEvent() {
-        rootView.findViewById<ImageView>(R.id.btn_minus).setOnClickListener {
-            if (count > minCount)
-                setCount(count - 1)
+        rootView.findViewById<TabooTextButton>(R.id.btn_minus).apply {
+            // Touch 이벤트 등록
+            setOnTouchListener { v, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        startCounterLabelScaleDown()
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        startCounterLabelScaleUp()
+                        startCounterLabelTextChange()
+                        v.performClick()
+                    }
+                }
+                true
+            }
 
-            onCountClickListener?.onMinusClicked()
+            // click 이벤트 등록
+            setOnClickListener {
+                if (count > minCount)
+                    setCount(count - 1)
+
+                onCountClickListener?.onMinusClicked()
+            }
         }
 
-        rootView.findViewById<ImageView>(R.id.btn_plus).setOnClickListener {
+        rootView.findViewById<TabooTextButton>(R.id.btn_plus).setOnClickListener {
             if (count < maxCount)
                 setCount(count + 1)
 
@@ -195,6 +221,31 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
 
     fun setOnCountChangeListener(listener: OnCountChangeListener?) {
         this.onCountChangeListener = listener
+    }
+
+    private fun startCounterLabelScaleUp() {
+        ScaleXYAnimation(rootView.findViewById<TextView>(R.id.tv_count))
+            .setScaleXY(0.95f, 1f)
+            .setDuration(500)
+            .start()
+    }
+
+    private fun startCounterLabelScaleDown() {
+        ScaleXYAnimation(rootView.findViewById<TextView>(R.id.tv_count))
+            .setScaleXY(1f, 0.95f)
+            .setDuration(500)
+            .start()
+    }
+
+    private fun startCounterLabelTextChange() {
+        CoroutineScope(Dispatchers.Main).launch {
+            counterChangedTime = System.currentTimeMillis()
+            findViewById<TextView>(R.id.tv_count).setTextColor(ContextCompat.getColor(context, com.kwon.taboo.uicore.R.color.taboo_blue_600))
+            delay(COUNT_LABEL_CHANGE_DURATION)
+            if (System.currentTimeMillis() - counterChangedTime >= COUNT_LABEL_CHANGE_DURATION) {
+                findViewById<TextView>(R.id.tv_count).setTextColor(ContextCompat.getColorStateList(context, R.color.selector_taboo_counter_number))
+            }
+        }
     }
 
     /**
@@ -218,5 +269,9 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
          * Counter 값이 변경되었을 때 호출됩니다.
          */
         fun onCountChanged(count: Int)
+    }
+
+    companion object {
+        private const val COUNT_LABEL_CHANGE_DURATION = 500L
     }
 }
