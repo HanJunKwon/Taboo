@@ -58,6 +58,10 @@
         <attr name="icon"/>
         <attr name="iconPosition"/>
         <attr name="iconBackgroundColor" format="reference|color"/>
+        <attr name="iconScaleType" format="enum">
+            <enum name="fix" value="0"/>
+            <enum name="fit" value="1"/>
+        </attr>
         <attr name="iconTint" format="reference|color"/>
         <attr name="contentSpace" format="dimension"/>
     </declare-styleable>
