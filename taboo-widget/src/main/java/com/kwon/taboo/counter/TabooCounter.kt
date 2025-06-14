@@ -1,7 +1,9 @@
 package com.kwon.taboo.counter
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -11,6 +13,7 @@ import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
 import com.kwon.taboo.button.TabooTextButton
 import com.kwon.taboo.uicore.animation.ScaleXYAnimation
+import com.kwon.taboo.uicore.util.ResourceUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -51,6 +54,17 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
 
     private var counterChangedTime = 0L
 
+    private var widthPx: Int = 0
+    private var counterLabelWidthPx: Int = 0
+    private var translateX: Float = 0f
+    private var isDragMode: Boolean = false
+    private var dragX: Float = -1f
+
+    private var counterChangedOnDragMode = false
+
+    private var normalModeRadius = ResourceUtils.dpToPx(context, 5f).toFloat()
+    private var slideModeRadius = ResourceUtils.dpToPx(context, 20f).toFloat()
+
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooCounter)
         val minCount = typed.getInt(R.styleable.TabooCounter_minCount, 0)
@@ -69,6 +83,15 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
         isEnabled = enabled
 
         setEvent()
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.EXACTLY) {
+            widthPx = MeasureSpec.getSize(widthMeasureSpec)
+            counterLabelWidthPx = rootView.findViewById<TextView>(R.id.tv_count).measuredWidth
+        }
     }
 
     /**
@@ -189,6 +212,7 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
                     MotionEvent.ACTION_DOWN -> {
                         startCounterLabelScaleDown()
                     }
+
                     MotionEvent.ACTION_UP -> {
                         startCounterLabelScaleUp()
                         startCounterLabelTextChange()
@@ -214,6 +238,7 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
                     MotionEvent.ACTION_DOWN -> {
                         startCounterLabelScaleDown()
                     }
+
                     MotionEvent.ACTION_UP -> {
                         startCounterLabelScaleUp()
                         startCounterLabelTextChange()
@@ -229,6 +254,46 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
                     setCount(count + 1)
 
                 onCountClickListener?.onPlusClicked()
+            }
+        }
+
+        rootView.findViewById<TextView>(R.id.tv_count).apply {
+            setOnTouchListener { v, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        dragX = event.rawX - v.x
+                        startRound()
+                    }
+
+                    MotionEvent.ACTION_UP -> {
+                        dragX = -1f
+                        counterChangedOnDragMode = false
+                        rootView.findViewById<TextView>(R.id.tv_count).translationX = 0f
+                        finishRound()
+                        startCounterLabelTextChange()
+                        v.performClick()
+                    }
+
+                    MotionEvent.ACTION_MOVE -> {
+                        translateX = event.rawX - dragX
+                        rootView.findViewById<TextView>(R.id.tv_count).x = if (translateX < 0f) 0f
+                        else if (translateX > (widthPx.toFloat() - counterLabelWidthPx.toFloat())) (widthPx.toFloat() - counterLabelWidthPx.toFloat())
+                        else translateX
+
+                        if (!counterChangedOnDragMode) {
+
+                            if (translateX < 0f) {
+                                counterChangedOnDragMode = true
+                                setCount(count - 1)
+                            } else if (translateX > (widthPx.toFloat() - counterLabelWidthPx.toFloat())) {
+                                counterChangedOnDragMode = true
+                                setCount(count + 1)
+                            }
+                        }
+                    }
+                }
+
+                true
             }
         }
     }
@@ -264,6 +329,44 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
                 findViewById<TextView>(R.id.tv_count).setTextColor(ContextCompat.getColorStateList(context, R.color.selector_taboo_counter_number))
             }
         }
+    }
+
+    private fun startRound() {
+        isDragMode = true
+
+        val gradientDrawable = rootView.findViewById<TextView>(R.id.tv_count).background as GradientDrawable
+        val rootViewGradientDrawable = rootView.findViewById<ConstraintLayout>(R.id.ll_taboo_counter_wrapper).background as GradientDrawable
+        val roundAnimation = ValueAnimator
+            .ofFloat(normalModeRadius, slideModeRadius).apply {
+                setDuration(100L)
+                addUpdateListener {
+                    (it.animatedValue as Float).let { radius ->
+                        gradientDrawable.cornerRadius = radius
+                        rootViewGradientDrawable.cornerRadius = radius
+                    }
+                }
+            }
+
+        roundAnimation.start()
+    }
+
+    private fun finishRound() {
+        isDragMode = false
+
+        val gradientDrawable = rootView.findViewById<TextView>(R.id.tv_count).background as GradientDrawable
+        val rootViewGradientDrawable = rootView.findViewById<ConstraintLayout>(R.id.ll_taboo_counter_wrapper).background as GradientDrawable
+        val roundAnimation = ValueAnimator
+            .ofFloat(slideModeRadius, normalModeRadius).apply {
+                setDuration(100L)
+                addUpdateListener {
+                    (it.animatedValue as Float).let { radius ->
+                        gradientDrawable.cornerRadius = radius
+                        rootViewGradientDrawable.cornerRadius = radius
+                    }
+                }
+            }
+
+        roundAnimation.start()
     }
 
     /**
