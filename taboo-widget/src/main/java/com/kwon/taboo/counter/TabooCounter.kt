@@ -1,17 +1,31 @@
 package com.kwon.taboo.counter
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.ImageView
+import android.view.MotionEvent
+import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
+import com.kwon.taboo.button.TabooTextButton
+import com.kwon.taboo.uicore.animation.ScaleXYAnimation
+import com.kwon.taboo.uicore.util.ResourceUtils
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(context, attrs) {
     private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_counter, this, true)
+    private val counterWrapper = rootView.findViewById<ConstraintLayout>(R.id.ll_taboo_counter_wrapper)
+    private val btnMinus = rootView.findViewById<TabooTextButton>(R.id.btn_minus)
+    private val btnPlus = rootView.findViewById<TabooTextButton>(R.id.btn_plus)
+    private val tvCounter = rootView.findViewById<TextView>(R.id.tv_count)
 
     /**
      * Counter 값
@@ -43,6 +57,43 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
     private var onCountClickListener: OnCountClickListener? = null
     private var onCountChangeListener: OnCountChangeListener? = null
 
+    private var counterChangedTime = 0L
+
+    /**
+     * 드래그 모드 활성화 여부
+     */
+    private var isDragMode: Boolean = false
+    
+    /**
+     * 드래그 모드에 진입 했을 때 [tvCounter]를 최초로 클릭한 X 좌표
+     */
+    private var dragStartX: Float = -1f
+
+    /**
+     * 드래그 모드에서 [tvCounter] 뷰가 실제로 이동한 거리 (단위: Pixel)
+     */
+    private var translatedX = 0f
+
+    /**
+     * 드래그 모드에서 [tvCounter] 뷰가 이동할 수 있는 최소 X 좌표.
+     * 이 값보다 왼쪽으로는 뷰가 이동하지 않도록 제한됩니다.
+     */
+    private var translateMinX = 0f
+
+    /**
+     * 드래그 모드에서 [tvCounter] 뷰가 이동할 수 있는 최대 X 좌표.
+     * 이 값보다 오른쪽으로는 뷰가 이동하지 않도록 제한됩니다.
+     */
+    private var translateMaxX = 0f
+
+    /**
+     * 드래그 모드에서 카운터 변경이 좌우 끝 도달 시 1회만 발생하도록 제어하는 플래그.
+     */
+    private var countChangedOnDragMode = false
+
+    private var normalModeRadius = ResourceUtils.dpToPx(context, DEFAULT_RADIUS_DP).toFloat()
+    private var dragModeRadius = ResourceUtils.dpToPx(context, DRAG_MODE_RADIUS_DP).toFloat()
+
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooCounter)
         val minCount = typed.getInt(R.styleable.TabooCounter_minCount, 0)
@@ -63,11 +114,24 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
         setEvent()
     }
 
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.EXACTLY) {
+            val dragModePaddingHorizontal = ResourceUtils.dpToPx(context, 5f).toFloat()
+            translateMinX = dragModePaddingHorizontal
+            translateMaxX = MeasureSpec.getSize(widthMeasureSpec) - tvCounter.measuredWidth.toFloat() - dragModePaddingHorizontal
+        }
+    }
+
     /**
      * Counter 값을 설정합니다.
      */
     fun setCount(value: Int) {
+        if (value < minCount || value > maxCount) return
+
         count = value
+
         updateCount()
     }
 
@@ -82,7 +146,7 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
      * Counter UI를 업데이트합니다.
      */
     private fun updateCount() {
-        rootView.findViewById<TextView>(R.id.tv_count).text = count.toString()
+        tvCounter.text = count.toString()
 
         onCountChangeListener?.onCountChanged(count)
     }
@@ -130,7 +194,7 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
      * Minus 버튼 아이콘 Tint를 업데이트합니다.
      */
     private fun updateMinusIconTint() {
-        rootView.findViewById<ImageView>(R.id.btn_minus).imageTintList = minusIconTint
+        rootView.findViewById<TabooTextButton>(R.id.btn_minus).setImageTintList(minusIconTint)
     }
 
     /**
@@ -152,7 +216,7 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
      * Plus 버튼 아이콘 Tint를 업데이트합니다.
      */
     private fun updatePlusIconTint() {
-        rootView.findViewById<ImageView>(R.id.btn_plus).imageTintList = plusIconTint
+        btnPlus.setImageTintList(plusIconTint)
     }
 
     /**
@@ -161,9 +225,9 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
     override fun setEnabled(enable: Boolean) {
         super.setEnabled(enable)
 
-        rootView.findViewById<ImageView>(R.id.btn_minus).isEnabled = enable
-        rootView.findViewById<ImageView>(R.id.btn_plus).isEnabled = enable
-        rootView.findViewById<TextView>(R.id.tv_count).isEnabled = enable
+        btnMinus.isEnabled = enable
+        btnPlus.isEnabled = enable
+        tvCounter.isEnabled = enable
     }
 
     /**
@@ -173,19 +237,70 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
         return enabled
     }
 
-    private fun setEvent() {
-        rootView.findViewById<ImageView>(R.id.btn_minus).setOnClickListener {
-            if (count > minCount)
-                setCount(count - 1)
-
-            onCountClickListener?.onMinusClicked()
+    private fun createTouchEffectListener(onUp: () -> Unit): OnTouchListener {
+        return View.OnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> startCounterLabelScaleDown()
+                MotionEvent.ACTION_UP -> {
+                    startCounterLabelScaleUp()
+                    startCounterLabelTextChange()
+                    onUp()
+                    v.performClick()
+                }
+            }
+            true
         }
+    }
 
-        rootView.findViewById<ImageView>(R.id.btn_plus).setOnClickListener {
-            if (count < maxCount)
-                setCount(count + 1)
+    private fun setEvent() {
+        btnMinus.setOnTouchListener(createTouchEffectListener {
+            setCount(count - 1)
+            onCountClickListener?.onMinusClicked()
+        })
 
+        btnPlus.setOnTouchListener(createTouchEffectListener {
+            setCount(count + 1)
             onCountClickListener?.onPlusClicked()
+        })
+
+        tvCounter.apply {
+            setOnTouchListener { v, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        dragStartX = event.rawX - v.x
+                        startDragMode()
+                    }
+
+                    MotionEvent.ACTION_UP -> {
+                        dragStartX = -1f
+                        countChangedOnDragMode = false
+                        tvCounter.translationX = 0f
+                        endDragMode()
+                        startCounterLabelTextChange()
+                        v.performClick()
+                    }
+
+                    MotionEvent.ACTION_MOVE -> {
+                        translatedX = event.rawX - dragStartX
+                        val clampedX = translatedX.coerceIn(translateMinX, translateMaxX)
+                        tvCounter.x = clampedX
+
+                        if (!countChangedOnDragMode) {
+                            when {
+                                translatedX < translateMinX -> {
+                                    countChangedOnDragMode = true
+                                    setCount(count - 1)
+                                }
+                                translatedX > translateMaxX -> {
+                                    countChangedOnDragMode = true
+                                    setCount(count + 1)
+                                }
+                            }
+                        }
+                    }
+                }
+                true
+            }
         }
     }
 
@@ -195,6 +310,56 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
 
     fun setOnCountChangeListener(listener: OnCountChangeListener?) {
         this.onCountChangeListener = listener
+    }
+
+    private fun startCounterLabelScaleUp() {
+        ScaleXYAnimation(tvCounter)
+            .setScaleXY(0.95f, 1f)
+            .setDuration(500)
+            .start()
+    }
+
+    private fun startCounterLabelScaleDown() {
+        ScaleXYAnimation(tvCounter)
+            .setScaleXY(1f, 0.95f)
+            .setDuration(500)
+            .start()
+    }
+
+    private fun startCounterLabelTextChange() {
+        CoroutineScope(Dispatchers.Main).launch {
+            counterChangedTime = System.currentTimeMillis()
+            tvCounter.setTextColor(ContextCompat.getColor(context, com.kwon.taboo.uicore.R.color.taboo_blue_600))
+            delay(COUNT_LABEL_CHANGE_DURATION)
+            if (System.currentTimeMillis() - counterChangedTime >= COUNT_LABEL_CHANGE_DURATION) {
+                tvCounter.setTextColor(ContextCompat.getColorStateList(context, R.color.selector_taboo_counter_number))
+            }
+        }
+    }
+
+    private fun animateCornerRadius(from: Float, to: Float) {
+        val gradientDrawable = tvCounter.background as? GradientDrawable ?: return
+        val rootViewGradientDrawable = counterWrapper.background as? GradientDrawable ?: return
+
+        ValueAnimator.ofFloat(from, to).apply {
+            duration = 100L
+            addUpdateListener { animator ->
+                val radius = animator.animatedValue as Float
+                gradientDrawable.cornerRadius = radius
+                rootViewGradientDrawable.cornerRadius = radius
+            }
+            start()
+        }
+    }
+
+    fun startDragMode() {
+        isDragMode = true
+        animateCornerRadius(normalModeRadius, dragModeRadius)
+    }
+
+    fun endDragMode() {
+        isDragMode = false
+        animateCornerRadius(dragModeRadius, normalModeRadius)
     }
 
     /**
@@ -218,5 +383,12 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
          * Counter 값이 변경되었을 때 호출됩니다.
          */
         fun onCountChanged(count: Int)
+    }
+
+    companion object {
+        private const val COUNT_LABEL_CHANGE_DURATION = 500L
+
+        private const val DEFAULT_RADIUS_DP = 5f
+        private const val DRAG_MODE_RADIUS_DP = 20f
     }
 }

@@ -55,6 +55,8 @@ class TabooTextButton @JvmOverloads constructor(
     @IconPosition
     private var iconPosition = IconPosition.ICON_LEFT
 
+    private var iconScaleType = IconScaleType.FIX
+
     private var contentSpace = CONTENT_SPACE_DP
 
     init {
@@ -98,6 +100,9 @@ class TabooTextButton @JvmOverloads constructor(
             val iconTint = getColorStateList(R.styleable.TabooTextButton_iconTint)
             setImageTintList(iconTint)
 
+            // Icon Scale Type
+            setIconScaleType(getInt(R.styleable.TabooTextButton_iconScaleType, IconScaleType.FIX))
+
             // Icon 위치
             setIconPosition(getInt(R.styleable.TabooTextButton_iconPosition, IconPosition.ICON_LEFT))
 
@@ -121,6 +126,10 @@ class TabooTextButton @JvmOverloads constructor(
         )
     }
 
+    override fun performClick(): Boolean {
+        return super.performClick()
+    }
+
     fun setIcon(@DrawableRes iconDrawable: Int) {
         if (iconDrawable != 0) {
             iconImageView.setImageDrawable(ContextCompat.getDrawable(context, iconDrawable))
@@ -136,6 +145,27 @@ class TabooTextButton @JvmOverloads constructor(
 
     fun setIconBackgroundColors(colors: ColorStateList) {
         iconImageView.backgroundTintList = colors
+    }
+
+    private fun setIconScaleTypeInternal(@IconScaleType iconScaleType: Int) {
+        this.iconScaleType = iconScaleType
+    }
+
+    fun setIconScaleType(@IconScaleType iconScaleType: Int) {
+        setIconScaleTypeInternal(iconScaleType)
+
+        updateIconLayoutParams()
+    }
+
+    private fun updateIconLayoutParams() {
+        val params = iconImageView.layoutParams as LayoutParams
+        iconImageView.layoutParams = params.apply {
+            println("scaleType: $iconScaleType")
+            val size = if (iconScaleType == IconScaleType.FIX) ResourceUtils.dpToPx(context, IMAGE_VIEW_SIZE) else LayoutParams.WRAP_CONTENT
+            println("size: $size")
+            width = size
+            height = size
+        }
     }
 
     fun setImageTintList(color: ColorStateList?) {
@@ -189,6 +219,13 @@ class TabooTextButton @JvmOverloads constructor(
             lp.marginStart = if (iconPosition == IconPosition.ICON_LEFT) margin else 0
             lp.marginEnd = if (iconPosition == IconPosition.ICON_RIGHT) margin else 0
             textView.layoutParams = lp
+        }
+    }
+
+    annotation class IconScaleType {
+        companion object {
+            const val FIX = 0
+            const val FIT = 1
         }
     }
 

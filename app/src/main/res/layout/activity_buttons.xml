@@ -124,31 +124,6 @@
             android:layout_marginTop="10dp"
             app:title="English"
             app:description="영어"/>
-
-        <com.kwon.taboo.button.TabooMenuButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:layout_marginTop="10dp"/>
-
-        <com.kwon.taboo.button.TabooMenuButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:layout_marginTop="10dp"/>
-
-        <com.kwon.taboo.button.TabooMenuButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:layout_marginTop="10dp"/>
-
-        <com.kwon.taboo.button.TabooMenuButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:layout_marginTop="10dp"/>
-
         <com.kwon.taboo.button.TabooMenuButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -167,7 +142,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="장비 추가하기"
-            app:icon="@drawable/ic_add_24" />
+            app:icon="@drawable/ic_add_24"
+            app:iconScaleType="fix"/>
+
+        <com.kwon.taboo.button.TabooTextButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="장비 추가하기"
+            app:icon="@drawable/ic_add_24"
+            app:iconScaleType="fit"/>
 
         <com.kwon.taboo.button.TabooTextButton
             android:layout_width="wrap_content"
