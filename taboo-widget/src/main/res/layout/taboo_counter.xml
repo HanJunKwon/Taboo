@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:minWidth="92dp">
+    android:minWidth="150dp">
 
     <com.kwon.taboo.button.TabooTextButton
         style="@style/Taboo.Style.Counter.Icon.Minus"
