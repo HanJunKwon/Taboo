@@ -268,6 +268,7 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
                         startDragMode()
                     }
 
+                    MotionEvent.ACTION_CANCEL,
                     MotionEvent.ACTION_UP -> {
                         dragStartX = -1f
                         countChangedOnDragMode = false
