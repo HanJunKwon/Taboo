@@ -93,7 +93,7 @@ class TabooTextButton @JvmOverloads constructor(
 
             // Icon 배경 색상
             val iconBackgroundColor = getColorStateList(R.styleable.TabooTextButton_iconBackgroundColor)
-                ?: ColorStateList.valueOf(ContextCompat.getColor(context, com.kwon.taboo.uicore.R.color.taboo_gray_100))
+                ?: ColorStateList.valueOf(ContextCompat.getColor(context, android.R.color.transparent))
             setIconBackgroundColors(iconBackgroundColor)
             
             // Icon 색상
