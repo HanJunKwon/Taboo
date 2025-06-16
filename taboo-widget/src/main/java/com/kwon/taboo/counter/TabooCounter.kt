@@ -7,7 +7,6 @@ import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -117,11 +116,9 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
-        if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.EXACTLY) {
-            val dragModePaddingHorizontal = ResourceUtils.dpToPx(context, 5f).toFloat()
-            translateMinX = dragModePaddingHorizontal
-            translateMaxX = MeasureSpec.getSize(widthMeasureSpec) - tvCounter.measuredWidth.toFloat() - dragModePaddingHorizontal
-        }
+        val dragModePaddingHorizontal = ResourceUtils.dpToPx(context, 5f).toFloat()
+        translateMinX = dragModePaddingHorizontal
+        translateMaxX = measuredWidth - tvCounter.measuredWidth.toFloat() - dragModePaddingHorizontal
     }
 
     /**
@@ -238,7 +235,7 @@ class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(cont
     }
 
     private fun createTouchEffectListener(onUp: () -> Unit): OnTouchListener {
-        return View.OnTouchListener { v, event ->
+        return OnTouchListener { v, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> startCounterLabelScaleDown()
                 MotionEvent.ACTION_UP -> {
