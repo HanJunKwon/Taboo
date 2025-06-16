@@ -143,6 +143,7 @@
             android:layout_height="wrap_content"
             android:text="장비 추가하기"
             app:icon="@drawable/ic_add_24"
+            app:iconBackgroundColor="@color/taboo_gray_100"
             app:iconScaleType="fix"/>
 
         <com.kwon.taboo.button.TabooTextButton
