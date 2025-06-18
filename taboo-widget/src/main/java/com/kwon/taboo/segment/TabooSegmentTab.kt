@@ -44,6 +44,8 @@ class TabooSegmentTab @JvmOverloads constructor(
 
     private var selectedIndex = -1
 
+    private var onTabSelectedListener: ((Int) -> Unit)? = null
+
     init {
         context.withStyledAttributes(attrs, R.styleable.TabooSegmentTab) {
             // Tab 텍스트 색상
@@ -139,12 +141,18 @@ class TabooSegmentTab @JvmOverloads constructor(
                 setTypeface(ResourcesCompat.getFont(context, com.kwon.taboo.uicore.R.font.font_pretendard_bold))
                 setTextColor(ContextCompat.getColorStateList(context, R.color.selector_taboo_segment_tab_text_color))
                 setOnClickListener {
+                    onTabSelectedListener?.invoke(index)
+
                     tabTextSelected(index)
                     moveSelectorContainer(index)
                 }
             }
             tabLayout.addView(itemView)
         }
+    }
+
+    fun setOnTabSelectedListener(listener: (Int) -> Unit) {
+        onTabSelectedListener = listener
     }
 
     private fun updateSelectedContainer() {

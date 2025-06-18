@@ -48,5 +48,8 @@ class SegmentControlActivity : AppCompatActivity() {
         }
 
         findViewById<TabooSegmentTab>(R.id.tst_segment_tab).setItems(listOf("탭1", "탭2", "탭3", "탭4"))
+        findViewById<TabooSegmentTab>(R.id.tst_segment_tab).setOnTabSelectedListener {
+            Log.d(">>>", "Selected tab $it")
+        }
     }
 }
