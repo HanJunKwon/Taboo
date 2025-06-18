@@ -8,6 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.kwon.taboo.adapter.TabooSegmentControlAdapter
 import com.kwon.taboo.segment.TabooSegmentControl
+import com.kwon.taboo.segment.TabooSegmentTab
 
 class SegmentControlActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,5 +46,7 @@ class SegmentControlActivity : AppCompatActivity() {
 
             setSelectedItem(0)
         }
+
+        findViewById<TabooSegmentTab>(R.id.tst_segment_tab).setItems(listOf("탭1", "탭2", "탭3", "탭4"))
     }
 }
