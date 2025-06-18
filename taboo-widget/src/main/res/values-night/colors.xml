@@ -30,4 +30,7 @@
     <color name="taboo_ripple_default_color">@color/taboo_opacity_white_w_5</color>
 
     <color name="taboo_counter_label_background_color">@color/taboo_black_800</color>
+
+    <color name="taboo_segment_tab_background">@color/taboo_black_800</color>
+    <color name="taboo_segment_tab_selector_background">@color/taboo_black_900</color>
 </resources>
