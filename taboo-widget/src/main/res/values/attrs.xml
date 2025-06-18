@@ -257,6 +257,12 @@
     </declare-styleable>
 
     <declare-styleable name="TabooSegmentTab">
-
+        <attr name="tabTextColor" format="reference|color"/>
+        <attr name="tabTextSize" format="dimension"/>
+        <attr name="tabFontFamily" format="reference"/>
+        <attr name="tabTextAppearance" format="reference"/>
+        <attr name="tabPadding" format="dimension"/>
+        <attr name="selectorColor" format="color"/>
+        <attr name="selectorRadius" format="dimension"/>
     </declare-styleable>
 </resources>

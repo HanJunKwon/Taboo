@@ -2,14 +2,18 @@ package com.kwon.taboo.segment
 
 import android.animation.ValueAnimator
 import android.content.Context
+import android.content.res.ColorStateList
 import android.util.AttributeSet
-import android.util.Log
+import android.util.TypedValue
 import android.widget.LinearLayout
 import android.widget.LinearLayout.HORIZONTAL
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.content.withStyledAttributes
+import androidx.core.util.TypedValueCompat.ComplexDimensionUnit
+import androidx.core.view.children
 import androidx.core.view.isNotEmpty
 import com.kwon.taboo.R
 import com.kwon.taboo.uicore.util.ResourceUtils
@@ -31,6 +35,9 @@ class TabooSegmentTab @JvmOverloads constructor(
         layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
         background = ContextCompat.getDrawable(context, R.drawable.shape_taboo_segment_selector_background)
     }
+
+    private var tabPadding: Float = ResourceUtils.dpToPx(context, 8f).toFloat()
+
     private var isInitSElectedContainer = false
 
     private var items = mutableListOf<String>()
@@ -38,6 +45,35 @@ class TabooSegmentTab @JvmOverloads constructor(
     private var selectedIndex = -1
 
     init {
+        context.withStyledAttributes(attrs, R.styleable.TabooSegmentTab) {
+            // Tab 텍스트 색상
+            val tabTextColor = getColorStateList(R.styleable.TabooSegmentTab_tabTextColor)
+                ?: ColorStateList.valueOf(ContextCompat.getColor(context, R.color.selector_taboo_segment_tab_text_color))
+            setTabTextColor(tabTextColor)
+
+            // Tab 텍스트 크기
+            setTabTextSize(
+                unit = TypedValue.COMPLEX_UNIT_PX,
+                textSize = getDimension(R.styleable.TabooSegmentTab_tabTextSize, 14f)
+            )
+
+            // Tab 폰트
+            val tabFontFamily = getResourceId(
+                R.styleable.TabooSegmentTab_tabFontFamily,
+                com.kwon.taboo.uicore.R.font.font_pretendard_medium
+            )
+            setTabFont(tabFontFamily)
+
+            // Tab의 패딩
+            setTabPadding(getDimension(R.styleable.TabooSegmentTab_tabPadding, ResourceUtils.dpToPx(context, 8f).toFloat()))
+
+            // Selector 색상
+            setSelectorColor(getColor(
+                R.styleable.TabooSegmentTab_selectorColor,
+                ContextCompat.getColor(context, R.color.taboo_segment_tab_selector_background)
+            ))
+        }
+
         background = ContextCompat.getDrawable(context, R.drawable.shape_taboo_segment_tab_background)
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
         val padding = ResourceUtils.dpToPx(context, 4f)
@@ -49,6 +85,42 @@ class TabooSegmentTab @JvmOverloads constructor(
         viewTreeObserver.addOnGlobalLayoutListener {
             updateSelectedContainer()
         }
+    }
+
+    fun setTabTextColor(textColor: ColorStateList?) {
+        tabLayout.children.forEach {
+            (it as TextView).setTextColor(textColor)
+        }
+    }
+
+    fun setTabTextColor(textColor: Int) {
+        tabLayout.children.forEach {
+            (it as TextView).setTextColor(textColor)
+        }
+    }
+
+    fun setTabTextSize(@ComplexDimensionUnit unit: Int = TypedValue.COMPLEX_UNIT_SP, textSize: Float) {
+        tabLayout.children.forEach {
+            (it as TextView).setTextSize(unit, textSize)
+        }
+    }
+
+    fun setTabFont(fontFamily: Int) {
+        tabLayout.children.forEach {
+            (it as TextView).typeface = ResourcesCompat.getFont(context, fontFamily)
+        }
+    }
+
+    fun setTabPadding(padding: Float) {
+        tabPadding = padding
+
+        tabLayout.children.forEach {
+            it.setPadding(padding.toInt(), padding.toInt(), padding.toInt(), padding.toInt())
+        }
+    }
+
+    fun setSelectorColor(selectorColor: Int) {
+        selectorContainer.backgroundTintList = ColorStateList.valueOf(selectorColor)
     }
 
     fun setItems(items: List<String>) {
@@ -65,7 +137,7 @@ class TabooSegmentTab @JvmOverloads constructor(
                 val padding = ResourceUtils.dpToPx(context, 8f)
                 setPadding(padding, padding, padding, padding)
                 setTypeface(ResourcesCompat.getFont(context, com.kwon.taboo.uicore.R.font.font_pretendard_bold))
-                setTextColor(ContextCompat.getColorStateList(context, R.color.selector_segment_tab_text_color))
+                setTextColor(ContextCompat.getColorStateList(context, R.color.selector_taboo_segment_tab_text_color))
                 setOnClickListener {
                     this.isSelected = true
 
