@@ -139,8 +139,7 @@ class TabooSegmentTab @JvmOverloads constructor(
                 setTypeface(ResourcesCompat.getFont(context, com.kwon.taboo.uicore.R.font.font_pretendard_bold))
                 setTextColor(ContextCompat.getColorStateList(context, R.color.selector_taboo_segment_tab_text_color))
                 setOnClickListener {
-                    this.isSelected = true
-
+                    tabTextSelected(index)
                     moveSelectorContainer(index)
                 }
             }
@@ -157,6 +156,12 @@ class TabooSegmentTab @JvmOverloads constructor(
             selectorContainer.requestLayout()
 
             isInitSElectedContainer = true
+        }
+    }
+
+    private fun tabTextSelected(index: Int) {
+        tabLayout.children.forEachIndexed { i, view ->
+            (view as TextView).isSelected = (i == index)
         }
     }
 
