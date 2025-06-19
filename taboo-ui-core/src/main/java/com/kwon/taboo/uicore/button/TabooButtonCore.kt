@@ -212,7 +212,11 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): TabooClic
 
     open fun setText(text: String) {
         this.text = text
+
+        updateText()
     }
+
+    abstract fun updateText()
 
     fun getText(): String? {
         return text

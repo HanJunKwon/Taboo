@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TabooSample</string>
+    <string name="button_cancel_text">취소</string>
+    <string name="button_confirm_text">확인</string>
 </resources>

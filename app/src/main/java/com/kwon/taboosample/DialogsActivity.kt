@@ -32,8 +32,8 @@ class DialogsActivity : AppCompatActivity() {
             TabooConfirm(context = this)
                 .setTitle("경고!!")
                 .setMessage("저장하시겠습니까?")
-                .setNegativeText("취소")
-                .setPositiveText("저장")
+                .setNegativeText(getString(R.string.button_cancel_text))
+                .setPositiveText(getString(R.string.button_confirm_text))
                 .show()
         }
 

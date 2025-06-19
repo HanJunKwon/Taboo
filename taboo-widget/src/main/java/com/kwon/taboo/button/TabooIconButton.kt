@@ -93,11 +93,9 @@ class TabooIconButton(context: Context, attrs: AttributeSet): TabooButtonCore(co
 
     override fun setText(text: String) {
         super.setText(text)
-
-        updateText()
      }
 
-    private fun updateText() {
+    override fun updateText() {
         rootView.findViewById<TextView>(R.id.tv_button_text).text = getText()
     }
 
