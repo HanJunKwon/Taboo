@@ -37,8 +37,7 @@ class TabooGhostButton(context: Context, attrs: AttributeSet): TabooButtonCore(c
         rootView.findViewById<ImageView>(R.id.iv_icon).setImageResource(icon)
     }
 
-    override fun setText(text: String) {
-        rootView.findViewById<TextView>(R.id.tv_text).text = text
+    override fun updateText() {
     }
 
     override fun createBackground(): RippleDrawable {

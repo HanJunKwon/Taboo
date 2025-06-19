@@ -78,7 +78,7 @@ open class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCore(c
         drawButton()
     }
 
-    private fun updateText() {
+    override fun updateText() {
         rootView.findViewById<TextView>(R.id.tv_button_text).text = getText() ?: "Taboo Button"
     }
 

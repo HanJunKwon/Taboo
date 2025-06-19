@@ -71,11 +71,6 @@ class TabooBadgeButton(
         drawButton()
     }
 
-    override fun setText(text: String) {
-        super.setText(text)
-        updateText()
-    }
-
     /**
      * 뱃지 숫자를 설정한다.
      * @param badge 뱃지에 표시할 숫자
@@ -102,7 +97,7 @@ class TabooBadgeButton(
         rootView.findViewById<TabooNumberingBall>(R.id.numbering_ball).text = badge.toString()
     }
 
-    private fun updateText() {
+    override fun updateText() {
         rootView.findViewById<TextView>(R.id.tv_button_text).text = getText()
     }
 }

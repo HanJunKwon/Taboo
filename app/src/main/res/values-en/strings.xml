@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TabooSample</string>
+    <string name="button_cancel_text">Cancel</string>
+    <string name="button_confirm_text">Confirm</string>
+</resources>
