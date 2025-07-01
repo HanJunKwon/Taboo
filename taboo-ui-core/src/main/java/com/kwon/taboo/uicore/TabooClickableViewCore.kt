@@ -14,6 +14,7 @@ import android.view.MotionEvent.ACTION_UP
 import android.widget.FrameLayout
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
+import androidx.core.content.getSystemService
 import androidx.core.content.withStyledAttributes
 import com.kwon.taboo.uicore.animation.ScaleXYAnimation
 import com.kwon.taboo.uicore.attribute.ButtonAnimation
@@ -23,7 +24,8 @@ open class TabooClickableViewCore @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyle: Int = 0
 ): FrameLayout(context, attrs, defStyle) {
-    private val vibrator = context.getSystemService(Vibrator::class.java)
+    private val vibrator = if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) context.getSystemService<Vibrator>()
+    else context.getSystemService(Vibrator::class.java)
     private var vibrationDuration: Long = 20L // 진동 시간
 
     /**
@@ -170,7 +172,7 @@ open class TabooClickableViewCore @JvmOverloads constructor(
     @RequiresApi(Build.VERSION_CODES.O)
     private fun startVibrationO() {
         val vibrationEffect = VibrationEffect.createOneShot(vibrationDuration, 1)
-        vibrator.vibrate(vibrationEffect)
+        vibrator?.vibrate(vibrationEffect)
     }
 
     /**
@@ -178,6 +180,6 @@ open class TabooClickableViewCore @JvmOverloads constructor(
      */
     @RequiresPermission(Manifest.permission.VIBRATE)
     private fun startVibrationLegacy() {
-        vibrator.vibrate(vibrationDuration)
+        vibrator?.vibrate(vibrationDuration)
     }
 }
