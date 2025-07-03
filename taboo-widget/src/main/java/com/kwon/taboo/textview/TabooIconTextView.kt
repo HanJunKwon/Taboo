@@ -2,12 +2,15 @@ package com.kwon.taboo.textview
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.os.Build
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.FontRes
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.res.ResourcesCompat
 import com.kwon.taboo.R
 
 class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
@@ -24,6 +27,7 @@ class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayou
         val textAppearance = typed.getResourceId(R.styleable.TabooIconTextView_android_textAppearance, 0)
         val textColor = typed.getColorStateList(R.styleable.TabooIconTextView_android_textColor)
         val textSize = typed.getDimension(R.styleable.TabooIconTextView_android_textSize, DEFAULT_TEXT_SIZE)
+        val typeFace = typed.getResourceId(R.styleable.TabooIconTextView_android_fontFamily, com.kwon.taboo.uicore.R.font.font_pretendard_regular)
 
         val maxLines = typed.getInt(R.styleable.TabooIconTextView_android_maxLines, 1)
         val ellipsize = typed.getInt(R.styleable.TabooIconTextView_android_ellipsize, 0)
@@ -37,6 +41,7 @@ class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayou
         setTextAppearance(textAppearance)
         setTextColor(textColor)
         setTextSize(textSize)
+        setTypeFace(typeFace)
 
         setMaxLines(maxLines)
         setEllipsize(ellipsize)
@@ -75,6 +80,10 @@ class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayou
 
     fun setTextSize(size: Float) {
         rootView.findViewById<TextView>(R.id.tv_text).setTextSize(TypedValue.COMPLEX_UNIT_PX, size)
+    }
+
+    fun setTypeFace(@FontRes typeFace: Int) {
+        rootView.findViewById<TextView>(R.id.tv_text).typeface = ResourcesCompat.getFont(context, typeFace)
     }
 
     fun setMaxLines(maxLines: Int) {
