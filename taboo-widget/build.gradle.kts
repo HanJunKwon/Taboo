@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "io.github.hanjunkwon"
-version = "0.0.30"
+version = "0.0.31"
 
 android {
     namespace = "com.kwon.taboo"
@@ -21,11 +21,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-        externalNativeBuild {
-            cmake {
-                cppFlags("")
-            }
-        }
     }
 
     buildTypes {
@@ -35,12 +30,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-        }
-    }
-    externalNativeBuild {
-        cmake {
-            path("src/main/cpp/CMakeLists.txt")
-            version = "3.22.1"
         }
     }
     compileOptions {
@@ -77,7 +66,7 @@ mavenPublishing {
     signAllPublications()
 
     // 프로젝트의 그룹 ID, 아티팩트 ID, 버전 설정
-    coordinates("io.github.hanjunkwon", "taboo-widget", "0.0.30")
+    coordinates("io.github.hanjunkwon", "taboo-widget", "0.0.31")
 
     // POM 정보 설정
     pom {
