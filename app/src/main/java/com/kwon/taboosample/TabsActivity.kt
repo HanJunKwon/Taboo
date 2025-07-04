@@ -39,6 +39,7 @@ class TabsActivity : AppCompatActivity() {
 
         findViewById<TabooButton>(R.id.btn_change_icon_visibility).setOnClickListener {
             findViewById<TabooTabLayout>(R.id.ttl_tabs).isVisibilityIcon(!findViewById<TabooTabLayout>(R.id.ttl_tabs).isVisibilityIcon())
+
         }
     }
 }

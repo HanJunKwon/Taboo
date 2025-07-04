@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.kwon.taboo.R
@@ -18,6 +19,8 @@ import com.kwon.taboo.tabs.TabooTabBlock
 class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHolder>(TabooTabDiffCallback()) {
     private var selectedTab: TabooTabBlock? = null
 
+    private var tabFontFamily: Int = com.kwon.taboo.uicore.R.font.font_pretendard_medium
+
     private var tabColorStateList: ColorStateList? = null
     private var ballColorStateList: ColorStateList? = null
 
@@ -26,7 +29,7 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TabooTabViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(com.kwon.taboo.R.layout.taboo_tab, parent, false)
+        val view = inflater.inflate(R.layout.taboo_tab, parent, false)
         return TabooTabViewHolder(view)
     }
 
@@ -55,6 +58,10 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
                 // 아이콘 표시 여부 변경
                 PayLoad.ICON_VISIBILITY_CHANGED -> {
                     holder.updateIconVisibility(isVisibilityIcon)
+                }
+                // 탭 폰트 패밀리 변경
+                PayLoad.TAB_FONT_FAMILY_CHANGED -> {
+                    holder.updateTabFontFamily()
                 }
                 // 탭 색상 변경
                 PayLoad.TAB_COLOR_CHANGED -> {
@@ -127,6 +134,10 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
         notifyItemChanged(selectedPosition, PayLoad.SELECTION_CHANGED)
     }
 
+    fun setTabFontFamily(fontFamily: Int) {
+        tabFontFamily = fontFamily
+    }
+
     fun setTabColorStateList(tabColorStateList: ColorStateList) {
         this.tabColorStateList = tabColorStateList
 
@@ -137,6 +148,10 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
         this.ballColorStateList = ballColorStateList
 
         notifyItemRangeChanged(0, itemCount, PayLoad.BALL_COLOR_CHANGED)
+    }
+
+    fun updateTab() {
+        notifyItemRangeChanged(0, itemCount, PayLoad.TAB_FONT_FAMILY_CHANGED)
     }
 
     /**
@@ -159,6 +174,7 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
             updateIconVisibility(isVisibilityIcon)
             updateTabColor()
             updateBallColor()
+            updateTabFontFamily()
             updateSelected(currentList[adapterPosition].uuid == selectedTab?.uuid)
 
             view.setOnClickListener {
@@ -204,6 +220,12 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
                 } else {
                     View.GONE
                 }
+        }
+
+        fun updateTabFontFamily() {
+            view.findViewById<TextView>(R.id.tv_tab_title).setTypeface(
+                ResourcesCompat.getFont(view.context, tabFontFamily)
+            )
         }
 
         fun updateTabColor() {
