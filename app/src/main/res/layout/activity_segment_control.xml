@@ -27,4 +27,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"/>
 
+    <com.kwon.taboo.segment.TabooSegmentTab
+        android:id="@+id/tst_segment_tab_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:tabFontFamily="@font/font_pretendard_bold" />
+
 </LinearLayout>

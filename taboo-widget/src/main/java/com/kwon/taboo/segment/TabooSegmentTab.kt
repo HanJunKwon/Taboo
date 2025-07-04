@@ -8,6 +8,7 @@ import android.util.TypedValue
 import android.widget.LinearLayout
 import android.widget.LinearLayout.HORIZONTAL
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -36,6 +37,9 @@ class TabooSegmentTab @JvmOverloads constructor(
         background = ContextCompat.getDrawable(context, R.drawable.shape_taboo_segment_selector_background)
     }
 
+    private var tabFontFamily = com.kwon.taboo.uicore.R.font.font_pretendard_regular
+    private var tabTextColor = ContextCompat.getColorStateList(context, R.color.taboo_segment_tab_text_color)
+    private var tabTextSizePixel = ResourceUtils.spToPx(context, 16f)
     private var tabPadding: Float = ResourceUtils.dpToPx(context, 8f).toFloat()
 
     private var isInitSElectedContainer = false
@@ -89,27 +93,45 @@ class TabooSegmentTab @JvmOverloads constructor(
         }
     }
 
-    fun setTabTextColor(textColor: ColorStateList?) {
-        tabLayout.children.forEach {
-            (it as TextView).setTextColor(textColor)
-        }
+    fun setTabTextColor(tabColorStateList: ColorStateList) {
+        tabTextColor = tabColorStateList
+
+        updateTabTextColor()
     }
 
-    fun setTabTextColor(textColor: Int) {
+    fun setTabTextColor(@ColorInt tabTextColorInt: Int) {
+        this@TabooSegmentTab.tabTextColor = ColorStateList.valueOf(tabTextColorInt)
+
+        updateTabTextColor()
+    }
+
+    private fun updateTabTextColor() {
         tabLayout.children.forEach {
-            (it as TextView).setTextColor(textColor)
+            (it as TextView).setTextColor(tabTextColor)
         }
     }
 
     fun setTabTextSize(@ComplexDimensionUnit unit: Int = TypedValue.COMPLEX_UNIT_SP, textSize: Float) {
+        tabTextSizePixel = if (unit == TypedValue.COMPLEX_UNIT_PX) ResourceUtils.spToPx(context, textSize) else textSize
+
+        updateTabTextSize()
+    }
+
+    private fun updateTabTextSize() {
         tabLayout.children.forEach {
-            (it as TextView).setTextSize(unit, textSize)
+            (it as TextView).textSize = tabTextSizePixel
         }
     }
 
     fun setTabFont(fontFamily: Int) {
+        tabFontFamily = fontFamily
+
+        updateTabFont()
+    }
+
+    private fun updateTabFont() {
         tabLayout.children.forEach {
-            (it as TextView).typeface = ResourcesCompat.getFont(context, fontFamily)
+            (it as TextView).typeface = ResourcesCompat.getFont(context, tabFontFamily)
         }
     }
 
@@ -138,8 +160,9 @@ class TabooSegmentTab @JvmOverloads constructor(
                 layoutParams = LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, 1f)
                 val padding = ResourceUtils.dpToPx(context, 8f)
                 setPadding(padding, padding, padding, padding)
-                setTypeface(ResourcesCompat.getFont(context, com.kwon.taboo.uicore.R.font.font_pretendard_bold))
-                setTextColor(ContextCompat.getColorStateList(context, R.color.selector_taboo_segment_tab_text_color))
+                setTypeface(ResourcesCompat.getFont(context, tabFontFamily))
+                setTextColor(tabTextColor)
+                textSize = tabTextSizePixel
                 setOnClickListener {
                     onTabSelectedListener?.invoke(index)
 
