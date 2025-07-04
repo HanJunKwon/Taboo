@@ -15,7 +15,6 @@ class TabooTabLayout(
     context: Context,
     attrs: AttributeSet
 ) : RecyclerView(context, attrs) {
-
     private val tabDefaultColor = R.color.taboo_numbering_ball_default_text_color
     private val tabIndicatorColor: Int = com.kwon.taboo.uicore.R.color.taboo_blue_600
 
@@ -26,6 +25,9 @@ class TabooTabLayout(
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooTabLayout)
         val isVisibilityNumbering = typed.getBoolean(R.styleable.TabooTabLayout_isVisibilityNumbering, false)
         val isVisibilityIcon = typed.getBoolean(R.styleable.TabooTabLayout_isVisibilityIcon, false)
+
+        val tabFontFamily = typed.getResourceId(R.styleable.TabooTabLayout_tabFontFamily, com.kwon.taboo.uicore.R.font.font_pretendard_medium)
+
         val tabDefaultColor = typed.getColorStateList(R.styleable.TabooTabLayout_tabDefaultColor)
             ?: ContextCompat.getColorStateList(context, tabDefaultColor)
             ?: ColorStateList.valueOf(Color.BLACK)
@@ -47,20 +49,14 @@ class TabooTabLayout(
         isVisibilityNumbering(isVisibilityNumbering)
         isVisibilityIcon(isVisibilityIcon)
 
+        setTabFontFamily(tabFontFamily)
+
         setTabColorInternal(tabDefaultColor.defaultColor, tabIndicatorColor.defaultColor)
         setBallColorInternal(ballDefaultColor.defaultColor, ballIndicatorColor.defaultColor)
     }
 
     private fun initTabLayout() {
-        adapter = TabooTabAdapter().apply {
-            submitList(
-                listOf(
-                    TabooTabBlock(tabName = "Tab 1", tabNumber = 1),
-                    TabooTabBlock(tabName = "Tab 2", tabNumber = 2),
-                    TabooTabBlock(tabName = "Tab 3", tabNumber = 3)
-                )
-            )
-        }
+        adapter = TabooTabAdapter()
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
 
@@ -85,6 +81,8 @@ class TabooTabLayout(
                 add(position, tabBlock)
             }
         )
+
+        (adapter as TabooTabAdapter).updateTab()
     }
 
     /**
@@ -127,6 +125,10 @@ class TabooTabLayout(
 
     fun isVisibilityIcon(): Boolean {
         return (adapter as TabooTabAdapter).isVisibilityIcon()
+    }
+
+    fun setTabFontFamily(fontFamily: Int) {
+        (adapter as TabooTabAdapter).setTabFontFamily(fontFamily)
     }
 
     /**
