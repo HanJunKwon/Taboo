@@ -18,6 +18,7 @@ import com.kwon.taboo.tabs.TabooTabBlock
 import com.kwon.taboo.uicore.util.ResourceUtils
 
 class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHolder>(TabooTabDiffCallback()) {
+    private var selectedListener: TabSelectedListener? = null
     private var selectedTab: TabooTabBlock? = null
 
     private var tabFontFamily: Int = com.kwon.taboo.uicore.R.font.font_pretendard_medium
@@ -137,6 +138,9 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
 
         // 새로운 탭 선택
         notifyItemChanged(selectedPosition, PayLoad.SELECTION_CHANGED)
+
+        // 선택된 탭의 position을 리스너에게 전달
+        selectedListener?.onTabSelected(selectedPosition)
     }
 
     fun setTabFontFamily(fontFamily: Int) {
@@ -163,6 +167,10 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
 
     fun updateTab() {
         notifyItemRangeChanged(0, itemCount, PayLoad.TAB_FONT_FAMILY_CHANGED)
+    }
+
+    fun setTabSelectedListener(listener: TabSelectedListener) {
+        this.selectedListener = listener
     }
 
     /**
@@ -257,5 +265,9 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
                 view.findViewById<TabooNumberingBall>(R.id.tnb_count).setBallColor(colorStateList)
             }
         }
+    }
+
+    interface TabSelectedListener {
+        fun onTabSelected(index: Int)
     }
 }
