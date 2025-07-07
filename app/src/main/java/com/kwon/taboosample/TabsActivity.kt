@@ -1,10 +1,12 @@
 package com.kwon.taboosample
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.kwon.taboo.adapter.TabooTabAdapter
 import com.kwon.taboo.button.TabooButton
 import com.kwon.taboo.tabs.TabooTabBlock
 import com.kwon.taboo.tabs.TabooTabLayout
@@ -20,6 +22,12 @@ class TabsActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        findViewById<TabooTabLayout>(R.id.ttl_tabs).setTabSelectedListener(listener = object: TabooTabAdapter.TabSelectedListener {
+            override fun onTabSelected(index: Int) {
+                Log.d(">>>", "onTabSelected: $index")
+            }
+        })
 
         findViewById<TabooButton>(R.id.btn_add_tab_at_last).setOnClickListener {
             findViewById<TabooTabLayout>(R.id.ttl_tabs).addTab(TabooTabBlock("Tab 4", Random.nextInt(), tabIcon = R.drawable.round_bluetooth_24))

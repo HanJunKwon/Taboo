@@ -154,6 +154,10 @@ class TabooTabLayout(
         (adapter as TabooTabAdapter).setTabTextSize(tabTextSizePixel)
     }
 
+    fun setTabSelectedListener(listener: TabooTabAdapter.TabSelectedListener) {
+        (adapter as TabooTabAdapter).setTabSelectedListener(listener)
+    }
+
     /**
      * Tab 색상을 설정합니다.
      *
