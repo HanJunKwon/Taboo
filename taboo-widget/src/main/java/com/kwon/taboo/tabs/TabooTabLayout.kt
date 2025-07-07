@@ -85,6 +85,16 @@ class TabooTabLayout(
         (adapter as TabooTabAdapter).updateTab()
     }
 
+    fun addTab(tabBlocks: List<TabooTabBlock>) {
+        (adapter as TabooTabAdapter).submitList(
+            (adapter as TabooTabAdapter).currentList.toMutableList().apply {
+                addAll(tabBlocks)
+            }
+        )
+
+        (adapter as TabooTabAdapter).updateTab()
+    }
+
     /**
      * [position]에 Tab을 삭제합니다. [position]은 탭의 크기보다 작아야합니다.
      *
