@@ -5,16 +5,21 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.util.AttributeSet
 import android.util.Log
+import android.util.TypedValue
 import androidx.core.content.ContextCompat
+import androidx.core.util.TypedValueCompat.ComplexDimensionUnit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kwon.taboo.R
 import com.kwon.taboo.adapter.TabooTabAdapter
+import com.kwon.taboo.uicore.util.ResourceUtils
 
 class TabooTabLayout(
     context: Context,
     attrs: AttributeSet
 ) : RecyclerView(context, attrs) {
+    private var tabTextSizePixel = ResourceUtils.spToPx(context, 16f)
+
     private val tabDefaultColor = R.color.taboo_numbering_ball_default_text_color
     private val tabIndicatorColor: Int = com.kwon.taboo.uicore.R.color.taboo_blue_600
 
@@ -27,6 +32,8 @@ class TabooTabLayout(
         val isVisibilityIcon = typed.getBoolean(R.styleable.TabooTabLayout_isVisibilityIcon, false)
 
         val tabFontFamily = typed.getResourceId(R.styleable.TabooTabLayout_tabFontFamily, com.kwon.taboo.uicore.R.font.font_pretendard_medium)
+
+        val tabTextSize = typed.getDimensionPixelSize(R.styleable.TabooTabLayout_tabTextSize, ResourceUtils.spToPx(context, 16f).toInt())
 
         val tabDefaultColor = typed.getColorStateList(R.styleable.TabooTabLayout_tabDefaultColor)
             ?: ContextCompat.getColorStateList(context, tabDefaultColor)
@@ -50,6 +57,7 @@ class TabooTabLayout(
         isVisibilityIcon(isVisibilityIcon)
 
         setTabFontFamily(tabFontFamily)
+        setTabTextSize(TypedValue.COMPLEX_UNIT_PX, tabTextSize.toFloat())
 
         setTabColorInternal(tabDefaultColor.defaultColor, tabIndicatorColor.defaultColor)
         setBallColorInternal(ballDefaultColor.defaultColor, ballIndicatorColor.defaultColor)
@@ -129,6 +137,11 @@ class TabooTabLayout(
 
     fun setTabFontFamily(fontFamily: Int) {
         (adapter as TabooTabAdapter).setTabFontFamily(fontFamily)
+    }
+
+    fun setTabTextSize(@ComplexDimensionUnit unit: Int = TypedValue.COMPLEX_UNIT_SP, textSize: Float) {
+        tabTextSizePixel = if (unit == TypedValue.COMPLEX_UNIT_PX) ResourceUtils.spToPx(context, textSize) else textSize
+        (adapter as TabooTabAdapter).setTabTextSize(tabTextSizePixel)
     }
 
     /**
