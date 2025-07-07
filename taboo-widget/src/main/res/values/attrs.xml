@@ -16,6 +16,7 @@
     <attr name="isChecked" format="boolean"/>
 
     <attr name="tabFontFamily" format="reference"/>
+    <attr name="tabTextSize" format="dimension"/>
 
     <attr name="textGravity" format="enum">
         <enum name="start" value="0"/>
@@ -200,6 +201,7 @@
         <attr name="isVisibilityNumbering" format="boolean"/>
         <attr name="isVisibilityIcon" format="boolean"/>
         <attr name="tabFontFamily"/>
+        <attr name="tabTextSize"/>
         <attr name="tabDefaultColor" format="reference|color"/>
         <attr name="tabIndicatorColor" format="reference|color"/>
         <attr name="ballDefaultColor" format="reference|color"/>
@@ -262,7 +264,7 @@
 
     <declare-styleable name="TabooSegmentTab">
         <attr name="tabTextColor" format="reference|color"/>
-        <attr name="tabTextSize" format="dimension"/>
+        <attr name="tabTextSize"/>
         <attr name="tabFontFamily"/>
         <attr name="tabTextAppearance" format="reference"/>
         <attr name="tabPadding" format="dimension"/>
