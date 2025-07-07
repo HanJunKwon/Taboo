@@ -15,11 +15,13 @@ import com.kwon.taboo.diffutils.TabooTabDiffCallback
 import com.kwon.taboo.enums.PayLoad
 import com.kwon.taboo.numbering.TabooNumberingBall
 import com.kwon.taboo.tabs.TabooTabBlock
+import com.kwon.taboo.uicore.util.ResourceUtils
 
 class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHolder>(TabooTabDiffCallback()) {
     private var selectedTab: TabooTabBlock? = null
 
     private var tabFontFamily: Int = com.kwon.taboo.uicore.R.font.font_pretendard_medium
+    private var tabTextSize: Float = 16f
 
     private var tabColorStateList: ColorStateList? = null
     private var ballColorStateList: ColorStateList? = null
@@ -62,6 +64,9 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
                 // 탭 폰트 패밀리 변경
                 PayLoad.TAB_FONT_FAMILY_CHANGED -> {
                     holder.updateTabFontFamily()
+                }
+                PayLoad.TAB_TEXT_SIZE_CHANGED -> {
+                    holder.updateTabTextSize()
                 }
                 // 탭 색상 변경
                 PayLoad.TAB_COLOR_CHANGED -> {
@@ -138,6 +143,12 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
         tabFontFamily = fontFamily
     }
 
+    fun setTabTextSize(textSize: Float) {
+        tabTextSize = textSize
+
+        notifyItemRangeChanged(0, itemCount, PayLoad.TAB_TEXT_SIZE_CHANGED)
+    }
+
     fun setTabColorStateList(tabColorStateList: ColorStateList) {
         this.tabColorStateList = tabColorStateList
 
@@ -175,6 +186,7 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
             updateTabColor()
             updateBallColor()
             updateTabFontFamily()
+            updateTabTextSize()
             updateSelected(currentList[adapterPosition].uuid == selectedTab?.uuid)
 
             view.setOnClickListener {
@@ -226,6 +238,10 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
             view.findViewById<TextView>(R.id.tv_tab_title).setTypeface(
                 ResourcesCompat.getFont(view.context, tabFontFamily)
             )
+        }
+
+        fun updateTabTextSize() {
+            view.findViewById<TextView>(R.id.tv_tab_title).textSize = tabTextSize
         }
 
         fun updateTabColor() {

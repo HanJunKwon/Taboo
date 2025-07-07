@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:isVisibilityNumbering="true"
+        app:tabTextSize="20sp"
         app:tabFontFamily="@font/font_pretendard_bold"
         app:tabDefaultColor="@color/taboo_gray_600"
         app:tabIndicatorColor="@color/taboo_red_500"
