@@ -34,4 +34,10 @@
         android:layout_marginTop="20dp"
         app:tabFontFamily="@font/font_pretendard_bold" />
 
+    <com.kwon.taboo.button.TabooButton
+        android:id="@+id/btn_move_selected_to_first"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"/>
+
 </LinearLayout>

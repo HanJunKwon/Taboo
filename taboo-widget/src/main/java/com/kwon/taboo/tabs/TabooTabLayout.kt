@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kwon.taboo.R
 import com.kwon.taboo.adapter.TabooTabAdapter
+import com.kwon.taboo.tabs.decoration.TabooTabDecoration
 import com.kwon.taboo.uicore.util.ResourceUtils
 
 class TabooTabLayout(
@@ -30,6 +31,8 @@ class TabooTabLayout(
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooTabLayout)
         val isVisibilityNumbering = typed.getBoolean(R.styleable.TabooTabLayout_isVisibilityNumbering, false)
         val isVisibilityIcon = typed.getBoolean(R.styleable.TabooTabLayout_isVisibilityIcon, false)
+
+        val tabSpace = typed.getDimension(R.styleable.TabooTabLayout_tabSpace, 0f)
 
         val tabFontFamily = typed.getResourceId(R.styleable.TabooTabLayout_tabFontFamily, com.kwon.taboo.uicore.R.font.font_pretendard_medium)
 
@@ -51,7 +54,7 @@ class TabooTabLayout(
 
         typed.recycle()
 
-        initTabLayout()
+        initTabLayout(tabSpace)
 
         isVisibilityNumbering(isVisibilityNumbering)
         isVisibilityIcon(isVisibilityIcon)
@@ -63,9 +66,12 @@ class TabooTabLayout(
         setBallColorInternal(ballDefaultColor.defaultColor, ballIndicatorColor.defaultColor)
     }
 
-    private fun initTabLayout() {
-        adapter = TabooTabAdapter()
+    private fun initTabLayout(tabSpace: Float) {
+        adapter = TabooTabAdapter().apply {
+            addItemDecoration(TabooTabDecoration(tabSpace))
+        }
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        overScrollMode = OVER_SCROLL_NEVER
     }
 
     /**

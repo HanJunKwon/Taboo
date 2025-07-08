@@ -174,6 +174,13 @@ class TabooSegmentTab @JvmOverloads constructor(
         }
     }
 
+    fun setSelectedIndex(index: Int) {
+        onTabSelectedListener?.invoke(index)
+
+        tabTextSelected(index)
+        moveSelectorContainer(index)
+    }
+
     fun setOnTabSelectedListener(listener: (Int) -> Unit) {
         onTabSelectedListener = listener
     }
@@ -212,5 +219,13 @@ class TabooSegmentTab @JvmOverloads constructor(
                 }
                 start()
             }
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        if (MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.EXACTLY) {
+            setSelectedIndex(selectedIndex)
+        }
     }
 }
