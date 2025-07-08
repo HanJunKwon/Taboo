@@ -66,6 +66,7 @@ class TabooTabLayout(
     private fun initTabLayout() {
         adapter = TabooTabAdapter()
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        overScrollMode = OVER_SCROLL_NEVER
     }
 
     /**
