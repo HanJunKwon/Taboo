@@ -54,6 +54,28 @@
     <color name="taboo_flame_red_100">#FFFCD2C2</color>
     <color name="taboo_flame_red_50">#FFFDECE5</color>
 
+    <color name="taboo_orange_900">#FFE45600</color>
+    <color name="taboo_orange_800">#FFED6700</color>
+    <color name="taboo_orange_700">#FFE45600</color>
+    <color name="taboo_orange_600">#FFED6700</color>
+    <color name="taboo_orange_500">#FFFE9800</color>
+    <color name="taboo_orange_400">#FFFFA927</color>
+    <color name="taboo_orange_300">#FFFFBD51</color>
+    <color name="taboo_orange_200">#FFFFCD80</color>
+    <color name="taboo_orange_100">#FFFFE0B0</color>
+    <color name="taboo_orange_50">#FFFFEFD7</color>
+
+    <color name="taboo_yellow_900">#FFE45600</color>
+    <color name="taboo_yellow_800">#FFED6700</color>
+    <color name="taboo_yellow_700">#FFE45600</color>
+    <color name="taboo_yellow_600">#FFED6700</color>
+    <color name="taboo_yellow_500">#FFFE9800</color>
+    <color name="taboo_yellow_400">#FFFFA927</color>
+    <color name="taboo_yellow_300">#FFFFBD51</color>
+    <color name="taboo_yellow_200">#FFFFCD80</color>
+    <color name="taboo_yellow_100">#FFFFE0B0</color>
+    <color name="taboo_yellow_50">#FFFFF9E7</color>
+
     <color name="taboo_gray_900">#FF191F28</color>
     <color name="taboo_gray_800">#FF333D4B</color>
     <color name="taboo_gray_700">#FF4E5968</color>
