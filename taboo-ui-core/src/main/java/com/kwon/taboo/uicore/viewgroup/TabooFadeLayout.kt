@@ -5,10 +5,12 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.annotation.ColorInt
 import androidx.annotation.IntDef
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
+import androidx.core.content.withStyledAttributes
 import com.kwon.taboo.uicore.R
 import com.kwon.taboo.uicore.attribute.FadeAppearance
 import com.kwon.taboo.uicore.util.ResourceUtils
@@ -19,12 +21,19 @@ class TabooFadeLayout(context: Context, attrs: AttributeSet): ConstraintLayout (
     private var fadeHeight = 0f
 
     private var contentView = LinearLayout(context).apply {
-        id = View.generateViewId()
+        id = generateViewId()
         layoutParams = LayoutParams(
             LayoutParams.MATCH_PARENT,
             LayoutParams.MATCH_PARENT
         )
     }
+
+    @ColorInt
+    private var fadeStartColor = ContextCompat.getColor(context, R.color.taboo_fade_view_default_start_color)
+
+    @ColorInt
+    private var fadeEndColor = ContextCompat.getColor(context, R.color.taboo_fade_view_default_end_color)
+
     private var topFadeView: View? = null
     private var bottomFadeView: View? = null
 
@@ -33,15 +42,22 @@ class TabooFadeLayout(context: Context, attrs: AttributeSet): ConstraintLayout (
 
         super.addView(contentView)
 
-        val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooFadeLayout)
-        val fadePosition = typed.getInt(R.styleable.TabooFadeLayout_fadePosition,
-            FADE_POSITION_BOTTOM
-        )
-        val fadeHeight = typed.getDimension(R.styleable.TabooFadeLayout_fadeHeight, 30f)
-        typed.recycle()
+        context.withStyledAttributes(attrs, R.styleable.TabooFadeLayout) {
+            val fadePosition = getInt(R.styleable.TabooFadeLayout_fadePosition, FADE_POSITION_BOTTOM)
+            val fadeStartColor = getColor(
+                R.styleable.TabooFadeLayout_fadeStartColor,
+                ContextCompat.getColor(context, R.color.taboo_fade_view_default_start_color)
+            )
+            val fadeEndColor = getColor(
+                R.styleable.TabooFadeLayout_fadeEndColor,
+                ContextCompat.getColor(context, R.color.taboo_fade_view_default_end_color)
+            )
+            val fadeHeight = getDimension(R.styleable.TabooFadeLayout_fadeHeight, 30f)
 
-        setFadePositionInternal(fadePosition)
-        setFadeHeightInternal(fadeHeight)
+            setFadeColor(fadeStartColor, fadeEndColor)
+            setFadePositionInternal(fadePosition)
+            setFadeHeightInternal(fadeHeight)
+        }
 
         draw()
     }
@@ -93,6 +109,29 @@ class TabooFadeLayout(context: Context, attrs: AttributeSet): ConstraintLayout (
         updateFadeHeight()
     }
 
+    fun setFadeColor(@ColorInt fadeStartColor: Int, @ColorInt fadeEndColor: Int) {
+        this.fadeStartColor = fadeStartColor
+        this.fadeEndColor = fadeEndColor
+
+        updateFadeStartColor()
+    }
+
+    private fun updateFadeStartColor() {
+        topFadeView?.let {
+            (it as TabooFadeView).setGradientColors(
+                startColor = fadeStartColor,
+                endColor = fadeEndColor
+            )
+        }
+
+        bottomFadeView?.let {
+            (it as TabooFadeView).setGradientColors(
+                startColor = fadeStartColor,
+                endColor = fadeEndColor
+            )
+        }
+    }
+
     /**
      * Todo 추후에 현재 스크롤뷰의 Orientation에 따라 [fadePosition] 설정의 예외처리를 해줘야함.
      */
@@ -137,15 +176,15 @@ class TabooFadeLayout(context: Context, attrs: AttributeSet): ConstraintLayout (
 
     private fun createFadeView(isBottom: Boolean): View {
         return TabooFadeView(context).apply {
-            id = View.generateViewId()
+            id = generateViewId()
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 ResourceUtils.dpToPx(context, fadeHeight)
             )
 
             setGradientColors(
-                startColor = ContextCompat.getColor(context, R.color.taboo_fade_view_default_start_color),
-                endColor = ContextCompat.getColor(context, R.color.taboo_fade_view_default_end_color)
+                startColor = fadeStartColor,
+                endColor = fadeEndColor
             )
 
             setFadeOrientation(

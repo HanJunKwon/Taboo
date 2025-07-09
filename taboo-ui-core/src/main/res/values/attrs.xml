@@ -6,6 +6,9 @@
     <attr name="enabledVibration" format="boolean"/>
     <attr name="vibrationDuration" format="integer"/>
 
+    <attr name="fadeStartColor" format="reference|color"/>
+    <attr name="fadeEndColor" format="reference|color"/>
+
     <declare-styleable name="TabooClickableViewCore">
         <attr name="enabledAnimation"/>
         <attr name="animationDuration"/>
@@ -25,8 +28,8 @@
     </declare-styleable>
 
     <declare-styleable name="TabooFadeView">
-        <attr name="startColor" format="reference|color"/>
-        <attr name="endColor" format="reference|color"/>
+        <attr name="fadeStartColor"/>
+        <attr name="fadeEndColor"/>
         <attr name="fadeOrientation" format="enum">
             <enum name="top_bottom" value="0"/>
             <enum name="bottom_top" value="1"/>
@@ -41,6 +44,8 @@
             <enum name="bottom" value="1"/>
             <enum name="both" value="2"/>
         </attr>
+        <attr name="fadeStartColor"/>
+        <attr name="fadeEndColor"/>
         <attr name="fadeHeight" format="dimension"/>
     </declare-styleable>
 
