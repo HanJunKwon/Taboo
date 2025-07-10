@@ -21,4 +21,10 @@ object ResourceUtils {
             context.resources.displayMetrics
         )
     }
+
+    fun pxToSp(context: Context, px: Float): Float {
+        val fontScale = context.resources.configuration.fontScale
+        val density = context.resources.displayMetrics.density
+        return px / (density * fontScale)
+    }
 }

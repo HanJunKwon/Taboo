@@ -156,7 +156,7 @@ class TabooTabLayout(
     }
 
     fun setTabTextSize(@ComplexDimensionUnit unit: Int = TypedValue.COMPLEX_UNIT_SP, textSize: Float) {
-        tabTextSizePixel = if (unit == TypedValue.COMPLEX_UNIT_PX) textSize else ResourceUtils.spToPx(context, textSize)
+        tabTextSizePixel = if (unit == TypedValue.COMPLEX_UNIT_SP) ResourceUtils.spToPx(context, textSize) else textSize
         (adapter as TabooTabAdapter).setTabTextSize(tabTextSizePixel)
     }
 
