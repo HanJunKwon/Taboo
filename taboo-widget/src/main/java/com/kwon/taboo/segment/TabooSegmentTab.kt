@@ -164,7 +164,7 @@ class TabooSegmentTab @JvmOverloads constructor(
                 setPadding(padding, padding, padding, padding)
                 setTypeface(ResourcesCompat.getFont(context, tabFontFamily))
                 setTextColor(tabTextColor)
-                textSize = tabTextSizePixel
+                setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTextSizePixel)
                 setOnClickListener {
                     onTabSelectedListener?.invoke(index)
 
