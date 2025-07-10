@@ -39,7 +39,7 @@ class TabooSegmentTab @JvmOverloads constructor(
 
     private var tabFontFamily = com.kwon.taboo.uicore.R.font.font_pretendard_regular
     private var tabTextColor = ContextCompat.getColorStateList(context, R.color.taboo_segment_tab_text_color)
-    private var tabTextSizePixel = ResourceUtils.spToPx(context, 16f)
+    private var tabTextSizePixel = ResourceUtils.spToPx(context, 14f)
     private var tabPadding: Float = ResourceUtils.dpToPx(context, 8f).toFloat()
 
     private var isInitSElectedContainer = false
@@ -60,7 +60,9 @@ class TabooSegmentTab @JvmOverloads constructor(
             // Tab 텍스트 크기
             setTabTextSize(
                 unit = TypedValue.COMPLEX_UNIT_PX,
-                textSize = getDimension(R.styleable.TabooSegmentTab_tabTextSize, 14f)
+                textSize = getDimensionPixelSize(R.styleable.TabooSegmentTab_tabTextSize,
+                    ResourceUtils.spToPx(context, 14f).toInt()
+                ).toFloat()
             )
 
             // Tab 폰트
@@ -112,14 +114,14 @@ class TabooSegmentTab @JvmOverloads constructor(
     }
 
     fun setTabTextSize(@ComplexDimensionUnit unit: Int = TypedValue.COMPLEX_UNIT_SP, textSize: Float) {
-        tabTextSizePixel = if (unit == TypedValue.COMPLEX_UNIT_PX) ResourceUtils.spToPx(context, textSize) else textSize
+        tabTextSizePixel = if (unit == TypedValue.COMPLEX_UNIT_SP) ResourceUtils.spToPx(context, textSize) else textSize
 
         updateTabTextSize()
     }
 
     private fun updateTabTextSize() {
         tabLayout.children.forEach {
-            (it as TextView).textSize = tabTextSizePixel
+            (it as TextView).setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTextSizePixel)
         }
     }
 
