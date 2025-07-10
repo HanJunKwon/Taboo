@@ -1,6 +1,7 @@
 package com.kwon.taboo.adapter
 
 import android.content.res.ColorStateList
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +23,7 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
     private var selectedTab: TabooTabBlock? = null
 
     private var tabFontFamily: Int = com.kwon.taboo.uicore.R.font.font_pretendard_medium
-    private var tabTextSize: Float = 16f
+    private var tabTextSize: Float = 0f
 
     private var tabColorStateList: ColorStateList? = null
     private var ballColorStateList: ColorStateList? = null
@@ -249,7 +250,7 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
         }
 
         fun updateTabTextSize() {
-            view.findViewById<TextView>(R.id.tv_tab_title).textSize = tabTextSize
+            view.findViewById<TextView>(R.id.tv_tab_title).setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTextSize)
         }
 
         fun updateTabColor() {

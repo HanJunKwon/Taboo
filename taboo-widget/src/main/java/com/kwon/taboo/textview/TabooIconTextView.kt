@@ -12,9 +12,12 @@ import androidx.annotation.FontRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
 import com.kwon.taboo.R
+import com.kwon.taboo.uicore.util.ResourceUtils
 
 class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
     private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_icon_text_view, this, true)
+
+    private var space = 0
 
     init {
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooIconTextView)
@@ -32,6 +35,8 @@ class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayou
         val maxLines = typed.getInt(R.styleable.TabooIconTextView_android_maxLines, 1)
         val ellipsize = typed.getInt(R.styleable.TabooIconTextView_android_ellipsize, 0)
 
+        val space = typed.getDimensionPixelSize(R.styleable.TabooIconTextView_space, ResourceUtils.spToPx(context, 6f).toInt())
+
         typed.recycle()
 
         setIconSrc(iconSrc)
@@ -45,6 +50,8 @@ class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayou
 
         setMaxLines(maxLines)
         setEllipsize(ellipsize)
+
+        setSpace(space)
     }
 
     fun setIconSrc(iconSrc: Int) {
@@ -96,6 +103,22 @@ class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayou
             2 -> android.text.TextUtils.TruncateAt.MIDDLE
             3 -> android.text.TextUtils.TruncateAt.END
             else -> android.text.TextUtils.TruncateAt.END
+        }
+    }
+
+    fun setSpace(space: Int) {
+        this.space = space
+
+        updateSpace()
+    }
+
+    fun updateSpace() {
+        if (space == 0) {
+            return
+        }
+
+        (rootView.findViewById<TextView>(R.id.tv_text).layoutParams as MarginLayoutParams).apply {
+            marginStart = space
         }
     }
 
