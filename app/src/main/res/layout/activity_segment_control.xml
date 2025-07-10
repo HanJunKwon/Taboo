@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        app:tabFontFamily="@font/font_pretendard_bold" />
+        app:tabTextSize="16sp"/>
 
     <com.kwon.taboo.button.TabooButton
         android:id="@+id/btn_move_selected_to_first"
