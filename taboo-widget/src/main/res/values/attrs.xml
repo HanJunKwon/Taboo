@@ -57,6 +57,13 @@
         <attr name="android:textAppearance" format="reference"/>
         <attr name="android:textColor" format="reference|color"/>
         <attr name="android:textSize" format="dimension"/>
+        <attr name="android:padding" format="dimension"/>
+        <attr name="android:paddingVertical" format="dimension"/>
+        <attr name="android:paddingHorizontal" format="dimension"/>
+        <attr name="android:paddingTop" format="dimension"/>
+        <attr name="android:paddingStart" format="dimension"/>
+        <attr name="android:paddingBottom" format="dimension"/>
+        <attr name="android:paddingEnd" format="dimension"/>
         <attr name="font"/>
         <attr name="icon"/>
         <attr name="iconPosition"/>

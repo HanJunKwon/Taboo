@@ -174,6 +174,13 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="Taboo.TextAppearance.Counter">
+        <item name="android:fontFamily">@font/font_pretendard_medium</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/selector_taboo_counter_number</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="Taboo.Style"/>
 
     <style name="Taboo.Style.Button">
@@ -307,22 +314,28 @@
     <style name="Taboo.Style.Counter.Icon">
         <item name="android:maxWidth">16dp</item>
         <item name="android:maxHeight">16dp</item>
+        <item name="android:paddingStart">5dp</item>
+        <item name="android:paddingEnd">5dp</item>
+        <item name="android:text">""</item>
         <item name="android:tint">@color/taboo_gray_500</item>
+        <item name="iconScaleType">fit</item>
+        <item name="contentSpace">0dp</item>
     </style>
 
     <style name="Taboo.Style.Counter.Icon.Minus">
-        <item name="android:src">@drawable/ic_round_minus</item>
+        <item name="icon">@drawable/ic_round_minus</item>
     </style>
 
     <style name="Taboo.Style.Counter.Icon.Plus">
-        <item name="android:src">@drawable/ic_round_plus</item>
+        <item name="icon">@drawable/ic_round_plus</item>
     </style>
 
     <style name="Taboo.Style.Counter.Label">
-        <item name="android:fontFamily">@font/font_pretendard_medium</item>
-        <item name="android:textColor">@color/selector_taboo_counter_number</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:background">@drawable/shape_taboo_counter_label_background</item>
+        <item name="android:textAppearance">@style/Taboo.TextAppearance.Counter</item>
         <item name="android:gravity">center</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
     </style>
 
 </resources>
