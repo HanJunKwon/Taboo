@@ -16,11 +16,11 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StyleRes
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.content.withStyledAttributes
 import androidx.core.util.TypedValueCompat.ComplexDimensionUnit
 import com.kwon.taboo.R
 import com.kwon.taboo.uicore.TabooClickableViewCore
+import com.kwon.taboo.uicore.util.FontCache
 import com.kwon.taboo.uicore.util.ResourceUtils
 
 class TabooTextButton @JvmOverloads constructor(
@@ -82,11 +82,10 @@ class TabooTextButton @JvmOverloads constructor(
             )
             
             // 폰트
-            val fontResId = getResourceId(
-                R.styleable.TabooTextButton_font,
-                com.kwon.taboo.uicore.R.font.font_pretendard_medium // 기본값
-            )
-            setFont(ResourcesCompat.getFont(context, fontResId))
+            val fontResId = getResourceId(R.styleable.TabooTextButton_font, 0).let {
+                if (it == 0) com.kwon.taboo.uicore.R.font.font_pretendard_medium else it
+            }
+            setFont(FontCache.getFont(context, fontResId))
 
             // Icon
             setIcon(getResourceId(R.styleable.TabooTextButton_icon, 0))
