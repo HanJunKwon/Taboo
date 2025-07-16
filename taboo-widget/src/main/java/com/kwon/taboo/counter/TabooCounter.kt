@@ -19,7 +19,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class TabooCounter(context: Context, attrs: AttributeSet): ConstraintLayout(context, attrs) {
+class TabooCounter @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0,
+): ConstraintLayout(context, attrs, defStyleAttr) {
     private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_counter, this, true)
     private val counterWrapper = rootView.findViewById<ConstraintLayout>(R.id.ll_taboo_counter_wrapper)
     private val btnMinus = rootView.findViewById<TabooTextButton>(R.id.btn_minus)
