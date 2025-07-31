@@ -90,7 +90,7 @@ open class TabooButton(context: Context, attrs: AttributeSet): TabooButtonCore(c
         val buttonAppearance = getButtonAppearance()
         val buttonType = buttonAppearance.getButtonType()
         return when (buttonType) {
-            ButtonAppearance.BUTTON_TYPE_SOLID -> context.resources.getColorStateList(com.kwon.taboo.uicore.R.color.white, null)
+            ButtonAppearance.BUTTON_TYPE_SOLID -> ColorStateList.valueOf(ContextCompat.getColor(context, com.kwon.taboo.uicore.R.color.white))
             else -> buttonAppearance.getColorContainer().getPrimaryColorStateList()
         }
     }

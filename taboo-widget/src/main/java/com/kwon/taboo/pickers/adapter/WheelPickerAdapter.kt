@@ -8,6 +8,7 @@ import android.view.View.TEXT_ALIGNMENT_VIEW_END
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import androidx.recyclerview.widget.RecyclerView.TEXT_ALIGNMENT_CENTER
@@ -93,7 +94,8 @@ class WheelPickerAdapter(
         }
 
         fun setSelected(isSelected: Boolean) {
-            textView.setTextAppearance(
+            TextViewCompat.setTextAppearance(
+                textView,
                 if (isSelected) R.style.Taboo_TextAppearance_WheelPicker_Selected
                 else R.style.Taboo_TextAppearance_WheelPicker_Unselected
             )

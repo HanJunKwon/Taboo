@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.content.withStyledAttributes
+import androidx.core.widget.TextViewCompat
 import com.kwon.taboo.R
 import com.kwon.taboo.uicore.button.TabooButtonCore
 
@@ -159,7 +160,10 @@ class TabooIconButton(context: Context, attrs: AttributeSet): TabooButtonCore(co
     private fun updateTextAppearance() {
         if (textAppearanceResId == 0) return
 
-        rootView.findViewById<TextView>(R.id.tv_button_text).setTextAppearance(textAppearanceResId)
+        TextViewCompat.setTextAppearance(
+            rootView.findViewById<TextView>(R.id.tv_button_text),
+            textAppearanceResId
+        )
     }
 
     fun getIconDrawable() = iconDrawable

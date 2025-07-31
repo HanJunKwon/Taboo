@@ -9,8 +9,10 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.FontRes
+import androidx.annotation.StyleRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.widget.TextViewCompat
 import com.kwon.taboo.R
 import com.kwon.taboo.uicore.util.ResourceUtils
 
@@ -74,8 +76,11 @@ class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayou
         rootView.findViewById<TextView>(R.id.tv_text).text = text
     }
 
-    fun setTextAppearance(textAppearance: Int) {
-        rootView.findViewById<TextView>(R.id.tv_text).setTextAppearance(textAppearance)
+    fun setTextAppearance(@StyleRes textAppearance: Int) {
+        TextViewCompat.setTextAppearance(
+            rootView.findViewById<TextView>(R.id.tv_button_text),
+            textAppearance
+        )
     }
 
     fun setTextColor(color: ColorStateList?) {

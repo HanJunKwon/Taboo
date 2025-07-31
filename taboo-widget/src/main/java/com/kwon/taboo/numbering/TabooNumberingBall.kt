@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.util.AttributeSet
 import android.view.Gravity.CENTER
 import androidx.appcompat.widget.AppCompatTextView
@@ -156,7 +157,7 @@ class TabooNumberingBall(
         updateBallColor()
 
         // 텍스트 스타일 설정
-        setTextAppearance(R.style.Taboo_TextAppearance_NumberingBall)
+        setTextAppearance(context, R.style.Taboo_TextAppearance_NumberingBall)
         updateTextColor()
 
         gravity = CENTER
