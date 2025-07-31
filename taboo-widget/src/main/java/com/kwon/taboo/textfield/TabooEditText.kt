@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.widget.TextViewCompat
 import com.kwon.taboo.R
 import com.kwon.taboo.enums.AffixType
 
@@ -68,7 +69,10 @@ class TabooEditText(
     fun setAffixTextAppearance(affixType: AffixType, appearance: Int) {
         if (isAnyPasswordInputType()) return
 
-        getAffixTextView(affixType).setTextAppearance(appearance)
+        TextViewCompat.setTextAppearance(
+            getAffixTextView(affixType),
+            appearance
+        )
     }
 
     fun setAffixTextColor(affixType: AffixType, textColorStateList: ColorStateList?) {

@@ -170,8 +170,8 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): TabooClic
         return when (buttonType) {
             BUTTON_TYPE_SOLID -> colorContainer.getPrimaryColorStateList()
             BUTTON_TYPE_FILL -> colorContainer.getSecondaryColorStateList()
-            BUTTON_TYPE_OUTLINE -> context.resources.getColorStateList(android.R.color.transparent, null)
-            BUTTON_TYPE_DASH -> context.resources.getColorStateList(android.R.color.transparent, null)
+            BUTTON_TYPE_OUTLINE -> ColorStateList.valueOf(ContextCompat.getColor(context, android.R.color.transparent))
+            BUTTON_TYPE_DASH -> ColorStateList.valueOf(ContextCompat.getColor(context, android.R.color.transparent))
             else -> throw IllegalArgumentException("Unknown button type")
         }
     }

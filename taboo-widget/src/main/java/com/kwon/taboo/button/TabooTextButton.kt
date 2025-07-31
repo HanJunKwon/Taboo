@@ -18,6 +18,7 @@ import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
 import androidx.core.util.TypedValueCompat.ComplexDimensionUnit
+import androidx.core.widget.TextViewCompat
 import com.kwon.taboo.R
 import com.kwon.taboo.uicore.TabooClickableViewCore
 import com.kwon.taboo.uicore.util.FontCache
@@ -177,10 +178,11 @@ class TabooTextButton @JvmOverloads constructor(
         textView.text = text
     }
 
-    fun setTextAppearance(@StyleRes resId: Int) {
-        if (resId != 0) {
-            textView.setTextAppearance(resId)
-        }
+    fun setTextAppearance(@StyleRes textAppearanceId: Int) {
+        TextViewCompat.setTextAppearance(
+            textView,
+            textAppearanceId
+        )
     }
 
     fun setTextColor(@ColorInt color: Int) {
