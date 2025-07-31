@@ -110,10 +110,6 @@ class TabooTextButton @JvmOverloads constructor(
             setContentSpace(getDimension(R.styleable.TabooTextButton_contentSpace, CONTENT_SPACE_DP))
         }
 
-        val paddingVertical = ResourceUtils.dpToPx(context, PADDING_VERTICAL_DP)
-        val paddingHorizontal = ResourceUtils.dpToPx(context, PADDING_HORIZONTAL_DP)
-        setPadding(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical)
-
         addView(
             linearLayout.apply {
                 if (iconPosition == IconPosition.ICON_LEFT) {
@@ -161,9 +157,7 @@ class TabooTextButton @JvmOverloads constructor(
     private fun updateIconLayoutParams() {
         val params = iconImageView.layoutParams as LayoutParams
         iconImageView.layoutParams = params.apply {
-            println("scaleType: $iconScaleType")
             val size = if (iconScaleType == IconScaleType.FIX) ResourceUtils.dpToPx(context, IMAGE_VIEW_SIZE) else LayoutParams.WRAP_CONTENT
-            println("size: $size")
             width = size
             height = size
         }
@@ -243,9 +237,6 @@ class TabooTextButton @JvmOverloads constructor(
     }
 
     companion object {
-        const val PADDING_VERTICAL_DP = 8f
-        const val PADDING_HORIZONTAL_DP = 16f
-
         const val IMAGE_VIEW_SIZE = 36f
         const val IMAGE_VIEW_CORNER_RADIUS = 20f
 

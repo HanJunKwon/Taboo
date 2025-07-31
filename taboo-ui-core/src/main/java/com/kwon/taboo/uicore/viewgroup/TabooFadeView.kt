@@ -20,8 +20,8 @@ class TabooFadeView @JvmOverloads constructor(
     init {
         context.withStyledAttributes(attrs, R.styleable.TabooFadeView) {
             setGradientColorsInternal(
-                startColor = getColor(R.styleable.TabooFadeView_startColor, ContextCompat.getColor(context, R.color.taboo_fade_view_default_start_color)),
-                endColor = getColor(R.styleable.TabooFadeView_endColor, ContextCompat.getColor(context, R.color.taboo_fade_view_default_end_color))
+                startColor = getColor(R.styleable.TabooFadeView_fadeStartColor, ContextCompat.getColor(context, R.color.taboo_fade_view_default_start_color)),
+                endColor = getColor(R.styleable.TabooFadeView_fadeEndColor, ContextCompat.getColor(context, R.color.taboo_fade_view_default_end_color))
             )
 
             setFadeOrientationInternal(getInt(R.styleable.TabooFadeView_fadeOrientation, FadeAppearance.FadeOrientation.TOP_BOTTOM))

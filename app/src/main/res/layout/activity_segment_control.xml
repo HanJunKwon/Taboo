@@ -27,4 +27,17 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"/>
 
+    <com.kwon.taboo.segment.TabooSegmentTab
+        android:id="@+id/tst_segment_tab_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:tabTextSize="16sp"/>
+
+    <com.kwon.taboo.button.TabooButton
+        android:id="@+id/btn_move_selected_to_first"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"/>
+
 </LinearLayout>

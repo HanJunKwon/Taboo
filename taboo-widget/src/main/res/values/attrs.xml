@@ -15,6 +15,9 @@
 
     <attr name="isChecked" format="boolean"/>
 
+    <attr name="tabFontFamily" format="reference"/>
+    <attr name="tabTextSize" format="dimension"/>
+
     <attr name="textGravity" format="enum">
         <enum name="start" value="0"/>
         <enum name="center" value="1"/>
@@ -54,6 +57,13 @@
         <attr name="android:textAppearance" format="reference"/>
         <attr name="android:textColor" format="reference|color"/>
         <attr name="android:textSize" format="dimension"/>
+        <attr name="android:padding" format="dimension"/>
+        <attr name="android:paddingVertical" format="dimension"/>
+        <attr name="android:paddingHorizontal" format="dimension"/>
+        <attr name="android:paddingTop" format="dimension"/>
+        <attr name="android:paddingStart" format="dimension"/>
+        <attr name="android:paddingBottom" format="dimension"/>
+        <attr name="android:paddingEnd" format="dimension"/>
         <attr name="font"/>
         <attr name="icon"/>
         <attr name="iconPosition"/>
@@ -158,10 +168,12 @@
         <attr name="android:textAppearance"/>
         <attr name="android:textColor"/>
         <attr name="android:textSize" format="dimension"/>
+        <attr name="android:fontFamily" format="reference"/>
         <attr name="android:maxLines"/>
         <attr name="android:ellipsize"/>
         <attr name="srcWidth" format="dimension"/>
         <attr name="srcHeight" format="dimension"/>
+        <attr name="space" format="dimension"/>
     </declare-styleable>
     
     <declare-styleable name="TabooTagView">
@@ -196,6 +208,9 @@
     <declare-styleable name="TabooTabLayout">
         <attr name="isVisibilityNumbering" format="boolean"/>
         <attr name="isVisibilityIcon" format="boolean"/>
+        <attr name="tabSpace" format="dimension"/>
+        <attr name="tabFontFamily"/>
+        <attr name="tabTextSize"/>
         <attr name="tabDefaultColor" format="reference|color"/>
         <attr name="tabIndicatorColor" format="reference|color"/>
         <attr name="ballDefaultColor" format="reference|color"/>
@@ -258,8 +273,8 @@
 
     <declare-styleable name="TabooSegmentTab">
         <attr name="tabTextColor" format="reference|color"/>
-        <attr name="tabTextSize" format="dimension"/>
-        <attr name="tabFontFamily" format="reference"/>
+        <attr name="tabTextSize"/>
+        <attr name="tabFontFamily"/>
         <attr name="tabTextAppearance" format="reference"/>
         <attr name="tabPadding" format="dimension"/>
         <attr name="selectorColor" format="color"/>

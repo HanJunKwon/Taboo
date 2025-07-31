@@ -6,7 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.kwon.taboo.adapter.TabooSegmentControlAdapter
+import com.kwon.taboo.button.TabooButton
 import com.kwon.taboo.segment.TabooSegmentControl
 import com.kwon.taboo.segment.TabooSegmentTab
 
@@ -50,6 +50,15 @@ class SegmentControlActivity : AppCompatActivity() {
         findViewById<TabooSegmentTab>(R.id.tst_segment_tab).setItems(listOf("탭1", "탭2", "탭3", "탭4"))
         findViewById<TabooSegmentTab>(R.id.tst_segment_tab).setOnTabSelectedListener {
             Log.d(">>>", "Selected tab $it")
+        }
+
+        findViewById<TabooSegmentTab>(R.id.tst_segment_tab_2).setItems(listOf("탭1", "탭2", "탭3", "탭4"))
+        findViewById<TabooSegmentTab>(R.id.tst_segment_tab_2).setOnTabSelectedListener {
+            Log.d(">>>", "Selected tab $it")
+        }
+        findViewById<TabooSegmentTab>(R.id.tst_segment_tab_2).setSelectedIndex(2)
+        findViewById<TabooButton>(R.id.btn_move_selected_to_first).setOnClickListener {
+            findViewById<TabooSegmentTab>(R.id.tst_segment_tab_2).setSelectedIndex(1)
         }
     }
 }

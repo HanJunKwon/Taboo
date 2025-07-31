@@ -5,16 +5,21 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.util.AttributeSet
 import android.util.Log
+import android.util.TypedValue
 import androidx.core.content.ContextCompat
+import androidx.core.util.TypedValueCompat.ComplexDimensionUnit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kwon.taboo.R
 import com.kwon.taboo.adapter.TabooTabAdapter
+import com.kwon.taboo.tabs.decoration.TabooTabDecoration
+import com.kwon.taboo.uicore.util.ResourceUtils
 
 class TabooTabLayout(
     context: Context,
     attrs: AttributeSet
 ) : RecyclerView(context, attrs) {
+    private var tabTextSizePixel = ResourceUtils.spToPx(context, 16f)
 
     private val tabDefaultColor = R.color.taboo_numbering_ball_default_text_color
     private val tabIndicatorColor: Int = com.kwon.taboo.uicore.R.color.taboo_blue_600
@@ -26,6 +31,13 @@ class TabooTabLayout(
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooTabLayout)
         val isVisibilityNumbering = typed.getBoolean(R.styleable.TabooTabLayout_isVisibilityNumbering, false)
         val isVisibilityIcon = typed.getBoolean(R.styleable.TabooTabLayout_isVisibilityIcon, false)
+
+        val tabSpace = typed.getDimension(R.styleable.TabooTabLayout_tabSpace, 0f)
+
+        val tabFontFamily = typed.getResourceId(R.styleable.TabooTabLayout_tabFontFamily, com.kwon.taboo.uicore.R.font.font_pretendard_medium)
+
+        val tabTextSize = typed.getDimensionPixelSize(R.styleable.TabooTabLayout_tabTextSize, ResourceUtils.spToPx(context, 16f).toInt())
+
         val tabDefaultColor = typed.getColorStateList(R.styleable.TabooTabLayout_tabDefaultColor)
             ?: ContextCompat.getColorStateList(context, tabDefaultColor)
             ?: ColorStateList.valueOf(Color.BLACK)
@@ -42,26 +54,24 @@ class TabooTabLayout(
 
         typed.recycle()
 
-        initTabLayout()
+        initTabLayout(tabSpace)
 
         isVisibilityNumbering(isVisibilityNumbering)
         isVisibilityIcon(isVisibilityIcon)
+
+        setTabFontFamily(tabFontFamily)
+        setTabTextSize(TypedValue.COMPLEX_UNIT_PX, tabTextSize.toFloat())
 
         setTabColorInternal(tabDefaultColor.defaultColor, tabIndicatorColor.defaultColor)
         setBallColorInternal(ballDefaultColor.defaultColor, ballIndicatorColor.defaultColor)
     }
 
-    private fun initTabLayout() {
+    private fun initTabLayout(tabSpace: Float) {
         adapter = TabooTabAdapter().apply {
-            submitList(
-                listOf(
-                    TabooTabBlock(tabName = "Tab 1", tabNumber = 1),
-                    TabooTabBlock(tabName = "Tab 2", tabNumber = 2),
-                    TabooTabBlock(tabName = "Tab 3", tabNumber = 3)
-                )
-            )
+            addItemDecoration(TabooTabDecoration(tabSpace))
         }
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        overScrollMode = OVER_SCROLL_NEVER
     }
 
     /**
@@ -85,6 +95,18 @@ class TabooTabLayout(
                 add(position, tabBlock)
             }
         )
+
+        (adapter as TabooTabAdapter).updateTab()
+    }
+
+    fun addTab(tabBlocks: List<TabooTabBlock>) {
+        (adapter as TabooTabAdapter).submitList(
+            (adapter as TabooTabAdapter).currentList.toMutableList().apply {
+                addAll(tabBlocks)
+            }
+        )
+
+        (adapter as TabooTabAdapter).updateTab()
     }
 
     /**
@@ -127,6 +149,19 @@ class TabooTabLayout(
 
     fun isVisibilityIcon(): Boolean {
         return (adapter as TabooTabAdapter).isVisibilityIcon()
+    }
+
+    fun setTabFontFamily(fontFamily: Int) {
+        (adapter as TabooTabAdapter).setTabFontFamily(fontFamily)
+    }
+
+    fun setTabTextSize(@ComplexDimensionUnit unit: Int = TypedValue.COMPLEX_UNIT_SP, textSize: Float) {
+        tabTextSizePixel = if (unit == TypedValue.COMPLEX_UNIT_SP) ResourceUtils.spToPx(context, textSize) else textSize
+        (adapter as TabooTabAdapter).setTabTextSize(tabTextSizePixel)
+    }
+
+    fun setTabSelectedListener(listener: TabooTabAdapter.TabSelectedListener) {
+        (adapter as TabooTabAdapter).setTabSelectedListener(listener)
     }
 
     /**
