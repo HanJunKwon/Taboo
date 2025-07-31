@@ -5,7 +5,6 @@ import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.GradientDrawable.RECTANGLE
-import android.os.Build
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
@@ -20,6 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.content.withStyledAttributes
 import androidx.core.util.TypedValueCompat.ComplexDimensionUnit
+import androidx.core.widget.TextViewCompat
 import com.kwon.taboo.R
 import com.kwon.taboo.uicore.TabooClickableViewCore
 import com.kwon.taboo.uicore.util.ResourceUtils
@@ -179,15 +179,11 @@ class TabooTextButton @JvmOverloads constructor(
         textView.text = text
     }
 
-    fun setTextAppearance(@StyleRes resId: Int) {
-        if (resId != 0) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                textView.setTextAppearance(resId)
-            } else {
-                @Suppress("DEPRECATION")
-                textView.setTextAppearance(context, resId)
-            }
-        }
+    fun setTextAppearance(@StyleRes textAppearanceId: Int) {
+        TextViewCompat.setTextAppearance(
+            textView,
+            textAppearanceId
+        )
     }
 
     fun setTextColor(@ColorInt color: Int) {
