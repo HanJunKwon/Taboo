@@ -56,7 +56,10 @@ class TabsActivity : AppCompatActivity() {
 
         findViewById<TabooButton>(R.id.btn_change_icon_visibility).setOnClickListener {
             findViewById<TabooTabLayout>(R.id.ttl_tabs).isVisibilityIcon(!findViewById<TabooTabLayout>(R.id.ttl_tabs).isVisibilityIcon())
+        }
 
+        findViewById<TabooButton>(R.id.btn_get_tab_selected_index).setOnClickListener {
+            Log.d(">>>", "selected Tab Index: ${findViewById<TabooTabLayout>(R.id.ttl_tabs).getSelectedTabPosition()}")
         }
     }
 }
