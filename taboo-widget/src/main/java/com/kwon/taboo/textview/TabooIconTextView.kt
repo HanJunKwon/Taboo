@@ -78,7 +78,7 @@ class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayou
 
     fun setTextAppearance(@StyleRes textAppearance: Int) {
         TextViewCompat.setTextAppearance(
-            rootView.findViewById<TextView>(R.id.tv_button_text),
+            rootView.findViewById<TextView>(R.id.tv_text),
             textAppearance
         )
     }
