@@ -66,4 +66,13 @@
         app:buttonShape="round"
         app:layout_constraintTop_toBottomOf="@id/btn_change_numbering_visibility"/>
 
+    <com.kwon.taboo.button.TabooButton
+        android:id="@+id/btn_get_tab_selected_index"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="선택된 탭의 인덱스 가져오기"
+        app:buttonShape="round"
+        app:layout_constraintTop_toBottomOf="@id/btn_change_icon_visibility"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

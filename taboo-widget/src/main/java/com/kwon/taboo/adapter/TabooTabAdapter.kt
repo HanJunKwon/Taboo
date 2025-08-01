@@ -144,6 +144,13 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
         selectedListener?.onTabSelected(selectedPosition)
     }
 
+    /**
+     * 현재 선택된 탭의 위치를 반환합니다.
+     *
+     * 선택된 탭이 없으면 `-1`을 반환합니다.
+     */
+    fun getSelectedPosition(): Int = currentList.indexOfFirst { it.uuid == selectedTab?.uuid }
+
     fun setTabFontFamily(fontFamily: Int) {
         tabFontFamily = fontFamily
     }
