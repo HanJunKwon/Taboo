@@ -135,6 +135,10 @@ class TabooTabLayout(
         (adapter as TabooTabAdapter).setSelectedPosition(position)
     }
 
+    fun getSelectedTabPosition(): Int {
+        return (adapter as TabooTabAdapter).getSelectedPosition()
+    }
+
     fun isVisibilityNumbering(isVisibilityNumbering: Boolean) {
         (adapter as TabooTabAdapter).isVisibilityNumbering(isVisibilityNumbering)
     }
