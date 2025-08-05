@@ -2,6 +2,7 @@ package com.kwon.taboo.tabs
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.content.res.TypedArray
 import android.graphics.Color
 import android.util.AttributeSet
 import android.util.Log
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kwon.taboo.R
 import com.kwon.taboo.adapter.TabooTabAdapter
 import com.kwon.taboo.tabs.decoration.TabooTabDecoration
+import com.kwon.taboo.uicore.attribute.PaddingAttribute
 import com.kwon.taboo.uicore.util.ResourceUtils
 
 class TabooTabLayout(
@@ -31,6 +33,8 @@ class TabooTabLayout(
         val typed = context.obtainStyledAttributes(attrs, R.styleable.TabooTabLayout)
         val isVisibilityNumbering = typed.getBoolean(R.styleable.TabooTabLayout_isVisibilityNumbering, false)
         val isVisibilityIcon = typed.getBoolean(R.styleable.TabooTabLayout_isVisibilityIcon, false)
+
+        val tabPaddingAttribute = getTabPaddingAttribute(typed)
 
         val tabSpace = typed.getDimension(R.styleable.TabooTabLayout_tabSpace, 0f)
 
@@ -56,6 +60,8 @@ class TabooTabLayout(
 
         initTabLayout(tabSpace)
 
+        setTabPaddingAttribute(tabPaddingAttribute)
+
         isVisibilityNumbering(isVisibilityNumbering)
         isVisibilityIcon(isVisibilityIcon)
 
@@ -64,6 +70,16 @@ class TabooTabLayout(
 
         setTabColorInternal(tabDefaultColor.defaultColor, tabIndicatorColor.defaultColor)
         setBallColorInternal(ballDefaultColor.defaultColor, ballIndicatorColor.defaultColor)
+    }
+
+    private fun getTabPaddingAttribute(typed: TypedArray): PaddingAttribute {
+        val padding = typed.getDimensionPixelSize(R.styleable.TabooTabLayout_tabPadding, ResourceUtils.dpToPx(context, 20f).toInt())
+        val paddingTop = typed.getDimensionPixelSize(R.styleable.TabooTabLayout_tabPaddingTop, padding)
+        val paddingBottom = typed.getDimensionPixelSize(R.styleable.TabooTabLayout_tabPaddingBottom, padding)
+        val paddingStart = typed.getDimensionPixelSize(R.styleable.TabooTabLayout_tabPaddingStart, padding)
+        val paddingEnd = typed.getDimensionPixelSize(R.styleable.TabooTabLayout_tabPaddingEnd, padding)
+
+        return PaddingAttribute(paddingStart, paddingTop, paddingEnd, paddingBottom)
     }
 
     private fun initTabLayout(tabSpace: Float) {
@@ -137,6 +153,18 @@ class TabooTabLayout(
 
     fun getSelectedTabPosition(): Int {
         return (adapter as TabooTabAdapter).getSelectedPosition()
+    }
+
+    fun setTabPaddingAttribute(paddingAttribute: PaddingAttribute) {
+        setTabPadding(paddingAttribute.left, paddingAttribute.top, paddingAttribute.right, paddingAttribute.bottom)
+    }
+
+    fun setTabPadding(padding: Int) {
+        setTabPadding(padding, padding, padding, padding)
+    }
+
+    fun setTabPadding(left: Int, top: Int, right: Int, bottom: Int) {
+        (adapter as TabooTabAdapter).setTabPadding(left, top, right, bottom)
     }
 
     fun isVisibilityNumbering(isVisibilityNumbering: Boolean) {
