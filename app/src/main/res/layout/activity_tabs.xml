@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:isVisibilityNumbering="true"
+        app:tabPadding="50dp"
         app:tabSpace="100dp"
         app:tabTextSize="20sp"
         app:tabFontFamily="@font/font_pretendard_bold"
@@ -74,5 +75,14 @@
         android:text="선택된 탭의 인덱스 가져오기"
         app:buttonShape="round"
         app:layout_constraintTop_toBottomOf="@id/btn_change_icon_visibility"/>
+
+    <com.kwon.taboo.button.TabooButton
+        android:id="@+id/btn_set_tab_padding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="탭 내부 패딩 변경"
+        app:buttonShape="round"
+        app:layout_constraintTop_toBottomOf="@id/btn_get_tab_selected_index"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
