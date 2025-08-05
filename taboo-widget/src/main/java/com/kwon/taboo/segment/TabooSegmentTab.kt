@@ -3,7 +3,9 @@ package com.kwon.taboo.segment
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.ColorStateList
+import android.content.res.TypedArray
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
 import android.widget.LinearLayout
 import android.widget.LinearLayout.HORIZONTAL
@@ -17,6 +19,7 @@ import androidx.core.util.TypedValueCompat.ComplexDimensionUnit
 import androidx.core.view.children
 import androidx.core.view.isNotEmpty
 import com.kwon.taboo.R
+import com.kwon.taboo.uicore.attribute.PaddingAttribute
 import com.kwon.taboo.uicore.util.ResourceUtils
 
 class TabooSegmentTab @JvmOverloads constructor(
@@ -33,16 +36,28 @@ class TabooSegmentTab @JvmOverloads constructor(
 
     private var selectorContainer = LinearLayout(context).apply {
         id = generateViewId()
-        layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
+        layoutParams = LayoutParams(
+            LayoutParams.WRAP_CONTENT,
+            LayoutParams.MATCH_CONSTRAINT
+        ).apply {
+            topToTop = tabLayout.id
+            bottomToBottom = tabLayout.id
+        }
+
         background = ContextCompat.getDrawable(context, R.drawable.shape_taboo_segment_selector_background)
     }
 
     private var tabFontFamily = com.kwon.taboo.uicore.R.font.font_pretendard_regular
     private var tabTextColor = ContextCompat.getColorStateList(context, R.color.taboo_segment_tab_text_color)
     private var tabTextSizePixel = ResourceUtils.spToPx(context, 14f)
-    private var tabPadding: Float = ResourceUtils.dpToPx(context, 8f).toFloat()
+    private var tabPaddingAttribute = PaddingAttribute(
+        left = ResourceUtils.dpToPx(context, 8f).toInt(),
+        top = ResourceUtils.dpToPx(context, 8f).toInt(),
+        right = ResourceUtils.dpToPx(context, 8f).toInt(),
+        bottom = ResourceUtils.dpToPx(context, 8f).toInt()
+    )
 
-    private var isInitSElectedContainer = false
+    private var isInitSelectedContainer = false
 
     private var items = mutableListOf<String>()
 
@@ -72,8 +87,8 @@ class TabooSegmentTab @JvmOverloads constructor(
             )
             setTabFont(tabFontFamily)
 
-            // Tab의 패딩
-            setTabPadding(getDimension(R.styleable.TabooSegmentTab_tabPadding, ResourceUtils.dpToPx(context, 8f).toFloat()))
+            // Tab 내부 패딩
+            setTabPaddingAttribute(getTabPaddingAttribute(this))
 
             // Selector 색상
             setSelectorColor(getColor(
@@ -93,6 +108,16 @@ class TabooSegmentTab @JvmOverloads constructor(
         viewTreeObserver.addOnGlobalLayoutListener {
             updateSelectedContainer()
         }
+    }
+
+    private fun getTabPaddingAttribute(typed: TypedArray): PaddingAttribute {
+        val padding = typed.getDimensionPixelSize(R.styleable.TabooTabLayout_tabPadding, ResourceUtils.dpToPx(context, 8f).toInt())
+        val paddingTop = typed.getDimensionPixelSize(R.styleable.TabooTabLayout_tabPaddingTop, padding)
+        val paddingBottom = typed.getDimensionPixelSize(R.styleable.TabooTabLayout_tabPaddingBottom, padding)
+        val paddingStart = typed.getDimensionPixelSize(R.styleable.TabooTabLayout_tabPaddingStart, padding)
+        val paddingEnd = typed.getDimensionPixelSize(R.styleable.TabooTabLayout_tabPaddingEnd, padding)
+
+        return PaddingAttribute(paddingStart, paddingTop, paddingEnd, paddingBottom)
     }
 
     fun setTabTextColor(tabColorStateList: ColorStateList) {
@@ -137,12 +162,38 @@ class TabooSegmentTab @JvmOverloads constructor(
         }
     }
 
-    fun setTabPadding(padding: Float) {
-        tabPadding = padding
+    fun setTabPadding(padding: Int) {
+        setTabPadding(padding, padding, padding, padding)
+    }
 
+    fun setTabPadding(left: Int, top: Int, right: Int, bottom: Int) {
+        setTabPaddingAttribute(
+            PaddingAttribute(
+                left = left,
+                top = top,
+                right = right,
+                bottom = bottom
+            )
+        )
+    }
+
+    fun setTabPaddingAttribute(paddingAttribute: PaddingAttribute) {
+        tabPaddingAttribute = paddingAttribute
+
+        updateTabPadding()
+    }
+
+    fun updateTabPadding() {
         tabLayout.children.forEach {
-            it.setPadding(padding.toInt(), padding.toInt(), padding.toInt(), padding.toInt())
+            it.setPadding(
+                tabPaddingAttribute.left,
+                tabPaddingAttribute.top,
+                tabPaddingAttribute.right,
+                tabPaddingAttribute.bottom
+            )
         }
+
+        selectorContainer.requestLayout()
     }
 
     fun setSelectorColor(selectorColor: Int) {
@@ -188,14 +239,13 @@ class TabooSegmentTab @JvmOverloads constructor(
     }
 
     private fun updateSelectedContainer() {
-        if (tabLayout.isNotEmpty() && !isInitSElectedContainer) {
+        if (tabLayout.isNotEmpty() && !isInitSelectedContainer) {
             val firstChild = tabLayout.getChildAt(0)
             selectorContainer.x = paddingStart.toFloat()
             selectorContainer.layoutParams.width = firstChild.width
-            selectorContainer.layoutParams.height = firstChild.height
             selectorContainer.requestLayout()
 
-            isInitSElectedContainer = true
+            isInitSelectedContainer = true
         }
     }
 

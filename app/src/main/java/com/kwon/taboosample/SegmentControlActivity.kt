@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.kwon.taboo.button.TabooButton
 import com.kwon.taboo.segment.TabooSegmentControl
 import com.kwon.taboo.segment.TabooSegmentTab
+import com.kwon.taboo.uicore.util.ResourceUtils
 
 class SegmentControlActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +56,9 @@ class SegmentControlActivity : AppCompatActivity() {
         findViewById<TabooSegmentTab>(R.id.tst_segment_tab_2).setItems(listOf("탭1", "탭2", "탭3", "탭4"))
         findViewById<TabooSegmentTab>(R.id.tst_segment_tab_2).setOnTabSelectedListener {
             Log.d(">>>", "Selected tab $it")
+            if (it == 0) {
+                findViewById<TabooSegmentTab>(R.id.tst_segment_tab_2).setTabPadding(ResourceUtils.dpToPx(this@SegmentControlActivity, 30f))
+            }
         }
         findViewById<TabooSegmentTab>(R.id.tst_segment_tab_2).setSelectedIndex(2)
         findViewById<TabooButton>(R.id.btn_move_selected_to_first).setOnClickListener {
