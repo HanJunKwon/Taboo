@@ -15,6 +15,12 @@
 
     <attr name="isChecked" format="boolean"/>
 
+    <attr name="tabPadding" format="dimension"/>
+    <attr name="tabPaddingTop" format="dimension"/>
+    <attr name="tabPaddingBottom" format="dimension"/>
+    <attr name="tabPaddingStart" format="dimension"/>
+    <attr name="tabPaddingEnd" format="dimension"/>
+
     <attr name="tabFontFamily" format="reference"/>
     <attr name="tabTextSize" format="dimension"/>
 
@@ -208,6 +214,11 @@
     <declare-styleable name="TabooTabLayout">
         <attr name="isVisibilityNumbering" format="boolean"/>
         <attr name="isVisibilityIcon" format="boolean"/>
+        <attr name="tabPadding"/>
+        <attr name="tabPaddingTop"/>
+        <attr name="tabPaddingBottom"/>
+        <attr name="tabPaddingStart"/>
+        <attr name="tabPaddingEnd"/>
         <attr name="tabSpace" format="dimension"/>
         <attr name="tabFontFamily"/>
         <attr name="tabTextSize"/>
@@ -272,11 +283,15 @@
     </declare-styleable>
 
     <declare-styleable name="TabooSegmentTab">
+        <attr name="tabPadding"/>
+        <attr name="tabPaddingTop"/>
+        <attr name="tabPaddingBottom"/>
+        <attr name="tabPaddingStart"/>
+        <attr name="tabPaddingEnd"/>
         <attr name="tabTextColor" format="reference|color"/>
         <attr name="tabTextSize"/>
         <attr name="tabFontFamily"/>
         <attr name="tabTextAppearance" format="reference"/>
-        <attr name="tabPadding" format="dimension"/>
         <attr name="selectorColor" format="color"/>
         <attr name="selectorRadius" format="dimension"/>
     </declare-styleable>

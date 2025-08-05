@@ -6,10 +6,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.setPadding
 import com.kwon.taboo.adapter.TabooTabAdapter
 import com.kwon.taboo.button.TabooButton
 import com.kwon.taboo.tabs.TabooTabBlock
 import com.kwon.taboo.tabs.TabooTabLayout
+import com.kwon.taboo.uicore.util.ResourceUtils
 import kotlin.random.Random
 
 class TabsActivity : AppCompatActivity() {
@@ -60,6 +62,10 @@ class TabsActivity : AppCompatActivity() {
 
         findViewById<TabooButton>(R.id.btn_get_tab_selected_index).setOnClickListener {
             Log.d(">>>", "selected Tab Index: ${findViewById<TabooTabLayout>(R.id.ttl_tabs).getSelectedTabPosition()}")
+        }
+
+        findViewById<TabooButton>(R.id.btn_set_tab_padding).setOnClickListener {
+            findViewById<TabooTabLayout>(R.id.ttl_tabs).setTabPadding(ResourceUtils.dpToPx(this, 10f))
         }
     }
 }

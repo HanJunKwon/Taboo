@@ -1,6 +1,7 @@
 package com.kwon.taboo.adapter
 
 import android.content.res.ColorStateList
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -16,11 +17,15 @@ import com.kwon.taboo.diffutils.TabooTabDiffCallback
 import com.kwon.taboo.enums.PayLoad
 import com.kwon.taboo.numbering.TabooNumberingBall
 import com.kwon.taboo.tabs.TabooTabBlock
-import com.kwon.taboo.uicore.util.ResourceUtils
 
 class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHolder>(TabooTabDiffCallback()) {
     private var selectedListener: TabSelectedListener? = null
     private var selectedTab: TabooTabBlock? = null
+
+    private var tabPaddingLeft = 0
+    private var tabPaddingRight = 0
+    private var tabPaddingTop = 0
+    private var tabPaddingBottom = 0
 
     private var tabFontFamily: Int = com.kwon.taboo.uicore.R.font.font_pretendard_medium
     private var tabTextSize: Float = 0f
@@ -74,12 +79,30 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
                 PayLoad.TAB_COLOR_CHANGED -> {
                     holder.updateTabColor()
                 }
+                // 탭 내부 패딩 변경
+                PayLoad.TAB_PADDING_CHANGED -> {
+                    holder.updateTabPadding()
+                }
                 // Ball 색상 변경
                 PayLoad.BALL_COLOR_CHANGED -> {
                     holder.updateBallColor()
                 }
             }
         }
+    }
+
+    fun setTabPadding(padding: Int) {
+        setTabPadding(padding, padding, padding, padding)
+    }
+
+    fun setTabPadding(left: Int, right: Int, top: Int, bottom: Int) {
+        this.tabPaddingLeft = left
+        this.tabPaddingRight = right
+        this.tabPaddingTop = top
+        this.tabPaddingBottom = bottom
+
+        // Padding 변경
+        notifyItemRangeChanged(0, itemCount, PayLoad.TAB_PADDING_CHANGED)
     }
 
     /**
@@ -197,6 +220,7 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
                     .setImageDrawable(ContextCompat.getDrawable(view.rootView.context, tab.tabIcon))
             }
 
+            updateTabPadding()
             updateNumberingVisibility(isVisibilityNumbering)
             updateIconVisibility(isVisibilityIcon)
             updateTabColor()
@@ -266,6 +290,10 @@ class TabooTabAdapter: ListAdapter<TabooTabBlock, TabooTabAdapter.TabooTabViewHo
                 view.findViewById<TabooNumberingBall>(R.id.tnb_count).setTextColor(colorStateList)
                 view.findViewById<ImageView>(R.id.iv_tab_icon).drawable?.setTintList(colorStateList)
             }
+        }
+
+        fun updateTabPadding() {
+            view.setPadding(tabPaddingLeft, tabPaddingTop, tabPaddingRight, tabPaddingBottom)
         }
 
         fun updateBallColor() {
