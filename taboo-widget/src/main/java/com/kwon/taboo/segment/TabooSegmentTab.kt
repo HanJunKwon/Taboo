@@ -88,7 +88,8 @@ class TabooSegmentTab @JvmOverloads constructor(
             setTabFont(tabFontFamily)
 
             // Tab 내부 패딩
-            setTabPaddingAttribute(getTabPaddingAttribute(this))
+            getTabPaddingAttribute(this)
+//            setTabPaddingAttribute(getTabPaddingAttribute(this))
 
             // Selector 색상
             setSelectorColor(getColor(
@@ -111,11 +112,11 @@ class TabooSegmentTab @JvmOverloads constructor(
     }
 
     private fun getTabPaddingAttribute(typed: TypedArray): PaddingAttribute {
-        val padding = typed.getDimensionPixelSize(R.styleable.TabooTabLayout_tabPadding, ResourceUtils.dpToPx(context, 8f).toInt())
-        val paddingTop = typed.getDimensionPixelSize(R.styleable.TabooTabLayout_tabPaddingTop, padding)
-        val paddingBottom = typed.getDimensionPixelSize(R.styleable.TabooTabLayout_tabPaddingBottom, padding)
-        val paddingStart = typed.getDimensionPixelSize(R.styleable.TabooTabLayout_tabPaddingStart, padding)
-        val paddingEnd = typed.getDimensionPixelSize(R.styleable.TabooTabLayout_tabPaddingEnd, padding)
+        val padding = typed.getDimensionPixelSize(R.styleable.TabooSegmentTab_tabPadding, ResourceUtils.dpToPx(context, 8f))
+        val paddingTop = typed.getDimensionPixelSize(R.styleable.TabooSegmentTab_tabPaddingTop, padding)
+        val paddingBottom = typed.getDimensionPixelSize(R.styleable.TabooSegmentTab_tabPaddingBottom, padding)
+        val paddingStart = typed.getDimensionPixelSize(R.styleable.TabooSegmentTab_tabPaddingStart, padding)
+        val paddingEnd = typed.getDimensionPixelSize(R.styleable.TabooSegmentTab_tabPaddingEnd, padding)
 
         return PaddingAttribute(paddingStart, paddingTop, paddingEnd, paddingBottom)
     }
