@@ -211,8 +211,7 @@ class TabooSegmentTab @JvmOverloads constructor(
                 text = item
                 textAlignment = TEXT_ALIGNMENT_CENTER
                 layoutParams = LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, 1f)
-                val padding = ResourceUtils.dpToPx(context, 8f)
-                setPadding(padding, padding, padding, padding)
+                setPadding(tabPaddingAttribute.left, tabPaddingAttribute.top, tabPaddingAttribute.right, tabPaddingAttribute.bottom)
                 setTypeface(ResourcesCompat.getFont(context, tabFontFamily))
                 setTextColor(tabTextColor)
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTextSizePixel)
