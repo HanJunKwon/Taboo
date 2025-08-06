@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Taboo"/>
+
+    <style name="Taboo.TextAppearance"/>
+
+    <style name="Taboo.BottomDialog.Animation" parent="Theme.Material3.Light.Dialog.Alert">
+        <item name="android:windowEnterAnimation">@anim/anim_dialog_bottom_up_open</item>
+        <item name="android:windowExitAnimation">@anim/anim_dialog_bottom_up_close</item>
+    </style>
+
+    <style name="Taboo.TextAppearance.Confirm">
+        <item name="android:fontFamily">@font/font_pretendard_semi_bold</item>
+    </style>
+
     <style name="Taboo.TextAppearance.Confirm.Title">
         <item name="android:textColor">@color/on_surface</item>
         <item name="android:textSize">20sp</item>
