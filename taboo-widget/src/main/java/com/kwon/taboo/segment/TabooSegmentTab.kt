@@ -88,8 +88,7 @@ class TabooSegmentTab @JvmOverloads constructor(
             setTabFont(tabFontFamily)
 
             // Tab 내부 패딩
-            getTabPaddingAttribute(this)
-//            setTabPaddingAttribute(getTabPaddingAttribute(this))
+            setTabPaddingAttribute(getTabPaddingAttribute(this))
 
             // Selector 색상
             setSelectorColor(getColor(
