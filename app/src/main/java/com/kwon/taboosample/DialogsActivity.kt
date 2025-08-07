@@ -8,6 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.kwon.taboo.button.TabooButton
 import com.kwon.taboo.dialog.TabooAlert
 import com.kwon.taboo.dialog.TabooConfirm
+import com.kwon.taboo.uicore.util.WindowUtil
 
 class DialogsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +33,7 @@ class DialogsActivity : AppCompatActivity() {
             TabooConfirm(context = this)
                 .setTitle("경고!!")
                 .setMessage("저장하시겠습니까?")
+                .setScreenMode(WindowUtil.FULL_SCREEN)
                 .setNegativeText(getString(R.string.button_cancel_text))
                 .setPositiveText(getString(R.string.button_confirm_text))
                 .show()
