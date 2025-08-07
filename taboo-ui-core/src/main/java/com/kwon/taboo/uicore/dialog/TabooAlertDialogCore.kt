@@ -8,6 +8,7 @@ import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.uicore.R
+import com.kwon.taboo.uicore.util.WindowUtil
 
 abstract class TabooAlertDialogCore<T: TabooAlertDialogCore<T>>(context: Context): AlertDialog(context) {
     protected var title = ""
@@ -17,6 +18,8 @@ abstract class TabooAlertDialogCore<T: TabooAlertDialogCore<T>>(context: Context
         get() = LayoutInflater.from(context).inflate(R.layout.taboo_alert_dialog_base, null)
 
     protected var customContentView: View? = null
+
+    private var screenMode = WindowUtil.NORMAL_SCREEN
 
     init {
         this.window?.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.shape_taboo_confirm))
@@ -28,6 +31,14 @@ abstract class TabooAlertDialogCore<T: TabooAlertDialogCore<T>>(context: Context
         setupButtons()
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        window?.let {
+            WindowUtil.applyWindowScreenMode(it, screenMode)
+        }
+    }
+
     fun setTitle(title: String): T {
         this.title = title
 
@@ -36,6 +47,12 @@ abstract class TabooAlertDialogCore<T: TabooAlertDialogCore<T>>(context: Context
 
     fun setMessage(message: String): T {
         this.message = message
+
+        return this as T
+    }
+
+    fun setScreenMode(@WindowUtil.ScreenMode screenMode: Int): T {
+        this.screenMode = screenMode
 
         return this as T
     }
