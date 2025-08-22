@@ -1,80 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".EditTextsActivity">
-
-    <com.kwon.taboo.textfield.TabooTextInput
-        android:id="@+id/taboo_edit_text"
+<layout>
+    <data>
+        <variable
+            name="textViewModel"
+            type="com.kwon.taboosample.viewmodel.TextViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="아이디를 입력해주세요."
-        android:layout_marginTop="30dp"
-        app:textInputVariant="editText"
-        app:title="아이디"
-        app:errorMessage="아이디를 확인해주세요."
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        tools:context=".EditTextsActivity">
 
-    <com.kwon.taboo.textfield.TabooTextInput
-        android:id="@+id/taboo_edit_text_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="비밀번호를 입력해주세요."
-        android:inputType="textPassword"
-        app:title="비밀번호"
-        app:passwordToggleEnabled="true"
-        app:layout_constraintTop_toBottomOf="@id/taboo_edit_text"/>
+        <com.kwon.taboo.textfield.TabooTextInput
+            android:id="@+id/taboo_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@={textViewModel.userInput}"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    <com.kwon.taboo.textfield.TabooTextInput
-        android:id="@+id/taboo_edit_text_money"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:hint="금액을 입력해주세요."
-        app:title="금액"
-        app:prefixText="$"
-        app:layout_constraintTop_toBottomOf="@id/taboo_edit_text_password"/>
+<!--        <com.kwon.taboo.textfield.TabooTextInput-->
+<!--            android:id="@+id/taboo_edit_text"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="아이디를 입력해주세요."-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            app:textInputVariant="editText"-->
+<!--            contentText="@={textViewModel.id}"-->
+<!--            app:title="아이디"-->
+<!--            app:errorMessage="아이디를 확인해주세요."-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-    <com.kwon.taboo.textfield.TabooTextInput
-        android:id="@+id/taboo_edit_text_weight"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:hint="무게를 입력해주세요."
-        app:title="무게"
-        app:textGravity="end"
-        app:suffixText="kg"
-        app:layout_constraintTop_toBottomOf="@id/taboo_edit_text_money"/>
+        <com.kwon.taboo.textfield.TabooTextInput
+            android:id="@+id/taboo_edit_text_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="비밀번호를 입력해주세요."
+            android:inputType="textPassword"
+            app:title="비밀번호"
+            app:passwordToggleEnabled="true"
+            app:layout_constraintTop_toBottomOf="@id/taboo_edit_text"/>
 
-    <com.kwon.taboo.textfield.TabooTextInput
-        android:id="@+id/taboo_edit_text_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:hint="이메일을 입력해주세요."
-        app:requiredIconVisible="true"
-        app:title="이메일"
-        app:layout_constraintTop_toBottomOf="@id/taboo_edit_text_weight"/>
+        <com.kwon.taboo.textfield.TabooTextInput
+            android:id="@+id/taboo_edit_text_money"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="금액을 입력해주세요."
+            app:title="금액"
+            app:prefixText="$"
+            app:layout_constraintTop_toBottomOf="@id/taboo_edit_text_password"/>
 
-    <com.kwon.taboo.textfield.TabooTextInput
-        android:id="@+id/taboo_drop_down"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:hint="국가를 선택해주세요."
-        android:text="대한민국"
-        app:title="국가"
-        app:textInputVariant="dropdown"
-        app:layout_constraintTop_toBottomOf="@id/taboo_edit_text_email"/>
+        <com.kwon.taboo.textfield.TabooTextInput
+            android:id="@+id/taboo_edit_text_weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="무게를 입력해주세요."
+            app:title="무게"
+            app:textGravity="end"
+            app:suffixText="kg"
+            app:layout_constraintTop_toBottomOf="@id/taboo_edit_text_money"/>
 
-    <com.kwon.taboo.button.TabooButton
-        android:id="@+id/btn_ok"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="확인"
-        app:buttonShape="round"
-        app:layout_constraintTop_toBottomOf="@id/taboo_drop_down"/>
+        <com.kwon.taboo.textfield.TabooTextInput
+            android:id="@+id/taboo_edit_text_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:hint="이메일을 입력해주세요."
+            app:requiredIconVisible="true"
+            app:title="이메일"
+            app:layout_constraintTop_toBottomOf="@id/taboo_edit_text_weight"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.kwon.taboo.textfield.TabooTextInput
+            android:id="@+id/taboo_drop_down"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="국가를 선택해주세요."
+            android:text="대한민국"
+            app:title="국가"
+            app:textInputVariant="dropdown"
+            app:layout_constraintTop_toBottomOf="@id/taboo_edit_text_email"/>
+
+        <com.kwon.taboo.button.TabooButton
+            android:id="@+id/btn_ok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="확인"
+            android:onClick="@{() -> textViewModel.onClick()}"
+            app:buttonShape="round"
+            app:layout_constraintTop_toBottomOf="@id/taboo_drop_down"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

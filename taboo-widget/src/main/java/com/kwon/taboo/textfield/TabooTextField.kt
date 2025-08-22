@@ -125,6 +125,14 @@ open class TabooTextField(
         }
     }
 
+    fun addWatcher(watcher: TextWatcher) {
+        editText.addTextChangedListener(watcher)
+    }
+
+    fun removeWatcher(watcher: TextWatcher) {
+        editText.removeTextChangedListener(watcher)
+    }
+
     fun setOnTextChangedListener(l: (text: CharSequence, start: Int, before: Int, count: Int) -> Unit) {
         editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {

@@ -7,6 +7,7 @@ plugins {
     id("maven-publish")
     id("signing")
     id("com.vanniktech.maven.publish") version "0.29.0"
+    id("kotlin-kapt")
 }
 
 group = "io.github.hanjunkwon"
@@ -41,6 +42,7 @@ android {
     }
     buildFeatures {
         buildConfig = true
+        dataBinding = true
     }
 }
 
@@ -54,6 +56,7 @@ dependencies {
     implementation("com.google.android.material:material:1.12.0")
 
     implementation("com.airbnb.android:lottie:6.3.0")
+    implementation("androidx.databinding:databinding-common:8.12.1")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")

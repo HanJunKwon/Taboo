@@ -2,6 +2,7 @@ package com.kwon.taboo.textfield
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.kwon.taboo.R
 import com.kwon.taboo.enums.AffixType
 
-class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
+class TabooTextInput @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyle: Int = 0
+): ConstraintLayout(context, attrs) {
     private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_text_input, this, true)
     private var liningView: TabooTextField? = null
 
@@ -21,6 +26,14 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
     private var requiredIconVisible: Boolean = false
     private var errorMessage: String? = null
     private var error = false
+
+    var text: String
+        get() = getTextInternal()
+        set(value) {
+            if (value != getTextInternal()) {
+                setTextInternal(value)
+            }
+        }
 
     private var hint: String = ""
 
@@ -136,6 +149,14 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
         }
     }
 
+    fun addWatcher(watcher: TextWatcher) {
+        liningView?.addWatcher(watcher)
+    }
+
+    fun removeWatcher(watcher: TextWatcher) {
+        liningView?.removeWatcher(watcher)
+    }
+
     fun setTitle(title: String) {
         if (this.title == title)
             return
@@ -160,11 +181,11 @@ class TabooTextInput(context: Context, attrs: AttributeSet) : ConstraintLayout(c
         rootView.findViewById<View>(R.id.view_required_dot).visibility = if (requiredIconVisible) VISIBLE else GONE
     }
 
-    fun setText(text: String) {
+    private fun setTextInternal(text: String) {
         liningView?.setText(text)
     }
 
-    fun getText() = liningView?.getText() ?: ""
+    private fun getTextInternal() = liningView?.getText() ?: ""
 
     fun setHint(hint: String) {
         liningView?.setHint(hint)
