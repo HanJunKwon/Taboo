@@ -33,4 +33,22 @@ object TabooTextInputBindingAdapter {
         v.addWatcher(w)
         v.setTag(key, w)
     }
+
+    @JvmStatic
+    @BindingAdapter("error")
+    fun setError(view: TabooTextInput, error: Boolean) {
+        view.isError(error)
+    }
+
+    @JvmStatic
+    @BindingAdapter("errorMessage")
+    fun setErrorMessage(view: TabooTextInput, errorMessage: String?) {
+        view.setErrorMassage(errorMessage)
+    }
+
+    @JvmStatic
+    @BindingAdapter("android:enabled")
+    fun setEnabled(view: TabooTextInput, enabled: Boolean) {
+        view.isEnabled = enabled
+    }
 }

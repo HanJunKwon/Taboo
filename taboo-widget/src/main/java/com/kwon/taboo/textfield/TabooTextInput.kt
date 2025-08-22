@@ -24,8 +24,8 @@ class TabooTextInput @JvmOverloads constructor(
 
     private var title: String = "Title"
     private var requiredIconVisible: Boolean = false
-    private var errorMessage: String? = null
     private var error = false
+    private var errorMessage: String? = null
 
     var text: String
         get() = getTextInternal()
