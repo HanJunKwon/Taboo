@@ -12,27 +12,27 @@ import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.kwon.taboo.R
 
-@Deprecated("Use TabooLoading instead", ReplaceWith("TabooLoading"))
-class TabooDownloading(
-    private val context: Context
-) {
+class TabooLoading(private val context: Context) {
     private var dialog: AlertDialog? = null
-    private var rootView : View? = null
+    private var rootView: View? = null
 
-    private var assetName: String = "animation_downloading.json"
-    private var lottieScaleXY: Float = 1.0f
-    private var message: String = ""
+    private var assetName: String? = null
+    private var animationScale: Float = 1.0f
+    private var loadingMessage: String? = null
 
-    fun setAssetName(assetName: String) {
-        this.assetName = assetName
+    fun setAssetName(name: String): TabooLoading {
+        this.assetName = name
+        return this
     }
 
-    fun setLottieScaleXY(lottieScaleXY: Float) {
-        this.lottieScaleXY = lottieScaleXY
+    fun setAnimationScale(scale: Float): TabooLoading {
+        this.animationScale = scale
+        return this
     }
 
-    fun setMessage(message: String) {
-        this.message = message
+    fun setLoadingMessage(message: String): TabooLoading {
+        this.loadingMessage = message
+        return this
     }
 
     private fun updateLottieDownloading() {
@@ -44,9 +44,11 @@ class TabooDownloading(
     }
 
     private fun updateDownloadingMessage() {
-        rootView?.findViewById<TextView>(R.id.tv_downloading_message)?.text = message
+        rootView?.findViewById<TextView>(R.id.tv_downloading_message)?.let {
+            it.visibility = if (loadingMessage == null) View.GONE else View.VISIBLE
+            it.text = loadingMessage ?: ""
+        }
     }
-
 
     fun show() {
         if (isShowing()) return
