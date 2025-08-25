@@ -50,6 +50,8 @@ class TabooLoading(private val context: Context) {
     private fun updateLottieDownloading() {
         rootView?.findViewById<LottieAnimationView>(R.id.lottie_downloading)?.let{
             it.setAnimation(assetName)
+            it.scaleX = animationScale
+            it.scaleY = animationScale
             it.setRepeatCount(LottieDrawable.INFINITE)
             it.playAnimation()
         }
