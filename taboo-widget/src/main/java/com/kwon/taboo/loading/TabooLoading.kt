@@ -25,14 +25,26 @@ class TabooLoading(private val context: Context) {
         return this
     }
 
+    fun getAssetName(): String? {
+        return this.assetName
+    }
+
     fun setAnimationScale(scale: Float): TabooLoading {
         this.animationScale = scale
         return this
     }
 
+    fun getAnimationScale(): Float {
+        return this.animationScale
+    }
+
     fun setLoadingMessage(message: String): TabooLoading {
         this.loadingMessage = message
         return this
+    }
+
+    fun getLoadingMessage(): String? {
+        return this.loadingMessage
     }
 
     private fun updateLottieDownloading() {
