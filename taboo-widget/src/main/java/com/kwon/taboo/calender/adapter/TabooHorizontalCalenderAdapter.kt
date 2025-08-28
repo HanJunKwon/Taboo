@@ -8,10 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.hansae.taboo.core.util.CalendarUtils
 import com.kwon.taboo.R
 import com.kwon.taboo.calender.CalendarBlock
 import com.kwon.taboo.calender.diffcallback.TabooCalendarDiffCallback
-import com.kwon.utils.calendar.CalendarUtils
 
 class TabooHorizontalCalenderAdapter : ListAdapter<CalendarBlock, TabooHorizontalCalenderAdapter.TabooHorizontalCalenderViewHolder>(TabooCalendarDiffCallback()) {
     private var clickListener: ((CalendarBlock) -> Unit)? = null
@@ -83,7 +83,7 @@ class TabooHorizontalCalenderAdapter : ListAdapter<CalendarBlock, TabooHorizonta
     fun setSelectedPosition(position: Int) {
         // 범위 체크
         if (position > currentList.size - 1) {
-            Log.e("TabooHorizontalCalenderAdapter", "position is out of range")
+            Log.e(">>>", "position is out of range")
             return
         }
 

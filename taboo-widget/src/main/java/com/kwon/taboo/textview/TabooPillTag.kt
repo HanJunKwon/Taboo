@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.kwon.taboo.R
 import com.kwon.taboo.uicore.attribute.ColorContainer
-import com.kwon.taboo.uicore.util.ResourceUtils
+import com.hansae.taboo.core.util.ResourceUtils
 
 
 private const val TAG_VIEW_PADDING_HORIZONTAL = 15f

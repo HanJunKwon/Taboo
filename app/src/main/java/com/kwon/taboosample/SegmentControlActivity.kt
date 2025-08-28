@@ -9,7 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.kwon.taboo.button.TabooButton
 import com.kwon.taboo.segment.TabooSegmentControl
 import com.kwon.taboo.segment.TabooSegmentTab
-import com.kwon.taboo.uicore.util.ResourceUtils
+import com.hansae.taboo.core.util.ResourceUtils
 
 class SegmentControlActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

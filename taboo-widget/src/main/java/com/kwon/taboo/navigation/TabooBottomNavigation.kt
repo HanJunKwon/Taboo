@@ -6,9 +6,9 @@ import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.LayerDrawable
 import android.util.AttributeSet
 import androidx.core.content.ContextCompat
+import com.hansae.taboo.core.util.ResourceUtils
 import com.kwon.taboo.R
 import com.kwon.taboo.uicore.navigation.TabooNavigationCore
-import com.kwon.taboo.uicore.util.ResourceUtils
 
 class TabooBottomNavigation(context: Context, attrs: AttributeSet): TabooNavigationCore(context, attrs) {
     init {

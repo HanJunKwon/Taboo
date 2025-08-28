@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
+import com.hansae.taboo.core.util.WindowUtil
 import com.kwon.taboo.uicore.R
-import com.kwon.taboo.uicore.util.WindowUtil
 
 abstract class TabooAlertDialogCore<T: TabooAlertDialogCore<T>>(context: Context): AlertDialog(context) {
     protected var title = ""

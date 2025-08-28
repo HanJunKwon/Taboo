@@ -5,10 +5,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.hansae.taboo.core.util.WindowUtil
 import com.kwon.taboo.button.TabooButton
 import com.kwon.taboo.dialog.TabooAlert
 import com.kwon.taboo.dialog.TabooConfirm
-import com.kwon.taboo.uicore.util.WindowUtil
 
 class DialogsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

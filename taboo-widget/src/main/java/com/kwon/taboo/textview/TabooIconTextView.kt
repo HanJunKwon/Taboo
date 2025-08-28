@@ -2,7 +2,6 @@ package com.kwon.taboo.textview
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.os.Build
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -14,7 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.widget.TextViewCompat
 import com.kwon.taboo.R
-import com.kwon.taboo.uicore.util.ResourceUtils
+import com.hansae.taboo.core.util.ResourceUtils
 
 class TabooIconTextView(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
     private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_icon_text_view, this, true)

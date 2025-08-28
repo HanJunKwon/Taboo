@@ -3,7 +3,7 @@ package com.kwon.taboo.segment.decoration
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.kwon.taboo.uicore.util.ResourceUtils
+import com.hansae.taboo.core.util.ResourceUtils
 
 class TabooSegmentDecoration: RecyclerView.ItemDecoration() {
     override fun getItemOffsets(

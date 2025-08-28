@@ -9,10 +9,10 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.hansae.taboo.core.util.ResourceUtils
 import com.kwon.taboo.R
 import com.kwon.taboo.diffutils.TabooSegmentDiffCallback
 import com.kwon.taboo.enums.PayLoad
-import com.kwon.taboo.uicore.util.ResourceUtils
 
 class TabooSegmentControlAdapter(@SegmentType private val segmentType: Int = SEGMENT_TYPE_SOLID)
     : ListAdapter<String, TabooSegmentControlAdapter.TabooSegmentButtonViewHolder>(TabooSegmentDiffCallback()) {
@@ -77,12 +77,12 @@ class TabooSegmentControlAdapter(@SegmentType private val segmentType: Int = SEG
 
     fun setSelectedPosition(position: Int) {
         if (position < 0) {
-            Log.e("TabooSegmentControlAdapter", "Invalid position: $position")
+            Log.e(">>>", "Invalid position: $position")
             return
         }
 
         if (position >= itemCount) {
-            Log.e("TabooSegmentControlAdapter", "Invalid position: $position")
+            Log.e(">>>", "Invalid position: $position")
             return
         }
 

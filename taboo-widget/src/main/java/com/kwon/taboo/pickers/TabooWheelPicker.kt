@@ -10,13 +10,12 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.hansae.taboo.core.util.ResourceUtils
 import com.kwon.taboo.R
 import com.kwon.taboo.pickers.adapter.WheelPickerAdapter
 import com.kwon.taboo.pickers.decoration.TabooWheelPickerItemDecoration
-import com.kwon.taboo.uicore.util.ResourceUtils
 
 class TabooWheelPicker(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs) {
     private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_wheel_picker, this, true)

@@ -6,9 +6,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.hansae.taboo.core.util.CalendarUtils
 import com.kwon.taboo.button.TabooButton
 import com.kwon.taboo.calender.TabooHorizontalCalendar
-import com.kwon.utils.calendar.CalendarUtils
 
 class CalendarActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

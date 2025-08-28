@@ -19,10 +19,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
 import androidx.core.util.TypedValueCompat.ComplexDimensionUnit
 import androidx.core.widget.TextViewCompat
+import com.hansae.taboo.core.util.FontCache
+import com.hansae.taboo.core.util.ResourceUtils
 import com.kwon.taboo.R
 import com.kwon.taboo.uicore.TabooClickableViewCore
-import com.kwon.taboo.uicore.util.FontCache
-import com.kwon.taboo.uicore.util.ResourceUtils
 
 class TabooTextButton @JvmOverloads constructor(
     context: Context,

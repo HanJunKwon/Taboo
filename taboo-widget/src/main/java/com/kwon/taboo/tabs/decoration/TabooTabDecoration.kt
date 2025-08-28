@@ -3,7 +3,7 @@ package com.kwon.taboo.tabs.decoration
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.kwon.taboo.uicore.util.ResourceUtils
+import com.hansae.taboo.core.util.ResourceUtils
 
 class TabooTabDecoration(var tabSpace: Float = 0f): RecyclerView.ItemDecoration() {
     override fun getItemOffsets(

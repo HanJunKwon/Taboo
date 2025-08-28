@@ -2,18 +2,15 @@ package com.kwon.taboo.uicore.navigation.view
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity.CENTER
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.marginTop
+import com.hansae.taboo.core.util.ResourceUtils
 import com.kwon.taboo.uicore.R
 import com.kwon.taboo.uicore.navigation.model.TabooMenuItem
-import com.kwon.taboo.uicore.util.ResourceUtils
 
 class TabooMenuItemView(context: Context): LinearLayout(context) {
     private var menuItem: TabooMenuItem? = null

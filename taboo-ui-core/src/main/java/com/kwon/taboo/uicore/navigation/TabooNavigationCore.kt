@@ -3,16 +3,12 @@ package com.kwon.taboo.uicore.navigation
 import android.content.Context
 import android.content.res.ColorStateList
 import android.util.AttributeSet
-import android.util.Log
-import android.util.Xml
 import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
-import androidx.core.view.forEach
+import com.hansae.taboo.core.util.ResourceUtils
 import com.kwon.taboo.uicore.R
 import com.kwon.taboo.uicore.attribute.ColorContainer
 import com.kwon.taboo.uicore.attribute.Stroke
 import com.kwon.taboo.uicore.navigation.view.TabooMenuItemView
-import com.kwon.taboo.uicore.util.ResourceUtils
 
 open class TabooNavigationCore(context: Context, attrs: AttributeSet): LinearLayout(context, attrs) {
     private var menuResource = -1

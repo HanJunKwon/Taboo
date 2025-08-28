@@ -11,9 +11,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
+import com.hansae.taboo.core.util.ResourceUtils
 import com.kwon.taboo.uicore.R
 import com.kwon.taboo.uicore.attribute.FadeAppearance
-import com.kwon.taboo.uicore.util.ResourceUtils
 
 class TabooFadeLayout(context: Context, attrs: AttributeSet): ConstraintLayout (context, attrs) {
     @FadePosition

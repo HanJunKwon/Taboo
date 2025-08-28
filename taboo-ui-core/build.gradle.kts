@@ -13,7 +13,7 @@ version = "0.0.49"
 
 android {
     namespace = "com.kwon.taboo.uicore"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 22
@@ -44,6 +44,7 @@ android {
 }
 
 dependencies {
+    api(project(":taboo-core"))
     implementation("androidx.core:core-ktx:1.16.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.material:material:1.12.0")

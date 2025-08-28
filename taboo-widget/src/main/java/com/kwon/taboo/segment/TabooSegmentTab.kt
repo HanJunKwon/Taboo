@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.TypedArray
 import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue
 import android.widget.LinearLayout
 import android.widget.LinearLayout.HORIZONTAL
@@ -20,7 +19,7 @@ import androidx.core.view.children
 import androidx.core.view.isNotEmpty
 import com.kwon.taboo.R
 import com.kwon.taboo.uicore.attribute.PaddingAttribute
-import com.kwon.taboo.uicore.util.ResourceUtils
+import com.hansae.taboo.core.util.ResourceUtils
 
 class TabooSegmentTab @JvmOverloads constructor(
     context: Context,

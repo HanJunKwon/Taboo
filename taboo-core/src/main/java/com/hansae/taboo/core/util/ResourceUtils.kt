@@ -1,4 +1,4 @@
-package com.kwon.taboo.uicore.util
+package com.hansae.taboo.core.util
 
 import android.content.Context
 import android.util.TypedValue

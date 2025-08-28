@@ -1,6 +1,6 @@
 package com.kwon.taboo.calender
 
-import com.kwon.utils.calendar.CalendarUtils
+import com.hansae.taboo.core.util.CalendarUtils
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale

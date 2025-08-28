@@ -10,10 +10,10 @@ import android.view.MotionEvent
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import com.hansae.taboo.core.util.ResourceUtils
 import com.kwon.taboo.R
 import com.kwon.taboo.button.TabooTextButton
 import com.kwon.taboo.uicore.animation.ScaleXYAnimation
-import com.kwon.taboo.uicore.util.ResourceUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

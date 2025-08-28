@@ -18,7 +18,7 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
 import com.kwon.taboo.enums.AffixType
-import com.kwon.utils.edit.EditorUtils
+import com.hansae.taboo.core.util.EditorUtils
 
 open class TabooTextField(
     private val context: Context,

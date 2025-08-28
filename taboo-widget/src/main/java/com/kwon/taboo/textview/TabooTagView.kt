@@ -2,18 +2,13 @@ package com.kwon.taboo.textview
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.BlendMode
-import android.graphics.BlendModeColorFilter
-import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
-import android.os.Build
 import android.util.AttributeSet
 import android.view.Gravity
-import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
-import com.kwon.taboo.uicore.util.ResourceUtils
+import com.hansae.taboo.core.util.ResourceUtils
 
 private const val TAG_VIEW_PADDING_HORIZONTAL = 15f
 private const val TAG_VIEW_PADDING_VERTICAL = 5f

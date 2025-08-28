@@ -1,4 +1,4 @@
-package com.kwon.utils.edit
+package com.hansae.taboo.core.util
 
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText

@@ -15,7 +15,7 @@ version = "0.0.51"
 
 android {
     namespace = "com.kwon.taboo"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 22

@@ -15,7 +15,7 @@ import com.kwon.taboo.R
 import com.kwon.taboo.adapter.TabooTabAdapter
 import com.kwon.taboo.tabs.decoration.TabooTabDecoration
 import com.kwon.taboo.uicore.attribute.PaddingAttribute
-import com.kwon.taboo.uicore.util.ResourceUtils
+import com.hansae.taboo.core.util.ResourceUtils
 
 class TabooTabLayout(
     context: Context,

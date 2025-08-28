@@ -2,9 +2,8 @@ package com.kwon.taboo.uicore.dialog
 
 import android.content.Context
 import androidx.appcompat.app.AlertDialog
+import com.hansae.taboo.core.util.WindowUtil
 import com.kwon.taboo.uicore.R
-import com.kwon.taboo.uicore.util.WindowUtil
-import com.kwon.taboo.uicore.util.WindowUtil.ScreenMode
 
 open class TabooBottomAlert(context: Context): AlertDialog(context) {
     private var screenMode = WindowUtil.NORMAL_SCREEN
@@ -19,12 +18,12 @@ open class TabooBottomAlert(context: Context): AlertDialog(context) {
         this.window?.setWindowAnimations(R.style.Taboo_BottomDialog_Animation)
     }
 
-    @ScreenMode
+    @WindowUtil.ScreenMode
     fun getScreenMode(): Int {
         return screenMode
     }
 
-    fun setScreenMode(@ScreenMode screenMode: Int): TabooBottomAlert {
+    fun setScreenMode(@WindowUtil.ScreenMode screenMode: Int): TabooBottomAlert {
         this.screenMode = screenMode
 
         return this

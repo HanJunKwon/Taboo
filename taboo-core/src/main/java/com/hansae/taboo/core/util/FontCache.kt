@@ -1,4 +1,4 @@
-package com.kwon.taboo.uicore.util
+package com.hansae.taboo.core.util
 
 import android.content.Context
 import android.graphics.Typeface
@@ -11,9 +11,9 @@ import androidx.core.content.res.ResourcesCompat
 object FontCache {
     private val fontCache = mutableMapOf<Int, Typeface>()
 
-    fun getFont(context: Context, @FontRes fontResId: Int): Typeface {
+    fun getFont(context: Context, @FontRes fontResId: Int): Typeface? {
         return fontCache.getOrPut(fontResId) {
-            ResourcesCompat.getFont(context, fontResId)
+            ResourcesCompat.getFont(context, fontResId) ?: Typeface.DEFAULT
         }
     }
 }

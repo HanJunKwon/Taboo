@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import androidx.recyclerview.widget.RecyclerView.TEXT_ALIGNMENT_CENTER
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.hansae.taboo.core.util.ResourceUtils
 import com.kwon.taboo.R
 import com.kwon.taboo.diffutils.TabooWheelPickerDiffCallback
 import com.kwon.taboo.enums.PayLoad
-import com.kwon.taboo.uicore.util.ResourceUtils
 
 class WheelPickerAdapter(
     private val context: Context,
