@@ -50,10 +50,14 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): TabooClic
      */
     fun setButtonShape(@ButtonAppearance.ButtonShape buttonShape: Int) {
         buttonAppearance.setButtonShape(buttonShape)
+
+        drawButton()
     }
 
     fun setButtonType(@ButtonAppearance.ButtonType buttonType: Int) {
         buttonAppearance.setButtonType(buttonType)
+
+        drawButton()
     }
 
     /**
@@ -64,6 +68,8 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): TabooClic
      */
     open fun setPrimaryColor(@ColorInt primaryColor: Int) {
         buttonAppearance.setPrimaryColor(primaryColor)
+
+        drawButton()
     }
 
     /**
@@ -72,6 +78,8 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): TabooClic
      */
     fun setPrimaryColorResId(@ColorRes primaryColorResId: Int) {
         setPrimaryColor(ContextCompat.getColor(context, primaryColorResId))
+
+        drawButton()
     }
 
     /**
@@ -91,6 +99,8 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): TabooClic
      */
     fun setSecondaryColor(@ColorInt secondaryColor: Int) {
         buttonAppearance.setSecondaryColor(secondaryColor)
+
+        drawButton()
     }
 
     /**
@@ -99,6 +109,8 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): TabooClic
      */
     fun setSecondaryColorResId(@ColorRes secondaryColorResId: Int) {
         setSecondaryColor(ContextCompat.getColor(context, secondaryColorResId))
+
+        drawButton()
     }
 
     /**
@@ -116,6 +128,8 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): TabooClic
      */
     fun setColorContainer(colorContainer: ColorContainer) {
         buttonAppearance.setColorContainer(colorContainer)
+
+        drawButton()
     }
 
     /**
@@ -131,6 +145,8 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): TabooClic
      */
     fun setRippleColor(@ColorInt rippleColor: Int) {
         buttonAppearance.setRippleColor(rippleColor)
+
+        drawButton()
     }
 
     /**
@@ -139,6 +155,8 @@ abstract class TabooButtonCore(context: Context, attrs: AttributeSet): TabooClic
      */
     fun setRippleColorResId(@ColorRes rippleColorResId: Int) {
         setRippleColor(ContextCompat.getColor(context, rippleColorResId))
+
+        drawButton()
     }
 
     /**
