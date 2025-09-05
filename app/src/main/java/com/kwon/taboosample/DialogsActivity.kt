@@ -26,6 +26,7 @@ class DialogsActivity : AppCompatActivity() {
                 .setTitle("알림!!")
                 .setMessage("알림 내용입니다~~")
                 .setButtonText("확인")
+                .setButtonColorRes(com.kwon.taboo.uicore.R.color.taboo_red_600)
                 .show()
         }
 
