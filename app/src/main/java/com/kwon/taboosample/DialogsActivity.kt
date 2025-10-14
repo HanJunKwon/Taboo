@@ -1,8 +1,14 @@
 package com.kwon.taboosample
 
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.kwon.taboo.button.TabooButton
@@ -22,9 +28,12 @@ class DialogsActivity : AppCompatActivity() {
         }
 
         findViewById<TabooButton>(R.id.btn_alert).setOnClickListener {
+            val description = SpannableString("알림 내용입니다.!!!!")
+            description.setSpan(ForegroundColorSpan(ContextCompat.getColor(this, com.kwon.taboo.uicore.R.color.taboo_red_500)), 0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
             TabooAlert(context = this)
                 .setTitle("알림!!")
-                .setMessage("알림 내용입니다~~")
+                .setDescription(description)
                 .setButtonText("확인")
                 .setButtonColorRes(com.kwon.taboo.uicore.R.color.taboo_red_600)
                 .show()
@@ -33,7 +42,7 @@ class DialogsActivity : AppCompatActivity() {
         findViewById<TabooButton>(R.id.btn_confirm).setOnClickListener {
             TabooConfirm(context = this)
                 .setTitle("경고!!")
-                .setMessage("저장하시겠습니까?")
+                .setDescription("저장하시겠습니까?")
                 .setScreenMode(WindowUtil.FULL_SCREEN)
                 .setNegativeText(getString(R.string.button_cancel_text))
                 .setPositiveText(getString(R.string.button_confirm_text))
@@ -45,9 +54,10 @@ class DialogsActivity : AppCompatActivity() {
         }
 
         findViewById<TabooButton>(R.id.btn_custom_alert).setOnClickListener {
+
             TabooAlert(context = this)
                 .setTitle("알림!!")
-                .setMessage("알림 내용입니다~~")
+                .setDescription("알림 입니다!")
                 .setCustomViewResId(R.layout.taboo_dialog_custom_view)
                 .setButtonText("확인")
                 .show()
@@ -56,7 +66,7 @@ class DialogsActivity : AppCompatActivity() {
         findViewById<TabooButton>(R.id.btn_custom_dialog).setOnClickListener {
             TabooConfirm(context = this)
                 .setTitle("경고!!")
-                .setMessage("저장하시겠습니까?")
+                .setDescription("저장하시겠습니까?")
                 .setNegativeText("취소")
                 .setPositiveText("저장")
                 .setCustomViewResId(R.layout.taboo_dialog_custom_view)

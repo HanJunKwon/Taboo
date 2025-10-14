@@ -33,8 +33,8 @@ class TabooAlert(context: Context) : TabooAlertDialogCore<TabooAlert>(context) {
 
             if (customContentView == null) {
                 it.addView(defaultContentView)
-                findViewById<TextView>(R.id.tv_confirm_title).text = title
-                findViewById<TextView>(R.id.tv_confirm_message).text = message
+                findViewById<TextView>(R.id.tv_confirm_title).text = mTitle
+                findViewById<TextView>(R.id.tv_confirm_message).text = mDescription
             } else {
                 it.addView(customContentView)
             }

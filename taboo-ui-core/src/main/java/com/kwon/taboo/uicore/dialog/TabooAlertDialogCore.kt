@@ -11,8 +11,8 @@ import com.kwon.taboo.uicore.R
 import com.kwon.taboo.uicore.util.WindowUtil
 
 abstract class TabooAlertDialogCore<T: TabooAlertDialogCore<T>>(context: Context): AlertDialog(context) {
-    protected var title = ""
-    protected var message = ""
+    protected var mTitle: CharSequence = ""
+    protected var mDescription: CharSequence = ""
 
     protected val defaultContentView: View
         get() = LayoutInflater.from(context).inflate(R.layout.taboo_alert_dialog_base, null)
@@ -40,13 +40,25 @@ abstract class TabooAlertDialogCore<T: TabooAlertDialogCore<T>>(context: Context
     }
 
     fun setTitle(title: String): T {
-        this.title = title
+        this.mTitle = title
 
         return this as T
     }
 
-    fun setMessage(message: String): T {
-        this.message = message
+    fun setTitle(title: CharSequence): T {
+        this.mTitle = title
+
+        return this as T
+    }
+
+    fun setDescription(description: String): T {
+        this.mDescription = description
+
+        return this as T
+    }
+
+    fun setDescription(description: CharSequence): T {
+        this.mDescription = description
 
         return this as T
     }
