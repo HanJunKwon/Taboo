@@ -61,6 +61,7 @@
         <attr name="android:enabled" format="boolean"/>
         <attr name="android:text" format="string"/>
         <attr name="android:textAppearance" format="reference"/>
+        <attr name="android:textAlignment" format="integer"/>
         <attr name="android:textColor" format="reference|color"/>
         <attr name="android:textSize" format="dimension"/>
         <attr name="android:padding" format="dimension"/>
