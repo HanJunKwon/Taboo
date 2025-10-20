@@ -11,7 +11,8 @@
         android:id="@+id/taboo_stepper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:stepCount="5"/>
+        app:stepCount="5"
+        app:stepSpacing="15dp"/>
 
     <com.kwon.taboo.button.TabooButton
         android:id="@+id/btn_prev"

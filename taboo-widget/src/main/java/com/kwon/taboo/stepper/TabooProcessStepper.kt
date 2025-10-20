@@ -23,7 +23,30 @@ class TabooProcessStepper @JvmOverloads constructor(
         context.withStyledAttributes(attrs, R.styleable.TabooProcessStepper) {
             // Stepper 개수
             setStepCount(getInt(R.styleable.TabooProcessStepper_stepCount, 0))
+
+            // Stepper Track 색상
+            setStepSpacing(getDimensionPixelSize(R.styleable.TabooProcessStepper_stepSpacing, ResourceUtils.dpToPx(context, 10f)))
         }
+    }
+
+    private fun addStepperItems() {
+        // StepperItem 생성
+        repeat(stepCount) { position ->
+            val item = if (position != stepCount) {
+                TabooProcessStepperItem(context, stepSpacing)
+            } else {
+                TabooProcessStepperItem(context)
+            }.apply {
+                if (position == 0) {
+                    setIndicate(true)
+                }
+            }
+
+            stepperItems.add(item)
+        }
+
+        // Stepper 아이템 추가
+        stepperItems.forEach { addView(it) }
     }
 
     /**
@@ -38,22 +61,9 @@ class TabooProcessStepper @JvmOverloads constructor(
             "Step count must be 10 or fewer."
         }
 
-        // StepperItem 생성
-        repeat(stepCount) { position ->
-            if (position != stepCount) {
-                stepperItems.add(TabooProcessStepperItem(context, stepSpacing))
-            } else {
-                stepperItems.add(TabooProcessStepperItem(context))
-            }
-        }
-
-        // Stepper 아이템 추가
-        stepperItems.forEach { addView(it) }
-
-        // 첫 번째 Stepper 아이템 활성화
-        stepperItems[0].setIndicate(true)
-
         this.stepCount = stepCount
+
+        addStepperItems()
     }
 
     /**
@@ -64,11 +74,34 @@ class TabooProcessStepper @JvmOverloads constructor(
     }
 
     /**
+     * Step 간격을 설정합니다.
+     * @param spacing Step의 간격 (단위: px)
+     */
+    fun setStepSpacing(spacing: Int) {
+        this.stepSpacing = spacing
+
+        updateStepSpacing()
+    }
+
+    private fun updateStepSpacing() {
+        stepperItems.forEach {
+            stepperItems[0].setSpacing(spacing = stepSpacing)
+        }
+    }
+
+    /**
+     * Step 간격을 반환합니다.
+     * @return step 간격  (단위: px)
+     */
+    fun getStepSpacing() : Int {
+        return stepSpacing
+    }
+
+    /**
      * 현재 단계를 바꿉니다.
-     *
      */
     private fun setStepPositionInternal(stepPosition: Int) {
-        if (stepPosition < MIN_STEP_COUNT - 1 || stepPosition >= stepCount) {
+        if (stepPosition + 1 < MIN_STEP_COUNT || stepPosition >= stepCount) {
             Log.w("TabooProcessStepper", "Cannot move to this position. position: $stepPosition")
             return
         }
@@ -95,14 +128,23 @@ class TabooProcessStepper @JvmOverloads constructor(
         setStepPositionInternal(stepPosition)
     }
 
+    /**
+     * 현재 활성화된 포지션의 Index를 반환합니다.
+     */
     fun getStepPosition(): Int {
         return stepPosition
     }
 
+    /**
+     * 다음 Stepper를 활성화합니다.
+     */
     fun next() {
         setStepPosition(getStepPosition() + 1)
     }
 
+    /**
+     * 현재 Stepper를 비활성화합니다.
+     */
     fun prev() {
         setStepPosition(getStepPosition() - 1)
     }
