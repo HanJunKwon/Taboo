@@ -24,6 +24,9 @@
     <attr name="tabFontFamily" format="reference"/>
     <attr name="tabTextSize" format="dimension"/>
 
+    <attr name="trackColor" format="reference|color"/>
+    <attr name="indicatorColor" format="reference|color"/>
+
     <attr name="textGravity" format="enum">
         <enum name="start" value="0"/>
         <enum name="center" value="1"/>
@@ -265,8 +268,8 @@
         <attr name="remainTimeTextAppearance" format="reference"/>
         <attr name="remainTimeTextColor" format="reference|color"/>
         <attr name="remainTimeTextSize" format="dimension"/>
-        <attr name="trackColor" format="reference|color"/>
-        <attr name="indicatorColor" format="reference|color"/>
+        <attr name="trackColor"/>
+        <attr name="indicatorColor"/>
     </declare-styleable>
 
     <declare-styleable name="TabooCounter">
@@ -295,5 +298,17 @@
         <attr name="tabTextAppearance" format="reference"/>
         <attr name="selectorColor" format="color"/>
         <attr name="selectorRadius" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="TabooProcessStepper">
+        <attr name="stepCount" format="integer"/>
+        <attr name="stepSpacing" format="dimension"/>
+        <attr name="distributionMode" format="enum">
+            <enum name="auto" value="0"/>
+            <enum name="fixed" value="1"/>
+        </attr>
+        <attr name="indicatorWidth" format="dimension"/>
+        <attr name="trackColor"/>
+        <attr name="indicatorColor"/>
     </declare-styleable>
 </resources>
