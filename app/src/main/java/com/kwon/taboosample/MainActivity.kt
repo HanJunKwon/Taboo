@@ -85,5 +85,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, BottomUpLayoutActivity::class.java))
         }
 
+        findViewById<Button>(R.id.btn_process_stepper_example).setOnClickListener {
+            startActivity(Intent(this, ProcessStepperActivity::class.java))
+        }
     }
 }
