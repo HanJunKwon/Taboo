@@ -74,7 +74,7 @@ class TabooTextButton @JvmOverloads constructor(
             
             // 텍스트 색상
             val textColor = getColorStateList(R.styleable.TabooTextButton_android_textColor)
-                ?: ColorStateList.valueOf(ContextCompat.getColor(context, com.kwon.taboo.uicore.R.color.taboo_black_600))
+                ?: ColorStateList.valueOf(ContextCompat.getColor(context, R.color.selector_taboo_text_button))
             setTextColor(textColor)
             
             // 텍스트 사이즈
