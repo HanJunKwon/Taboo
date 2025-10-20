@@ -8,6 +8,7 @@ import android.graphics.drawable.GradientDrawable.RECTANGLE
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -67,10 +68,13 @@ class TabooTextButton @JvmOverloads constructor(
 
             // 텍스트 Appearance
             setTextAppearance(getResourceId(R.styleable.TabooTextButton_android_textAppearance, 0))
+
+            // 텍스트 정렬
+            textAlignment = getInteger(R.styleable.TabooTextButton_android_textAlignment, 0)
             
             // 텍스트 색상
             val textColor = getColorStateList(R.styleable.TabooTextButton_android_textColor)
-                ?: ColorStateList.valueOf(ContextCompat.getColor(context, com.kwon.taboo.uicore.R.color.taboo_black_600))
+                ?: ColorStateList.valueOf(ContextCompat.getColor(context, R.color.selector_taboo_text_button))
             setTextColor(textColor)
             
             // 텍스트 사이즈
@@ -183,6 +187,10 @@ class TabooTextButton @JvmOverloads constructor(
             textView,
             textAppearanceId
         )
+    }
+
+    override fun setTextAlignment(textAlignment: Int) {
+        textView.textAlignment = textAlignment
     }
 
     fun setTextColor(@ColorInt color: Int) {
