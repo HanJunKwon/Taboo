@@ -1,4 +1,4 @@
-package com.kwon.taboo
+package com.kwon.taboo.toast
 
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.kwon.taboo.R
 
 class TabooToast(private val context: Context?) : Toast(context) {
     private val rootView = LayoutInflater.from(context).inflate(R.layout.taboo_toast, null)
