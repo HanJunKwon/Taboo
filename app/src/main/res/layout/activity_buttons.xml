@@ -155,7 +155,7 @@
 
         <com.kwon.taboo.button.TabooTextButton
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:text="장비 추가하기"
             android:textAlignment="center"
             app:icon="@drawable/ic_add_24"

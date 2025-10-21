@@ -33,7 +33,7 @@ class TabooTextButton @JvmOverloads constructor(
     private val linearLayout = LinearLayout(context).apply {
         layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.MATCH_PARENT,
         )
         gravity = Gravity.CENTER
         orientation = LinearLayout.HORIZONTAL
