@@ -74,6 +74,10 @@
         <attr name="android:paddingStart" format="dimension"/>
         <attr name="android:paddingBottom" format="dimension"/>
         <attr name="android:paddingEnd" format="dimension"/>
+        <attr name="form" format="enum">
+            <enum name="none" value="0"/>
+            <enum name="center" value="1"/>
+        </attr>
         <attr name="font"/>
         <attr name="icon"/>
         <attr name="iconPosition"/>

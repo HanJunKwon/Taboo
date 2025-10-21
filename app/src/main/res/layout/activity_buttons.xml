@@ -156,10 +156,19 @@
         <com.kwon.taboo.button.TabooTextButton
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="장비 추가하기"
+            android:text="텍스트 가운데 정렬"
             android:textAlignment="center"
             app:icon="@drawable/ic_add_24"
             app:iconScaleType="fit"/>
+
+        <com.kwon.taboo.button.TabooTextButton
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="전체 가운데 정렬"
+            app:form="center"
+            app:icon="@drawable/ic_add_24"
+            app:iconScaleType="fit"/>
+
 
         <com.kwon.taboo.button.TabooTextButton
             android:layout_width="wrap_content"
