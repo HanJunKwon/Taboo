@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
 import android.widget.LinearLayout
+import androidx.annotation.ColorInt
+import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
 import com.kwon.taboo.R
 import com.kwon.taboo.uicore.util.ResourceUtils
@@ -21,23 +23,40 @@ class TabooProcessStepper @JvmOverloads constructor(
 
     init {
         context.withStyledAttributes(attrs, R.styleable.TabooProcessStepper) {
-            // Stepper 개수
+            // Step 개수
             setStepCount(getInt(R.styleable.TabooProcessStepper_stepCount, 0))
 
-            // Stepper Track 색상
-            setStepSpacing(getDimensionPixelSize(R.styleable.TabooProcessStepper_stepSpacing, ResourceUtils.dpToPx(context, 10f)))
+            // Step 간격
+            setStepSpacing(
+                spacing = getDimensionPixelSize(
+                    R.styleable.TabooProcessStepper_stepSpacing,
+                    ResourceUtils.dpToPx(context, 10f)
+                )
+            )
+
+            // Step Track 색상
+            setStepTrackColor(
+                color = getColor(
+                    R.styleable.TabooProcessStepper_trackColor,
+                    ContextCompat.getColor(context, com.kwon.taboo.uicore.R.color.taboo_black_800)
+                )
+            )
+
+            // Step Indicator 색상
+            setIndicatorColor(
+                color = getColor(
+                    R.styleable.TabooProcessStepper_indicatorColor,
+                    ContextCompat.getColor(context, com.kwon.taboo.uicore.R.color.taboo_blue_600)
+                )
+            )
         }
     }
 
-    private fun addStepperItems() {
+    private fun drawStepperItems() {
         // StepperItem 생성
         repeat(stepCount) { position ->
-            val item = if (position != stepCount) {
-                TabooProcessStepperItem(context, stepSpacing)
-            } else {
-                TabooProcessStepperItem(context)
-            }.apply {
-                if (position == 0) {
+            val item = TabooProcessStepperItem(context).apply {
+                if (position <= stepPosition) {
                     setIndicate(true)
                 }
             }
@@ -63,7 +82,7 @@ class TabooProcessStepper @JvmOverloads constructor(
 
         this.stepCount = stepCount
 
-        addStepperItems()
+        drawStepperItems()
     }
 
     /**
@@ -84,8 +103,8 @@ class TabooProcessStepper @JvmOverloads constructor(
     }
 
     private fun updateStepSpacing() {
-        stepperItems.forEach {
-            stepperItems[0].setSpacing(spacing = stepSpacing)
+        stepperItems.dropLast(1).forEach {
+            it.setSpacing(spacing = stepSpacing)
         }
     }
 
@@ -95,6 +114,22 @@ class TabooProcessStepper @JvmOverloads constructor(
      */
     fun getStepSpacing() : Int {
         return stepSpacing
+    }
+
+    fun setStepTrackColor(@ColorInt color: Int) {
+        if (color != 0) {
+            stepperItems.forEach {
+                it.setTrackColor(color)
+            }
+        }
+    }
+
+    fun setIndicatorColor(@ColorInt color: Int) {
+        if (color != 0) {
+            stepperItems.forEach {
+                it.setIndicatorColor(color)
+            }
+        }
     }
 
     /**
