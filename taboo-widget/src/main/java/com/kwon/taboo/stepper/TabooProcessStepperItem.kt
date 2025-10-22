@@ -41,7 +41,6 @@ class TabooProcessStepperItem @JvmOverloads constructor(
 
         ValueAnimator.ofInt(width, ResourceUtils.dpToPx(context, targetWidth)).apply {
             addUpdateListener {
-                Log.d(">>>", "${it.animatedValue as Int}")
                 layoutParams = layoutParams.apply { width = it.animatedValue as Int }
             }
         }.start()
