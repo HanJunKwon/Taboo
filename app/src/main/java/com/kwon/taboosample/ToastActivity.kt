@@ -4,12 +4,11 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.kwon.taboo.button.TabooButton
 import com.kwon.taboo.toast.TabooSlideToast
-import com.kwon.taboo.uicore.toast.presenter.ToastPresenterCore
+import com.kwon.taboo.uicore.toast.presenter.SlideToastPresenter
 
 class ToastActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +48,7 @@ class ToastActivity : AppCompatActivity() {
                     iconDrawable = ContextCompat.getDrawable(this@ToastActivity, R.drawable.ic_repair_response),
                     text = "고장 수리를 접수하였습니다."
                 )
-                .setPosition(ToastPresenterCore.ToastPosition.BOTTOM)
+                .setPosition(SlideToastPresenter.ToastPosition.BOTTOM)
                 .show()
         }
 
@@ -58,7 +57,7 @@ class ToastActivity : AppCompatActivity() {
                 .makeText(
                     text = "고장 수리를 접수하였습니다."
                 )
-                .setPosition(ToastPresenterCore.ToastPosition.BOTTOM)
+                .setPosition(SlideToastPresenter.ToastPosition.BOTTOM)
                 .show()
         }
     }

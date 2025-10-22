@@ -9,11 +9,11 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.kwon.taboo.R
-import com.kwon.taboo.uicore.toast.presenter.ToastPresenterCore
+import com.kwon.taboo.uicore.toast.presenter.SlideToastPresenter
 import com.kwon.taboo.uicore.util.ResourceUtils
 
 class TabooSlideToast(private val context: Context) {
-    private val toastPresenter = ToastPresenterCore(context)
+    private val toastPresenter = SlideToastPresenter(context)
 
     private val viewWrapper = LinearLayout(context).apply {
         layoutParams = FrameLayout.LayoutParams(
@@ -28,11 +28,11 @@ class TabooSlideToast(private val context: Context) {
     private var iconDrawable: Drawable? = null
     private var text: CharSequence = ""
 
-    @ToastPresenterCore.ToastDuration
-    private var duration: Int = ToastPresenterCore.ToastDuration.SHORT
+    @SlideToastPresenter.ToastDuration
+    private var duration: Int = SlideToastPresenter.ToastDuration.SHORT
 
-    @ToastPresenterCore.ToastPosition
-    private var position = ToastPresenterCore.ToastPosition.TOP
+    @SlideToastPresenter.ToastPosition
+    private var position = SlideToastPresenter.ToastPosition.TOP
 
     fun makeText(
         text: CharSequence
@@ -55,7 +55,7 @@ class TabooSlideToast(private val context: Context) {
     fun makeText(
         iconDrawable: Drawable,
         text: CharSequence,
-        @ToastPresenterCore.ToastDuration duration: Int
+        @SlideToastPresenter.ToastDuration duration: Int
     ) : TabooSlideToast {
         this.iconDrawable = iconDrawable
         this.text = text
@@ -64,7 +64,7 @@ class TabooSlideToast(private val context: Context) {
         return this
     }
 
-    fun setPosition(@ToastPresenterCore.ToastPosition position: Int): TabooSlideToast {
+    fun setPosition(@SlideToastPresenter.ToastPosition position: Int): TabooSlideToast {
         this.position = position
 
         return this

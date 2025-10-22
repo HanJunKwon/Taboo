@@ -5,14 +5,14 @@ import android.graphics.PixelFormat
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
+import androidx.core.animation.doOnEnd
 import com.kwon.taboo.uicore.toast.ToastSlideAnimator
-import com.kwon.taboo.uicore.util.ResourceUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-open class ToastPresenterCore(private val context: Context) {
+open class SlideToastPresenter(private val context: Context) {
     private var windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
 
     private var view: View? = null
@@ -25,21 +25,33 @@ open class ToastPresenterCore(private val context: Context) {
         this.position = position
 
         windowManager.addView(this.view, createLayoutParams(position))
-        toastSlideAnimator.createSlideInAnimation(view, position).start()
+        toastSlideAnimator
+            .createSlideInAnimation(view, position)
+            .apply {
+                doOnEnd {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        when (duration) {
+                            ToastDuration.SHORT -> delay(2_000L)
+                            ToastDuration.LONG -> delay(3_500L)
+                        }
 
-        CoroutineScope(Dispatchers.Main).launch {
-            when (duration) {
-                ToastDuration.SHORT -> delay(2_000L)
-                ToastDuration.LONG -> delay(3_500L)
+                        hide()
+                    }
+                }
             }
-
-            hide()
-        }
+            .start()
     }
 
     fun hide() {
         if (this.view != null) {
-            toastSlideAnimator.createSlideOutAnimation(this.view!!, position).start()
+            toastSlideAnimator
+                .createSlideOutAnimation(this.view!!, position)
+                .apply {
+                    doOnEnd {
+                        windowManager.removeView(view)
+                    }
+                }
+                .start()
         }
     }
 
