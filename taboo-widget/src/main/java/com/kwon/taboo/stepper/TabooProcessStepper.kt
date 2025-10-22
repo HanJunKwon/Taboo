@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
 import android.widget.LinearLayout
+import androidx.annotation.ColorInt
+import androidx.core.content.ContextCompat
 import androidx.core.content.withStyledAttributes
 import com.kwon.taboo.R
 import com.kwon.taboo.uicore.util.ResourceUtils
@@ -21,9 +23,49 @@ class TabooProcessStepper @JvmOverloads constructor(
 
     init {
         context.withStyledAttributes(attrs, R.styleable.TabooProcessStepper) {
-            // Stepper 개수
+            // Step 개수
             setStepCount(getInt(R.styleable.TabooProcessStepper_stepCount, 0))
+
+            // Step 간격
+            setStepSpacing(
+                spacing = getDimensionPixelSize(
+                    R.styleable.TabooProcessStepper_stepSpacing,
+                    ResourceUtils.dpToPx(context, 10f)
+                )
+            )
+
+            // Step Track 색상
+            setStepTrackColor(
+                color = getColor(
+                    R.styleable.TabooProcessStepper_trackColor,
+                    ContextCompat.getColor(context, com.kwon.taboo.uicore.R.color.taboo_black_800)
+                )
+            )
+
+            // Step Indicator 색상
+            setIndicatorColor(
+                color = getColor(
+                    R.styleable.TabooProcessStepper_indicatorColor,
+                    ContextCompat.getColor(context, com.kwon.taboo.uicore.R.color.taboo_blue_600)
+                )
+            )
         }
+    }
+
+    private fun drawStepperItems() {
+        // StepperItem 생성
+        repeat(stepCount) { position ->
+            val item = TabooProcessStepperItem(context).apply {
+                if (position <= stepPosition) {
+                    setIndicate(true)
+                }
+            }
+
+            stepperItems.add(item)
+        }
+
+        // Stepper 아이템 추가
+        stepperItems.forEach { addView(it) }
     }
 
     /**
@@ -38,22 +80,9 @@ class TabooProcessStepper @JvmOverloads constructor(
             "Step count must be 10 or fewer."
         }
 
-        // StepperItem 생성
-        repeat(stepCount) { position ->
-            if (position != stepCount) {
-                stepperItems.add(TabooProcessStepperItem(context, stepSpacing))
-            } else {
-                stepperItems.add(TabooProcessStepperItem(context))
-            }
-        }
-
-        // Stepper 아이템 추가
-        stepperItems.forEach { addView(it) }
-
-        // 첫 번째 Stepper 아이템 활성화
-        stepperItems[0].setIndicate(true)
-
         this.stepCount = stepCount
+
+        drawStepperItems()
     }
 
     /**
@@ -64,11 +93,50 @@ class TabooProcessStepper @JvmOverloads constructor(
     }
 
     /**
+     * Step 간격을 설정합니다.
+     * @param spacing Step의 간격 (단위: px)
+     */
+    fun setStepSpacing(spacing: Int) {
+        this.stepSpacing = spacing
+
+        updateStepSpacing()
+    }
+
+    private fun updateStepSpacing() {
+        stepperItems.dropLast(1).forEach {
+            it.setSpacing(spacing = stepSpacing)
+        }
+    }
+
+    /**
+     * Step 간격을 반환합니다.
+     * @return step 간격  (단위: px)
+     */
+    fun getStepSpacing() : Int {
+        return stepSpacing
+    }
+
+    fun setStepTrackColor(@ColorInt color: Int) {
+        if (color != 0) {
+            stepperItems.forEach {
+                it.setTrackColor(color)
+            }
+        }
+    }
+
+    fun setIndicatorColor(@ColorInt color: Int) {
+        if (color != 0) {
+            stepperItems.forEach {
+                it.setIndicatorColor(color)
+            }
+        }
+    }
+
+    /**
      * 현재 단계를 바꿉니다.
-     *
      */
     private fun setStepPositionInternal(stepPosition: Int) {
-        if (stepPosition < MIN_STEP_COUNT - 1 || stepPosition >= stepCount) {
+        if (stepPosition + 1 < MIN_STEP_COUNT || stepPosition >= stepCount) {
             Log.w("TabooProcessStepper", "Cannot move to this position. position: $stepPosition")
             return
         }
@@ -95,14 +163,23 @@ class TabooProcessStepper @JvmOverloads constructor(
         setStepPositionInternal(stepPosition)
     }
 
+    /**
+     * 현재 활성화된 포지션의 Index를 반환합니다.
+     */
     fun getStepPosition(): Int {
         return stepPosition
     }
 
+    /**
+     * 다음 Stepper를 활성화합니다.
+     */
     fun next() {
         setStepPosition(getStepPosition() + 1)
     }
 
+    /**
+     * 현재 Stepper를 비활성화합니다.
+     */
     fun prev() {
         setStepPosition(getStepPosition() - 1)
     }

@@ -88,5 +88,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_process_stepper_example).setOnClickListener {
             startActivity(Intent(this, ProcessStepperActivity::class.java))
         }
+
+        findViewById<Button>(R.id.btn_toast_example).setOnClickListener {
+            startActivity(Intent(this, ToastActivity::class.java))
+        }
     }
 }

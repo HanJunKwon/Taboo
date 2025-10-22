@@ -177,6 +177,12 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="Taboo.TextAppearance.SlideToast">
+        <item name="android:fontFamily">@font/font_pretendard_bold</item>
+        <item name="android:textColor">@color/taboo_black_800</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="Taboo.Style"/>
 
     <style name="Taboo.Style.Button">

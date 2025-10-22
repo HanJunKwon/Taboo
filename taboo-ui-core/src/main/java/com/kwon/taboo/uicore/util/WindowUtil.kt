@@ -1,6 +1,9 @@
 package com.kwon.taboo.uicore.util
 
+import android.content.Context
+import android.os.Build
 import android.view.Window
+import android.view.WindowManager
 import androidx.annotation.IntDef
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -29,6 +32,14 @@ object WindowUtil {
         WindowInsetsControllerCompat(window, window.decorView).let { controller ->
             controller.hide(WindowInsetsCompat.Type.systemBars())
             controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
+    }
+
+    fun getWindowHeight(context: Context) : Int {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            context.display.height
+        } else {
+            (context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.height
         }
     }
 

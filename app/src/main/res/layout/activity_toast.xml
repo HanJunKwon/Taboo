@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ToastActivity">
+
+    <com.kwon.taboo.button.TabooButton
+        android:id="@+id/btn_taboo_toast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="TabooToast"/>
+
+    <com.kwon.taboo.button.TabooButton
+        android:id="@+id/btn_taboo_slide_toast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="TabooSlideToast (Icon)"/>
+
+
+    <com.kwon.taboo.button.TabooButton
+        android:id="@+id/btn_taboo_slide_toast_none_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TabooSlideToast (None Icon)"/>
+
+    <com.kwon.taboo.button.TabooButton
+        android:id="@+id/btn_bottom_taboo_slide_toast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Bottom TabooSlideToast (Icon)"/>
+
+
+    <com.kwon.taboo.button.TabooButton
+        android:id="@+id/btn_bottom_taboo_slide_toast_none_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bottom TabooSlideToast (None Icon)"/>
+</LinearLayout>
