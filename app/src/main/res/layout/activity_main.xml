@@ -134,6 +134,11 @@
                 android:layout_height="wrap_content"
                 android:text="Process Stepper"/>
 
+            <Button
+                android:id="@+id/btn_toast_example"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Toast"/>
         </LinearLayout>
 
     </ScrollView>
