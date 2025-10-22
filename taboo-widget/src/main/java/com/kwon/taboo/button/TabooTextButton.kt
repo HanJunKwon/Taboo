@@ -8,7 +8,6 @@ import android.graphics.drawable.GradientDrawable.RECTANGLE
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
-import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -33,7 +32,7 @@ class TabooTextButton @JvmOverloads constructor(
     private val linearLayout = LinearLayout(context).apply {
         layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.MATCH_PARENT,
         )
         gravity = Gravity.CENTER
         orientation = LinearLayout.HORIZONTAL
@@ -61,8 +60,13 @@ class TabooTextButton @JvmOverloads constructor(
 
     private var contentSpace = CONTENT_SPACE_DP
 
+    private var form = Form.NONE
+
     init {
         context.withStyledAttributes(attrs, R.styleable.TabooTextButton) {
+            // 버튼 내부의 정렬 방식
+            setForm(getInt(R.styleable.TabooTextButton_form, Form.NONE))
+
             // 텍스트
             setText(getText(R.styleable.TabooTextButton_android_text).toString())
 
@@ -225,6 +229,23 @@ class TabooTextButton @JvmOverloads constructor(
         }
     }
 
+    fun setForm(@Form form: Int) {
+        this.form = form
+
+        updateForm()
+    }
+
+    private fun updateForm() {
+        when (form) {
+            Form.NONE -> {
+                textView.layoutParams = LinearLayoutCompat.LayoutParams(0, LinearLayoutCompat.LayoutParams.WRAP_CONTENT, 1f)
+            }
+            Form.CENTER -> {
+                textView.layoutParams = LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.WRAP_CONTENT, LinearLayoutCompat.LayoutParams.WRAP_CONTENT)
+            }
+        }
+    }
+
     annotation class IconScaleType {
         companion object {
             const val FIX = 0
@@ -236,6 +257,13 @@ class TabooTextButton @JvmOverloads constructor(
         companion object {
             const val ICON_LEFT = 0
             const val ICON_RIGHT = 1
+        }
+    }
+
+    annotation class Form {
+        companion object {
+            const val NONE = 0
+            const val CENTER = 1
         }
     }
 
