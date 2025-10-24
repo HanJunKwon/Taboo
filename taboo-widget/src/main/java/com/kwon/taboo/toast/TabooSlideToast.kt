@@ -8,6 +8,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.kwon.taboo.R
 import com.kwon.taboo.uicore.toast.presenter.SlideToastPresenter
 import com.kwon.taboo.uicore.util.ResourceUtils

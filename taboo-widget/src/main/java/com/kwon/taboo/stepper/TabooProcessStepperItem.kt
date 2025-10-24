@@ -62,7 +62,7 @@ class TabooProcessStepperItem @JvmOverloads constructor(context: Context) : View
     }
 
     private fun updateTrackColor() {
-        if (isIndication) {
+        if (!isIndication) {
             background = (background as GradientDrawable).apply {
                 setColor(trackColor)
             }
@@ -76,7 +76,7 @@ class TabooProcessStepperItem @JvmOverloads constructor(context: Context) : View
     }
 
     private fun updateIndicatorColor() {
-        if (!isIndication) {
+        if (isIndication) {
             background = (background as GradientDrawable).apply {
                 setColor(indicatorColor)
             }
