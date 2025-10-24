@@ -22,10 +22,12 @@ class ProcessStepperActivity : AppCompatActivity() {
 
         findViewById<TabooButton>(R.id.btn_prev).setOnClickListener {
             findViewById<TabooProcessStepper>(R.id.taboo_stepper).prev()
+            findViewById<TabooProcessStepper>(R.id.taboo_stepper_2).prev()
         }
 
         findViewById<TabooButton>(R.id.btn_next).setOnClickListener {
             findViewById<TabooProcessStepper>(R.id.taboo_stepper).next()
+            findViewById<TabooProcessStepper>(R.id.taboo_stepper_2).next()
         }
     }
 }
