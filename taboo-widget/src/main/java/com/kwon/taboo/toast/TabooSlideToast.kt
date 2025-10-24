@@ -43,7 +43,7 @@ class TabooSlideToast(private val context: Context) {
     }
 
     fun makeText(
-        iconDrawable: Drawable,
+        iconDrawable: Drawable?,
         text: CharSequence
     ) : TabooSlideToast {
         this.iconDrawable = iconDrawable
@@ -53,7 +53,7 @@ class TabooSlideToast(private val context: Context) {
     }
 
     fun makeText(
-        iconDrawable: Drawable,
+        iconDrawable: Drawable?,
         text: CharSequence,
         @SlideToastPresenter.ToastDuration duration: Int
     ) : TabooSlideToast {
