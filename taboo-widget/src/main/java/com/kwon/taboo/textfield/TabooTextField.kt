@@ -103,7 +103,7 @@ open class TabooTextField(
     }
 
     fun isError(error: Boolean) {
-        val backgroundDrawable = if (error) R.drawable.shape_taboo_edit_text_error else R.drawable.selector_taboo_edit_text
+        val backgroundDrawable = if (error) R.drawable.selector_taboo_edit_text_error else R.drawable.selector_taboo_edit_text
         textFieldWrapper.background = ContextCompat.getDrawable(context, backgroundDrawable)
     }
 
