@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.setPadding
 import com.kwon.taboo.R
 import com.kwon.taboo.uicore.toast.presenter.SlideToastPresenter
 import com.kwon.taboo.uicore.util.ResourceUtils
@@ -21,8 +22,9 @@ class TabooSlideToast(private val context: Context) {
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
-
-        minimumHeight = ResourceUtils.dpToPx(context, 100f)
+        minimumHeight = ResourceUtils.dpToPx(context, 120f)
+        clipToPadding = false
+        setPadding(ResourceUtils.dpToPx(context, 10f))
     }
     private val view = LayoutInflater.from(context).inflate(R.layout.taboo_slide_toast_content, null, false)
 

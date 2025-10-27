@@ -20,6 +20,10 @@ class EditTextsActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.textViewModel = textViewModel
 
+        binding.btnOk.setOnClickListener {
+            binding.tabooEditTextEmail.isError(true)
+        }
+
 //        findViewById<TabooTextInput>(R.id.taboo_edit_text).apply {
 //            setOnEditTextChangedListener { text, start, before, count ->
 //                Log.d(">>>", "$text, $start, $before, $count")

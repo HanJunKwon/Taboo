@@ -48,7 +48,7 @@ open class SlideToastPresenter(private val context: Context) {
                 .createSlideOutAnimation(this.view!!, position)
                 .apply {
                     doOnEnd {
-                        windowManager.removeView(view)
+                        windowManager.removeViewImmediate(view)
                     }
                 }
                 .start()
