@@ -91,7 +91,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="확인"
-            android:onClick="@{() -> textViewModel.onClick()}"
             app:buttonShape="round"
             app:layout_constraintTop_toBottomOf="@id/taboo_drop_down"/>
 
