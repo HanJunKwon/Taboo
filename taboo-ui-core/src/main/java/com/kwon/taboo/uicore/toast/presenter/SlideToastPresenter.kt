@@ -43,15 +43,17 @@ open class SlideToastPresenter(private val context: Context) {
     }
 
     fun hide() {
-        if (this.view != null) {
-            toastSlideAnimator
-                .createSlideOutAnimation(this.view!!, position)
-                .apply {
-                    doOnEnd {
-                        windowManager.removeViewImmediate(view)
+        this.view?.let { view ->
+            if (view.parent != null && view.isAttachedToWindow) {
+                toastSlideAnimator
+                    .createSlideOutAnimation(this.view!!, position)
+                    .apply {
+                        doOnEnd {
+                            windowManager.removeViewImmediate(view)
+                        }
                     }
-                }
-                .start()
+                    .start()
+            }
         }
     }
 
