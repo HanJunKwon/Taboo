@@ -45,7 +45,7 @@ class ToastActivity : AppCompatActivity() {
         findViewById<TabooButton>(R.id.btn_bottom_taboo_slide_toast).setOnClickListener {
             TabooSlideToast(this)
                 .makeText(
-                    iconDrawable = ContextCompat.getDrawable(this@ToastActivity, R.drawable.ic_repair_response),
+                    iconDrawable = ContextCompat.getDrawable(this@ToastActivity, com.kwon.taboo.R.drawable.ic_success),
                     text = "고장 수리를 접수하였습니다."
                 )
                 .setPosition(SlideToastPresenter.ToastPosition.BOTTOM)
