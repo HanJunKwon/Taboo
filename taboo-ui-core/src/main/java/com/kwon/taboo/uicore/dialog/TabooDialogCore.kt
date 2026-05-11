@@ -1,6 +1,5 @@
 package com.kwon.taboo.uicore.dialog
 
-import android.view.LayoutInflater
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
@@ -14,7 +13,8 @@ abstract class TabooDialogCore<T: TabooDialogCore<T>>: DialogFragment() {
 
     protected val defaultContentView: Int = R.layout.taboo_alert_dialog_base
 
-    protected var customContentView: View? = null
+    @LayoutRes
+    protected var customView: Int? = null
 
     private var screenMode = WindowUtil.NORMAL_SCREEN
 
@@ -61,16 +61,8 @@ abstract class TabooDialogCore<T: TabooDialogCore<T>>: DialogFragment() {
     /**
      * 다이얼로그 하단의 버튼을 제외한 내용이 표시될 영역에 보여줄 뷰.
      */
-    fun setCustomViewResId(@LayoutRes layoutResInt: Int): T {
-        setCustomView(LayoutInflater.from(requireContext()).inflate(layoutResInt, null))
-
-        return this as T
-    }
-
-    fun setCustomView(view: View): T {
-        if (customContentView != view) {
-            customContentView = view
-        }
+    fun setCustomViewResId(@LayoutRes customView: Int): T {
+        this.customView = customView
 
         return this as T
     }

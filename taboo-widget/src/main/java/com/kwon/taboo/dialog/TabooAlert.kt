@@ -20,9 +20,14 @@ class TabooAlert : TabooDialogCore<TabooAlert>() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val view = layoutInflater.inflate(R.layout.taboo_alert, null)
-        val contentView = layoutInflater.inflate(defaultContentView, null)
-        contentView.findViewById<TextView>(R.id.tv_confirm_title).text = mTitle
-        contentView.findViewById<TextView>(R.id.tv_confirm_message).text = mDescription
+        val contentView = if (customView == null) {
+            layoutInflater.inflate(defaultContentView, null).apply {
+                findViewById<TextView>(R.id.tv_confirm_title).text = mTitle
+                findViewById<TextView>(R.id.tv_confirm_message).text = mDescription
+            }
+        } else {
+            layoutInflater.inflate(customView!!, null)
+        }
 
         view.findViewById<FrameLayout>(R.id.fl_content_view_wrapper).addView(contentView)
 
