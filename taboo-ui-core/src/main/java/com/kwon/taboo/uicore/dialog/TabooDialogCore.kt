@@ -1,41 +1,30 @@
 package com.kwon.taboo.uicore.dialog
 
-import android.app.AlertDialog
-import android.content.Context
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
 import com.kwon.taboo.uicore.R
 import com.kwon.taboo.uicore.util.WindowUtil
 
-abstract class TabooAlertDialogCore<T: TabooAlertDialogCore<T>>(context: Context): AlertDialog(context) {
+abstract class TabooDialogCore<T: TabooDialogCore<T>>: DialogFragment() {
     protected var mTitle: CharSequence = ""
     protected var mDescription: CharSequence = ""
 
-    protected val defaultContentView: View
-        get() = LayoutInflater.from(context).inflate(R.layout.taboo_alert_dialog_base, null)
+    protected val defaultContentView: Int = R.layout.taboo_alert_dialog_base
 
     protected var customContentView: View? = null
 
     private var screenMode = WindowUtil.NORMAL_SCREEN
 
-    init {
-        this.window?.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.shape_taboo_confirm))
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setupButtons()
-    }
-
     override fun onStart() {
         super.onStart()
 
-        window?.let {
-            WindowUtil.applyWindowScreenMode(it, screenMode)
+        dialog?.window?.let { window ->
+            WindowUtil.applyWindowScreenMode(window, screenMode)
+
+            window.setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.shape_taboo_confirm))
         }
     }
 
@@ -73,7 +62,7 @@ abstract class TabooAlertDialogCore<T: TabooAlertDialogCore<T>>(context: Context
      * 다이얼로그 하단의 버튼을 제외한 내용이 표시될 영역에 보여줄 뷰.
      */
     fun setCustomViewResId(@LayoutRes layoutResInt: Int): T {
-        setCustomView(LayoutInflater.from(context).inflate(layoutResInt, null))
+        setCustomView(LayoutInflater.from(requireContext()).inflate(layoutResInt, null))
 
         return this as T
     }
@@ -85,6 +74,4 @@ abstract class TabooAlertDialogCore<T: TabooAlertDialogCore<T>>(context: Context
 
         return this as T
     }
-
-    abstract fun setupButtons()
 }

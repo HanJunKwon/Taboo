@@ -1,66 +1,51 @@
 package com.kwon.taboo.dialog
 
-import android.content.Context
+import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.widget.FrameLayout
 import android.widget.TextView
-import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
-import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AlertDialog
 import com.kwon.taboo.R
 import com.kwon.taboo.button.TabooButton
-import com.kwon.taboo.uicore.attribute.ColorContainer
-import com.kwon.taboo.uicore.dialog.TabooAlertDialogCore
+import com.kwon.taboo.uicore.dialog.TabooDialogCore
 
-class TabooAlert(context: Context) : TabooAlertDialogCore<TabooAlert>(context) {
+class TabooAlert : TabooDialogCore<TabooAlert>() {
     private var listener: () -> Unit = {}
 
     private var buttonText: String = ""
 
-    @ColorInt
+    @ColorRes
     private var buttonColor: Int? = null
 
-    init {
-        setView(LayoutInflater.from(context).inflate(R.layout.taboo_alert, null))
-    }
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val view = layoutInflater.inflate(R.layout.taboo_alert, null)
+        val contentView = layoutInflater.inflate(defaultContentView, null)
+        contentView.findViewById<TextView>(R.id.tv_confirm_title).text = mTitle
+        contentView.findViewById<TextView>(R.id.tv_confirm_message).text = mDescription
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        view.findViewById<FrameLayout>(R.id.fl_content_view_wrapper).addView(contentView)
 
-        findViewById<FrameLayout>(R.id.fl_content_view_wrapper).let {
-            it.removeAllViews()
-
-            if (customContentView == null) {
-                it.addView(defaultContentView)
-                findViewById<TextView>(R.id.tv_confirm_title).text = mTitle
-                findViewById<TextView>(R.id.tv_confirm_message).text = mDescription
-            } else {
-                it.addView(customContentView)
-            }
-        }
-    }
-
-    override fun setupButtons() {
-        findViewById<TabooButton>(R.id.btn_alert).apply {
+        // 버튼
+        view.findViewById<TabooButton>(R.id.btn_alert).apply {
             setText(buttonText)
             buttonColor?.let {
-                setColorContainer(
-                    ColorContainer(
-                        primaryColor = it,
-                        secondaryColor = it
-                    )
-                )
+                setButtonColorRes(it)
             }
+
             setOnClickListener {
                 listener()
                 dismiss()
             }
         }
+
+        return AlertDialog.Builder(requireContext())
+            .setView(view)
+            .create()
     }
 
     fun setButtonText(buttonTextId: Int) : TabooAlert {
-        this.buttonText = context.getString(buttonTextId)
+        this.buttonText = requireContext().getString(buttonTextId)
         return this
     }
 
@@ -71,12 +56,7 @@ class TabooAlert(context: Context) : TabooAlertDialogCore<TabooAlert>(context) {
     }
 
     fun setButtonColorRes(@ColorRes colorResId: Int): TabooAlert {
-        this.buttonColor = ContextCompat.getColor(context, colorResId)
-        return this
-    }
-
-    fun setButtonColor(@ColorInt color: Int): TabooAlert {
-        this.buttonColor = color
+        this.buttonColor = colorResId
         return this
     }
 

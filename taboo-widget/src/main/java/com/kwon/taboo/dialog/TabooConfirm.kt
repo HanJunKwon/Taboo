@@ -1,42 +1,38 @@
 package com.kwon.taboo.dialog
 
-import android.content.Context
+import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import com.kwon.taboo.R
 import com.kwon.taboo.button.TabooButton
-import com.kwon.taboo.uicore.dialog.TabooAlertDialogCore
+import com.kwon.taboo.uicore.dialog.TabooDialogCore
 
-class TabooConfirm(context: Context): TabooAlertDialogCore<TabooConfirm>(context) {
+class TabooConfirm: TabooDialogCore<TabooConfirm>() {
     private var listener: TabooConfirmListener? = null
 
     private var positiveButtonText: String = ""
     private var negativeButtonText: String = ""
 
-    init {
-        setView(LayoutInflater.from(context).inflate(R.layout.taboo_confirm, null))
-    }
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val view = layoutInflater.inflate(R.layout.taboo_confirm, null)
+        val contentView = layoutInflater.inflate(defaultContentView, null)
+        contentView.findViewById<TextView>(R.id.tv_confirm_title).text = mTitle
+        contentView.findViewById<TextView>(R.id.tv_confirm_message).text = mDescription
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        view.findViewById<FrameLayout>(R.id.fl_content_view_wrapper).addView(contentView)
 
-        findViewById<FrameLayout>(R.id.fl_content_view_wrapper).let {
-            it.removeAllViews()
-
-            if (customContentView == null) {
-                it.addView(defaultContentView)
-                findViewById<TextView>(R.id.tv_confirm_title).text = mTitle
-                findViewById<TextView>(R.id.tv_confirm_message).text = mDescription
-            } else {
-                it.addView(customContentView)
+        // 버튼
+        view.findViewById<TabooButton>(R.id.btn_positive).apply {
+            setText(positiveButtonText)
+            setOnClickListener {
+                listener?.onPositive()
+                dismiss()
             }
         }
-    }
 
-    override fun setupButtons() {
-        findViewById<TabooButton>(R.id.btn_negative).apply {
+        view.findViewById<TabooButton>(R.id.btn_negative).apply {
             setText(negativeButtonText)
             setOnClickListener {
                 listener?.onNegative()
@@ -44,13 +40,9 @@ class TabooConfirm(context: Context): TabooAlertDialogCore<TabooConfirm>(context
             }
         }
 
-        findViewById<TabooButton>(R.id.btn_positive).apply {
-            setText(positiveButtonText)
-            setOnClickListener {
-                listener?.onPositive()
-                dismiss()
-            }
-        }
+        return AlertDialog.Builder(requireContext())
+            .setView(view)
+            .create()
     }
 
     fun setPositiveText(text: CharSequence?) : TabooConfirm {
@@ -60,7 +52,7 @@ class TabooConfirm(context: Context): TabooAlertDialogCore<TabooConfirm>(context
     }
 
     fun setPositiveText(textId: Int) : TabooConfirm {
-        positiveButtonText = context.getString(textId)
+        positiveButtonText = requireContext().getString(textId)
 
         return this
     }
@@ -72,7 +64,7 @@ class TabooConfirm(context: Context): TabooAlertDialogCore<TabooConfirm>(context
     }
 
     fun setNegativeText(textId: Int) : TabooConfirm {
-        negativeButtonText = context.getString(textId)
+        negativeButtonText = requireContext().getString(textId)
 
         return this
     }
