@@ -42,7 +42,7 @@ class DialogsActivity : AppCompatActivity() {
                 .setTitle("경고!!")
                 .setDescription("저장하시겠습니까?")
                 .setScreenMode(WindowUtil.FULL_SCREEN)
-                .setNegativeText(getString(R.string.button_cancel_text))
+                .setNegativeText(R.string.button_cancel_text)
                 .setPositiveText(getString(R.string.button_confirm_text))
                 .show(supportFragmentManager, "")
         }

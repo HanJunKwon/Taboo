@@ -50,7 +50,7 @@ class TabooAlert : TabooDialogCore<TabooAlert>() {
     }
 
     fun setButtonText(buttonTextId: Int) : TabooAlert {
-        this.buttonText = requireContext().getString(buttonTextId)
+        this.buttonText = getString(buttonTextId)
         return this
     }
 
