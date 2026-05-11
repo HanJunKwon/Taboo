@@ -13,7 +13,9 @@ import com.kwon.taboo.uicore.dialog.TabooDialogCore
 class TabooConfirm: TabooDialogCore<TabooConfirm>() {
     private var listener: TabooConfirmListener? = null
 
+    private var positiveButtonTextId: Int = 0
     private var positiveButtonText: String = ""
+    private var negativeButtonTextId: Int = 0
     private var negativeButtonText: String = ""
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -31,7 +33,12 @@ class TabooConfirm: TabooDialogCore<TabooConfirm>() {
 
         // 버튼
         view.findViewById<TabooButton>(R.id.btn_positive).apply {
-            setText(positiveButtonText)
+            setText(
+                when {
+                    positiveButtonTextId != 0 -> getString(positiveButtonTextId)
+                    else -> positiveButtonText
+                }
+            )
             setOnClickListener {
                 listener?.onPositive()
                 dismiss()
@@ -39,7 +46,12 @@ class TabooConfirm: TabooDialogCore<TabooConfirm>() {
         }
 
         view.findViewById<TabooButton>(R.id.btn_negative).apply {
-            setText(negativeButtonText)
+            setText(
+                when {
+                    negativeButtonTextId != 0 -> getString(negativeButtonTextId)
+                    else -> negativeButtonText
+                }
+            )
             setOnClickListener {
                 listener?.onNegative()
                 dismiss()
@@ -58,7 +70,7 @@ class TabooConfirm: TabooDialogCore<TabooConfirm>() {
     }
 
     fun setPositiveText(@StringRes textId: Int) : TabooConfirm {
-        positiveButtonText = getString(textId)
+        positiveButtonTextId = textId
 
         return this
     }
@@ -70,7 +82,7 @@ class TabooConfirm: TabooDialogCore<TabooConfirm>() {
     }
 
     fun setNegativeText(@StringRes textId: Int) : TabooConfirm {
-        negativeButtonText = getString(textId)
+        negativeButtonTextId = textId
 
         return this
     }
