@@ -32,7 +32,7 @@ class DialogsActivity : AppCompatActivity() {
             TabooAlert()
                 .setTitle("알림!!")
                 .setDescription(description)
-                .setButtonText("확인")
+                .setButtonText(R.string.button_confirm_text)
                 .setButtonColorRes(com.kwon.taboo.uicore.R.color.taboo_red_600)
                 .show(supportFragmentManager, "")
         }

@@ -14,6 +14,7 @@ class TabooAlert : TabooDialogCore<TabooAlert>() {
     private var listener: () -> Unit = {}
 
     private var buttonText: String = ""
+    private var buttonTextId: Int = 0
 
     @ColorRes
     private var buttonColor: Int? = null
@@ -33,7 +34,13 @@ class TabooAlert : TabooDialogCore<TabooAlert>() {
 
         // 버튼
         view.findViewById<TabooButton>(R.id.btn_alert).apply {
-            setText(buttonText)
+            setText(
+                when {
+                    buttonTextId != 0 -> getString(buttonTextId)
+                    else -> buttonText
+                }
+            )
+
             buttonColor?.let {
                 setButtonColorRes(it)
             }
@@ -50,7 +57,7 @@ class TabooAlert : TabooDialogCore<TabooAlert>() {
     }
 
     fun setButtonText(buttonTextId: Int) : TabooAlert {
-        this.buttonText = getString(buttonTextId)
+        this.buttonTextId = buttonTextId
         return this
     }
 
