@@ -2,4 +2,6 @@
 <resources>
     <string name="button_default_text">버튼</string>
     <string name="taboo_edit_text_title">Title</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
 </resources>

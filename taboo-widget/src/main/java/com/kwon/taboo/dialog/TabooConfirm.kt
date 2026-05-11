@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import com.kwon.taboo.R
 import com.kwon.taboo.button.TabooButton
@@ -56,8 +57,8 @@ class TabooConfirm: TabooDialogCore<TabooConfirm>() {
         return this
     }
 
-    fun setPositiveText(textId: Int) : TabooConfirm {
-        positiveButtonText = requireContext().getString(textId)
+    fun setPositiveText(@StringRes textId: Int) : TabooConfirm {
+        positiveButtonText = getString(textId)
 
         return this
     }
@@ -68,8 +69,8 @@ class TabooConfirm: TabooDialogCore<TabooConfirm>() {
         return this
     }
 
-    fun setNegativeText(textId: Int) : TabooConfirm {
-        negativeButtonText = requireContext().getString(textId)
+    fun setNegativeText(@StringRes textId: Int) : TabooConfirm {
+        negativeButtonText = getString(textId)
 
         return this
     }
